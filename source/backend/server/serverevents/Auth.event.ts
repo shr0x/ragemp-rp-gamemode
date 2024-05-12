@@ -40,7 +40,7 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
     player.account = result;
     player.name = player.account.username;
     player.setVariable("loggedin", true);
-
+    player.call("client::auth:destroyCamera");
     player.call("client::cef:close");
     player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
@@ -59,5 +59,6 @@ CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) 
     player.call("client::cef:close");
     player.showNotify("success", `Welcome back, ${player.account.username}`);
 
+    player.call("client::auth:destroyCamera");
     player.call("client::cef:close");
 });

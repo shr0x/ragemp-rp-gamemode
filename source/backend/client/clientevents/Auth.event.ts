@@ -7,9 +7,15 @@ function showLoginScreen() {
     mp.gui.cursor.show(true, true);
 }
 
+function destroyLoginCamera() {
+    Camera.destroyCamera("login_camera");
+}
+
 mp.events.add("browserDomReady", (browser) => {
     if (browser === BrowserClass.mainUI) {
         mp.console.logWarning("Browser dom ready!");
         showLoginScreen();
     }
 });
+
+mp.events.add("client::auth:destroyCamera", destroyLoginCamera);
