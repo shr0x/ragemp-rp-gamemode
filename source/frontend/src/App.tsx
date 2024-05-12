@@ -7,15 +7,19 @@ import { Authentication } from "pages/auth/Authentication";
 import EventManager from "utils/EventManager.util";
 
 import ChatStore from "./stores/Chat.store";
+import CreatorStore from "./stores/CharCreator.store";
+
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
+const CharacterCreator = lazy(() => import("./pages/creator/CharCreator"));
 
 import Notification from "utils/NotifyManager.util";
 import "react-toastify/dist/ReactToastify.css";
 
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());
+    const creatorStore = useLocalObservable(() => new CreatorStore());
 
-    const [page, setPage] = useState<string>("");
+    const [page, setPage] = useState<string>("creator");
 
     initializeEvents({ chatStore });
 
@@ -46,6 +50,7 @@ const App: FC = () => {
                 />
                 <Chat store={chatStore} isVisible={page === "hud"} />
                 {page === "auth" && <Authentication />}
+                {page === "creator" && <CharacterCreator store={creatorStore} />}
             </Suspense>
         </div>
     );
