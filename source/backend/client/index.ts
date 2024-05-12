@@ -17,7 +17,7 @@ async function initClientSide() {
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
 
-    mp.discord.update("the restaurant", "is open.");
+    mp.discord.update("RP Framework", "Dev mode.");
 
     mp.game.graphics.notify(`~r~${serverConfig.name} ~w~loaded as version ~g~${serverConfig.version}`);
 }
