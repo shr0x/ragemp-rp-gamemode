@@ -1,10 +1,17 @@
 # Getting started with server development
 >
-Introduction:<br>
+**Introduction:**<br>
 >
-Database setup:<br>
+**Database setup:**<br>
+This code requires you to have PostgreSQL installed on your machine, [read more](https://www.postgresql.org/).<br>
+After installing posgree, connect to your database using [PGAdmin](https://www.pgadmin.org/) or [HeidiSQL](https://www.heidisql.com/) and create a new database by executing a query like:
+```
+CREATE DATABASE mydb;
+```
+After creating a database successfully, head back to the server files and edit .env by describing the database connection details there.
+Once you're setup with that, simply start the server, and the TypeORM will start creating the required database tables on its own (see Database.module.ts for deeper info)
 >
-Code structure
+**Code structure**
 
 ```sh
 +---backend #contains server & client source code
@@ -35,14 +42,14 @@ Code structure
 \---shared # contains shared data across backend and frontend
 ```
 >
-Starting the server in development mode:
+**Starting the server in development mode:**
 ```
 npm run watch:client # start watching client side code
 npm run watch:server # start watching server side code
 ```
 >
-Adding your first command:<br>
+**Adding your first command:**<br>
 >
-Creating your first page:<br>
+**Creating your first page:**<br>
 >
-Using bridge to call CEF events directly from the server and vice versa:<br>
+**Using bridge to call CEF events directly from the server and vice versa:**<br>
