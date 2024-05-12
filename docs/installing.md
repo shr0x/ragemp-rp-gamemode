@@ -1,6 +1,8 @@
 # Getting started with server development
 >
 **Introduction:**<br>
+
+
 >
 **Database setup:**<br>
 This code requires you to have PostgreSQL installed on your machine, [read more](https://www.postgresql.org/).<br>
@@ -14,6 +16,10 @@ Once you're setup with that, simply start the server, and the TypeORM will start
 **Code structure**
 
 ```sh
++---client_packages #contains server & client source code
+|   +---package2 # this folder contains the build code of frontend
+|   +---app.js # the output after building/watching client-side code
+|   +---index.js # a default index file to load app.js or other files within this folder
 +---backend #contains server & client source code
 |   +---client #client side source code
 |   |   +---assets
@@ -43,9 +49,22 @@ Once you're setup with that, simply start the server, and the TypeORM will start
 ```
 >
 **Starting the server in development mode:**
+<br>Client side:
 ```
 npm run watch:client # start watching client side code
+```
+<br>Server side
+```
 npm run watch:server # start watching server side code
+```
+<br>Frontend
+```
+//Navigate to frontend code
+cd source/frontend
+//Start the frontend in development mode
+npm run start
+//Build the frontend
+npm run build
 ```
 >
 **Adding your first command:**<br>
