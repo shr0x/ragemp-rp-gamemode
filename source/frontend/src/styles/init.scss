@@ -1,0 +1,27 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+    list-style: none;
+    text-decoration: none;
+    touch-action: manipulation;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    display: none;
+}
+
+html {
+    font-size: 1.2037037037037037vh;
+    color: white;
+    overflow: hidden;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}

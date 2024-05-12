@@ -128,3 +128,15 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+*.dll
+*.exe
+package-lock.json
+.listcache
+
+client_packages/package2
+client_packages/app.js
+
+packages/*
+dotnet

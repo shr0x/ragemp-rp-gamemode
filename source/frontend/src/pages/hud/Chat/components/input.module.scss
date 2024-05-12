@@ -1,0 +1,54 @@
+.chatinput {
+    width: 100%;
+    margin: 0.462963vh 0 0 0.2vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    .box {
+        width: 100%;
+        padding: 0.6481481481481481vh 1.3888888888888888vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background-color: rgba(0, 0, 0, .5);
+        opacity: 1;
+
+        transition: width .4s ease, opacity .2s;
+        border-radius: 0.46296296296296297vh;
+
+        .input {
+            width: 90%;
+            border: none;
+            outline: none;
+            background: none;
+
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.574074074074074vh;
+
+            &::placeholder {
+                color: #FFFFFF90;
+            }
+        }
+    }
+}
+
+.chatinputDisabled {
+    .type {
+        visibility: hidden;
+        opacity: 0;
+        transition: transform .2s ease, opacity .2s ease, visibility 0s ease .2s;
+    }
+
+    .type {
+        transform: translateY(150%);
+    }
+
+    .box {
+        width: 0%;
+        opacity: 0;
+        transition: width .4s ease .1s, opacity .2s .4s;
+    }
+}

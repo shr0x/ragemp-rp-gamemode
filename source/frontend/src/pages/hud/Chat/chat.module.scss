@@ -1,0 +1,52 @@
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 55.55555555555555vh;
+
+    .content {
+        height: 27.777777777777775vh;
+        padding-top: 1.18518518518516vh;
+        overflow: auto;
+
+        outline: none;
+
+        transition: all 0.6s;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .text {
+        position: relative;
+        margin: 0 0 0vh 0.666667vh;
+
+        .message {
+            width: 100%;
+            text-shadow: 0 0 4px black;
+            font-family: "TT Norms Medium", sans-serif;
+            color: #fff;
+            font-size: 1.48888889vh;
+            line-height: 2.222222222222222vh;
+            word-wrap: break-word;
+        }
+
+    }
+}
+
+@media (aspect-ratio: 577/540) {
+    .main {
+        transform: scale(0.7);
+        transform-origin: top left;
+    }
+}
+
+@media (aspect-ratio: 4/3),
+(aspect-ratio: 5/4) {
+    .main {
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+}
