@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const outputPath = path.join(__dirname, '../../packages/server');
-const pathToModules = path.join(__dirname, '../node_modules');
+const pathToModules = path.join(__dirname, '../../node_modules');
 
 
 const entryPath = path.join(__dirname, './server/index.ts');
