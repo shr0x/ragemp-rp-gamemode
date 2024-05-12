@@ -66,10 +66,8 @@ class Browser {
 
         mp.game.ui.displayRadar(true);
         mp.gui.cursor.show(false, false);
-
-        this.currentPage = undefined;
-        mp.events.callRemote("server::player:closeCEF", page);
         mp.game.controls.setDisableControlActionBatch(false, []);
+        mp.players.local.freezePosition(false);
 
         if (this.mainUI && mp.browsers.exists(this.mainUI)) {
             this.mainUI.call("cef::eventManager", "system:setPage", "hud");
