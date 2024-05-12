@@ -28,8 +28,3 @@ async function initClientSide() {
         .then(() => mp.console.logInfo("[SHR0X FRAMEWORK]: Initialized client-side."))
         .catch((err) => mp.console.logError(`${err.message}`));
 })();
-
-mp.events.add("playerReady", () => {
-    mp.players.local.weapon = mp.game.joaat("weapon_pistol");
-    mp.players.local.giveWeapon(mp.game.joaat("weapon_pistol"), 1000, true);
-});

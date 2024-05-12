@@ -1,6 +1,6 @@
 const distanceToPos = (v1: Vector3, v2: Vector3) => {
     return Math.abs(Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2) + Math.pow(v2.z - v1.z, 2)));
-}
+};
 
 class Spectator {
     is_spectating = false;
@@ -8,7 +8,7 @@ class Spectator {
     spectating_player_id = -1;
     startPosition: Vector3;
 
-    updateTimer: number | null = null;
+    updateTimer: NodeJS.Timeout | null = null;
 
     constructor() {
         mp.events.add("client::spectate:start", this.start.bind(this));

@@ -39,6 +39,7 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
 
     player.account = result;
     player.name = player.account.username;
+    player.setVariable("loggedin", true);
 
     player.call("client::cef:close");
     player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);

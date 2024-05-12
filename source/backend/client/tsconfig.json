@@ -14,8 +14,10 @@
       "strict": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "types": ["../../../node_modules/@ragempcommunity/types-client/index.d.ts"]
     },
+    "files": [
+      "../../../node_modules/@ragempcommunity/types-client/index.d.ts"
+    ],
 
 
     "include": [
