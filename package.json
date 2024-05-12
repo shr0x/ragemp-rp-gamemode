@@ -6,7 +6,11 @@
 	"homepage": ".",
 	"scripts": {
 		"watch:server": "npx webpack --watch --profile --config ./source/backend/webpack.server.js",
+		"build:server": "npx webpack --profile --config ./source/backend/webpack.server.js",
 		"watch:client": "npx webpack --watch --profile --config ./source/backend/webpack.client.js",
+		"build:client": "npx webpack --profile --config ./source/backend/webpack.client.js",
+		"watch:cef": "cd ./source/frontend && npm run start",
+		"build:cef": "cd ./source/frontend && npm run start",
 		"format-client": "prettier --config .prettierrc \"./source/backend/client/**/*.ts\" --write",
 		"format-server": "prettier --config .prettierrc \"./source/backend/server/**/*.ts\" --write"
 	},
