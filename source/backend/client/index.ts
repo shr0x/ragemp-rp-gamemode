@@ -5,19 +5,19 @@ import "./classes/Chat.class";
 import "./clientevents/Auth.event";
 import "./clientevents/Render.event";
 import "./clientevents/Interact.event";
+import "./clientevents/Player.event";
 //-----------------------------------------//
-import "./modules/spectate.client";
+import "./classes/Spectate.class";
 //-----------------------------------------//
 import { serverConfig } from "../../shared/constants";
-import spectateClient from "./modules/spectate.client";
 
 async function initClientSide() {
     mp.console.clear();
 
+    mp.nametags.enabled = false;
+
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
-
-    mp.discord.update("RP Framework", "Dev mode.");
 
     mp.game.graphics.notify(`~r~${serverConfig.name} ~w~loaded as version ~g~${serverConfig.version}`);
 }
