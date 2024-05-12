@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"homepage": ".",
 	"scripts": {
+		"watch:server": "npx webpack --watch --profile --config ./source/backend/webpack.server.js",
 		"watch:client": "npx webpack --watch --profile --config ./source/backend/webpack.client.js",
 		"format-client": "prettier --config .prettierrc \"./source/backend/client/**/*.ts\" --write",
 		"format-server": "prettier --config .prettierrc \"./source/backend/server/**/*.ts\" --write"
