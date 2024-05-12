@@ -140,3 +140,4 @@ client_packages/app.js
 
 packages/*
 dotnet
+bin/*
