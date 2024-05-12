@@ -10,24 +10,16 @@ This game mode is still a work in progress, plenty features are planned to be ad
 
 # Built in
 >
-**Client Side**:<br>
-* [Webpack](https://webpack.js.org/)
-* [Typescript](https://www.typescriptlang.org/) 
 
-**Backend**<br>
-* [Typescript](https://www.typescriptlang.org/) 
-* [PostgreSQL](https://www.postgresql.org/)
-* [TypeORM](https://typeorm.io/)<br>
+| Client Side| Server Side | Frontend |
+|----------|----------|----------|
+| [Webpack](https://webpack.js.org/) | [Typescript](https://www.typescriptlang.org/)     | [React](https://react.dev/)    |
+| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [React Rewire](https://www.npmjs.com/package/react-app-rewired)    |
+|    | [TypeORM](https://typeorm.io/)    | [MobX](https://mobx.js.org/README.html)    |
 
-
-**Frontend**
-* [Typescript](https://www.typescriptlang.org/) 
-* [React](https://react.dev/)
-* [React Rewire](https://www.npmjs.com/package/react-app-rewired)
-* [MobX](https://mobx.js.org/README.html)
 
 >
-Credits<br>
+# Credits<br>
 Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/)<br>
 Thanks to Morbo for [NoClip](https://rage.mp/files/file/163-noclip/)
 
