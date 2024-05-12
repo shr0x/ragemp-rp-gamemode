@@ -22,6 +22,7 @@ function hashPassword(text: string) {
 CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => {
     const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
 
+    if (username.length < 4 || username.length > 32) return player.showNotify("error", "Your username must be between 4 and 32 characters.");
     if (password.length < 5) return player.showNotify("error", "Your password must contain at least 5 characters.");
     if (password !== confirmPassword) return player.showNotify("error", "Password mismatch.");
 
@@ -57,8 +58,6 @@ CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) 
     player.name = player.account.username;
 
     player.call("client::cef:close");
-    player.showNotify("success", `Welcome back, ${player.account.username}`);
-
     player.call("client::auth:destroyCamera");
-    player.call("client::cef:close");
+    player.showNotify("success", `Welcome back, ${player.account.username}`);
 });
