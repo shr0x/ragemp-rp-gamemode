@@ -48,24 +48,12 @@ Once you're setup with that, simply start the server, and the TypeORM will start
 \---shared # contains shared data across backend and frontend
 ```
 >
-**Starting the server in development mode:**
-<br>Client side:
-```
-npm run watch:client # start watching client side code
-```
-<br>Server side
-```
-npm run watch:server # start watching server side code
-```
-<br>Frontend
-```
-//Navigate to frontend code
-cd source/frontend
-//Start the frontend in development mode
-npm run start
-//Build the frontend
-npm run build
-```
+**Starting the server in development mode:**<br>
+Client side:<br>
+![.vid](./gifs/client-watch.gif)<br>
+Server side<br>
+![.vid](./gifs/server-watch.gif)
+
 >
 **Adding your first command:**<br>
 >
