@@ -4,7 +4,6 @@ import ChatStore from "../stores/Chat.store";
 
 export const InitChatEvents = (chatStore: ChatStore) => {
     return useEffect(() => {
-
         EventManager.addHandler("chat", "setActive", (data: boolean) => chatStore.setActive(data));
 
         EventManager.stopAddingHandlers("chat");
