@@ -2,10 +2,11 @@
 #  Getting started with frontend
 >
 <br>
-<center>
-<img title="a title" alt="Alt text" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" width="120px">
+
+<div>
+  <img title="a title" alt="Alt text" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" width="120px">
   <img title="a title" alt="Alt text" src="https://mobx.js.org/assets/mobx.png" width="120px">
-</center>
+</div>
 
 Introduction:
 > Our frontend is built in react typescript using mobx as a data storage if not management.
