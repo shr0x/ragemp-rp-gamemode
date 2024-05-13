@@ -16,7 +16,8 @@
       "emitDecoratorMetadata": true,
     },
     "files": [
-      "../../../node_modules/@ragempcommunity/types-client/index.d.ts"
+      "../../../node_modules/@ragempcommunity/types-client/index.d.ts",
+      "./@types/index.d.ts"
     ],
 
 

@@ -1,7 +1,7 @@
 import { CefEvent } from "../classes/CEFEvent.class";
 import { MainDataSource } from "../database/Database.module";
 import { AccountEntity } from "../database/entity/Account.entity";
-import * as crypto from "crypto";
+import crypto from "crypto";
 
 interface IPlayerLogin {
     username: string;
@@ -18,6 +18,14 @@ interface IPlayerRegister {
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
+/**
+ * Temporary function to spawn the player
+ * @param player
+ */
+function spawnPlayer(player: PlayerMp) {
+    player.spawn(new mp.Vector3(-118.64698791503906, -1287.7447509765625, 29.300874710083008));
+    player.heading = -95.48299407958984;
+}
 
 CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => {
     const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
@@ -31,7 +39,7 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
 
     const accountData = new AccountEntity();
 
-    accountData.username = username;
+    accountData.username = username.toLowerCase();
     accountData.password = hashPassword(password);
     accountData.socialClubId = player.rgscId;
     accountData.email = email;
@@ -43,13 +51,14 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
     player.setVariable("loggedin", true);
     player.call("client::auth:destroyCamera");
     player.call("client::cef:close");
+    spawnPlayer(player);
     player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
 CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
     const { username, password }: IPlayerLogin = JSON.parse(data);
 
-    const accountData = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username } });
+    const accountData = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
     if (!accountData) return player.showNotify("error", "We could not find that account!");
 
     if (hashPassword(password) !== accountData.password) return player.showNotify("error", "Wrong password.");
@@ -59,5 +68,6 @@ CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) 
 
     player.call("client::cef:close");
     player.call("client::auth:destroyCamera");
+    spawnPlayer(player);
     player.showNotify("success", `Welcome back, ${player.account.username}`);
 });
