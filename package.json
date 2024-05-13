@@ -5,14 +5,14 @@
 	"main": "index.js",
 	"homepage": ".",
 	"scripts": {
-		"watch:server": "npx webpack --watch --profile --config ./source/backend/webpack.server.js",
-		"build:server": "npx webpack --profile --config ./source/backend/webpack.server.js",
-		"watch:client": "npx webpack --watch --profile --config ./source/backend/webpack.client.js",
-		"build:client": "npx webpack --profile --config ./source/backend/webpack.client.js",
+		"watch:server": "npx webpack --watch --profile --config ./config/webpack.server.js",
+		"build:server": "npx webpack --profile --config ./config/webpack.server.js",
+		"watch:client": "npx webpack --watch --profile --config ./config/webpack.client.js",
+		"build:client": "npx webpack --profile --config ./config/webpack.client.js",
 		"watch:cef": "cd ./source/frontend && npm run start",
-		"build:cef": "cd ./source/frontend && npm run start",
-		"format-client": "prettier --config .prettierrc \"./source/backend/client/**/*.ts\" --write",
-		"format-server": "prettier --config .prettierrc \"./source/backend/server/**/*.ts\" --write"
+		"build:cef": "cd ./source/frontend && npm run build",
+		"format-client": "prettier --config .prettierrc \"./source/client/**/*.ts\" --write",
+		"format-server": "prettier --config .prettierrc \"./source/server/**/*.ts\" --write"
 	},
 	"keywords": [
 		"RAGEMP",
@@ -37,7 +37,7 @@
 		"pg": "^8.11.1",
 		"reflect-metadata": "^0.1.14",
 		"ts-loader": "^9.4.2",
-		"typeorm": "^0.3.14",
+		"typeorm": "^0.3.15",
 		"uuid": "^9.0.0",
 		"webpack-cli": "^5.0.1",
 		"webpack-merge": "^5.8.0",
@@ -45,10 +45,10 @@
 		"yarn": "^1.22.19"
 	},
 	"devDependencies": {
-		"@ragempcommunity/types-client": "github:ragempcommunity/ragemp-types#types-client",
+		"@ragempcommunity/types-client": "^2.1.6",
 		"@ragempcommunity/types-server": "^2.1.6",
 		"@types/lodash.clonedeep": "^4.5.7",
-		"@types/node": "^18.15.11",
+		"@types/node": "^20.12.11",
 		"@types/uuid": "^9.0.1",
 		"tsconfig-paths-webpack-plugin": "^4.0.1",
 		"typescript": "^5.0.4",
