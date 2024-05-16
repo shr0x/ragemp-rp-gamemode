@@ -14,7 +14,6 @@ const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
 const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
 const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
 import Notification from "utils/NotifyManager.util";
-import "react-toastify/dist/ReactToastify.css";
 
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());

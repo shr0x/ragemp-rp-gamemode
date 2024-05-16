@@ -5,6 +5,7 @@ import EventManager from "utils/EventManager.util";
 import App from "./App";
 import { configure } from "mobx";
 
+import "./styles/notification.scss";
 import "./styles/init.scss";
 import "./styles/fonts.scss";
 
