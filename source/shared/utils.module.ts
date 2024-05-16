@@ -1,6 +1,10 @@
 type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 
 export const Utils = {
+    sleep: function (ms: number) {
+        return new Promise((res) => setTimeout(res, ms));
+    },
+
     tryParse(obj: any): any {
         try {
             return JSON.parse(obj);
@@ -20,5 +24,8 @@ export const Utils = {
 
     clientDebug: (message: string, ...args: any): void => {
         mp.events.callRemote("server::client:debug", message, ...args);
+    },
+    getRandomFromArray: <T>(array: Array<T>) => {
+        return array[Math.floor(Math.random() * array.length)];
     }
 };

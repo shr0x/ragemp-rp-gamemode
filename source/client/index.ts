@@ -1,11 +1,16 @@
 //-----------------------------------------//
 import "./classes/Browser.class";
 import "./classes/Chat.class";
+import "./classes/Creator.class";
 //-----------------------------------------//
 import "./clientevents/Auth.event";
 import "./clientevents/Render.event";
 import "./clientevents/Interact.event";
 import "./clientevents/Player.event";
+//-----------------------------------------//
+import "./modules/GameData.module";
+//-----------------------------------------//
+import "./prototype/Player.prototype";
 //-----------------------------------------//
 import "./classes/Spectate.class";
 //-----------------------------------------//

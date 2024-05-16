@@ -9,13 +9,6 @@ type EventHandler = (...args: any[]) => void;
 
 type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 
-interface CefEventMap {
-    notify: {
-        show: { type: "loading" | "promise" | "success" | "info" | "error" | "warning" | "warn" | "dark"; message: string; skin: "light" | "dark" | "colored" };
-    };
-    auth: {};
-}
-
 interface EventEntry {
     target: string;
     name: string;
@@ -29,17 +22,16 @@ class Cef_Event {
 
     constructor() {
         this.eventsInMemory = [];
-
         console.log("Cef event handler initialised!");
     }
 
-    register(target: string, name: string, handler: EventHandler | EventHandlerAsync): void {
-        if (!this.eventsInMemory.some((event) => event.target === target && event.name === name)) {
-            const _event = new mp.Event(`server::${target}:${name}`, handler);
-            this.eventsInMemory.push({ target, name, handler, _event });
+    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void {
+        if (!this.eventsInMemory.some((event) => event.target === page && event.name === pointer)) {
+            const _event = new mp.Event(`server::${page}:${pointer}`, handler);
+            this.eventsInMemory.push({ target: page, name: pointer, handler, _event });
         } else {
             console.log("------------------------------------------------------------");
-            throw new Error(`Event: "${target}", "${name}" was found duplicated`);
+            throw new Error(`Event: "${page}", "${pointer}" was found duplicated`);
         }
     }
 
@@ -66,12 +58,22 @@ class Cef_Event {
     stringifyObject<T>(obj: T): StringifiedObject<T> {
         return JSON.stringify(obj) as StringifiedObject<T>;
     }
-    emit<T extends keyof CefEventMap, K extends keyof CefEventMap[T]>(player: PlayerMp, target: T, name: K, obj: CefEventMap[T][K]): void {
+    emit<T extends keyof RageShared.Interfaces.CefEventMap, K extends keyof RageShared.Interfaces.CefEventMap[T]>(
+        player: PlayerMp,
+        target: T,
+        name: K,
+        obj: RageShared.Interfaces.CefEventMap[T][K]
+    ): void {
         if (!mp.players.exists(player)) return;
         const eventName = `cef::${target}:${String(name)}`;
         return player.call("client::eventManager", [eventName, obj]);
     }
-    async emitAsync<T extends keyof CefEventMap, K extends keyof CefEventMap[T]>(player: PlayerMp, target: T, name: K, obj: CefEventMap[T][K]): Promise<void> {
+    async emitAsync<T extends keyof RageShared.Interfaces.CefEventMap, K extends keyof RageShared.Interfaces.CefEventMap[T]>(
+        player: PlayerMp,
+        target: T,
+        name: K,
+        obj: RageShared.Interfaces.CefEventMap[T][K]
+    ): Promise<void> {
         if (!mp.players.exists(player)) return;
         const eventName = `cef::${target}:${String(name)}`;
         return player.call("client::eventManager", [eventName, obj]);

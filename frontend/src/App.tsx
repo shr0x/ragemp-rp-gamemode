@@ -8,20 +8,22 @@ import EventManager from "utils/EventManager.util";
 
 import ChatStore from "./stores/Chat.store";
 import CreatorStore from "./stores/CharCreator.store";
+import PlayerStore from "./stores/Player.store";
 
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
-const CharacterCreator = lazy(() => import("./pages/creator/CharCreator"));
-
+const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
+const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
 import Notification from "utils/NotifyManager.util";
 import "react-toastify/dist/ReactToastify.css";
 
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());
     const creatorStore = useLocalObservable(() => new CreatorStore());
+    const playerStore = useLocalObservable(() => new PlayerStore());
 
-    const [page, setPage] = useState<string>("creator");
+    const [page, setPage] = useState<string>("");
 
-    initializeEvents({ chatStore });
+    initializeEvents({ chatStore, playerStore });
 
     useEffect(() => {
         EventManager.addHandler("system", "setPage", setPage);
@@ -51,6 +53,7 @@ const App: FC = () => {
                 <Chat store={chatStore} isVisible={page === "hud"} />
                 {page === "auth" && <Authentication />}
                 {page === "creator" && <CharacterCreator store={creatorStore} />}
+                {page === "selectcharacter" && <CharacterSelector store={playerStore} />}
             </Suspense>
         </div>
     );
