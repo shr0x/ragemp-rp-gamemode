@@ -1,7 +1,9 @@
+import { RAGERP } from "../api";
 import { CefEvent } from "../classes/CEFEvent.class";
 import { MainDataSource } from "../database/Database.module";
 import { AccountEntity } from "../database/entity/Account.entity";
 import crypto from "crypto";
+import { CharacterEntity } from "../database/entity/Character.entity";
 
 interface IPlayerLogin {
     username: string;
@@ -17,14 +19,6 @@ interface IPlayerRegister {
 
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
-}
-/**
- * Temporary function to spawn the player
- * @param player
- */
-function spawnPlayer(player: PlayerMp) {
-    player.spawn(new mp.Vector3(-118.64698791503906, -1287.7447509765625, 29.300874710083008));
-    player.heading = -95.48299407958984;
 }
 
 CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => {
@@ -48,11 +42,11 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
 
     player.account = result;
     player.name = player.account.username;
-    player.setVariable("loggedin", true);
-    player.call("client::auth:destroyCamera");
-    player.call("client::cef:close");
-    spawnPlayer(player);
-    player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
+    // player.setVariable("loggedin", true);
+    // player.call("client::auth:destroyCamera");
+    // player.call("client::cef:close");
+    // spawnPlayer(player);
+    // player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
 CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
@@ -66,8 +60,16 @@ CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) 
     player.account = accountData;
     player.name = player.account.username;
 
-    player.call("client::cef:close");
-    player.call("client::auth:destroyCamera");
-    spawnPlayer(player);
-    player.showNotify("success", `Welcome back, ${player.account.username}`);
+    const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: accountData.id }, take: 3 });
+    const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
+    characters.forEach((x, idx) => {
+        const character = { id: x.id, type: 1, name: x.name, bank: 0, money: 0, level: x.level, lastlogin: ".." };
+        Object.assign(characterData[idx], character);
+    });
+
+    RAGERP.cef.emit(player, "player", "setCharacters", characterData);
+    player.call("client::eventManager", ["cef::system:setPage", "selectcharacter"]);
+
+    // spawnPlayer(player);
+    // player.showNotify("success", `Welcome back, ${player.account.username}`);
 });

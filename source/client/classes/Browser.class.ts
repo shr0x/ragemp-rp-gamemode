@@ -83,7 +83,9 @@ class Browser {
         mp.gui.cursor.show(true, true);
 
         setTimeout(() => {
-            if (params.blur) mp.game.graphics.transitionToBlurred(1);
+            if (params.blur) {
+                mp.game.graphics.transitionToBlurred(1);
+            } else mp.game.graphics.transitionFromBlurred(1);
         }, 100);
 
         this.currentPage = pageName;

@@ -11,7 +11,7 @@ interface ICefPages {
 export const CEFPages: ICefPages = {
     chat: { blur: false, radar: true, pause: true, controls: true, close: false },
     auth: { blur: true, radar: false, pause: false, controls: true, close: false },
-    charactercreation: { blur: true, radar: false, pause: false, controls: true, close: false },
-    characterselection: { blur: true, radar: false, pause: false, controls: true, close: false },
+    creator: { blur: false, radar: false, pause: false, controls: true, close: true },
+    selectcharacter: { blur: true, radar: false, pause: false, controls: true, close: false },
     hud: { blur: true, radar: false, pause: false, controls: true, close: false }
 };

@@ -1,0 +1,153 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+
+    background: url('../../assets/images/selector/bg.svg') no-repeat;
+    background-size: cover;
+
+    .header {
+        position: relative;
+        top: 2vh;
+        display: flex;
+        align-items: center;
+
+        justify-content: center;
+        font-family: 'Beast Duh';
+        flex-direction: column;
+        font-size: 3.7037037037037037vh;
+        text-shadow: 0vh 0vh 5vh black;
+
+        .desc {
+            font-size: 1.8518518518518519vh;
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+        }
+    }
+
+    .characters {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15vh;
+        gap: 2vh;
+
+        .character {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: Arial, Helvetica, sans-serif;
+
+            border-radius: .5vh;
+            width: 30vh;
+            height: 60vh;
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: all .2s;
+            animation: slideInCenter 1s ease-in-out forwards;
+
+            &:hover {
+                width: 35vh;
+                background-color: rgba(0, 0, 0, 0.6);
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 30vh;
+                height: 60vh;
+
+                background: url('../../assets/images/selector/1.png') no-repeat;
+                background-repeat: no-repeat;
+                background-size: contain;
+
+                opacity: .5;
+                z-index: -1;
+            }
+
+
+            .name {
+                position: relative;
+                font-size: 1.8518518518518519vh;
+                font-weight: bold;
+                text-shadow: 0vh 0vh 1vh black;
+                text-transform: uppercase;
+            }
+        }
+
+        .create {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Beast Duh';
+            font-size: 1.8518518518518519vh;
+            border-radius: .5vh;
+            width: 30vh;
+            height: 60vh;
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: all .2s;
+            animation: slideInRight 1s ease-in-out forwards;
+
+            &:hover {
+                width: 35vh;
+                background-color: rgba(0, 0, 0, 0.6);
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 11.11111111111111vh;
+                height: 11.11111111111111vh;
+
+                background: url('../../assets/images/selector/create.svg') no-repeat;
+                background-repeat: no-repeat;
+                background-size: contain;
+
+                opacity: .5;
+                z-index: -1;
+            }
+
+
+        }
+
+
+        .character:nth-child(1) {
+            animation: slideInLeft 1s ease-in-out forwards;
+        }
+
+        .character:nth-child(3) {
+            animation: slideInRight 1s ease-in-out forwards;
+        }
+    }
+}
+
+@keyframes slideInCenter {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}

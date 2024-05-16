@@ -1,12 +1,12 @@
-import { CommandRegistry } from "../classes/Command.class";
+import { RAGERP } from "../api";
 
-CommandRegistry.add({
+RAGERP.commands.add({
     name: "testchat",
     run: (player: PlayerMp, fullText) => {
         player.outputChatBox(fullText);
     }
 });
-CommandRegistry.add({
+RAGERP.commands.add({
     name: "veh",
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
         if (!fullText.length || !vehicleModel.length) return;
@@ -15,7 +15,7 @@ CommandRegistry.add({
     }
 });
 
-CommandRegistry.add({
+RAGERP.commands.add({
     name: "ped",
     run: (player: PlayerMp) => {
         const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
@@ -24,7 +24,7 @@ CommandRegistry.add({
     }
 });
 
-CommandRegistry.add({
+RAGERP.commands.add({
     name: "dim",
     run: (player: PlayerMp, full, dim) => {
         player.dimension = parseInt(dim);

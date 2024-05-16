@@ -199,21 +199,12 @@ class CameraManager {
         }
     }
 
-    createLoginCamera(posX: number, posY: number, posZ: number) {
-        mp.players.local.position = new mp.Vector3(466.5923767089844, 1127.3707275390625, 245.55267333984375);
-        Camera.createCamera("login_camera", new mp.Vector3(470.8601989746094, 1124.0819091796875, 346.5653076171875));
-        Camera.setCameraLookAt("login_camera", new mp.Vector3(762.636962890625, 1184.507568359375, 325.5349426269531));
+    createLoginCamera(fromPos: Vector3, toPos: Vector3, rot: number) {
+        mp.players.local.position = new mp.Vector3(toPos.x, toPos.y, toPos.z - 3);
+        Camera.createCamera("login_camera", fromPos);
         Camera.setCameraActive("login_camera", true);
-        Camera.startInterpolate(
-            "login_camera",
-            //@ts-ignore
-            Camera.getCameraPosition("login_camera"),
-            new mp.Vector3(702.4234619140625, 954.9385375976562, 339.7883605957031),
-            new mp.Vector3(0, 0, 0),
-            30,
-            20000,
-            0
-        );
+        Camera.startInterpolate("login_camera", fromPos, toPos, new mp.Vector3(0, 0, 0), 30, 20000, 0);
+        Camera.setCameraLookAt("login_camera", toPos);
 
         mp.game.invoke("0x428CA6DBD1094446", mp.players.local.handle, true);
     }
