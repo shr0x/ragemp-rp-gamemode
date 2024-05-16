@@ -1,23 +1,53 @@
 .main {
-
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
 
-
+    background: url('../../assets/images/selector/bg.svg') no-repeat;
+    background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
 
+    transition: all .2s;
+
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: url('../../assets/images/auth/chars.png') no-repeat;
+        background-size: cover;
+        opacity: .2;
+        margin-left: -25vh;
+        z-index: -1;
+        animation: slide-right 0.5s forwards;
+
+        @keyframes slide-right {
+            0% {
+                transform: translateX(-100vh);
+            }
+
+            100% {
+                transform: translateX(100px);
+            }
+        }
+    }
+
     .authform {
+        position: absolute;
+
+        right: 10vh;
         width: 50vh;
-        height: 30vh;
+        height: 100%;
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: #3a3a3a;
+        // background-color: #3a3a3a;
         border-radius: .6vh;
-        box-shadow: 0px 0px 20px 0px black;
+        // box-shadow: 0px 0px 20px 0px black;
 
 
         .content {
@@ -27,25 +57,47 @@
             flex-direction: column;
             gap: 2vh;
 
+
+
+
             input {
                 font-family: Arial, Helvetica, sans-serif;
-                border: 2px solid #4c4c4c;
                 outline: none;
-                background-color: #3a3a3a;
-                width: 20vh;
+                border: none;
+                font-size: 17px;
+
+                border-bottom: .1vh solid red;
+                background: linear-gradient(to left, #1e1b20, transparent);
+                width: 30vh;
+                height: 5vh;
                 padding: .5vh;
                 color: white;
             }
 
-            input.submit {
-                background-color: grey;
+
+
+            .submit {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                gap: .5vh;
+
+                background: #28272b;
                 border-radius: .5vh;
+
                 border: none;
 
+                width: 25vh;
+                height: 4.5vh;
+
+                font-family: 'Beast Duh';
+                font-size: 3vh;
+
+                text-shadow: 0vh 0vh 5vh black;
             }
 
             input.usernameInput {
-                border-radius: .5vh;
 
                 &::before {
                     content: "";
@@ -59,5 +111,22 @@
 
         }
 
+        .footer {
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+            gap: .2vh;
+
+            position: relative;
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+            margin-top: 2vh;
+
+
+            font-size: 15px;
+
+        }
     }
 }

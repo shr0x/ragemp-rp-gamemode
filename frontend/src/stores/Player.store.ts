@@ -12,9 +12,9 @@ export interface ICharacters {
 }
 export default class PlayerStore {
     @observable characters: ICharacters[] = observable.array([
-        { type: 0, bank: 2322, id: 0, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
+        { type: 1, bank: 2322, id: 0, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
         { type: 0, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
-        { type: 0, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" }
+        { type: 1, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" }
     ]);
 
     constructor() {
