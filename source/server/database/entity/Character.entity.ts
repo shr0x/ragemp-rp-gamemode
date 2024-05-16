@@ -54,8 +54,65 @@ export class CharacterEntity {
 
     public async save() {}
 
-    public async spawn() {
-        const { x, y, z, heading } = this.position;
+    public applyAppearance(player: PlayerMp) {
+        if (!player || !mp.players.exists(player) || !player.character) return;
+        const data = player.character.appearance;
+
+        const gender = player.model === mp.joaat("mp_m_freemode_01");
+        player.setHeadBlend(data.parents.mother, data.parents.father, 4, data.parents.mother, data.parents.father, 0, (data.parents.similarity / 100) * -1, (data.parents.leatherMix / 100) * -1, 0);
+        player.setHairColor(data.color.head, typeof data.color.head_secondary === "undefined" ? 0 : data.color.head_secondary);
+
+        if (gender) {
+            player.setHeadOverlay(1, [data.hair.beard, 1, data.color.beard, data.color.beard]);
+        } else {
+            player.setHeadOverlay(1, [data.hair.beard, 0, 1, 1]);
+            player.setHeadOverlay(10, [data.hair.chest, 0, 1, 1]);
+        }
+
+        player.setHeadOverlay(8, [typeof data.face.lipstickID === "undefined" ? -1 : data.face.lipstickID ?? -1, 0, data.color.lipstick ?? 0, data.color.lipstick ?? 0]);
+
+        player.eyeColor = data.color.eyes;
+        player.setClothes(2, data.hair.head, 0, 0);
+
+        //first category
+        player.setFaceFeature(0, data.face.noseWidth / 100);
+        player.setFaceFeature(1, data.face.nosePeakHeight / 100);
+        player.setFaceFeature(2, data.face.nosePeakLength / 100);
+        player.setFaceFeature(3, data.face.noseBoneHeight / 100);
+        player.setFaceFeature(4, data.face.nosePeakLowering / 100);
+        player.setFaceFeature(5, data.face.noseBoneTwist / 100);
+
+        //eye brows
+        player.setFaceFeature(6, data.face.eyebrowHeight / 100);
+        player.setFaceFeature(7, data.face.eyebrowForward / 100);
+
+        //checkbone
+        player.setFaceFeature(8, data.face.cheekboneHeight / 100);
+        player.setFaceFeature(9, data.face.cheekboneWidth / 100);
+
+        //deepness of cheeks
+        player.setFaceFeature(10, data.face.cheekWidth / 100);
+
+        //eye width
+        player.setFaceFeature(11, data.face.eyesWidth / 100);
+
+        //other stuff
+        player.setFaceFeature(12, data.face.lips / 100);
+        player.setFaceFeature(13, data.face.jawBoneWidth / 100);
+        player.setFaceFeature(14, data.face.jawBoneBackLength / 100);
+        player.setFaceFeature(15, data.face.ChimpBoneLowering / 100);
+        player.setFaceFeature(16, data.face.ChimpBoneLength / 100);
+        player.setFaceFeature(17, data.face.ChimpBoneWidth / 100);
+        player.setFaceFeature(18, data.face.ChimpHole / 100);
+        player.setFaceFeature(19, data.face.neckWidth / 100);
+    }
+
+    public async spawn(player: PlayerMp) {
+        if (!player || !mp.players.exists(player) || !player.character) return;
+        const { x, y, z, heading } = player.character.position;
+        player.character.applyAppearance(player);
+        player.spawn(new mp.Vector3(x, y, z));
+        player.heading = heading;
     }
 
     public async getData(data: keyof CharacterEntity) {

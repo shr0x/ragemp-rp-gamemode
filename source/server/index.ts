@@ -24,5 +24,3 @@ async function initGamemode() {
 (async () => {
     await initGamemode().then(() => console.log("[SHROX FRAMEWORK] Gamemode Initialized"));
 })();
-
-console.log(RageEnums.VehicleNumberPlateType.BLUE_WHITE);

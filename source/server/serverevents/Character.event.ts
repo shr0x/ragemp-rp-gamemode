@@ -28,10 +28,8 @@ RAGERP.cef.register("character", "select", async (player: PlayerMp, data: string
     player.call("client::cef:close");
 
     player.model = character.gender === 0 ? mp.joaat("mp_m_freemode_01") : mp.joaat("mp_f_freemode_01");
-
-    player.spawn(new mp.Vector3(-541.0401611328125, -1287.0777587890625, 26.901586532592773));
-    player.heading = -118.70496368408203;
     player.name = player.character.name;
+    await player.character.spawn(player);
 
     player.showNotify("success", `Welcome, ${player.character.name}!`);
 });
@@ -68,15 +66,21 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
     characterData.appearance = { color, face, hair, parents };
     characterData.name = fullname;
     characterData.gender = sex;
+    characterData.position = {
+        x: -541.0401611328125,
+        y: -1287.0777587890625,
+        z: 26.901586532592773,
+        heading: -118.70496368408203
+    };
 
     const result = await RAGERP.database.getRepository(CharacterEntity).save(characterData);
     if (!result) return;
 
     player.name = fullname;
     player.character = result;
+
     player.call("client::creator:destroycam");
     player.call("client::cef:close");
 
-    player.spawn(new mp.Vector3(-541.0401611328125, -1287.0777587890625, 26.901586532592773));
-    player.heading = -118.70496368408203;
+    await player.character.spawn(player);
 });
