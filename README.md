@@ -26,6 +26,8 @@ Thanks to Morbo for [NoClip](https://rage.mp/files/file/163-noclip/)
 
 # Current Features
  - Account system (Login/Register).
+ - Character System (3 Available slots to create)
+ - Notification system
  - Chat System
  - Command system
  #
