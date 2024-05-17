@@ -3,6 +3,8 @@ import { DataSource } from "typeorm";
 import { AccountEntity } from "./entity/Account.entity";
 import { CharacterEntity } from "./entity/Character.entity";
 import { DatabaseLogger } from "./Logger.module";
+import { BanEntity } from "./entity/Ban.entity";
+
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -35,13 +37,8 @@ export const MainDataSource = new DataSource({
     database: config.database,
     synchronize: true,
     connectTimeoutMS: config.connectTimeout,
-
-    // connectTimeout: config.connectTimeout,
-    // acquireTimeout: config.acquireTimeout,
-    // charset: "utf8",
-    // logging: ["error"],
     logging: ["error"],
-    entities: [AccountEntity, CharacterEntity],
+    entities: [AccountEntity, CharacterEntity, BanEntity],
     migrations: [],
     subscribers: [],
     logger: DatabaseLogger.getInstance(loggerConfig)

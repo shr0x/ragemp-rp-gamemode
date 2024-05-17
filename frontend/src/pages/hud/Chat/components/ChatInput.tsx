@@ -1,9 +1,8 @@
 import { FC, useRef, useEffect, useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
-
 import cn from "classnames";
 import EventManager from "utils/EventManager.util";
-import ChatStore from "../../../../stores/Chat.store";
+import ChatStore from "store/Chat.store";
 
 import style from "./input.module.scss";
 
@@ -13,6 +12,40 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
         [inputText, setInputText] = useState("");
 
     const input = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const chatAPI = {
+            clear: () => {
+                store.messages = [];
+            },
+
+            push: (text: string) => {
+                store.fetchNewMessage(text);
+            },
+
+            activate: (toggle: boolean) => {
+                store.setActive(toggle);
+            },
+
+            show: (toggle: boolean) => {
+                store.setActive(toggle);
+            }
+        };
+
+        if (typeof mp !== "undefined") {
+            const api: Record<string, Function> = {
+                "chat:push": chatAPI.push,
+                "chat:clear": chatAPI.clear,
+                "chat:activate": chatAPI.activate,
+                "chat:show": chatAPI.show
+            };
+
+            for (const fn in api) {
+                //@ts-ignore
+                mp.events.add(fn, api[fn]);
+            }
+        }
+    }, []);
 
     useEffect(() => {
         EventManager.addHandler("chat", "setTextInput", (text: string) => setInputText(text));
@@ -106,7 +139,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
                     return;
             }
         },
-        [store.lastMessages, store.historyCounter, inputText, isFocused] // eslint-disable-line
+        [store.lastMessages, store.historyCounter, inputText, isFocused]
     );
 
     useEffect(() => {

@@ -13,6 +13,8 @@ import PlayerStore from "./stores/Player.store";
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
 const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
 const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
+const PlayerHud = lazy(() => import("pages/hud/Hud"));
+
 import Notification from "utils/NotifyManager.util";
 
 const App: FC = () => {
@@ -50,6 +52,7 @@ const App: FC = () => {
                     theme="dark"
                 />
                 <Chat store={chatStore} isVisible={page === "hud"} />
+                {page === "hud" && <PlayerHud store={playerStore} />}
                 {page === "auth" && <Authentication />}
                 {page === "creator" && <CharacterCreator store={creatorStore} />}
                 {page === "selectcharacter" && <CharacterSelector store={playerStore} />}

@@ -24,12 +24,12 @@ function hashPassword(text: string) {
 CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => {
     const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
 
-    if (username.length < 4 || username.length > 32) return player.showNotify("error", "Your username must be between 4 and 32 characters.");
-    if (password.length < 5) return player.showNotify("error", "Your password must contain at least 5 characters.");
-    if (password !== confirmPassword) return player.showNotify("error", "Password mismatch.");
+    if (username.length < 4 || username.length > 32) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your username must be between 4 and 32 characters.");
+    if (password.length < 5) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your password must contain at least 5 characters.");
+    if (password !== confirmPassword) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Password mismatch.");
 
     const accountExists = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username, email } });
-    if (accountExists) return player.showNotify("error", "Account username or email exists.");
+    if (accountExists) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Account username or email exists.");
 
     const accountData = new AccountEntity();
 
@@ -53,9 +53,9 @@ CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) 
     const { username, password }: IPlayerLogin = JSON.parse(data);
 
     const accountData = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
-    if (!accountData) return player.showNotify("error", "We could not find that account!");
+    if (!accountData) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We could not find that account!");
 
-    if (hashPassword(password) !== accountData.password) return player.showNotify("error", "Wrong password.");
+    if (hashPassword(password) !== accountData.password) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Wrong password.");
 
     player.account = accountData;
     player.name = player.account.username;

@@ -1,7 +1,13 @@
+import { observer } from "mobx-react-lite";
 import { FC } from "react";
-
-const HUD: FC = () => {
-    return <></>;
+import style from "./hud.module.scss";
+import PlayerStore from "store/Player.store";
+const HUD: FC<{ store: PlayerStore }> = ({ store }) => {
+    return (
+        <div className={style.main}>
+            <div className={style.top}></div>
+        </div>
+    );
 };
 
-export default HUD;
+export default observer(HUD);

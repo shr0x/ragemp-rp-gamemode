@@ -56,12 +56,23 @@ declare namespace RageShared {
 
         interface CefEventMap {
             notify: {
-                show: { type: "loading" | "promise" | "success" | "info" | "error" | "warning" | "warn" | "dark"; message: string; skin: "light" | "dark" | "colored" };
+                show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
             };
             player: {
                 setCharacters: any[];
             };
             auth: {};
+        }
+    }
+
+    namespace Enums {
+        const enum NotifyType {
+            TYPE_LOADING = "loading",
+            TYPE_PROMISE = "promise",
+            TYPE_SUCCESS = "success",
+            TYPE_INFO = "info",
+            TYPE_ERROR = "error",
+            TYPE_WARNING = "warning"
         }
     }
 }

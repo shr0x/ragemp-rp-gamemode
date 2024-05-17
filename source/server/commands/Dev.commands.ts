@@ -13,7 +13,6 @@ RAGERP.commands.add({
 RAGERP.commands.add({
     name: "setpage",
     run: (player: PlayerMp, fulltext) => {
-        player.call("client::creator:start");
-        player.call("client::eventManager", ["cef::system:setPage", "creator"]);
+        player.outputChatBox("!{green}TEst?");
     }
 });

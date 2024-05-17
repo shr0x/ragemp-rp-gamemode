@@ -13,8 +13,12 @@ class Browser {
     constructor() {
         mp.console.logWarning("Browser initialized!");
 
+        mp.gui.chat.show(false);
+
         this.mainUI = mp.browsers.new(this.url);
+        this.mainUI.markAsChat();
         this.currentPage = undefined;
+        mp.gui.chat.activate(true);
 
         mp.events.add("client::eventManager::emitServer", this.emitServer.bind(this));
         mp.events.add("client::eventManager::emitClient", this.emitClient.bind(this));

@@ -8,6 +8,9 @@ export class CharacterEntity {
     @Column({ type: "int", width: 11, default: -1 })
     accountid: number = -1;
 
+    @Column({ type: "int", width: 11, default: 0 })
+    adminlevel: number = 0;
+
     @Column({ type: "jsonb", default: null })
     appearance = {
         face: {

@@ -9,32 +9,7 @@ import style from "./chat.module.scss";
 let chatHideTimeout: NodeJS.Timeout | null = null;
 let chatFadeInterval: NodeJS.Timeout | null = null;
 
-function parseMessage(message: string): JSX.Element[] {
-    const parts = message.split(/!{\w*}/);
-    const colorRegex = /!{(\w+|\d+,\d+,\d+)}/;
-    return parts.map((part, index) => {
-        const colorMatch = part.match(colorRegex);
-        let changestyle: React.CSSProperties = {};
-        if (colorMatch) {
-            const color = colorMatch[1];
-            if (color.includes(",")) {
-                const rgb = color.split(",");
-                changestyle.color = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
-            } else {
-                changestyle.color = color;
-            }
-        }
-        return (
-            <span className={style.message} style={changestyle} key={index}>
-                {part}
-            </span>
-        );
-    });
-}
-
 const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVisible }) => {
-    if (!store.isActive) return null;
-
     const [chatOpacity, setChatOpacity] = useState(1.0);
     const [timeVisibleChat, setTimeVisibleChat] = useState(10000);
     const chat = useRef<HTMLDivElement | null>(null);
@@ -99,13 +74,14 @@ const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVis
             if (chatFadeInterval) clearInterval(chatFadeInterval);
         };
     }, []);
+    if (!store.isActive) return null;
 
     return (
         <div className={style.main} style={{ visibility: isVisible ? "visible" : "hidden" }}>
             <div ref={chat} className={style.content} style={{ opacity: chatOpacity }}>
                 {store.messages.map((el, key) => (
                     <div className={style.text} key={key}>
-                        <span className={style.message}>{parseMessage(el)}</span>
+                        <span className={style.message}>{el}</span>
                     </div>
                 ))}
             </div>

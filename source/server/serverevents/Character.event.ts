@@ -19,7 +19,7 @@ RAGERP.cef.register("character", "select", async (player: PlayerMp, data: string
     const id = JSON.parse(data);
 
     const character = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { id } });
-    if (!character) return player.showNotify("error", "An error occurred selecting your character.");
+    if (!character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "An error occurred selecting your character.");
 
     player.character = character;
 
@@ -31,7 +31,7 @@ RAGERP.cef.register("character", "select", async (player: PlayerMp, data: string
     player.name = player.character.name;
     await player.character.spawn(player);
 
-    player.showNotify("success", `Welcome, ${player.character.name}!`);
+    player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Welcome, ${player.character.name}!`);
 });
 /**
  * Executes when a player choose to create a new character
@@ -53,13 +53,13 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
     const fullname = `${parseData.name.firstname} ${parseData.name.lastname}`;
 
     const nameisTaken = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { name: fullname } });
-    if (nameisTaken) return player.showNotify("error", "We're sorry but that name is already taken, choose another one.");
+    if (nameisTaken) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We're sorry but that name is already taken, choose another one.");
 
     const { sex, parents, hair, face, color }: RageShared.Interfaces.CreatorData = parseData;
 
     const characterLimit = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: player.account?.id }, take: 3 });
 
-    if (characterLimit.length > 2) return player.showNotify("error", "We're sorry but you already have three characters, you cannot create anymore.");
+    if (characterLimit.length > 2) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We're sorry but you already have three characters, you cannot create anymore.");
 
     const characterData = new CharacterEntity();
     characterData.accountid = player.account.id;
