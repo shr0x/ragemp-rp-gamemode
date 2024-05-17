@@ -47,7 +47,9 @@ class Browser {
         }
         if (this.mainUI && eventName.indexOf("cef::") != -1) {
             let event = eventName.split("cef::")[1];
+
             const argsString = args.map((arg: any) => JSON.stringify(arg)).join(", ");
+
             const script = `
                 window.callHandler("${event}", ${argsString})
             `;
@@ -57,12 +59,13 @@ class Browser {
     }
 
     closePage(): void {
-        if (!this.mainUI) return;
-        let page = this.currentPage;
+        if (!this.mainUI || !mp.browsers.exists(this.mainUI)) return;
+        const page = this.currentPage;
         if (!page) return;
 
-        let pageData = CEFPages[page];
+        const pageData = CEFPages[page];
         this.currentPage = undefined;
+
         mp.events.callRemote("server::player:closeCEF", page);
         if (pageData.blur) {
             mp.game.graphics.transitionFromBlurred(1);
@@ -70,6 +73,7 @@ class Browser {
 
         mp.game.ui.displayRadar(true);
         mp.gui.cursor.show(false, false);
+
         mp.game.controls.setDisableControlActionBatch(false, []);
         mp.players.local.freezePosition(false);
 

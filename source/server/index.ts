@@ -22,8 +22,8 @@ import "./serverevents/Auth.event";
 import "./serverevents/Chat.event";
 import "./serverevents/Server.event";
 import "./serverevents/Character.event";
+import "./serverevents/Player.event";
 //---------------------------------------//
-import "./modules/spectate.server";
 import { blue, green, yellow } from "colorette";
 //---------------------------------------//
 async function initGamemode() {
