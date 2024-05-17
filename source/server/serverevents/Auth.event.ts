@@ -1,6 +1,4 @@
 import { RAGERP } from "../api";
-import { CefEvent } from "../classes/CEFEvent.class";
-import { MainDataSource } from "../database/Database.module";
 import { AccountEntity } from "../database/entity/Account.entity";
 import crypto from "crypto";
 import { CharacterEntity } from "../database/entity/Character.entity";
@@ -21,14 +19,14 @@ function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
 
-CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => {
+RAGERP.cef.register("auth", "register", async (player: PlayerMp, data: string) => {
     const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
 
     if (username.length < 4 || username.length > 32) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your username must be between 4 and 32 characters.");
     if (password.length < 5) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your password must contain at least 5 characters.");
     if (password !== confirmPassword) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Password mismatch.");
 
-    const accountExists = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username, email } });
+    const accountExists = await RAGERP.database.getRepository(AccountEntity).findOne({ where: { username, email } });
     if (accountExists) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Account username or email exists.");
 
     const accountData = new AccountEntity();
@@ -38,7 +36,7 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
     accountData.socialClubId = player.rgscId;
     accountData.email = email;
 
-    const result = await MainDataSource.getRepository(AccountEntity).save(accountData);
+    const result = await RAGERP.database.getRepository(AccountEntity).save(accountData);
 
     player.account = result;
     player.name = player.account.username;
@@ -49,10 +47,10 @@ CefEvent.register("auth", "register", async (player: PlayerMp, data: string) => 
     // player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
-CefEvent.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
+RAGERP.cef.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
     const { username, password }: IPlayerLogin = JSON.parse(data);
 
-    const accountData = await MainDataSource.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
+    const accountData = await RAGERP.database.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
     if (!accountData) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We could not find that account!");
 
     if (hashPassword(password) !== accountData.password) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Wrong password.");

@@ -1,31 +1,42 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const outputPath = path.join(__dirname, '../packages/server');
 const pathToModules = path.join(__dirname, '../node_modules');
-
 
 const entryPath = path.join(__dirname, '../source/server/index.ts');
 const configPath = path.join(__dirname, '../source/server/tsconfig.json');
 const sourcePath = path.join(__dirname, '../source/server/');
 
-
 module.exports = {
     entry: entryPath,
     target: 'node',
-    mode: "development",
+    mode: 'development',
+    devtool: 'source-map', // Enable source maps for better error info
     externals: [
         nodeExternals({
             modulesDir: pathToModules
         })
+    ],
+    plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            typescript: {
+                configFile: configPath,
+            },
+        }),
     ],
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: {
-                    loader: 'ts-loader'
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true, // Set to true for faster builds
+                        configFile: configPath,
+                    },
                 },
                 exclude: pathToModules
             }
@@ -33,7 +44,7 @@ module.exports = {
     },
     resolve: {
         plugins: [new TsconfigPathsPlugin({ configFile: configPath, baseUrl: sourcePath })],
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.tsx', '.js'],
         mainFields: ['main']
     },
     output: {
@@ -48,5 +59,5 @@ module.exports = {
         buildDependencies: {
             config: [__filename]
         }
-    }
+    },
 };
