@@ -1,0 +1,154 @@
+:root {
+	--__reactRadialMenu__menu-bgColor: #fff;
+	--__reactRadialMenu__separator-color: red;
+	--__reactRadialMenu__item-color: #333;
+	--__reactRadialMenu__zIndex: 666;
+	--__reactRadialMenu__activeItem-color: #fff;
+	--__reactRadialMenu__activeItem-bgColor: #3498db;
+	--__reactRadialMenu__arrow-color: #6f6e77;
+	--__reactRadialMenu__activeArrow-color: #fff;
+	--__reactRadialMenu__animation-delay: 300ms;
+}
+
+
+/* --------------------------------- Themes --------------------------------- */
+
+.__rrm-dark {
+	--__reactRadialMenu__menu-bgColor: rgba(40, 40, 40, 0.80);
+	--__reactRadialMenu__separator-color: red;
+	--__reactRadialMenu__item-color: #fff;
+}
+
+/* ------------------------------- Animations --------------------------------*/
+.__rrm-menu.__rrm-closing.__rrm-fade,
+.__rrm-menu.__rrm-opening.__rrm-fade {
+	opacity: 0;
+}
+
+.__rrm-menu.__rrm-opened.__rrm-fade {
+	opacity: 1;
+}
+
+.__rrm-menu.__rrm-closing.__rrm-scale,
+.__rrm-menu.__rrm-opening.__rrm-scale {
+	scale: 0;
+}
+
+.__rrm-menu.__rrm-opened.__rrm-scale {
+	scale: 1;
+}
+
+.__rrm-menu.__rrm-closing.__rrm-rotate,
+.__rrm-menu.__rrm-opening.__rrm-rotate {
+	rotate: -45deg;
+}
+
+.__rrm-menu.__rrm-opened.__rrm-rotate {
+	rotate: 0deg;
+}
+
+/* ---------------------------------- Menu ---------------------------------- */
+.__rrm-menu {
+	position: absolute;
+	font-family: "Beast Duh";
+	font-size: 1vh;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	z-index: var(--__reactRadialMenu__zIndex);
+	transition: all var(--__reactRadialMenu__animation-delay) ease;
+
+
+}
+
+.__rrm-menu g {
+	cursor: pointer;
+}
+
+/* ---------------------------------- Base ---------------------------------- */
+.__rrm-base {
+	transition: all var(--__reactRadialMenu__animation-delay) ease;
+	fill: var(--__reactRadialMenu__menu-bgColor);
+}
+
+.__rrm-base.__rrm-active {
+	fill: red;
+	stroke: rgba(0, 0, 0, 0.24);
+}
+
+/* --------------------------------- Content -------------------------------- */
+.__rrm-content {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+
+	width: 100%;
+	height: 100%;
+
+
+	pointer-events: none;
+	color: white;
+	overflow: hidden;
+
+
+	font-size: 1.5vh;
+	font-family: 'Beast Duh';
+}
+
+.__rrm-content.__rrm-active {
+	color: var(--__reactRadialMenu__activeItem-color);
+}
+
+/* ---------------------------------- Arrow --------------------------------- */
+.__rrm-arrow {
+	stroke: var(--__reactRadialMenu__arrow-color);
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 0.18518518518518517vh;
+}
+
+.__rrm-arrow.__rrm-active {
+	stroke: var(--__reactRadialMenu__activeArrow-color);
+}
+
+/* --------------------------------- Return --------------------------------- */
+.__rrm-return {
+	stroke: var(--__reactRadialMenu__arrow-color);
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 0.37037037037037035vh;
+}
+
+.__rrm-return.__rrm-active {
+	stroke: var(--__reactRadialMenu__activeArrow-color);
+}
+
+/* --------------------------------- No Bg --------------------------------- */
+.__rrm-no-bg>g>foreignObject {
+	border: 0.09259259259259259vh solid var(--__reactRadialMenu__separator-color);
+	border-radius: 50%;
+	background-color: var(--__reactRadialMenu__menu-bgColor);
+}
+
+.__rrm-no-bg>g>foreignObject:has(.__rrm-active) {
+	background-color: var(--__reactRadialMenu__activeItem-bgColor);
+}
+
+.__rrm-no-bg .__rrm-arrow {
+	stroke: var(--__reactRadialMenu__arrow-color);
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 0.18518518518518517vh;
+}
+
+.__rrm-no-bg .__rrm-arrow.__rrm-active {
+	stroke: var(--__reactRadialMenu__arrow-color);
+}

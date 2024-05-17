@@ -10,24 +10,12 @@ class ICamera {
     }
 }
 
-class IOldCamera {
-    oldCamera: CameraMp;
-    currentCamera: CameraMp;
-    constructor(oldCamera: CameraMp, currentCamera: CameraMp) {
-        this.oldCamera = oldCamera;
-        this.currentCamera = currentCamera;
-    }
-}
-
 class CameraManager {
     list: ICamera[] = [];
-    oldcamera: IOldCamera[] = [];
     enableRotation: boolean = false;
     entityToRotate: PlayerMp | VehicleMp = mp.players.local;
 
-    constructor() {
-        this.collectInterpolationGarbage();
-    }
+    constructor() {}
 
     createCamera(name: string, position: Vector3) {
         let camera = this.list.find((element) => element.name === name);
@@ -38,6 +26,11 @@ class CameraManager {
         } else {
             this.list.push(new ICamera(name, mp.cameras.new(name, position, new mp.Vector3(0, 0, 0), 50)));
         }
+    }
+
+    public isActive(name: string) {
+        let camera = this.list.find((element) => element.name === name);
+        return camera !== undefined;
     }
 
     setCameraActive(name: string, toggle: boolean, time = 0) {
@@ -183,7 +176,6 @@ class CameraManager {
             tempCamera.pointAtCoord(pointAt.x, pointAt.y, pointAt.z);
             tempCamera.setActiveWithInterp(camera.cam.handle, duration, 0, 0);
             mp.game.cam.renderScriptCams(true, false, 0, false, false);
-            this.addInterpolationGargabe(camera.cam, tempCamera);
             camera.cam = tempCamera;
         }
     }
@@ -191,7 +183,6 @@ class CameraManager {
     destroyCamera(name: string) {
         let camera = this.list.find((element) => element.name === name);
         if (camera) {
-            this.deleteAllInterpolations();
             if (!mp.cameras.exists(camera.cam)) return false;
             camera.cam.setActive(false);
             camera.cam.destroy();
@@ -226,31 +217,6 @@ class CameraManager {
 
     stopSwitch() {
         mp.game.streaming.stopPlayerSwitch();
-    }
-
-    private collectInterpolationGarbage() {
-        mp.events.add("render", () => {
-            this.oldcamera.forEach((element: IOldCamera) => {
-                if (!mp.cameras.exists(element.oldCamera)) return false;
-                if (element.oldCamera.isInterpolating()) return false;
-                if (mp.cameras.exists(element.oldCamera)) element.oldCamera.destroy();
-                let index = this.oldcamera.findIndex((element) => element.currentCamera === element.currentCamera);
-                this.oldcamera.splice(index, 1);
-            });
-        });
-    }
-
-    private addInterpolationGargabe(oldCamera: CameraMp, currentCamera: CameraMp) {
-        this.oldcamera.push(new IOldCamera(oldCamera, currentCamera));
-    }
-
-    private deleteAllInterpolations() {
-        this.oldcamera.forEach((element: IOldCamera) => {
-            if (!mp.cameras.exists(element.oldCamera)) return false;
-            element.oldCamera.destroy();
-            let index = this.oldcamera.findIndex((element) => element.currentCamera === element.currentCamera);
-            this.oldcamera.splice(index, 1);
-        });
     }
 
     getOffset(pos: Vector3, angle: number, dist: number) {

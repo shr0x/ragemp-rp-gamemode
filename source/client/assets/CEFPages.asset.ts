@@ -13,5 +13,5 @@ export const CEFPages: ICefPages = {
     auth: { blur: true, radar: false, pause: false, controls: true, close: false },
     creator: { blur: false, radar: false, pause: false, controls: true, close: true },
     selectcharacter: { blur: true, radar: false, pause: false, controls: true, close: false },
-    hud: { blur: true, radar: false, pause: false, controls: true, close: false }
+    hud: { blur: false, radar: true, pause: false, controls: true, close: false },
 };

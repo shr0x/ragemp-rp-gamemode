@@ -7,8 +7,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "watch:cef": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "analyze:cef": "source-map-explorer 'build/static/js/*.js'"
+    "build": "react-app-rewired ../client_packages/package2/build",
+    "analyze:cef": "source-map-explorer '../client_packages/package2/build/static/js/*.js'"
   },
   "author": "rShr0x",
   "license": "MIT",
@@ -38,8 +38,7 @@
     "mobx": "^6.12.0",
     "mobx-react-lite": "^3.4.0",
     "react-app-rewire-alias": "^1.1.7",
-    "react-app-rewired": "^2.2.1",
-    "typescript": "^5.0.4"
+    "react-app-rewired": "^2.2.1"
   },
   "browserslist": {
     "production": [

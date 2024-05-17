@@ -9,6 +9,8 @@ import EventManager from "utils/EventManager.util";
 import ChatStore from "./stores/Chat.store";
 import CreatorStore from "./stores/CharCreator.store";
 import PlayerStore from "./stores/Player.store";
+import HudStore from "store/Hud.store";
+
 
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
 const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
@@ -16,15 +18,17 @@ const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectChara
 const PlayerHud = lazy(() => import("pages/hud/Hud"));
 
 import Notification from "utils/NotifyManager.util";
+import hudStore from "store/Hud.store";
 
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());
     const creatorStore = useLocalObservable(() => new CreatorStore());
     const playerStore = useLocalObservable(() => new PlayerStore());
+    const hudStore = useLocalObservable(() => new HudStore());
 
     const [page, setPage] = useState<string>("");
 
-    initializeEvents({ chatStore, playerStore });
+    initializeEvents({ chatStore, playerStore, hudStore });
 
     useEffect(() => {
         EventManager.addHandler("system", "setPage", setPage);
@@ -52,7 +56,7 @@ const App: FC = () => {
                     theme="dark"
                 />
                 <Chat store={chatStore} isVisible={page === "hud"} />
-                {page === "hud" && <PlayerHud store={playerStore} />}
+                {page === "hud" && <PlayerHud store={playerStore} hudStore={hudStore} />}
                 {page === "auth" && <Authentication />}
                 {page === "creator" && <CharacterCreator store={creatorStore} />}
                 {page === "selectcharacter" && <CharacterSelector store={playerStore} />}

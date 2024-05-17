@@ -19,6 +19,7 @@ class Browser {
         this.mainUI.markAsChat();
         this.currentPage = undefined;
         mp.gui.chat.activate(true);
+        this.processEvent('cef::chat:setActive', true);
 
         mp.events.add("client::eventManager::emitServer", this.emitServer.bind(this));
         mp.events.add("client::eventManager::emitClient", this.emitClient.bind(this));
