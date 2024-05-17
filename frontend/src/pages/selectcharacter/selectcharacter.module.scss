@@ -46,22 +46,22 @@
         gap: 2vh;
 
         .character {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: space-between;
-            font-family: Arial, Helvetica, sans-serif;
 
+            font-family: Arial, Helvetica, sans-serif;
             border-radius: .5vh;
             width: 30vh;
             height: 60vh;
-            background-color: rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #8b4646, transparent);
             transition: all .2s;
             animation: slideInCenter 1s ease-in-out forwards;
 
             &:hover {
                 width: 35vh;
                 background-color: rgba(0, 0, 0, 0.6);
+
+                .spawn {
+                    opacity: 1;
+                }
             }
 
             &::before {
@@ -70,11 +70,11 @@
                 width: 30vh;
                 height: 60vh;
 
-                background: url('../../assets/images/selector/1.png') no-repeat;
+                background: url('../../assets/images/selector/3.svg') no-repeat;
                 background-repeat: no-repeat;
-                background-size: contain;
+                background-size: cover;
 
-                opacity: .5;
+                opacity: .3;
                 z-index: -1;
             }
 
@@ -85,6 +85,65 @@
                 font-weight: bold;
                 text-shadow: 0vh 0vh 1vh black;
                 text-transform: uppercase;
+
+            }
+
+            .data {
+                position: relative;
+                top: 15vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .level {
+                    position: relative;
+                    top: -5vh;
+                    font-family: 'Beast Duh';
+                    opacity: .2;
+                    font-size: 25vh;
+                }
+
+                .money,
+                .bank {
+                    position: relative;
+                    font-family: 'Beast Duh';
+                    font-size: 3.5vh;
+                    top: -10vh;
+                    opacity: .8;
+                    display: flex;
+                    align-items: center;
+                    gap: .5vh;
+
+                    img {
+                        width: 4vh;
+                    }
+                }
+
+                .money {
+                    color: green;
+                }
+
+                .bank {
+                    color: lightblue;
+                }
+
+                .spawn {
+                    opacity: 0;
+                }
+            }
+
+            .spawn {
+
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 10vh;
+                font-size: 5vh;
+                font-family: 'Beast Duh';
+                background-color: #2d2f34;
+                opacity: 0;
+                transition: opacity .2s ease-in;
             }
         }
 

@@ -74,5 +74,10 @@ declare namespace RageShared {
             TYPE_ERROR = "error",
             TYPE_WARNING = "warning"
         }
+        const enum CharacterType {
+            TYPE_CREATE = 0,
+            TYPE_CREATED,
+            TYPE_BANNED
+        }
     }
 }

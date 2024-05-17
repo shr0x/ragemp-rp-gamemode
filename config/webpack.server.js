@@ -34,7 +34,7 @@ module.exports = {
                 use: {
                     loader: 'ts-loader',
                     options: {
-                        transpileOnly: true, // Set to true for faster builds
+                        transpileOnly: false,
                         configFile: configPath,
                     },
                 },

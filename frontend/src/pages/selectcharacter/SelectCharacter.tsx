@@ -3,7 +3,10 @@ import { FC, useCallback } from "react";
 import PlayerStore from "store/Player.store";
 import style from "./selectcharacter.module.scss";
 import EventManager from "utils/EventManager.util";
-import createIcon from "assets/images/selector/create.svg";
+
+import moneyIcon from "assets/images/selector/icons/money.svg";
+import bankIcon from "assets/images/selector/icons/bank.svg";
+
 const CharacterSelector: FC<{ store: PlayerStore }> = ({ store }) => {
     const selectCharacter = useCallback((id: number) => {
         EventManager.emitServer("character", "select", id);
@@ -31,9 +34,14 @@ const CharacterSelector: FC<{ store: PlayerStore }> = ({ store }) => {
                             <div className={style.name}>{x.name}</div>
                             <div className={style.data}>
                                 <span className={style.level}>{x.level}</span>
-                                <span className={style.money}>{x.money}</span>
-                                <span className={style.bank}>{x.bank}</span>
+                                <span className={style.money}>
+                                    <img src={moneyIcon} alt="money" />${x.money}
+                                </span>
+                                <span className={style.bank}>
+                                    <img src={bankIcon} alt="money" />${x.bank}
+                                </span>
                             </div>
+                            <span className={style.spawn}>SPAWN CHARACTER</span>
                         </div>
                     );
                 })}

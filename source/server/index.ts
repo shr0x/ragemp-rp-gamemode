@@ -42,10 +42,10 @@ async function initGamemode() {
     console.log(green("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗    ██║██║ ╚████║██║   ██║   "));
     console.log(green(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   "));
     console.log(yellow("======================================================================================================"));
+    //@ts-ignore
     console.log(blue(`Server Events: ${Object.values(mp.events.binded).length}`));
     console.log(blue(`Cef Events: ${RAGERP.cef.poolSize}`));
     console.log(blue(`Total Commands: ${RAGERP.commands._commands.size}`));
-
     mp.events.delayInitialization = false;
 }
 (async () => {
