@@ -29,7 +29,9 @@ const onPlayerJoin = async (player: PlayerMp) => {
         player.account = null;
         player.character = null;
         player.lastPosition = null;
-        player.setVariable("is_spectating", false);
+        player.setVariable("loggedin", false);
+        player.setVariable("isSpectating", false);
+        player.setVariable("adminLevel", 0);
     } catch (err) {
         console.error(err);
     }
@@ -39,6 +41,6 @@ mp.events.add("playerJoin", onPlayerJoin);
 
 mp.events.add("server::spectate:stop", async (player: PlayerMp) => {
     if (!player || !mp.players.exists(player)) return;
-    player.setVariable("is_spectating", false);
+    player.setVariable("isSpectating", false);
     player.call("client::spectate:stop");
 });

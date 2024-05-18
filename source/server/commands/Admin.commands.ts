@@ -67,7 +67,7 @@ RAGERP.commands.add({
 
         if (isNaN(parsedTarget) && target === "off") {
             player.call("client::spectate:stop");
-            player.setVariable("is_spectating", false);
+            player.setVariable("isSpectating", false);
             if (player.lastPosition) player.position = player.lastPosition;
             return;
         }
@@ -79,7 +79,7 @@ RAGERP.commands.add({
 
         if (!player || !mp.players.exists(player)) return;
 
-        if (player.getVariable("is_spectating")) {
+        if (player.getVariable("isSpectating")) {
             player.call("client::spectate:stop");
             if (player.lastPosition) player.position = player.lastPosition;
         } else {
@@ -88,6 +88,6 @@ RAGERP.commands.add({
             if (!player || !mp.players.exists(player) || !targetPlayer || !mp.players.exists(targetPlayer)) return;
             player.call("client::spectate:start", [target]);
         }
-        player.setVariable("is_spectating", !player.getVariable("is_spectating"));
+        player.setVariable("isSpectating", !player.getVariable("isSpectating"));
     }
 });

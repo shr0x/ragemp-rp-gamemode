@@ -72,7 +72,7 @@ class Spectator {
 
     public entityStreamIn(entity: EntityMp) {
         const streamedIn = <PlayerMp>entity;
-        if (streamedIn.getVariable("is_spectating")) {
+        if (streamedIn.getVariable("isSpectating")) {
             streamedIn.setAlpha(0);
             streamedIn.setCollision(false, false);
             streamedIn.setInvincible(true);

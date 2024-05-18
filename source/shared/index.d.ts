@@ -1,5 +1,11 @@
 declare namespace RageShared {
     namespace Interfaces {
+        interface PlayerVars {
+            adminLevel: number;
+            isSpectating: boolean;
+            loggedin: boolean;
+        }
+
         interface CreatorFace {
             noseWidth: number;
             nosePeakHeight: number;
@@ -53,7 +59,6 @@ declare namespace RageShared {
                 lipstick: number;
             };
         }
-
         interface CefEventMap {
             notify: {
                 show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
