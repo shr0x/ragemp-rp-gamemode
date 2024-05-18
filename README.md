@@ -74,3 +74,6 @@ Client side:<br>
 ![.vid](./docs/gifs/client-watch.gif)<br>
 Server side<br>
 ![.vid](./docs/gifs/server-watch.gif)
+
+
+**By downloading this gamemode you agree to the LICENSE.**
