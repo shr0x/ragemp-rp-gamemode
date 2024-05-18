@@ -31,6 +31,9 @@ const invokeCommand = async (player: PlayerMp, message: string) => {
 
         // Handle run
         if (shouldRun === true /* explicitly checking for true in case of beforeRun returning non-boolean */) {
+            if (command.adminlevel && command.adminlevel > player.getAdminLevel()) {
+                return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "You are not authorized to use this command.");
+            }
             if (command.run.constructor.name === "AsyncFunction") {
                 await command.run(player, fullText, ...args);
             } else {
