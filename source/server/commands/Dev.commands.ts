@@ -1,4 +1,5 @@
 import { RAGERP } from "../api";
+import { InteractionMenu } from "../classes/Interaction.class";
 
 RAGERP.commands.add({
     name: "savepos",
@@ -12,7 +13,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "interact",
-    run: (player: PlayerMp, fulltext) => {
+    run: async (player: PlayerMp, fulltext) => {
         const data = {
             isActive: true,
             items: [
@@ -22,6 +23,16 @@ RAGERP.commands.add({
             ]
         };
 
-        player.call("client::interaction:showMenu", [JSON.stringify(data)]);
+        player.interactionMenu = new InteractionMenu();
+        await player.interactionMenu.new(player, data).then((res) => {
+            console.log(res);
+        });
+    }
+});
+
+RAGERP.commands.add({
+    name: "poop",
+    run: (player: PlayerMp) => {
+        player.call("client::needs:poop");
     }
 });

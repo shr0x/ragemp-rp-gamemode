@@ -28,10 +28,3 @@ mp.events.add("playerReady", () => {
 
     mp.game.weapon.unequipEmptyWeapons = false;
 });
-
-mp.events.add("client::interaction:showMenu", async (data: any) => {
-    const response = await InteractionMenu.new(Utils.parseObject(data));
-
-    mp.console.logInfo(`Response is: ${response}`);
-    InteractionMenu.closeMenu();
-});

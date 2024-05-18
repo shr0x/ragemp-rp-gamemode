@@ -1,5 +1,15 @@
 declare namespace RageShared {
     namespace Interfaces {
+        interface InteractionData {
+            isActive: boolean;
+            items: {
+                id: number;
+                text: string;
+                type: number;
+                subItems?: IMenuItems[];
+            }[];
+        }
+
         interface PlayerVars {
             adminLevel: number;
             isSpectating: boolean;
@@ -65,6 +75,9 @@ declare namespace RageShared {
             };
             player: {
                 setCharacters: any[];
+            };
+            hud: {
+                setInteraction: RageShared.Interfaces.InteractionData;
             };
             auth: {};
         }

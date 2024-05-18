@@ -42,6 +42,10 @@ class Cef_Event {
         }
     }
 
+    startPage(player: PlayerMp, pageName: string) {
+        player.call("client::cef:start", [pageName]);
+    }
+
     /**
      * Removes page events that were registered using .register
      * @param page page which you'd like to remove events from
