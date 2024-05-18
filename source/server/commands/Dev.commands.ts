@@ -11,8 +11,17 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "setpage",
+    name: "interact",
     run: (player: PlayerMp, fulltext) => {
-        player.outputChatBox("!{green}TEst?");
+        const data = {
+            isActive: true,
+            items: [
+                { type: 0, id: 0, text: "Whatever" },
+                { type: 0, id: 1, text: "Whatever 1" },
+                { type: 0, id: 2, text: "Whatever 2" }
+            ]
+        };
+
+        player.call("client::interaction:showMenu", [JSON.stringify(data)]);
     }
 });

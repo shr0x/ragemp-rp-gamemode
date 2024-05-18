@@ -1,3 +1,6 @@
+import { Utils } from "../../shared/Utils.module";
+import { InteractionMenu } from "../classes/InteractMenu.class";
+
 mp.events.add("playerReady", () => {
     mp.players.local.setCanRagdoll(true);
 
@@ -24,4 +27,11 @@ mp.events.add("playerReady", () => {
     mp.game.player.setVehicleDamageModifier(0.1);
 
     mp.game.weapon.unequipEmptyWeapons = false;
+});
+
+mp.events.add("client::interaction:showMenu", async (data: any) => {
+    const response = await InteractionMenu.new(Utils.parseObject(data));
+
+    mp.console.logInfo(`Response is: ${response}`);
+    InteractionMenu.closeMenu();
 });
