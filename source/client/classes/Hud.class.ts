@@ -47,12 +47,14 @@ export class PlayerHud {
     //#region VEHICLE RELATED
 
     public playerEnterVehicle(vehicle: VehicleMp, seat: number) {
+        if (!mp.players.local.getVariable("loggedin")) return;
         if (seat !== -1) return;
         const vehicleClass = vehicle.getClass();
         if (vehicleClass === RageEnums.Vehicle.Classes.CYCLES) return;
         this.showVehicleSpeedometer(true);
     }
     public playerExitVehicle(vehicle: VehicleMp, seat: number) {
+        if (!mp.players.local.getVariable("loggedin")) return;
         const vehicleClass = vehicle.getClass();
         if (vehicleClass === RageEnums.Vehicle.Classes.CYCLES) return;
         this.showVehicleSpeedometer(false);
