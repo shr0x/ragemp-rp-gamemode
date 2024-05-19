@@ -31,8 +31,13 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "poop",
-    run: (player: PlayerMp) => {
-        player.call("client::needs:poop");
+    name: "giveweapon",
+    run: (player: PlayerMp, fulltext, weapon: string) => {
+        player.giveWeapon(mp.joaat(weapon), 1000);
     }
+});
+
+RAGERP.commands.add({
+    name: "getvar",
+    run: (player: PlayerMp) => {}
 });

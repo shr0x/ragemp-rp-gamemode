@@ -3,8 +3,11 @@ import EventManager from "../utils/EventManager.util";
 import HudStore from "store/Hud.store";
 
 export const InitHudEvents = (store: HudStore) => {
-    return useEffect(() => {
-        EventManager.addHandler("hud", "setInteraction", (data: any) => store.setInteractionMenu(data))
+    useEffect(() => {
+        EventManager.addHandler("hud", "setInteraction", (data: any) => store.setInteractionMenu(data));
+        EventManager.addHandler("hud", "setVehicleData", (data: any) => store.setVehicleData(data));
+
+        EventManager.stopAddingHandlers("hud");
         return () => EventManager.removeTargetHandlers("hud");
     }, [store]);
 };

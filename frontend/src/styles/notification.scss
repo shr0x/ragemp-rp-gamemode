@@ -1,6 +1,8 @@
+@import "./vars";
+
 :root {
     --toastify-color-light: #fff;
-    --toastify-color-dark: #121212;
+    --toastify-color-dark: #28272b;
     --toastify-color-info: #3498db;
     --toastify-color-success: #07bc0c;
     --toastify-color-warning: #f1c40f;
@@ -10,7 +12,7 @@
     --toastify-icon-color-success: var(--toastify-color-success);
     --toastify-icon-color-warning: var(--toastify-color-warning);
     --toastify-icon-color-error: var(--toastify-color-error);
-    --toastify-toast-width: 320px;
+    --toastify-toast-width: 290px;
     --toastify-toast-background: #fff;
     --toastify-toast-min-height: 64px;
     --toastify-toast-max-height: 800px;
@@ -65,7 +67,7 @@
 }
 
 .Toastify__toast-container--bottom-left {
-    bottom: 1em;
+    bottom: 20vh;
     left: 1em;
 }
 
@@ -115,9 +117,12 @@
     margin-bottom: 1rem;
     padding: 8px;
     border-radius: 4px;
+
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px 0 rgba(0, 0, 0, 0.05);
     display: -ms-flexbox;
     display: flex;
+
+
     -ms-flex-pack: justify;
     justify-content: space-between;
     max-height: var(--toastify-toast-max-height);

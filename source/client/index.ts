@@ -10,7 +10,6 @@ import "./clientevents/Player.event";
 import "./clientevents/Keybinds.event";
 //-----------------------------------------//
 import "./modules/GameData.module";
-import "./modules/Poop.module";
 //-----------------------------------------//
 import "./prototype/Player.prototype";
 //-----------------------------------------//

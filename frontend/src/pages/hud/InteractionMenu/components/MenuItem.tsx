@@ -40,7 +40,17 @@ const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onIte
                 onItemClick?.(event, index, propsData);
             }}
         >
-            <path d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius, gapAngle)} className={cx("base", { active })} />
+            <defs>
+                <linearGradient id="gradientActive" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="10%" style={{ stopColor: "#28272b", stopOpacity: 0.9 }} />
+                    <stop offset="100%" style={{ stopColor: "red", stopOpacity: 1 }} />
+                </linearGradient>
+            </defs>
+            <path
+                d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius, gapAngle)}
+                className={cx("base", { active })}
+                style={active ? { fill: "url(#gradientActive)" } : {}}
+            />
             <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} style={{ fontSize: "1.5vh" }}>
                 <div className={classNames("__rrm-content", active ? "__rrm-active" : undefined)}>{props.children}</div>
             </foreignObject>

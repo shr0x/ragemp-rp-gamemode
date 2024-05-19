@@ -1,5 +1,6 @@
 import * as maleClothes from "../json/maleTorso.json";
 import * as femaleClothes from "../json/femaleTorso.json";
+import { PlayerHud } from "./Hud.class";
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 
 const torsoDataMale: IClothesData = maleClothes;
@@ -7,9 +8,11 @@ const femaleTorsos: IClothesData = femaleClothes;
 class _Client {
     disabledKeys: number[] = [];
     onTickEvent: EventMp | null = null;
+    readonly hud: PlayerHud;
 
     constructor() {
         this.onTickEvent = new mp.Event("render", this.onTick.bind(this));
+        this.hud = new PlayerHud();
     }
 
     public disableKey(isMoveOrLookUp: boolean, key: number) {

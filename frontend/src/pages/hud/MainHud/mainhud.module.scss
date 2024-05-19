@@ -1,0 +1,193 @@
+@import "../../../styles/vars";
+
+.mainhud {
+
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 30vh;
+
+    .servername {
+        position: absolute;
+        right: 0vh;
+        top: 1vh;
+        width: 20vh;
+        font-size: 3vh;
+        font-family: 'Beast Duh';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border-radius: .5vh;
+        text-shadow: .1vh .1vh 2vh black;
+        background: $global-bg-transparent;
+    }
+
+    .playerInfo {
+        position: absolute;
+        right: 0vh;
+        top: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2vh;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5vh;
+        text-shadow: 0 0 1vh black;
+        font-weight: bold;
+        width: 20vh;
+        border-radius: .5vh;
+        background: $global-bg-transparent;
+
+        .id,
+        .ping,
+        .online {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 2.314814814814815vh;
+                height: 2.314814814814815vh;
+            }
+        }
+
+        .ping {}
+
+        .online {}
+
+
+
+    }
+
+    .stars {
+        position: absolute;
+        top: 7.5vh;
+        right: 0vh;
+        width: 20vh;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        gap: 0.5vh;
+
+        img {
+            width: 2.5vh;
+            height: 2.5vh;
+        }
+    }
+
+    .weaponInfo {
+        position: absolute;
+        top: 13vh;
+        right: 0vh;
+        width: 15vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        border-radius: .5vh;
+        background: $global-bg-transparent;
+
+        img {
+            width: 12vh;
+            height: 5vh;
+            transform: rotateY(180deg);
+
+        }
+
+
+        .ammodata {
+            position: relative;
+            bottom: .5vh;
+            background-color: #28272b;
+            border-radius: .5vh;
+            padding: .5vh;
+            font-family: $global-font;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 2vh;
+                height: 1.5vh;
+            }
+        }
+    }
+
+    .keybindGuide {
+        position: absolute;
+        right: 0vh;
+        top: 40vh;
+
+        width: 13vh;
+        display: flex;
+        flex-direction: column;
+        gap: .5vh;
+
+        .keybind {
+            display: flex;
+            align-items: center;
+
+            font-family: $global-font;
+            text-shadow: 0vh 0vh 1vh black;
+            font-size: 1.5vh;
+            border-radius: .5vh;
+
+            background: $global-bg-transparent;
+
+            .key {
+                background: #28272b;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 3vh;
+                height: 3vh;
+
+                margin-right: 1vh;
+                border: .3vh solid rgba(255, 0, 0, 0.534);
+                border-radius: .5vh;
+                padding: .5vh;
+            }
+        }
+
+    }
+
+    .speedo {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        animation: slide-left 0.3s ease-in forwards;
+
+        @keyframes slide-left {
+            0% {
+                bottom: -30vh;
+            }
+
+            100% {
+                bottom: 0;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            bottom: 2.5vh;
+            right: 2vh;
+            z-index: -1;
+            background: $global-bg-reverted;
+            box-shadow: 0vh 0vh 2vh black;
+            border-radius: 20vh;
+        }
+
+        svg {
+            width: 25vh;
+            height: 25vh;
+        }
+
+    }
+}

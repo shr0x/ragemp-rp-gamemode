@@ -1,13 +1,35 @@
 declare namespace RageShared {
     namespace Interfaces {
+        interface IPlayerData {
+            id: number;
+            ping: number;
+            wantedLevel: number;
+            weapondata: {
+                weapon: string;
+                ammo: number;
+                maxammo: number;
+            } | null;
+        }
+
+        interface IVehicleData {
+            isActive: boolean;
+            gear: number;
+            speed: number;
+            engine: boolean;
+            locked: boolean;
+            lights: boolean;
+            maxSpeed: number;
+        }
+
+        interface IMenuItems {
+            id: number;
+            text: string;
+            type: number;
+            subItems?: IMenuItems[];
+        }
         interface InteractionData {
             isActive: boolean;
-            items: {
-                id: number;
-                text: string;
-                type: number;
-                subItems?: IMenuItems[];
-            }[];
+            items: RageShared.Interfaces.IMenuItems[];
         }
 
         interface PlayerVars {
@@ -69,6 +91,7 @@ declare namespace RageShared {
                 lipstick: number;
             };
         }
+
         interface CefEventMap {
             notify: {
                 show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
@@ -78,6 +101,7 @@ declare namespace RageShared {
             };
             hud: {
                 setInteraction: RageShared.Interfaces.InteractionData;
+                setVehicleData: { key: keyof IVehicleData; data: any };
             };
             auth: {};
         }

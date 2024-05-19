@@ -1,3 +1,5 @@
+@import "../../../../styles/vars";
+
 :root {
 	--__reactRadialMenu__menu-bgColor: #fff;
 	--__reactRadialMenu__separator-color: red;
@@ -14,7 +16,7 @@
 /* --------------------------------- Themes --------------------------------- */
 
 .__rrm-dark {
-	--__reactRadialMenu__menu-bgColor: rgba(40, 40, 40, 0.80);
+	--__reactRadialMenu__menu-bgColor: #28272be3;
 	--__reactRadialMenu__separator-color: red;
 	--__reactRadialMenu__item-color: #fff;
 }
@@ -74,7 +76,7 @@
 }
 
 .__rrm-base.__rrm-active {
-	fill: red;
+	filter: blur(.2vh);
 	stroke: rgba(0, 0, 0, 0.24);
 }
 

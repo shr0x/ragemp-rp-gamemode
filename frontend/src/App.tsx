@@ -11,7 +11,6 @@ import CreatorStore from "./stores/CharCreator.store";
 import PlayerStore from "./stores/Player.store";
 import HudStore from "store/Hud.store";
 
-
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
 const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
 const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
@@ -44,7 +43,7 @@ const App: FC = () => {
         <div className="app">
             <Suspense>
                 <ToastContainer
-                    position="bottom-center"
+                    position="bottom-left"
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}
