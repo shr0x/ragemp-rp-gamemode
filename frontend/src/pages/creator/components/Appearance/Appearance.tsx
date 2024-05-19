@@ -7,11 +7,14 @@ import EventManager from "utils/EventManager.util";
 import { observer } from "mobx-react-lite";
 
 import style from "./appearance.module.scss";
-const headHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+// const headHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+
 const chestHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
 const beardHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"];
 
 const CreatorPlayerAppearance: React.FC<{ store: CreatorStore }> = ({ store }) => {
+    const [hairList, setHairList] = React.useState<number>(0);
+
     React.useEffect(() => {
         EventManager.emitClient("creator", "preview", "hair", 0, store.data.hair.head);
     }, [store.data.hair.head]);
@@ -32,6 +35,10 @@ const CreatorPlayerAppearance: React.FC<{ store: CreatorStore }> = ({ store }) =
         EventManager.emitClient("creator", "preview", "color", 4, store.data.color.beard);
     }, [store.data.color.beard]);
 
+    React.useEffect(() => {
+        setHairList(store.data.sex === 0 ? 82 : 86);
+    }, [store.data.sex]);
+
     return (
         <div className={style.appearance}>
             <div className={style.options}>
@@ -45,7 +52,7 @@ const CreatorPlayerAppearance: React.FC<{ store: CreatorStore }> = ({ store }) =
                             <div className={style.slider}>
                                 <input
                                     type="range"
-                                    max={headHairList.length - 1}
+                                    max={hairList}
                                     min={0}
                                     step={1}
                                     value={store.data.hair.head}

@@ -6,26 +6,26 @@ const defaultData = {
     parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
     hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
     face: {
-        noseWidth: 0, // 0
-        nosePeakHeight: 0, // 1
-        nosePeakLength: 0, // 2
-        noseBoneHeight: 0, // 3
-        nosePeakLowering: 0, // 4
-        noseBoneTwist: 0, // 5
-        eyebrowHeight: 0, // 6
-        eyebrowForward: 0, // 7
-        cheekboneHeight: 0, // 8
-        cheekboneWidth: 0, // 9
-        cheekWidth: 0, // 10
-        eyesWidth: 0, // 11
-        lips: 0, // 12
-        jawBoneWidth: 0, // 13
-        jawBoneBackLength: 0, // 14
-        ChimpBoneLowering: 0, // 15
-        ChimpBoneLength: 0, // 16
-        ChimpBoneWidth: 0, // 17
-        ChimpHole: 0, // 18
-        neckWidth: 0 // 19
+        0: 0, // 0 > noseWidth
+        1: 0, // 1 > nosePeakHeight
+        2: 0, // 2 > nosePeakLength
+        3: 0, // 3 > noseBoneHeight
+        4: 0, // 4 > nosePeakLowering
+        5: 0, // 5 > noseBoneTwist
+        6: 0, // 6 > eyebrowHeight
+        7: 0, // 7 > eyebrowForward
+        8: 0, // 8 > cheekboneHeight
+        9: 0, // 9 > cheekboneWidth
+        10: 0, // 10 > cheekWidth
+        11: 0, // 11 > eyesWidth
+        12: 0, // 12 > lips
+        13: 0, // 13 > jawBoneWidth
+        14: 0, // 14 > jawBoneBackLength
+        15: 0, // 15 > ChimpBoneLowering
+        16: 0, // 16 > ChimpBoneLength
+        17: 0, // 17 > ChimpBoneWidth
+        18: 0, // 18 > ChimpHole
+        19: 0 // 19 > neckWidth
     },
     color: { head: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0 }
 };

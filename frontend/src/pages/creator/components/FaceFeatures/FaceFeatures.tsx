@@ -54,47 +54,47 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
     const sendChangedData = useCallback((whichData: string) => {
         switch (whichData) {
             case "noseWidth":
-                return EventManager.emitClient("creator", "preview", "face", 0, store.data.face.noseWidth);
+                return EventManager.emitClient("creator", "preview", "face", 0, store.data.face[0]);
             case "nosePeakHeight":
-                return EventManager.emitClient("creator", "preview", "face", 1, store.data.face.nosePeakHeight);
+                return EventManager.emitClient("creator", "preview", "face", 1, store.data.face[1]);
             case "nosePeakLength":
-                return EventManager.emitClient("creator", "preview", "face", 2, store.data.face.nosePeakLength);
+                return EventManager.emitClient("creator", "preview", "face", 2, store.data.face[2]);
             case "noseBoneHeight":
-                return EventManager.emitClient("creator", "preview", "face", 3, store.data.face.noseBoneHeight);
+                return EventManager.emitClient("creator", "preview", "face", 3, store.data.face[3]);
             case "nosePeakLowering":
-                return EventManager.emitClient("creator", "preview", "face", 4, store.data.face.nosePeakLowering);
+                return EventManager.emitClient("creator", "preview", "face", 4, store.data.face[4]);
             case "noseBoneTwist":
-                return EventManager.emitClient("creator", "preview", "face", 5, store.data.face.noseBoneTwist);
+                return EventManager.emitClient("creator", "preview", "face", 5, store.data.face[5]);
+            case "eyebrowHeight":
+                return EventManager.emitClient("creator", "preview", "face", 6, store.data.face[6]);
+            case "eyebrowForward":
+                return EventManager.emitClient("creator", "preview", "face", 7, store.data.face[7]);
+            case "cheekboneHeight":
+                return EventManager.emitClient("creator", "preview", "face", 8, store.data.face[8]);
+            case "cheekboneWidth":
+                return EventManager.emitClient("creator", "preview", "face", 9, store.data.face[9]);
+            case "cheekWidth":
+                return EventManager.emitClient("creator", "preview", "face", 10, store.data.face[10]);
+            case "ChimpBoneLowering":
+                return EventManager.emitClient("creator", "preview", "face", 15, store.data.face[15]);
+            case "ChimpBoneLength":
+                return EventManager.emitClient("creator", "preview", "face", 16, store.data.face[16]);
+            case "ChimpBoneWidth":
+                return EventManager.emitClient("creator", "preview", "face", 17, store.data.face[17]);
+            case "ChimpHole":
+                return EventManager.emitClient("creator", "preview", "face", 18, store.data.face[18]);
+            case "eyesWidth":
+                return EventManager.emitClient("creator", "preview", "face", 11, store.data.face[11]);
+            case "lips":
+                return EventManager.emitClient("creator", "preview", "face", 12, store.data.face[12]);
+            case "jawBoneWidth":
+                return EventManager.emitClient("creator", "preview", "face", 13, store.data.face[13]);
+            case "jawBoneBackLength":
+                return EventManager.emitClient("creator", "preview", "face", 14, store.data.face[14]);
+            case "neckWidth":
+                return EventManager.emitClient("creator", "preview", "face", 19, store.data.face[19]);
             case "eyebrows":
                 return EventManager.emitClient("creator", "preview", "hair", 1, store.data.hair.eyebrows);
-            case "eyebrowHeight":
-                return EventManager.emitClient("creator", "preview", "face", 6, store.data.face.eyebrowHeight);
-            case "eyebrowForward":
-                return EventManager.emitClient("creator", "preview", "face", 7, store.data.face.eyebrowForward);
-            case "cheekboneHeight":
-                return EventManager.emitClient("creator", "preview", "face", 8, store.data.face.cheekboneHeight);
-            case "cheekboneWidth":
-                return EventManager.emitClient("creator", "preview", "face", 9, store.data.face.cheekboneWidth);
-            case "cheekWidth":
-                return EventManager.emitClient("creator", "preview", "face", 10, store.data.face.cheekWidth);
-            case "ChimpBoneLowering":
-                return EventManager.emitClient("creator", "preview", "face", 15, store.data.face.ChimpBoneLowering);
-            case "ChimpBoneLength":
-                return EventManager.emitClient("creator", "preview", "face", 16, store.data.face.ChimpBoneLength);
-            case "ChimpBoneWidth":
-                return EventManager.emitClient("creator", "preview", "face", 17, store.data.face.ChimpBoneWidth);
-            case "ChimpHole":
-                return EventManager.emitClient("creator", "preview", "face", 18, store.data.face.ChimpHole);
-            case "eyesWidth":
-                return EventManager.emitClient("creator", "preview", "face", 11, store.data.face.eyesWidth);
-            case "lips":
-                return EventManager.emitClient("creator", "preview", "face", 12, store.data.face.lips);
-            case "jawBoneWidth":
-                return EventManager.emitClient("creator", "preview", "face", 13, store.data.face.jawBoneWidth);
-            case "jawBoneBackLength":
-                return EventManager.emitClient("creator", "preview", "face", 14, store.data.face.jawBoneBackLength);
-            case "neckWidth":
-                return EventManager.emitClient("creator", "preview", "face", 19, store.data.face.neckWidth);
             default:
                 return;
         }
@@ -133,9 +133,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.noseWidth}
+                                            value={store.data.face[0]}
                                             onChange={(value) => {
-                                                store.data.face.noseWidth = Number(value.target.value);
+                                                store.data.face[0] = Number(value.target.value);
                                                 sendChangedData("noseWidth");
                                             }}
                                         />
@@ -150,9 +150,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.nosePeakHeight}
+                                            value={store.data.face[1]}
                                             onChange={(value) => {
-                                                store.data.face.nosePeakHeight = Number(value.target.value);
+                                                store.data.face[1] = Number(value.target.value);
                                                 sendChangedData("nosePeakHeight");
                                             }}
                                         />
@@ -167,9 +167,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.nosePeakLength}
+                                            value={store.data.face[2]}
                                             onChange={(value) => {
-                                                store.data.face.nosePeakLength = Number(value.target.value);
+                                                store.data.face[2] = Number(value.target.value);
                                                 sendChangedData("nosePeakLength");
                                             }}
                                         />
@@ -184,9 +184,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.noseBoneHeight}
+                                            value={store.data.face[3]}
                                             onChange={(value) => {
-                                                store.data.face.noseBoneHeight = Number(value.target.value);
+                                                store.data.face[3] = Number(value.target.value);
                                                 sendChangedData("noseBoneHeight");
                                             }}
                                         />
@@ -201,9 +201,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.nosePeakLowering}
+                                            value={store.data.face[4]}
                                             onChange={(value) => {
-                                                store.data.face.nosePeakLowering = Number(value.target.value);
+                                                store.data.face[4] = Number(value.target.value);
                                                 sendChangedData("nosePeakLowering");
                                             }}
                                         />
@@ -218,9 +218,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.noseBoneTwist}
+                                            value={store.data.face[5]}
                                             onChange={(value) => {
-                                                store.data.face.noseBoneTwist = Number(value.target.value);
+                                                store.data.face[5] = Number(value.target.value);
                                                 sendChangedData("noseBoneTwist");
                                             }}
                                         />
@@ -256,9 +256,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.eyebrowHeight}
+                                            value={store.data.face[6]}
                                             onChange={(value) => {
-                                                store.data.face.eyebrowHeight = Number(value.target.value);
+                                                store.data.face[6] = Number(value.target.value);
                                                 sendChangedData("eyebrowHeight");
                                             }}
                                         />
@@ -273,9 +273,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.eyebrowForward}
+                                            value={store.data.face[7]}
                                             onChange={(value) => {
-                                                store.data.face.eyebrowForward = Number(value.target.value);
+                                                store.data.face[7] = Number(value.target.value);
                                                 sendChangedData("eyebrowForward");
                                             }}
                                         />
@@ -317,9 +317,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.cheekboneHeight}
+                                            value={store.data.face[8]}
                                             onChange={(value) => {
-                                                store.data.face.cheekboneHeight = Number(value.target.value);
+                                                store.data.face[8] = Number(value.target.value);
                                                 sendChangedData("cheekboneHeight");
                                             }}
                                         />
@@ -334,9 +334,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.cheekboneWidth}
+                                            value={store.data.face[9]}
                                             onChange={(value) => {
-                                                store.data.face.cheekboneWidth = Number(value.target.value);
+                                                store.data.face[9] = Number(value.target.value);
                                                 sendChangedData("cheekboneWidth");
                                             }}
                                         />
@@ -354,9 +354,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.cheekWidth}
+                                            value={store.data.face[10]}
                                             onChange={(value) => {
-                                                store.data.face.cheekWidth = Number(value.target.value);
+                                                store.data.face[10] = Number(value.target.value);
                                                 sendChangedData("cheekWidth");
                                             }}
                                         />
@@ -374,9 +374,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.ChimpBoneLowering}
+                                            value={store.data.face[15]}
                                             onChange={(value) => {
-                                                store.data.face.ChimpBoneLowering = Number(value.target.value);
+                                                store.data.face[15] = Number(value.target.value);
                                                 sendChangedData("ChimpBoneLowering");
                                             }}
                                         />
@@ -391,9 +391,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.ChimpBoneLength}
+                                            value={store.data.face[16]}
                                             onChange={(value) => {
-                                                store.data.face.ChimpBoneLength = Number(value.target.value);
+                                                store.data.face[16] = Number(value.target.value);
                                                 sendChangedData("ChimpBoneLength");
                                             }}
                                         />
@@ -408,9 +408,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.ChimpBoneWidth}
+                                            value={store.data.face[17]}
                                             onChange={(value) => {
-                                                store.data.face.ChimpBoneWidth = Number(value.target.value);
+                                                store.data.face[17] = Number(value.target.value);
                                                 sendChangedData("ChimpBoneWidth");
                                             }}
                                         />
@@ -425,9 +425,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.ChimpHole}
+                                            value={store.data.face[18]}
                                             onChange={(value) => {
-                                                store.data.face.ChimpHole = Number(value.target.value);
+                                                store.data.face[18] = Number(value.target.value);
                                                 sendChangedData("ChimpHole");
                                             }}
                                         />
@@ -445,9 +445,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.eyesWidth}
+                                            value={store.data.face[11]}
                                             onChange={(value) => {
-                                                store.data.face.eyesWidth = Number(value.target.value);
+                                                store.data.face[11] = Number(value.target.value);
                                                 sendChangedData("eyesWidth");
                                             }}
                                         />
@@ -489,9 +489,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.lips}
+                                            value={store.data.face[12]}
                                             onChange={(value) => {
-                                                store.data.face.lips = Number(value.target.value);
+                                                store.data.face[12] = Number(value.target.value);
                                                 sendChangedData("lips");
                                             }}
                                         />
@@ -506,9 +506,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.jawBoneWidth}
+                                            value={store.data.face[13]}
                                             onChange={(value) => {
-                                                store.data.face.jawBoneWidth = Number(value.target.value);
+                                                store.data.face[13] = Number(value.target.value);
                                                 sendChangedData("jawBoneWidth");
                                             }}
                                         />
@@ -523,9 +523,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.jawBoneBackLength}
+                                            value={store.data.face[14]}
                                             onChange={(value) => {
-                                                store.data.face.jawBoneBackLength = Number(value.target.value);
+                                                store.data.face[14] = Number(value.target.value);
                                                 sendChangedData("jawBoneBackLength");
                                             }}
                                         />
@@ -540,9 +540,9 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                                             type="range"
                                             max={100}
                                             min={-100}
-                                            value={store.data.face.neckWidth}
+                                            value={store.data.face[19]}
                                             onChange={(value) => {
-                                                store.data.face.neckWidth = Number(value.target.value);
+                                                store.data.face[19] = Number(value.target.value);
                                                 sendChangedData("neckWidth");
                                             }}
                                         />

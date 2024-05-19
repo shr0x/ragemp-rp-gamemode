@@ -39,29 +39,26 @@ declare namespace RageShared {
         }
 
         interface CreatorFace {
-            noseWidth: number;
-            nosePeakHeight: number;
-            nosePeakLength: number;
-            noseBoneHeight: number;
-            nosePeakLowering: number;
-            noseBoneTwist: number;
-            eyebrowHeight: number;
-            eyebrowForward: number;
-            cheekboneHeight: number;
-            cheekboneWidth: number;
-            cheekWidth: number;
-            eyesWidth: number;
-            lips: number;
-            jawBoneWidth: number;
-            jawBoneBackLength: number;
-            ChimpBoneLowering: number;
-            ChimpBoneLength: number;
-            ChimpBoneWidth: number;
-            ChimpHole: number;
-            neckWidth: number;
-            eyeMakeup: number;
-            faceMakeup: number;
-            lipstickID: number;
+            0: number;
+            1: number;
+            2: number;
+            3: number;
+            4: number;
+            5: number;
+            6: number;
+            7: number;
+            8: number;
+            9: number;
+            10: number;
+            11: number;
+            12: number;
+            13: number;
+            14: number;
+            15: number;
+            16: number;
+            17: number;
+            18: number;
+            19: number;
         }
         interface CreatorData {
             sex: number;
@@ -86,8 +83,6 @@ declare namespace RageShared {
                 eyes: number;
                 chest: number;
                 beard: number;
-                eyeMakeup: number;
-                faceMakeup: number;
                 lipstick: number;
             };
         }

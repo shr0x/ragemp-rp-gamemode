@@ -33,14 +33,11 @@ export class CharacterEntity {
             ChimpBoneLength: 0,
             ChimpBoneWidth: 0,
             ChimpHole: 0,
-            neckWidth: 0,
-            eyeMakeup: -1,
-            faceMakeup: -1,
-            lipstickID: 0
+            neckWidth: 0
         },
         parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
         hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
-        color: { head: 0, head_secondary: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, eyeMakeup: 0, faceMakeup: 0, lipstick: 0 }
+        color: { head: 0, head_secondary: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, lipstick: 0 }
     };
 
     @Column({ type: "varchar", length: 32 })
@@ -71,8 +68,6 @@ export class CharacterEntity {
             player.setHeadOverlay(1, [data.hair.beard, 0, 1, 1]);
             player.setHeadOverlay(10, [data.hair.chest, 0, 1, 1]);
         }
-
-        player.setHeadOverlay(8, [typeof data.face.lipstickID === "undefined" ? -1 : data.face.lipstickID ?? -1, 0, data.color.lipstick ?? 0, data.color.lipstick ?? 0]);
 
         player.eyeColor = data.color.eyes;
         player.setClothes(2, data.hair.head, 0, 0);
