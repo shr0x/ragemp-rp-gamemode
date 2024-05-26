@@ -1,17 +1,7 @@
 /**
- * Type representing a synchronous key action.
- */
-type KeyAction = () => void;
-
-/**
- * Type representing an asynchronous key action.
- */
-type KeyActionAsync = () => Promise<void>;
-
-/**
  * Type representing either a synchronous or asynchronous key action.
  */
-type KeybindType = KeyAction | KeyActionAsync;
+type KeybindType = () => void | Promise<void>;
 
 /**
  * Interface representing a keybind configuration.
