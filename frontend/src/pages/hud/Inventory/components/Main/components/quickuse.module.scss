@@ -1,0 +1,90 @@
+@import "../../../../../../styles/vars.scss";
+
+.quickuse {
+    width: 43.814815vh;
+    overflow: hidden;
+
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0.4629629629629629vh 0.9259259259259258vh;
+        background: $global-color;
+        text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+        box-shadow: -1.3888888888888888vh 0.4629629629629629vh 0.9259259259259258vh #00000057;
+
+        border-top-left-radius: .5vh;
+        border-top-right-radius: .5vh;
+
+        .title {
+            margin-right: 0.9259259259259258vh;
+            font-size: 1.5vh;
+            font-family: $global-font;
+            text-transform: uppercase;
+        }
+
+
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.3888888888888888vh;
+
+        background: rgba(0, 0, 0, 0.541);
+
+        .cell {
+            position: relative;
+            width: 5.666666666666667vh;
+            height: 5.666666666666667vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: $global-color;
+            border: 0.18518518518518517vh solid grey;
+            border-radius: 1vh;
+
+            text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+
+
+
+            .image {
+                position: absolute;
+                width: 70%;
+                height: 100%;
+
+                pointer-events: none;
+            }
+
+            .level {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
+                border-radius: .5vh;
+
+                width: 100%;
+                height: 100%;
+
+                pointer-events: none;
+            }
+
+            .id {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 50%);
+                font-family: $global-font;
+                pointer-events: none;
+            }
+        }
+    }
+}
+
+.active {
+    border: 0.18518518518518517vh solid #ffffff !important;
+}

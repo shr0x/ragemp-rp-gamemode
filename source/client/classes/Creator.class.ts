@@ -1,64 +1,19 @@
 import { femaleHairOverlays, genderPreset, maleHairOverlays } from "../assets/Creator.assets";
-import Camera from "./Camera.class";
 import { Client } from "./Client.class";
 import { Utils } from "../../shared/Utils.module";
+import { Camera } from "./Camera.class";
 
 let taskInterval: NodeJS.Timeout | null = null;
 
 type TCreatorCamera = Record<string, { coords: Vector3; fov: number; zpos: number }>;
-type FaceValue = Record<number, keyof RageShared.Interfaces.CreatorFace>;
 
 const creatorData: RageShared.Interfaces.CreatorData = {
     sex: 0,
     name: { firstname: "", lastname: "" },
-    parents: {
-        father: 0,
-        mother: 0,
-        leatherMix: 0,
-        similarity: 0
-    },
-    hair: {
-        head: 0,
-        eyebrows: 0,
-        chest: 0,
-        beard: 0
-    },
-    face: {
-        noseWidth: 0, // 0
-        nosePeakHeight: 0, // 1
-        nosePeakLength: 0, // 2
-        noseBoneHeight: 0, // 3
-        nosePeakLowering: 0, // 4
-        noseBoneTwist: 0, // 5
-        eyebrowHeight: 0, // 6
-        eyebrowForward: 0, // 7
-        cheekboneHeight: 0, // 8
-        cheekboneWidth: 0, // 9
-        cheekWidth: 0, // 10
-        eyesWidth: 0, // 11
-        lips: 0, // 12
-        jawBoneWidth: 0, // 13
-        jawBoneBackLength: 0, // 14
-        ChimpBoneLowering: 0, // 15
-        ChimpBoneLength: 0, // 16
-        ChimpBoneWidth: 0, // 17
-        ChimpHole: 0, // 18
-        neckWidth: 0, // 19
-        eyeMakeup: 0,
-        faceMakeup: 0,
-        lipstickID: 0
-    },
-    color: {
-        head: 0,
-        eyebrows: 0,
-        eyes: 0,
-        chest: 0,
-        beard: 0,
-        head_secondary: 0,
-        eyeMakeup: 0,
-        faceMakeup: 0,
-        lipstick: 0
-    }
+    parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
+    hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
+    face: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0 },
+    color: { head: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, head_secondary: 0, lipstick: 0 }
 };
 
 const faceList: Record<number, number[]> = {
@@ -164,26 +119,9 @@ class ModelCreator {
             this.chosenData.sex = randomData.sex;
 
             //Face features
-            this.chosenData.face.noseWidth = randomData.face.noseWidth;
-            this.chosenData.face.nosePeakHeight = randomData.face.nosePeakHeight;
-            this.chosenData.face.nosePeakLength = randomData.face.nosePeakLength;
-            this.chosenData.face.noseBoneHeight = randomData.face.noseBoneHeight;
-            this.chosenData.face.nosePeakLowering = randomData.face.nosePeakLowering;
-            this.chosenData.face.noseBoneTwist = randomData.face.noseBoneTwist;
-            this.chosenData.face.eyebrowHeight = randomData.face.eyebrowHeight;
-            this.chosenData.face.eyebrowForward = randomData.face.eyebrowForward;
-            this.chosenData.face.cheekboneHeight = randomData.face.cheekboneHeight;
-            this.chosenData.face.cheekboneWidth = randomData.face.cheekboneWidth;
-            this.chosenData.face.cheekWidth = randomData.face.cheekWidth;
-            this.chosenData.face.eyesWidth = randomData.face.eyesWidth;
-            this.chosenData.face.lips = randomData.face.lips;
-            this.chosenData.face.jawBoneWidth = randomData.face.jawBoneWidth;
-            this.chosenData.face.jawBoneBackLength = randomData.face.jawBoneBackLength;
-            this.chosenData.face.ChimpBoneLowering = randomData.face.ChimpBoneLowering;
-            this.chosenData.face.ChimpBoneLength = randomData.face.ChimpBoneLength;
-            this.chosenData.face.ChimpBoneWidth = randomData.face.ChimpBoneWidth;
-            this.chosenData.face.ChimpHole = randomData.face.ChimpHole;
-            this.chosenData.face.neckWidth = randomData.face.neckWidth;
+            for (let i = 0; i < 20; i++) {
+                this.chosenData.face[i as keyof RageShared.Interfaces.CreatorFace] = randomData.face[i as keyof RageShared.Interfaces.CreatorFace];
+            }
 
             //Parents
             this.chosenData.parents.father = randomData.parents.father;
@@ -212,28 +150,32 @@ class ModelCreator {
 
     update() {
         mp.players.local.setHeadBlendData(
-            this.chosenData.parents.mother, // Мама
-            this.chosenData.parents.father, // Папа
-            4, // Смесь лиц
-            this.chosenData.parents.mother, // Мама
+            this.chosenData.parents.mother,
             this.chosenData.parents.father,
-            0, // Родитель
-            (this.chosenData.parents.similarity / 100) * -1, // Схожесть с лицами
-            (this.chosenData.parents.leatherMix / 100) * -1, // Схожесть с родителями
-            0, // Схожесть с ???
-            false // Родители?
+            4,
+            this.chosenData.parents.mother,
+            this.chosenData.parents.father,
+            0,
+            (this.chosenData.parents.similarity / 100) * -1,
+            (this.chosenData.parents.leatherMix / 100) * -1,
+            0,
+            false
         );
 
         if (mp.players.local.model === mp.game.joaat("mp_m_freemode_01")) {
-            mp.players.local.addDecorationFromHashes(
-                mp.game.gameplay.getHashKey(maleHairOverlays[this.chosenData.hair.head].collection),
-                mp.game.gameplay.getHashKey(maleHairOverlays[this.chosenData.hair.head].overlay)
-            );
+            if (maleHairOverlays[this.chosenData.hair.head] && maleHairOverlays[this.chosenData.hair.head].collection && maleHairOverlays[this.chosenData.hair.head].overlay) {
+                mp.players.local.addDecorationFromHashes(
+                    mp.game.gameplay.getHashKey(maleHairOverlays[this.chosenData.hair.head].collection),
+                    mp.game.gameplay.getHashKey(maleHairOverlays[this.chosenData.hair.head].overlay)
+                );
+            }
         } else {
-            mp.players.local.addDecorationFromHashes(
-                mp.game.gameplay.getHashKey(femaleHairOverlays[this.chosenData.hair.head].collection),
-                mp.game.gameplay.getHashKey(femaleHairOverlays[this.chosenData.hair.head].overlay)
-            );
+            if (femaleHairOverlays[this.chosenData.hair.head] && femaleHairOverlays[this.chosenData.hair.head].collection && femaleHairOverlays[this.chosenData.hair.head].overlay) {
+                mp.players.local.addDecorationFromHashes(
+                    mp.game.gameplay.getHashKey(femaleHairOverlays[this.chosenData.hair.head].collection),
+                    mp.game.gameplay.getHashKey(femaleHairOverlays[this.chosenData.hair.head].overlay)
+                );
+            }
         }
         mp.players.local.setComponentVariation(2, this.chosenData.hair.head, 0, 0);
         mp.players.local.setHairColor(this.chosenData.color.head, 0);
@@ -269,11 +211,11 @@ class ModelCreator {
                 mp.players.local.clearAllProps();
             }
             if (this.chosenData.sex === 1) {
-                mp.players.local.setComponentVariation(11, 15, 0, 2); // Куртка
-                mp.players.local.setComponentVariation(3, 15, 0, 2); // Торс
-                mp.players.local.setComponentVariation(8, -1, 0, 2); // undershirt
-                mp.players.local.setComponentVariation(4, 15, 0, 2); // Штаны
-                mp.players.local.setComponentVariation(6, 35, 0, 2); // Ботинки
+                mp.players.local.setComponentVariation(11, 15, 0, 2);
+                mp.players.local.setComponentVariation(3, 15, 0, 2);
+                mp.players.local.setComponentVariation(8, -1, 0, 2);
+                mp.players.local.setComponentVariation(4, 15, 0, 2);
+                mp.players.local.setComponentVariation(6, 35, 0, 2);
                 mp.players.local.clearAllProps();
             }
         } catch (e: unknown) {
@@ -372,42 +314,15 @@ class ModelCreator {
                 return;
             }
             case "face": {
-                // let faceData = this.chosenData.face as { [ key: number ]: number };
                 if (typeof firstData === "undefined" || typeof secondData === "undefined") return;
-
-                // faceData[ firstData ] = secondData;
-
-                const faceFeatures: FaceValue = {
-                    0: "noseWidth",
-                    1: "nosePeakHeight",
-                    2: "nosePeakLength",
-                    3: "noseBoneHeight",
-                    4: "nosePeakLowering",
-                    5: "noseBoneTwist",
-                    6: "eyebrowHeight",
-                    7: "eyebrowForward",
-                    8: "cheekboneHeight",
-                    9: "cheekboneWidth",
-                    10: "cheekWidth",
-                    11: "eyesWidth",
-                    12: "lips",
-                    13: "jawBoneWidth",
-                    14: "jawBoneBackLength",
-                    15: "ChimpBoneLowering",
-                    16: "ChimpBoneLength",
-                    17: "ChimpBoneWidth",
-                    18: "ChimpHole",
-                    19: "neckWidth"
-                };
-                this.chosenData.face[faceFeatures[firstData]] = secondData;
+                const facefeatureData: keyof RageShared.Interfaces.CreatorFace = firstData;
+                this.chosenData.face[facefeatureData] = secondData;
                 mp.players.local.setFaceFeature(firstData, secondData / 100);
                 return;
             }
             default:
                 return;
         }
-
-        // else dataNew[ name ][ dataSkin[ name ][ firstData ] ] = secondData;
     }
     //#endregion
 }

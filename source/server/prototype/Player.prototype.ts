@@ -8,3 +8,7 @@ mp.Player.prototype.getAdminLevel = function (): number {
     if (!this || !mp.players.exists(this) || !this.character) return 0;
     return this.character.adminlevel;
 };
+
+mp.Player.prototype.giveWeaponEx = function (this: PlayerMp, weapon: number, totalAmmo: number, ammoInClip?: number) {
+    this.call("client::weapon:giveWeapon", [weapon, totalAmmo, ammoInClip]);
+};

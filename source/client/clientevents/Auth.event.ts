@@ -1,6 +1,6 @@
 import { Utils } from "../../shared/Utils.module";
-import BrowserClass from "../classes/Browser.class";
-import Camera from "../classes/Camera.class";
+import { Camera } from "../classes/Camera.class";
+import { Browser } from "../classes/Browser.class";
 
 const loginCameras = [
     { from: new mp.Vector3(-392.0152587890625, -2195.9765625, 204.3353729248047), to: new mp.Vector3(-126.2790298461914, -1274.2332763671875, 173.96531677246094), rot: 132.75473022460938 },
@@ -12,7 +12,7 @@ function showLoginScreen() {
     const camera = Utils.getRandomFromArray(loginCameras);
 
     Camera.createLoginCamera(camera.from, camera.to, camera.rot);
-    BrowserClass.processEvent("cef::system:setPage", "auth");
+    Browser.processEvent("cef::system:setPage", "auth");
     mp.gui.cursor.show(true, true);
 }
 
@@ -21,7 +21,7 @@ function destroyLoginCamera() {
 }
 
 mp.events.add("browserDomReady", (browser) => {
-    if (browser === BrowserClass.mainUI) {
+    if (browser === Browser.mainUI) {
         mp.console.logWarning("Browser dom ready!");
         showLoginScreen();
     }

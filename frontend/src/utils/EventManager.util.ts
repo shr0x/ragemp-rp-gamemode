@@ -70,7 +70,7 @@ class EventManager {
         const event = `server::${target}:${name}`;
         const sendData = { event, args };
         mp.trigger("client::eventManager::emitServer", JSON.stringify(sendData));
-        if (isDev) console.log(`Emitted: ${event}\n`, ...args);
+        if (isDev) console.log(`Emitted: ${event}\n`, JSON.stringify(args));
     }
 
     static emitClient(target: string, name: string, ...args: any[]): void {

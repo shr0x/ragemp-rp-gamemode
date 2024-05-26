@@ -1,5 +1,5 @@
 import { weaponList } from "../assets/Weapons.assets";
-import Browser from "./Browser.class";
+import { Browser } from "./Browser.class";
 
 export class PlayerHud {
     onlinePlayersCounter: NodeJS.Timeout | null = null;
@@ -8,7 +8,7 @@ export class PlayerHud {
 
     constructor() {
         this.onlinePlayersCounter = setInterval(this.setOnlinePlayers.bind(this), 5_000);
-        this.weaponInterval = setInterval(this.trackPlayerWeapon.bind(this), 1_000);
+        this.weaponInterval = setInterval(this.trackPlayerWeapon.bind(this), 100);
         this.setPlayerData("id", mp.players.local.remoteId);
 
         mp.events.add("playerEnterVehicle", this.playerEnterVehicle.bind(this));
@@ -17,10 +17,14 @@ export class PlayerHud {
 
     //#region PLAYER RELATED
     public trackPlayerWeapon() {
-        if (!mp.players.local.getVariable("loggedin")) return;
+        if (!mp.players.local.getVariable("loggedin") || mp.players.local.isJumping()) return;
+
+        /*
+         * Tracks weapon data and sends them to CEF
+         */
         const { handle, weapon } = mp.players.local;
         const weaponAmmo = mp.players.local.getAmmoInClip(weapon);
-        const maxammo = mp.game.weapon.getMaxAmmo(handle, weapon);
+        const maxammo = mp.game.weapon.getAmmoInPed(handle, weapon) - weaponAmmo;
         const weaponName = weaponList[weapon];
         this.setPlayerData("weapondata", { weapon: weaponName, ammo: weaponAmmo, maxammo: maxammo });
     }

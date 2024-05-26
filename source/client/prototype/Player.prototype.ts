@@ -1,4 +1,3 @@
-import Browser from "../classes/Browser.class";
 let weaponWheel: any;
 let pauseButton: any;
 // Natives

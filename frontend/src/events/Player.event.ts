@@ -7,6 +7,7 @@ export const InitPlayerEvents = (store: PlayerStore) => {
         EventManager.addHandler("player", "setCharacters", (data: any[]) => store.setCharacters(data));
         EventManager.addHandler("player", "setNowPlaying", (amount: number) => store.setNowPlaying(amount));
         EventManager.addHandler("player", "setPlayerData", (data: any, key: any) => store.setData(data, key));
+        EventManager.addHandler("player", "setKeybindData", (keys: { [key: string]: string }) => store.setKeybindData(keys));
 
         EventManager.stopAddingHandlers("player");
         return () => EventManager.removeTargetHandlers("player");

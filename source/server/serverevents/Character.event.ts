@@ -1,5 +1,8 @@
 import { RAGERP } from "../api";
 import { CharacterEntity } from "../database/entity/Character.entity";
+import { InventoryItemsEntity } from "../database/entity/Inventory.entity";
+import { inventorydataPresset } from "../modules/inventory/Assets.module";
+import { Inventory } from "../modules/inventory/Core.class";
 
 /**
  * When a player changes navigation in character creator, example going from general data to appearance
@@ -18,7 +21,7 @@ RAGERP.cef.register("creator", "navigation", async (player: PlayerMp, name: stri
 RAGERP.cef.register("character", "select", async (player: PlayerMp, data: string) => {
     const id = JSON.parse(data);
 
-    const character = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { id } });
+    const character = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { id }, relations: ["items"] });
     if (!character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "An error occurred selecting your character.");
 
     player.character = character;
@@ -72,6 +75,17 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
         z: 26.901586532592773,
         heading: -118.70496368408203
     };
+
+    const inv = inventorydataPresset;
+    characterData.inventory = new Inventory(player, inv.clothes, inv.pockets, inv.quickUse);
+
+    const inventoryItems = new InventoryItemsEntity();
+
+    inventoryItems.clothes = characterData.inventory.items.clothes;
+    inventoryItems.pockets = characterData.inventory.items.pockets;
+    inventoryItems.quickUse = characterData.inventory.quickUse;
+    inventoryItems.character = characterData;
+    characterData.items = inventoryItems;
 
     const result = await RAGERP.database.getRepository(CharacterEntity).save(characterData);
     if (!result) return;

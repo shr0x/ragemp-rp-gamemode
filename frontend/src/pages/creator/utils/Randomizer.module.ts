@@ -28,28 +28,12 @@ export const setRandomOptions = (store: CreatorStore) => {
     store.data.parents.leatherMix = getRandom(-100, 100);
     store.data.parents.similarity = getRandom(-100, 100);
 
-    store.data.face.noseWidth = getRandom(-100, 100);
-    store.data.face.nosePeakHeight = getRandom(-100, 100);
-    store.data.face.nosePeakLength = getRandom(-100, 100);
-    store.data.face.noseBoneHeight = getRandom(-100, 100);
-    store.data.face.nosePeakLowering = getRandom(-100, 100);
-    store.data.face.noseBoneTwist = getRandom(0, 100);
-    store.data.face.eyebrowHeight = getRandom(-100, 100);
-    store.data.face.eyebrowForward = getRandom(-100, 100);
-    store.data.face.cheekboneHeight = getRandom(-100, 100);
-    store.data.face.cheekboneWidth = getRandom(-100, 100);
-    store.data.face.cheekWidth = getRandom(-100, 100);
-    store.data.face.eyesWidth = getRandom(-100, 100);
-    store.data.face.lips = getRandom(-100, 100);
-    store.data.face.jawBoneWidth = getRandom(-100, 100);
-    store.data.face.jawBoneBackLength = getRandom(-100, 100);
-    store.data.face.ChimpBoneLowering = getRandom(-100, 100);
-    store.data.face.ChimpBoneLength = getRandom(-100, 100);
-    store.data.face.ChimpBoneWidth = getRandom(-100, 100);
-    store.data.face.ChimpHole = getRandom(-100, 100);
-    store.data.face.neckWidth = getRandom(-100, 100);
+    for (let i = 0; i < 20; i++) {
+        //@ts-ignore
+        store.data.face[i] = getRandom(-100, 100);
+    }
 
-    store.data.color.head = getRandom(0, 18);
+    store.data.color.head = getRandom(0, store.data.sex === 0 ? 82 : 86);
     store.data.color.eyebrows = getRandom(0, 18);
     store.data.color.eyes = eyesRandom();
 

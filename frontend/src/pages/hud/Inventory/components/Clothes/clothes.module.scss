@@ -1,0 +1,44 @@
+.inventoryclothes {
+	position: absolute;
+	top: 15vh;
+	display: grid;
+	grid-template-columns: repeat(2, 0fr);
+	grid-template-rows: repeat(7, 0fr);
+	justify-content: space-between;
+
+	width: 40vh;
+
+	.active {
+		border: 0.18518518518518517vh solid #ffffff !important;
+	}
+
+	.slot {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1.3888888888888888vh;
+
+
+		.content {
+			width: 4.82962962962963vh;
+			height: 4.82962962962963vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 4vh;
+
+			background-color: #00000057;
+
+			border: .2vh solid var(--color);
+			box-shadow: 0 0 10px var(--color);
+
+			.icon {
+				height: 80%;
+				width: 80%;
+
+				pointer-events: none;
+			}
+		}
+	}
+
+
+}

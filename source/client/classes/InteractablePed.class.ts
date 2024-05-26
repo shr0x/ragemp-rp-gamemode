@@ -1,5 +1,5 @@
 import { Utils } from "../../shared/Utils.module";
-import Camera from "./Camera.class";
+import { Camera } from "./Camera.class";
 import { Client } from "./Client.class";
 
 type onKeyPressAsync = () => Promise<void>;

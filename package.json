@@ -1,7 +1,7 @@
 {
-	"name": "shr0x-framework",
-	"version": "0.5.0",
-	"description": "A RageMP roleplay framework",
+	"name": "ragemp-rp-gamemode",
+	"version": "0.0.4",
+	"description": "A RAGEMP roleplay gamemode",
 	"main": "index.js",
 	"homepage": ".",
 	"scripts": {

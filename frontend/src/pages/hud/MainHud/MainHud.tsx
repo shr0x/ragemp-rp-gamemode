@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import HudStore from "store/Hud.store";
 import PlayerStore from "store/Player.store";

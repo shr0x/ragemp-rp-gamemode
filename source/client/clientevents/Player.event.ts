@@ -1,5 +1,5 @@
 import { Utils } from "../../shared/Utils.module";
-import { InteractionMenu } from "../classes/InteractMenu.class";
+import { Inventory } from "../classes/Inventory.class";
 
 mp.events.add("playerReady", () => {
     mp.players.local.setCanRagdoll(true);
@@ -27,4 +27,12 @@ mp.events.add("playerReady", () => {
     mp.game.player.setVehicleDamageModifier(0.1);
 
     mp.game.weapon.unequipEmptyWeapons = false;
+});
+
+mp.events.add("client::inventory:setVisible", async (enable) => {
+    enable ? await Inventory.open() : Inventory.close();
+});
+
+mp.events.add("client::weapon:giveWeapon", async (weapon: number, totalAmmo: number, ammoInClip?: number) => {
+    await Inventory.giveWeapon(weapon, totalAmmo, ammoInClip).catch((err) => Utils.clientDebug("An error occurred giving weapon to player " + mp.players.local.name));
 });

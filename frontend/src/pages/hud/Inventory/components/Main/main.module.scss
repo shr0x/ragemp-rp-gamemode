@@ -1,0 +1,103 @@
+@import '../../../../../styles/vars';
+
+.main {
+    padding-top: 5.555555555555555vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5.5555555556vh;
+
+    .title {
+        width: 39.81481481481481vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-family: $global-font;
+        font-size: 2.314814814814815vh;
+        text-transform: uppercase;
+        text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+        margin: -0.8333333333333333vh 0 3.2407407407407405vh 0;
+
+        .weight {
+            display: flex;
+            align-items: center;
+
+            transform: translateY(20%);
+
+            font-family: "TT Norms Medium", sans-serif;
+            font-size: 2.0370370370370368vh;
+            text-transform: lowercase;
+
+            .red {
+                color: #FF4E4E;
+                text-shadow: 0vh 0vh 0.5555555555555555vh #FF4E4E;
+            }
+
+            &::before {
+                content: '';
+                margin-right: 0.8333333333333333vh;
+
+                width: 2.222222222222222vh;
+                height: 2.4074074074074074vh;
+
+                background: url(../../../../../assets/images/hud/inventory/weightIcon.svg) no-repeat;
+                background-size: cover;
+
+                filter: drop-shadow(0vh 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75));
+            }
+
+            & span {
+                margin-top: auto;
+                font-size: 1.2037037037037037vh;
+            }
+        }
+    }
+
+    .iteminfo {
+        height: 9.25925925925926vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2.314814814814815vh;
+        background: linear-gradient(45deg, #28272b, transparent);
+        border-radius: 1vh;
+        transition: opacity .5s;
+
+
+        .image {
+            width: 7.4074074074074066vh;
+            max-height: 9.25925925925926vh;
+        }
+
+        .info {
+            width: 25.925925925925924vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .name,
+            .level {
+                font-family: Arial, Helvetica, sans-serif;
+                text-transform: uppercase;
+                font-size: 1.2037037037037037vh;
+            }
+
+            .name {
+                text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+                margin-bottom: 0.9259259259259258vh;
+            }
+
+            .level {
+                margin-bottom: 0.9259259259259258vh;
+            }
+
+            .description {
+                text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+                font-family: Arial, Helvetica, sans-serif;
+
+            }
+        }
+    }
+
+
+}

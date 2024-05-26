@@ -1,4 +1,4 @@
-import Browser from "../classes/Browser.class";
+import { Browser } from "../classes/Browser.class";
 import { InteractionMenu } from "../classes/InteractMenu.class";
 import { current_object } from "./Interact.event";
 
