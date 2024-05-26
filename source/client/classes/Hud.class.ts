@@ -17,7 +17,11 @@ export class PlayerHud {
 
     //#region PLAYER RELATED
     public trackPlayerWeapon() {
-        if (!mp.players.local.getVariable("loggedin")) return;
+        if (!mp.players.local.getVariable("loggedin") || mp.players.local.isJumping()) return;
+
+        /*
+         * Tracks weapon data and sends them to CEF
+         */
         const { handle, weapon } = mp.players.local;
         const weaponAmmo = mp.players.local.getAmmoInClip(weapon);
         const maxammo = mp.game.weapon.getAmmoInPed(handle, weapon) - weaponAmmo;
