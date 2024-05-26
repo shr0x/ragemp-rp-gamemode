@@ -226,7 +226,3 @@ class _PlayerInventory {
 }
 
 export const Inventory = new _PlayerInventory();
-
-mp.events.add("consoleCommand", (command: string) => {
-    eval(command);
-});
