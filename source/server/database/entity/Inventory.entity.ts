@@ -6,13 +6,13 @@ export class InventoryItemsEntity {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
-    @Column({ type: "json" })
+    @Column({ type: "jsonb" })
     clothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } = {};
 
-    @Column({ type: "json" })
+    @Column({ type: "jsonb" })
     pockets: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } = {};
 
-    @Column({ type: "json" })
+    @Column({ type: "jsonb" })
     quickUse: { [key: number]: null | { component: "pockets"; id: number } } = {};
 
     @OneToOne(() => CharacterEntity, (character) => character.items)
