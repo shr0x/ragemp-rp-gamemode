@@ -12,8 +12,9 @@ mp.events.add("render", () => {
         Client.hud.setSpeedometerData("gear", mp.players.local.vehicle.gear);
     }
     /**
-     * Disables weapon wheel selection
+     * Weapon related actions
      */
+    //Disables weapon wheel selection
     mp.game.controls.disableControlAction(2, 37, true);
     mp.game.controls.disableControlAction(32, 157, true); // INPUT_SELECT_WEAPON_UNARMED
     mp.game.controls.disableControlAction(32, 158, true); // INPUT_SELECT_WEAPON_MELEE
@@ -24,6 +25,11 @@ mp.events.add("render", () => {
     mp.game.controls.disableControlAction(32, 163, true); // INPUT_SELECT_WEAPON_SNIPER
     mp.game.controls.disableControlAction(32, 164, true); // INPUT_SELECT_WEAPON_HEAVY
     mp.game.controls.disableControlAction(32, 165, true); // INPUT_SELECT_WEAPON_SPECIAL
+    //Hides current player's weapon HUD data (like ammo)
+    mp.game.hud.hideHudComponentThisFrame(2);
+    mp.game.hud.hideHudComponentThisFrame(20);
+
+    //------------------------------------------------------//
 });
 
 mp.events.add("playerEnterVehicle", (vehicle, seat) => {

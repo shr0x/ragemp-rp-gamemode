@@ -32,13 +32,6 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "giveweapon",
-    run: (player: PlayerMp, fulltext, weapon: string) => {
-        player.giveWeapon(mp.joaat(weapon), 1000);
-    }
-});
-
-RAGERP.commands.add({
     name: "getvar",
     run: (player: PlayerMp) => {}
 });
@@ -102,11 +95,28 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "giveweapon",
+    run: (player: PlayerMp, fulltext, weapon: RageShared.Enums.ITEM_TYPES) => {
+        if (!player.character || !player.character.inventory) return;
+        const itemData = player.character.inventory.addItem(weapon);
+        if (!itemData || itemData.typeCategory !== RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON) return;
+        player.showNotify(
+            itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
+            itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
+        );
+    }
+});
+
+RAGERP.commands.add({
     name: "giveitem",
     run: (player: PlayerMp, fulltext, item: RageShared.Enums.ITEM_TYPES, count: string) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addItem(item);
-        if (itemData) itemData.count = parseInt(count) ?? 0;
+
+        if (itemData) {
+            itemData.count = parseInt(count) ?? 0;
+            if (!itemData.options.includes("split") && itemData.count > 1) itemData.options.push("split");
+        }
         player.showNotify(
             itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
             itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
