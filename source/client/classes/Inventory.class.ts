@@ -14,6 +14,7 @@ class _PlayerInventory {
     constructor() {
         this.screenPedHandle = 0;
 
+        // temporary keybinds (subject to change)
         // Bind keys for inventory actions
         mp.keys.bind(27, false, this.close.bind(this)); // ESC to close inventory
 
@@ -117,14 +118,14 @@ class _PlayerInventory {
      * @param drawableid - The drawable ID.
      * @param textureid - The texture ID.
      */
-    public setPedProps = (propid: number, drawableid: number, textureid: number) => {
+    public setPedProps(propid: number, drawableid: number, textureid: number) {
         try {
             if (this.screenPedHandle === null) return;
             mp.game.invoke("0x93376B65A266EB5F", this.screenPedHandle, propid, drawableid, textureid, true);
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(`setPedProps || ${JSON.stringify(e.message)}`);
         }
-    };
+    }
 
     /**
      * Sets ped component variation.
@@ -134,14 +135,14 @@ class _PlayerInventory {
      * @param textureId - The texture ID.
      * @param paletteId - The palette ID.
      */
-    public setPedComponentVariation = (componentId: number, drawableId: number, textureId: number, paletteId: number) => {
+    public setPedComponentVariation(componentId: number, drawableId: number, textureId: number, paletteId: number) {
         try {
             if (this.screenPedHandle === null) return;
             mp.game.invoke("0x262B14F48D29DE80", this.screenPedHandle, componentId, drawableId, textureId, paletteId);
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(`setPedComponentVariation || ${JSON.stringify(e.message)}`);
         }
-    };
+    }
 
     /**
      * Toggles the fast slot.
@@ -157,7 +158,7 @@ class _PlayerInventory {
     /**
      * Opens the inventory.
      */
-    public open = async () => {
+    public async open() {
         if (ChatClass.chatOpen) return;
         try {
             this.isOpen = !this.isOpen;
@@ -171,12 +172,12 @@ class _PlayerInventory {
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(`OpenInventory:: >> ${e.message}`);
         }
-    };
+    }
 
     /**
      * Closes the inventory.
      */
-    public close = () => {
+    public close() {
         if (!this.isOpen) return;
         this.isOpen = !this.isOpen;
 
@@ -187,7 +188,7 @@ class _PlayerInventory {
         mp.events.callRemote("server:inventory:close");
         this.checkPlayersAround(false);
         return;
-    };
+    }
 
     /**
      * Gives a weapon to the player.
@@ -213,7 +214,7 @@ class _PlayerInventory {
     /**
      * Reloads the player's weapons.
      */
-    public reloadWeapons = () => {};
+    public reloadWeapons() {}
 
     /**
      * Handles player quit event.
