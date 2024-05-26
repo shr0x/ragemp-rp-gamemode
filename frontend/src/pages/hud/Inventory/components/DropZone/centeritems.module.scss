@@ -1,0 +1,31 @@
+@import '../../../../../styles/vars';
+
+.centerzone {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+
+	height: 100%;
+	width: 26.85185185185185vh;
+
+	padding: 0.9259259259259258vh 0;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: 0.09259259259259259vh;
+
+	opacity: 0;
+
+	transition: opacity .2s;
+
+
+}

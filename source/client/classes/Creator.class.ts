@@ -1,59 +1,19 @@
 import { femaleHairOverlays, genderPreset, maleHairOverlays } from "../assets/Creator.assets";
-import Camera from "./Camera.class";
 import { Client } from "./Client.class";
 import { Utils } from "../../shared/Utils.module";
+import { Camera } from "./Camera.class";
 
 let taskInterval: NodeJS.Timeout | null = null;
 
 type TCreatorCamera = Record<string, { coords: Vector3; fov: number; zpos: number }>;
-type FaceValue = Record<number, keyof RageShared.Interfaces.CreatorFace>;
 
 const creatorData: RageShared.Interfaces.CreatorData = {
     sex: 0,
     name: { firstname: "", lastname: "" },
-    parents: {
-        father: 0,
-        mother: 0,
-        leatherMix: 0,
-        similarity: 0
-    },
-    hair: {
-        head: 0,
-        eyebrows: 0,
-        chest: 0,
-        beard: 0
-    },
-    face: {
-        0: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0,
-        11: 0,
-        12: 0,
-        13: 0,
-        14: 0,
-        15: 0,
-        16: 0,
-        17: 0,
-        18: 0,
-        19: 0
-    },
-    color: {
-        head: 0,
-        eyebrows: 0,
-        eyes: 0,
-        chest: 0,
-        beard: 0,
-        head_secondary: 0,
-        lipstick: 0
-    }
+    parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
+    hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
+    face: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0 },
+    color: { head: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, head_secondary: 0, lipstick: 0 }
 };
 
 const faceList: Record<number, number[]> = {
@@ -354,9 +314,7 @@ class ModelCreator {
                 return;
             }
             case "face": {
-                // let faceData = this.chosenData.face as { [ key: number ]: number };
                 if (typeof firstData === "undefined" || typeof secondData === "undefined") return;
-
                 const facefeatureData: keyof RageShared.Interfaces.CreatorFace = firstData;
                 this.chosenData.face[facefeatureData] = secondData;
                 mp.players.local.setFaceFeature(firstData, secondData / 100);
@@ -365,8 +323,6 @@ class ModelCreator {
             default:
                 return;
         }
-
-        // else dataNew[ name ][ dataSkin[ name ][ firstData ] ] = secondData;
     }
     //#endregion
 }

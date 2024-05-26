@@ -11,6 +11,7 @@ export interface ICharacters {
 
 interface IPlayerData {
     id: number;
+    gender: number;
     ping: number;
     weapondata: {
         weapon: string;
@@ -21,10 +22,13 @@ interface IPlayerData {
 }
 
 export default class PlayerStore {
-    @observable nowPlaying: number = 0;
+    @observable
+    nowPlaying: number = 0;
 
-    @observable data: IPlayerData = observable.object({
+    @observable
+    data: IPlayerData = observable.object({
         id: 3000,
+        gender: 0,
         ping: 47,
         weapondata: {
             ammo: 30,
@@ -34,14 +38,16 @@ export default class PlayerStore {
         wantedLevel: 5
     });
 
-    @observable keybindGuide: { [key: string]: string } = {
+    @observable
+    keybindGuide: { [key: string]: string } = {
         E: "Inventory",
         B: "Main Menu",
         C: "Voice Chat",
         D: "Interaction"
     };
 
-    @observable characters: ICharacters[] = observable.array([
+    @observable
+    characters: ICharacters[] = observable.array([
         // { type: 1, bank: 2322, id: 0, lastlogin: "12/12/2024", level: 233, money: 232, name: "Daddyss dev" },
         // { type: 1, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
         // { type: 0, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" }
@@ -51,15 +57,23 @@ export default class PlayerStore {
         makeObservable(this);
     }
 
-    @action.bound setCharacters(characters: any) {
+    @action.bound
+    setCharacters(characters: any) {
         this.characters = characters;
     }
 
-    @action.bound setData<K extends keyof IPlayerData>(data: K, value: any) {
+    @action.bound
+    setData<K extends keyof IPlayerData>(data: K, value: any) {
         this.data[data] = value;
     }
 
-    @action.bound setNowPlaying(data: number) {
+    @action.bound
+    setKeybindData(data: { [key: string]: string }) {
+        this.keybindGuide = data;
+    }
+
+    @action.bound
+    setNowPlaying(data: number) {
         this.nowPlaying = data;
     }
 }

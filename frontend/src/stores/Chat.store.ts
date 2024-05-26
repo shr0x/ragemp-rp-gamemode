@@ -1,7 +1,7 @@
 import { makeObservable, observable, action } from "mobx";
 
 export default class ChatStore {
-    @observable isActive: boolean = true;
+    @observable isActive: boolean = false;
     @observable messages: string[] = observable.array([]);
 
     @observable lastMessages: string[] = observable.array([]);

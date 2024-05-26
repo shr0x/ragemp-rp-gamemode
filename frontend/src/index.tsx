@@ -16,7 +16,7 @@ configure({
     computedRequiresReaction: true,
     reactionRequiresObservable: true,
     observableRequiresReaction: false,
-    enforceActions: "never"
+    enforceActions: "always"
 });
 
 const parseObject = (obj: any) => {

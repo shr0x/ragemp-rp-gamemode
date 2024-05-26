@@ -2,7 +2,8 @@ import { FC, Suspense, lazy, useEffect, useState } from "react";
 import { useLocalObservable } from "mobx-react-lite";
 import { ToastContainer } from "react-toastify";
 import { initializeEvents } from "./events";
-
+import Notification from "utils/NotifyManager.util";
+import InventoryStore from "store/Inventory.store";
 import { Authentication } from "pages/auth/Authentication";
 import EventManager from "utils/EventManager.util";
 
@@ -16,18 +17,16 @@ const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
 const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
 const PlayerHud = lazy(() => import("pages/hud/Hud"));
 
-import Notification from "utils/NotifyManager.util";
-import hudStore from "store/Hud.store";
-
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());
     const creatorStore = useLocalObservable(() => new CreatorStore());
     const playerStore = useLocalObservable(() => new PlayerStore());
     const hudStore = useLocalObservable(() => new HudStore());
+    const inventoryStore = useLocalObservable(() => new InventoryStore());
 
     const [page, setPage] = useState<string>("");
 
-    initializeEvents({ chatStore, playerStore, hudStore });
+    initializeEvents({ chatStore, playerStore, hudStore, inventoryStore });
 
     useEffect(() => {
         EventManager.addHandler("system", "setPage", setPage);
@@ -55,7 +54,7 @@ const App: FC = () => {
                     theme="dark"
                 />
                 <Chat store={chatStore} isVisible={page === "hud"} />
-                {page === "hud" && <PlayerHud store={playerStore} hudStore={hudStore} />}
+                {page === "hud" && <PlayerHud inventoryStore={inventoryStore} store={playerStore} hudStore={hudStore} />}
                 {page === "auth" && <Authentication />}
                 {page === "creator" && <CharacterCreator store={creatorStore} />}
                 {page === "selectcharacter" && <CharacterSelector store={playerStore} />}

@@ -4,10 +4,6 @@ import HudStore from "store/Hud.store";
 
 const Speedometer: React.FC<{ store: HudStore }> = ({ store }) => {
     const radius = 100;
-    const circumference = 2 * Math.PI * radius;
-    const fullCircumference = 2 * Math.PI * (radius + 10); // Adjusted circumference to cover the outer edge of the stroke
-    const speedPercentage = (store.vehicleData.speed / store.vehicleData.maxSpeed) * 260; // Extend the arc to cover 260 degrees
-    const strokeDashoffset = fullCircumference - (speedPercentage / 360) * fullCircumference;
 
     const ticks = Array.from({ length: 11 }, (_, i) => i * (store.vehicleData.maxSpeed / 10)); // 11 ticks from 0 to maxSpeed
 

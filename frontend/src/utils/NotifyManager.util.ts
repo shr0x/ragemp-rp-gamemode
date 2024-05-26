@@ -1,6 +1,7 @@
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 class Notify {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor() {}
 
     show(type: "loading" | "promise" | "success" | "info" | "error" | "warning" | "warn" | "dark", message: string, skin: "light" | "dark" | "colored" = "dark") {

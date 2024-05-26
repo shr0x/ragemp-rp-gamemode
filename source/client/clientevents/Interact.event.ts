@@ -1,5 +1,5 @@
 import { Utils } from "../../shared/Utils.module";
-import Browser from "../classes/Browser.class";
+import { Browser } from "../classes/Browser.class";
 
 export let current_object: Handle | undefined = undefined;
 let entity: EntityMp | null = null;

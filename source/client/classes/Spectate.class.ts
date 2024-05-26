@@ -1,6 +1,4 @@
-const distanceToPos = (v1: Vector3, v2: Vector3) => {
-    return Math.abs(Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2) + Math.pow(v2.z - v1.z, 2)));
-};
+import { Utils } from "../../shared/Utils.module";
 
 class Spectator {
     is_spectating = false;
@@ -47,7 +45,7 @@ class Spectator {
         this.updateTimer = setInterval(() => {
             if (mp.players.exists(targetPlayer)) {
                 const position = targetPlayer.vehicle ? targetPlayer.vehicle.position : targetPlayer.position;
-                if (distanceToPos(localPlayer.position, position) > 50) {
+                if (Utils.distanceToPos(localPlayer.position, position) > 50) {
                     const { x, y, z } = position;
                     localPlayer.setCoordsNoOffset(x, y, z - 15, false, false, false);
                 }

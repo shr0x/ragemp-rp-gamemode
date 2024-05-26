@@ -5,11 +5,15 @@ import PlayerStore from "store/Player.store";
 import InteractionMenu from "./InteractionMenu/InteractionMenu";
 import HudStore from "store/Hud.store";
 import MainHud from "./MainHud/MainHud";
-const HUD: FC<{ store: PlayerStore; hudStore: HudStore }> = ({ store, hudStore }) => {
+
+import InventoryStore from "store/Inventory.store";
+import Inventory from "./Inventory/Inventory";
+const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = ({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
             <MainHud store={hudStore} playerStore={store} />
             <InteractionMenu store={hudStore} />
+            {inventoryStore.isVisible && <Inventory store={inventoryStore} playerStore={store} />}
         </div>
     );
 };

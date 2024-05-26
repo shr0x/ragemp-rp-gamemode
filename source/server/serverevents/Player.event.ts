@@ -32,6 +32,7 @@ const onPlayerJoin = async (player: PlayerMp) => {
         player.setVariable("loggedin", false);
         player.setVariable("isSpectating", false);
         player.setVariable("adminLevel", 0);
+        player.cdata = {};
     } catch (err) {
         console.error(err);
     }

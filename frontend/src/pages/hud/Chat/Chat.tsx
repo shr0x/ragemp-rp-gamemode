@@ -81,7 +81,7 @@ const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVis
             <div ref={chat} className={style.content} style={{ opacity: chatOpacity }}>
                 {store.messages.map((el, key) => (
                     <div className={style.text} key={key}>
-                        <span className={style.message}>{el}</span>
+                        <span className={style.message} dangerouslySetInnerHTML={{ __html: el }} />
                     </div>
                 ))}
             </div>

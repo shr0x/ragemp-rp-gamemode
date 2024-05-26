@@ -5,21 +5,26 @@ const disabledControls = [
     0, 30, 31, 21, 36, 22, 44, 38, 71, 72, 59, 60, 42, 43, 85, 86, 75, 15, 14, 228, 37, 229, 348, 156, 199, 204, 172, 173, 37, 199, 44, 178, 244, 220, 221, 218, 219, 16, 17, 200, 202, 322
 ];
 
-class Browser {
+/**
+ * Manages the browser interface and related operations.
+ */
+class _Browser {
     private readonly url: string = "http://package2/build/index.html";
     mainUI: BrowserMp;
     currentPage: string | undefined;
 
+    /**
+     * Initializes the browser and sets up event handlers.
+     */
     constructor() {
-        mp.console.logWarning("Browser initialized!");
-
+        mp.console.logWarning("Browser && background initialized!");
         mp.gui.chat.show(false);
 
         this.mainUI = mp.browsers.new(this.url);
         this.mainUI.markAsChat();
         this.currentPage = undefined;
         mp.gui.chat.activate(true);
-        this.processEvent('cef::chat:setActive', true);
+        this.processEvent("cef::chat:setActive", true);
 
         mp.events.add("client::eventManager::emitServer", this.emitServer.bind(this));
         mp.events.add("client::eventManager::emitClient", this.emitClient.bind(this));
@@ -31,16 +36,29 @@ class Browser {
         mp.events.add("render", this.onTick.bind(this));
     }
 
+    /**
+     * Called every frame to apply disable control actions.
+     */
     onTick() {
         mp.game.controls.applyDisableControlActionBatch();
     }
 
+    /**
+     * Activates or deactivates the main browser UI.
+     * @param {boolean} toggle - Whether to activate or deactivate the UI.
+     * @returns {boolean} - The current active state of the UI.
+     */
     activate(toggle: boolean): boolean {
         if (!this.mainUI) return false;
         this.mainUI.active = toggle;
         return this.mainUI.active;
     }
 
+    /**
+     * Processes an event by name and forwards arguments to the browser UI.
+     * @param {string} eventName - The name of the event to process.
+     * @param {...any} args - The arguments to pass to the event handler.
+     */
     processEvent(eventName: string, ...args: any): void {
         if (!eventName || !this.mainUI) return;
         if (eventName === "cef::system:setPage") {
@@ -55,10 +73,12 @@ class Browser {
                 window.callHandler("${event}", ${argsString})
             `;
             this.mainUI.execute(script);
-            // this.mainUI.call("cef::eventManager", event, ...args);
         } else return mp.console.logWarning("Error calling event: " + eventName + " it does not exists.");
     }
 
+    /**
+     * Closes the current page in the browser UI.
+     */
     closePage(): void {
         if (!this.mainUI || !mp.browsers.exists(this.mainUI)) return;
         const page = this.currentPage;
@@ -83,6 +103,10 @@ class Browser {
         }
     }
 
+    /**
+     * Starts a new page in the browser UI.
+     * @param {string} pageName - The name of the page to start.
+     */
     startPage(pageName: string): void {
         const params = CEFPages[pageName];
 
@@ -101,6 +125,10 @@ class Browser {
         mp.events.callRemote("server::player:setCefPage", pageName);
     }
 
+    /**
+     * Emits an event to the server with the given data.
+     * @param {any} receivedData - The data to send to the server.
+     */
     emitServer(receivedData: any): void {
         let data = Utils.tryParse(receivedData);
         let { event, args } = data;
@@ -108,6 +136,10 @@ class Browser {
         Utils.clientDebug(`[SERVER EMIT]: "${event.split(":")[2]}", "${event.split(":")[3]}" -> ${JSON.stringify(args)}`);
     }
 
+    /**
+     * Emits an event to the client with the given data.
+     * @param {any} receivedData - The data to send to the client.
+     */
     emitClient(receivedData: any): void {
         let data = Utils.tryParse(receivedData);
         let { event, args } = data;
@@ -119,7 +151,12 @@ class Browser {
         Utils.clientDebug("[CLIENT EMIT]: " + event + " " + JSON.stringify(args));
     }
 
+    /**
+     * Blocks or unblocks a page.
+     * @param {string} pagename - The name of the page to block or unblock.
+     * @param {boolean} block - Whether to block or unblock the page.
+     */
     blockPage(pagename: string, block: boolean) {}
 }
 
-export default new Browser();
+export const Browser = new _Browser();

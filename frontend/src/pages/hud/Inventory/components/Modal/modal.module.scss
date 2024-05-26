@@ -1,0 +1,64 @@
+@import '../../../../../styles/vars';
+
+.itemoptions {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 999;
+
+    background: $global-bg-transparent;
+    border-radius: .5vh;
+    padding: 1vh;
+
+    &::before {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 0.18518518518518517vh;
+
+        background: linear-gradient(273.64deg, rgba(140, 137, 146, 0) 8.45%, #FFFFFF 90%);
+    }
+
+    &::after {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 0.18518518518518517vh;
+        height: 100%;
+
+        background: linear-gradient(0deg, rgba(140, 137, 146, 0) 8.45%, #FFFFFF 90%);
+    }
+
+    .box {
+        margin-bottom: 0.09259259259259259vh;
+        padding-left: 0.7407407407407407vh;
+
+        width: 16.48148148148148vh;
+        height: 3.0555555555555554vh;
+
+        display: flex;
+        align-items: center;
+
+        background: $global-bg-reverted;
+        //  linear-gradient(273.64deg, rgba(0, 0, 0, 0) 8.45%, rgba(230, 230, 230, 0.8) 90%);
+
+        font-family: Arial, Helvetica, sans-serif;
+        text-transform: uppercase;
+        font-size: 1.2037037037037037vh;
+        color: #ffffff;
+        text-shadow: 0vh 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+
+        &:hover {
+            background: $global-bg-transparent;
+        }
+    }
+}

@@ -9,7 +9,9 @@ declare global {
         character: CharacterEntity | null;
         lastPosition: Vector3 | null;
         interactionMenu: InteractionMenu | null;
-
+        fastSlotActive: number | null;
+        cdata: any;
+        giveWeaponEx: (weapon: number, totalAmmo: number, ammoInClip?: number | undefined) => void;
         showNotify(type: RageShared.Enums.NotifyType, message: string, skin?: "light" | "dark" | "colored"): void;
         setVariable<K extends keyof RageShared.Interfaces.PlayerVars>(name: K, value: RageShared.Interfaces.PlayerVars[K]): void;
         getVariable<K extends keyof RageShared.Interfaces.PlayerVars>(key: K): RageShared.Interfaces.PlayerVars[K];

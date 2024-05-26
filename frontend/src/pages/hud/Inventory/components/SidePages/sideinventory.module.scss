@@ -1,0 +1,213 @@
+@import "../../../../../styles/vars.scss";
+
+.sidepage {
+    width: 43.814815vh;
+    overflow: hidden;
+    margin-bottom: 2.3148148148vh;
+
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+
+        .info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4629629629629629vh 0.9259259259259258vh;
+            width: 100%;
+
+            box-shadow: -1.3888888888888888vh 0.4629629629629629vh 0.9259259259259258vh #00000057;
+            background: $global-color;
+
+
+            border-top-left-radius: .5vh;
+            border-top-right-radius: .5vh;
+
+            .title {
+                font-family: $global-font;
+                font-size: 1.5vh;
+                text-transform: uppercase;
+            }
+
+        }
+
+        .weight {
+            font-size: 1.3888888888888888vh;
+        }
+    }
+
+    .content {
+        position: relative;
+
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+
+        padding: 1.3888888888888888vh 0 0 1.3888888888888888vh;
+
+        background: rgba(0, 0, 0, 0.541);
+
+
+
+        .cell {
+            position: relative;
+            width: 5.666666666666667vh;
+            height: 5.666666666666667vh;
+            margin-bottom: 1.3888888888888888vh;
+            margin-right: 1.3888888888888888vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: .3vh;
+            background-color: $global-color;
+            border: 0.18518518518518517vh solid grey;
+            border-radius: 1vh;
+
+            text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+
+
+
+
+            .image {
+                position: absolute;
+                width: 70%;
+                height: 100%;
+
+                pointer-events: none;
+            }
+
+            .quality {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
+
+                width: 100%;
+                height: 100%;
+                border-radius: .5vh;
+                pointer-events: none;
+            }
+
+            .count {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: $global-font;
+                pointer-events: none;
+            }
+
+
+        }
+
+        .locked {
+            position: relative;
+
+            width: 5.666666666666667vh;
+            height: 5.666666666666667vh;
+
+            margin-bottom: 1.3888888888888888vh;
+            margin-right: 1.3888888888888888vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1vh;
+
+            overflow: hidden;
+
+            background-color: $global-color;
+            border: 0.18518518518518517vh solid grey;
+            //  border-radius: .5vh;
+
+            &::before {
+                content: '';
+                opacity: .3;
+                width: 50%;
+                height: 50%;
+
+                background: url(../../../../../assets/images/hud/inventory/icons/lockedslot.svg) no-repeat;
+                background-size: cover;
+            }
+
+        }
+
+        .second_lock {
+            position: absolute;
+            top: 60%;
+
+            background: linear-gradient(to right, #28272b, #ff000085);
+
+
+            width: 100%;
+            height: 31%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+            font-size: 1.0185185185185184vh;
+            text-align: center;
+
+            .title {
+                text-transform: uppercase;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .subtitle {
+                text-transform: uppercase;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        }
+
+
+
+        .options {
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: translateX(100%);
+
+            .element {
+                position: relative;
+                width: 10.185185185185185vh;
+                height: 4.166666666666666vh;
+                margin-bottom: 1.3888888888888888vh;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
+
+                background: linear-gradient(to right, #ffffff57, #8C899257);
+
+
+                overflow: hidden;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+
+                    width: 10%;
+                    height: 150%;
+
+                    background: linear-gradient(to right, rgba(0, 0, 0, 0.53), rgba(0, 0, 0, 0.53), #00000000);
+                    filter: blur(0.37037037037037035vh);
+
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}
+
+.active {
+    border: 0.18518518518518517vh solid #ffffff !important;
+}

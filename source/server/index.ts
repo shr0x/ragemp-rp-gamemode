@@ -23,6 +23,7 @@ import "./serverevents/Chat.event";
 import "./serverevents/Server.event";
 import "./serverevents/Character.event";
 import "./serverevents/Player.event";
+import "./serverevents/Inventory.event";
 //---------------------------------------//
 import { blue, green, yellow } from "colorette";
 //---------------------------------------//

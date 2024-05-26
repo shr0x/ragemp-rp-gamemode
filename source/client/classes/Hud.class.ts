@@ -1,5 +1,5 @@
 import { weaponList } from "../assets/Weapons.assets";
-import Browser from "./Browser.class";
+import { Browser } from "./Browser.class";
 
 export class PlayerHud {
     onlinePlayersCounter: NodeJS.Timeout | null = null;
@@ -20,7 +20,7 @@ export class PlayerHud {
         if (!mp.players.local.getVariable("loggedin")) return;
         const { handle, weapon } = mp.players.local;
         const weaponAmmo = mp.players.local.getAmmoInClip(weapon);
-        const maxammo = mp.game.weapon.getMaxAmmo(handle, weapon);
+        const maxammo = mp.game.weapon.getAmmoInPed(handle, weapon) - weaponAmmo;
         const weaponName = weaponList[weapon];
         this.setPlayerData("weapondata", { weapon: weaponName, ammo: weaponAmmo, maxammo: maxammo });
     }

@@ -1,4 +1,4 @@
-import BrowserClass from "./Browser.class";
+import { Browser } from "./Browser.class";
 
 class _Interaction {
     acceptEvent: EventMp | null = null;
@@ -14,8 +14,8 @@ class _Interaction {
     new(data: RageShared.Interfaces.InteractionData) {
         return new Promise<number | undefined>((resolve, reject) => {
             if (!mp.players.exists(mp.players.local)) return;
-            BrowserClass.startPage("interactionMenu");
-            BrowserClass.processEvent("cef::hud:setInteraction", JSON.stringify(data));
+            Browser.startPage("interactionMenu");
+            Browser.processEvent("cef::hud:setInteraction", JSON.stringify(data));
 
             const onAccept = (answer: number) => {
                 this.clearPromiseEvents();
