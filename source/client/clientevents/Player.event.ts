@@ -1,5 +1,4 @@
 import { Utils } from "../../shared/Utils.module";
-import { InteractionMenu } from "../classes/InteractMenu.class";
 import { Inventory } from "../classes/Inventory.class";
 
 mp.events.add("playerReady", () => {
@@ -36,16 +35,4 @@ mp.events.add("client::inventory:setVisible", async (enable) => {
 
 mp.events.add("client::weapon:giveWeapon", async (weapon: number, totalAmmo: number, ammoInClip?: number) => {
     await Inventory.giveWeapon(weapon, totalAmmo, ammoInClip).catch((err) => Utils.clientDebug("An error occurred giving weapon to player " + mp.players.local.name));
-});
-
-mp.events.addProc("client::proc:getWeaponTypeGroup", (weaponhash: Hash) => {
-    let weapongroup = mp.game.weapon.getWeapontypeGroup(weaponhash);
-    return weapongroup;
-});
-
-mp.events.addProc("client::proc:getAmmoInClip", (weaponhash: Hash) => {
-    // SET_AMMO_IN_CLIP
-    // WEAPON::SET_AMMO_IN_CLIP(func_118(), joaat("WEAPON_CARBINERIFLE"), WEAPON::GET_WEAPON_CLIP_SIZE(joaat("WEAPON_CARBINERIFLE")));
-
-    return mp.players.local.getAmmoInClip(weaponhash);
 });

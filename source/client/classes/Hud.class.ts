@@ -8,7 +8,7 @@ export class PlayerHud {
 
     constructor() {
         this.onlinePlayersCounter = setInterval(this.setOnlinePlayers.bind(this), 5_000);
-        this.weaponInterval = setInterval(this.trackPlayerWeapon.bind(this), 1_000);
+        this.weaponInterval = setInterval(this.trackPlayerWeapon.bind(this), 100);
         this.setPlayerData("id", mp.players.local.remoteId);
 
         mp.events.add("playerEnterVehicle", this.playerEnterVehicle.bind(this));
