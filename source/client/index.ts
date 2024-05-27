@@ -14,6 +14,7 @@ import "./handlers/Object.handler";
 import "./clientprocs/Player.proc";
 //-----------------------------------------//
 import "./modules/GameData.module";
+import "./modules/Keybinding.module";
 //-----------------------------------------//
 import "./prototype/Player.prototype";
 //-----------------------------------------//

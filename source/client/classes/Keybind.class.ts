@@ -31,9 +31,9 @@ class _PlayerKeybind {
      * @param action - The action to be performed when the keybind is triggered.
      * @param description - A description of the keybind.
      */
-    public addKeybind(keyCode: number, up: boolean, action: KeybindType, description: string): void {
-        this.keybinds.set(keyCode, { keyCode, up, action, description });
-        mp.keys.bind(keyCode, up, action);
+    public addKeybind(data: { keyCode: number; up: boolean }, action: KeybindType, description: string): void {
+        this.keybinds.set(data.keyCode, { keyCode: data.keyCode, up: data.up, action, description });
+        mp.keys.bind(data.keyCode, data.up, action);
     }
 
     /**
@@ -60,7 +60,7 @@ class _PlayerKeybind {
      */
     public updateKeybind(keyCode: number, up: boolean, newAction: KeybindType, newDescription: string): void {
         this.removeKeybind(keyCode, up);
-        this.addKeybind(keyCode, up, newAction, newDescription);
+        this.addKeybind({ keyCode, up }, newAction, newDescription);
     }
 
     /**
