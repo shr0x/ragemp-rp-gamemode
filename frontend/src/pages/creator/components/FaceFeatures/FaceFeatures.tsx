@@ -112,7 +112,7 @@ const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
                     return (
                         <div key={i}>
                             <div key={i} className={cn(style.element, faceFeature === x ? style.active : undefined)} onClick={() => setFaceFeature(x)}>
-                                <img key={i} className={style.img} src={`${require(`../../../../assets/images/creator/icons/${x}.svg`)}`} alt="#"></img>
+                                <img key={i} className={style.img} src={`${new URL(`../../../../assets/images/creator/icons/${x}.svg`, import.meta.url).href}`} alt="#"></img>
                             </div>
                         </div>
                     );

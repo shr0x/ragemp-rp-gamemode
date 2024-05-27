@@ -69,6 +69,7 @@ class EventManager {
         }
         const event = `server::${target}:${name}`;
         const sendData = { event, args };
+        //@ts-ignore
         mp.trigger("client::eventManager::emitServer", JSON.stringify(sendData));
         if (isDev) console.log(`Emitted: ${event}\n`, JSON.stringify(args));
     }
@@ -79,6 +80,7 @@ class EventManager {
         }
         const event = `client::${target}:${name}`;
         const sendData = { event, args };
+        //@ts-ignore
         mp.trigger("client::eventManager::emitClient", JSON.stringify(sendData));
         if (isDev) console.log(`Emitted: ${event}\n`, ...args);
     }

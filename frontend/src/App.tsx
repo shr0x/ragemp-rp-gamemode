@@ -26,7 +26,7 @@ const App: FC = () => {
     const hudStore = useLocalObservable(() => new HudStore());
     const inventoryStore = useLocalObservable(() => new InventoryStore());
 
-    const [page, setPage] = useState<string>("hud");
+    const [page, setPage] = useState<string>("");
 
     initializeEvents({ chatStore, playerStore, hudStore, inventoryStore });
 

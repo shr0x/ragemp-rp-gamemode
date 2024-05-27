@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 import HudStore from "store/Hud.store";
 import PlayerStore from "store/Player.store";
@@ -13,6 +13,10 @@ import ammoicon from "assets/images/hud/icons/ammo.svg";
 import { entries } from "mobx";
 
 const MainHUD: FC<{ store: HudStore; playerStore: PlayerStore }> = ({ store, playerStore }) => {
+    const getWeaponImage = useMemo(() => {
+        return new URL(`../../../assets/images/hud/weapons/${playerStore.data.weapondata?.weapon}.svg`, import.meta.url).href;
+    }, [playerStore.data.weapondata]);
+
     return (
         <div className={style.mainhud}>
             <div className={style.servername}>
@@ -40,7 +44,7 @@ const MainHUD: FC<{ store: HudStore; playerStore: PlayerStore }> = ({ store, pla
 
             {playerStore.data.weapondata && (
                 <div className={style.weaponInfo}>
-                    <img src={require(`../../../assets/images/hud/weapons/${playerStore.data.weapondata.weapon}.svg`)} alt="" />
+                    <img src={getWeaponImage} alt="" />
                     <span className={style.ammodata}>
                         <img src={ammoicon} alt="ammo" />
                         {playerStore.data.weapondata.ammo}/{playerStore.data.weapondata.maxammo}

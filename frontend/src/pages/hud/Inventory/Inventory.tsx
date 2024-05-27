@@ -226,7 +226,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
 
     const setImageSource = useCallback((img: string) => {
         try {
-            return require(`assets/images/hud/inventory/items/${img}`);
+            return new URL(`../../../assets/images/hud/inventory/items/${img}`, import.meta.url).href;
         } catch (err) {
             return error;
         }

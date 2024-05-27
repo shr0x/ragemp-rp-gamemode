@@ -24,7 +24,7 @@ interface IClothesProps {
 const Clothes: FC<IClothesProps> = ({ store, currentItem, setItem, setTargetCell, setDropCell, isCellDragged, handleMouseDown, handleContextMenu }) => {
     const setSource = useCallback((img: string) => {
         try {
-            return require(`../../../../../assets/images/hud/inventory/items/${img}`);
+            return new URL(`../../../../../assets/images/hud/inventory/items/${img}`, import.meta.url).href;
         } catch (err) {
             return error;
         }
@@ -49,7 +49,7 @@ const Clothes: FC<IClothesProps> = ({ store, currentItem, setItem, setTargetCell
         };
 
         try {
-            return require(`../../../../../assets/images/hud/inventory/items/${items[idx]}.svg`);
+            return new URL(`../../../../../assets/images/hud/inventory/items/${items[idx]}.svg`, import.meta.url).href;
         } catch (err) {
             return error;
         }

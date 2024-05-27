@@ -23,7 +23,7 @@ interface IInventory {
 
 export default class InventoryStore {
     @observable
-    isVisible: boolean = true;
+    isVisible: boolean = false;
 
     @observable
     currentWeight = 0;

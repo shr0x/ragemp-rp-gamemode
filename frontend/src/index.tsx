@@ -48,6 +48,7 @@ function processHandlerCall(event: string, ...args: any) {
 
 //@ts-ignore
 window.callHandler = processHandlerCall;
+//@ts-ignore
 mp.events.add("cef::eventManager", processHandlerCall);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
