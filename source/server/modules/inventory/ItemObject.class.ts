@@ -1,89 +1,88 @@
-import { inventoryAssets } from "./Items.module";
-import { v4 as uuidv4 } from "uuid";
-
-export class ItemObject {
-    static List: { [key: string]: ItemObject } = {};
-
-    image: string;
+/**
+ * Interface representing the data structure for item objects.
+ */
+interface IItemObjectData {
+    /** The unique identifier for the item object. */
     hash: string;
-    dimension: number;
-    type: string;
-    key: string;
-
-    model: string;
+    /** The dimension in which the item object exists. */
+    dimension?: number;
+    /** The coordinates of the item object. */
     coords: Vector3;
+    /** The rotation of the item object. */
     rotation: Vector3;
+    /** Whether the item object has collision enabled. */
     collision: boolean;
-    name: string;
+    /** The range within which the item object is active. */
     range: number;
-    count: number;
-    assets: RageShared.Interfaces.Inventory.IInventoryItem;
-    itemType: string;
+    /** The data of the item associated with the object. */
+    itemData: RageShared.Interfaces.Inventory.IInventoryItem;
+}
 
+/**
+ * Class representing an item object in the game.
+ */
+export class ItemObject implements IItemObjectData {
+    /** Map to store all item objects by their hash. */
+    static List: Map<string, ItemObject> = new Map();
+
+    /** The unique identifier for the item object. */
+    hash: string;
+    /** The game object representing the item, if it exists. */
+    object: ObjectMp | null = null;
+    /** The dimension in which the item object exists. */
+    dimension?: number;
+    /** The coordinates of the item object. */
+    coords: Vector3;
+    /** The rotation of the item object. */
+    rotation: Vector3;
+    /** Whether the item object has collision enabled. */
+    collision: boolean;
+    /** The range within which the item object is active. */
+    range: number;
+    /** The data of the item associated with the object. */
+    itemData: RageShared.Interfaces.Inventory.IInventoryItem;
+
+    /** Timeout for removing the item object after a certain period. */
     timeout: NodeJS.Timeout | null = null;
 
-    object: ObjectMp;
-
-    constructor(data: {
-        image: string;
-        hash: string;
-        dimension?: number;
-        type: string;
-        key: string;
-        model: string;
-        coords: Vector3;
-        rotation: Vector3;
-        collision: boolean;
-        name: string;
-        range: number;
-        count: number;
-        itemType: string;
-        assets: any;
-    }) {
-        this.image = data.image;
-        this.hash = data.hash;
+    /**
+     * Creates an instance of ItemObject.
+     * @param data - The data to initialize the item object.
+     */
+    constructor(data: IItemObjectData) {
         this.dimension = data.dimension || 0;
-        this.type = data.type;
-        this.key = data.key;
-
-        this.model = data.model;
         this.coords = data.coords;
         this.rotation = data.rotation;
         this.collision = data.collision;
-        this.name = data.name;
         this.range = data.range;
-        this.count = data.count;
-        this.itemType = data.itemType;
-        this.assets = data.assets;
-        if (this.coords) {
-            this.object = mp.objects.new(mp.joaat(this.model), this.coords, {
-                rotation: new mp.Vector3(data.rotation.x, data.rotation.y, data.rotation.z)
-            });
-        }
+        this.itemData = data.itemData;
+
+        this.object = mp.objects.new(mp.joaat(this.itemData.modelHash ?? "prop_food_bag1"), this.coords, {
+            rotation: new mp.Vector3(data.rotation.x, data.rotation.y, data.rotation.z)
+        });
+
         this.update();
 
         this.timeout = setTimeout(() => {
-            if (ItemObject.List[this.hash]) {
+            if (ItemObject.List.has(this.hash)) {
                 this.remove();
             }
         }, 300000);
 
-        ItemObject.List[this.hash] = this;
+        ItemObject.List.set(this.hash, this);
     }
-    public async update() {
-        this.object.setVariables({
-            is_item: true,
-            hash: this.hash,
-            image: this.image,
-            item_type: this.itemType
-        });
 
-        mp.players.forEachInRange(this.object.position, mp.config["stream-distance"], (player) => {
-            if (player.getVariable("loggedin")) {
-                player.call("client::entity:enableStreamin");
-            }
-        });
+    /**
+     * Updates the item object properties in the game.
+     */
+    public async update() {
+        if (!this.object || !mp.objects.exists(this.object)) return;
+        this.object.setVariables({ is_item: true, itemData: JSON.stringify(this.itemData) });
     }
+
+    /**
+     * Removes the item object from the game and clears the timeout.
+     */
     public remove() {
         if (this.object && mp.objects.exists(this.object)) {
             this.object.destroy();
@@ -92,27 +91,40 @@ export class ItemObject {
             clearTimeout(this.timeout);
             this.timeout = null;
         }
-        delete ItemObject.List[this.hash];
+        ItemObject.List.delete(this.hash);
     }
 
+    /**
+     * Fetches item objects within a certain range of a player.
+     * @param player - The player to check the range from.
+     * @param range - The range within which to fetch item objects. Defaults to 1.
+     * @returns An array of item objects within the specified range.
+     */
     static fetchInRange(player: PlayerMp, range: number = 1) {
-        return Object.values(ItemObject.List)
-            .filter((x) => player.dist(x.coords) <= range)
-            .map((x) => x.assets);
+        const result: RageShared.Interfaces.Inventory.IInventoryItem[] = [];
+        for (const item of ItemObject.List.values()) {
+            if (player.dist(item.coords) <= range) {
+                result.push(item.itemData);
+            }
+        }
+        return result;
     }
 
+    /**
+     * Retrieves an item object by its hash.
+     * @param hash - The hash of the item object to retrieve.
+     * @returns The item object with the specified hash, or null if not found.
+     */
     static getItem(hash: string) {
-        return Object.values(ItemObject.List).find((x) => x.assets?.hash === hash)?.assets ?? null;
+        const item = ItemObject.List.get(hash);
+        return item ? item.itemData : null;
     }
+    /**
+     * Deletes a dropped item object by its hash.
+     * @param hash - The hash of the item object to delete.
+     */
     static deleteDroppedItemByHash(hash: string) {
-        const item = Object.values(ItemObject.List).find((x) => x.assets?.hash === hash) ?? null;
+        const item = ItemObject.List.get(hash);
         if (item) item.remove();
     }
 }
-
-function interactEntity(player: PlayerMp, hash: number) {}
-
-function closeCEF(player: PlayerMp, type: any) {}
-
-mp.events.add("server::entitySync:interact", interactEntity);
-mp.events.add("server::player:closeCEF", closeCEF);

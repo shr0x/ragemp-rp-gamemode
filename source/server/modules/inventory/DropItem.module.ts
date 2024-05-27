@@ -59,18 +59,11 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
 
         new ItemObject({
             hash: item.hash,
-            key: item.key,
-            type: "item",
-            model: item.modelHash || "prop_food_bag1",
             coords: new mp.Vector3(x, y, z - 1),
             rotation: player.character.inventory.isWeapon(item) ? new mp.Vector3(-90, 0, 0) : new mp.Vector3(0, 0, 0),
             collision: false,
-            itemType: item.type,
-            name: item.name,
-            image: item.image?.replace(".svg", "") || inventoryAssets.items[item.type].image.replace(".svg", ""),
             range: 10,
-            count: item.count,
-            assets: { ...item, isPlaced: false, options }
+            itemData: { ...item, isPlaced: false, options }
         });
 
         if (source.component !== "clothes") {

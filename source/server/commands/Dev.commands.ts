@@ -136,3 +136,14 @@ RAGERP.commands.add({
         );
     }
 });
+
+RAGERP.commands.add({
+    name: "testhandlers",
+    run: (player: PlayerMp) => {
+        const obj = mp.objects.new(mp.joaat("prop_parking_sign_2"), new mp.Vector3(87.40638732910156, -1374.9691162109375, 29.294981002807617));
+
+        obj.setVariable("hash", 123456);
+
+        player.outputChatBox("object created");
+    }
+});

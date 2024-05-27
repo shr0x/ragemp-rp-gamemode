@@ -166,7 +166,7 @@ export const moveInventoryItem = async (player: PlayerMp, data: string): Promise
         switch (true) {
             case draggedFrom.component === "groundItems" || droppedTo.component === "groundItems": {
                 if (droppedTo.component === "groundItems") return;
-                const droppedItem = ItemObject.List[item.hash];
+                const droppedItem = ItemObject.List.get(item.hash);
                 if (!droppedItem) return;
 
                 droppedItem.remove();

@@ -9,6 +9,8 @@ import "./clientevents/Interact.event";
 import "./clientevents/Player.event";
 import "./clientevents/Keybinds.event";
 //-----------------------------------------//
+import "./handlers/Object.handler";
+//-----------------------------------------//
 import "./clientprocs/Player.proc";
 //-----------------------------------------//
 import "./modules/GameData.module";
