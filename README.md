@@ -1,6 +1,6 @@
-# RAGEMP RP FRAMEWORK
+# RAGEMP RP GAMEMODE
 
-A RAGE MULTIPLAYER Roleplay framework.
+A RAGE MULTIPLAYER Roleplay game mode.
 
 # Introduction
 >
@@ -14,7 +14,7 @@ This game mode is still a work in progress, plenty features are planned to be ad
 | Client Side| Server Side | Frontend |
 |----------|----------|----------|
 | [Webpack](https://webpack.js.org/) | [Typescript](https://www.typescriptlang.org/)     | [React](https://react.dev/)    |
-| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [React Rewire](https://www.npmjs.com/package/react-app-rewired)    |
+| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [Vite](https://vitejs.dev/)    |
 |    | [TypeORM](https://typeorm.io/)    | [MobX](https://mobx.js.org/README.html)    |
 |    | [Webpack](https://webpack.js.org/)    | [Typescript](https://www.typescriptlang.org/)   |
 
