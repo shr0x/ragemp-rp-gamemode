@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
-
 import EventManager from "utils/EventManager.util";
-import ChatStore from "../../../stores/Chat.store";
 import ChatInput from "./components/ChatInput";
+import ChatStore from "store/Chat.store";
+
 import style from "./chat.module.scss";
 
 let chatHideTimeout: NodeJS.Timeout | null = null;
@@ -11,13 +11,12 @@ let chatFadeInterval: NodeJS.Timeout | null = null;
 
 const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVisible }) => {
     const [chatOpacity, setChatOpacity] = useState(1.0);
-    const [timeVisibleChat, setTimeVisibleChat] = useState(10000);
+    const [chatVisibility, setchatVisibility] = useState(10000);
     const chat = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        const newMessageHandler = (obj: any) => {
+        const newMessageHandler = (obj: string) => {
             store.fetchNewMessage(obj);
-
             setChatOpacity(1.0);
             setTimeout(() => {
                 if (chat.current) chat.current.scrollTop = 1000000;
@@ -65,8 +64,8 @@ const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVis
                     }
                 });
             }, 20);
-        }, timeVisibleChat);
-    }, [timeVisibleChat]);
+        }, chatVisibility);
+    }, [chatVisibility]);
 
     useEffect(() => {
         return () => {
@@ -78,10 +77,10 @@ const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVis
 
     return (
         <div className={style.main} style={{ visibility: isVisible ? "visible" : "hidden" }}>
-            <div ref={chat} className={style.content} style={{ opacity: chatOpacity }}>
+            <div ref={chat} className={style.content} style={{ opacity: chatOpacity, backgroundColor: store.settings.background ? "#000000aa" : "transparent" }}>
                 {store.messages.map((el, key) => (
                     <div className={style.text} key={key}>
-                        <span className={style.message} dangerouslySetInnerHTML={{ __html: el }} />
+                        <span className={style.message} style={{ fontSize: `${store.settings.fontsize}vh` }} dangerouslySetInnerHTML={{ __html: el }} />
                     </div>
                 ))}
             </div>
