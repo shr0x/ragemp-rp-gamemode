@@ -47,7 +47,7 @@ const Main: FC<IMainProps> = ({ store, itemInformation, currentItem, setItem, se
 
     const getRenderImage = useCallback(() => {
         try {
-            return require(`assets/images/hud/inventory/items/${itemInformation?.image}`);
+            return new URL(`../../../../../assets/images/hud/inventory/items/${itemInformation?.image}`, import.meta.url).href;
         } catch (err) {
             return errorIcon;
         }

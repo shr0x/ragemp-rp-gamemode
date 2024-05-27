@@ -1,5 +1,5 @@
+import { RAGERP } from "../../api";
 import { v4 as uuidv4 } from "uuid";
-import { weaponHash } from "../../assets/Weapons.assets";
 import { splitInventoryItem } from "./SplitItem.module";
 import { moveInventoryItem } from "./MoveItem.module";
 import { openInventoryItem } from "./OpenItem.module";
@@ -7,10 +7,9 @@ import { useInventoryItem } from "./UseItem.module";
 import { manageInventoryFastSlot } from "./Quickuse.module";
 import { backpackQuality, backpackWeight, defaultClothes } from "./Assets.module";
 import { inventoryAssets } from "./Items.module";
+
 import { InventoryItemsEntity } from "../../database/entity/Inventory.entity";
-import { MainDataSource } from "../../database/Database.module";
 import { Utils } from "../../../shared/utils.module";
-import { RAGERP } from "../../api";
 import { dropInventoryItem } from "./DropItem.module";
 import { ItemObject } from "./ItemObject.class";
 
@@ -569,7 +568,8 @@ export class Inventory extends InventoryClothes {
     async save(player: PlayerMp): Promise<void> {
         if (!player.character) return;
 
-        await MainDataSource.getRepository(InventoryItemsEntity)
+        await RAGERP.database
+            .getRepository(InventoryItemsEntity)
             .update({ id: player.character.items.id }, { pockets: this.items.pockets, clothes: this.items.clothes, quickUse: this.quickUse })
             .catch((err) => console.log(err.message));
     }

@@ -1,13 +1,17 @@
 {
     "compilerOptions": {
-        "types": [],
         "baseUrl": ".",
-        "target": "es5",
         "lib": [
             "dom",
             "dom.iterable",
             "esnext"
         ],
+        "target": "ESNext",
+        "types": [
+            "@types/node",
+            "vite/client"
+        ],
+        "isolatedModules": false,
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
@@ -21,7 +25,6 @@
         "emitDecoratorMetadata": true,
         "sourceMap": false,
         "resolveJsonModule": true,
-        "isolatedModules": false,
         "noEmit": true,
         "jsx": "react-jsx",
         "paths": {

@@ -2,9 +2,11 @@ import { FC, Suspense, lazy, useEffect, useState } from "react";
 import { useLocalObservable } from "mobx-react-lite";
 import { ToastContainer } from "react-toastify";
 import { initializeEvents } from "./events";
+
+import { Authentication } from "pages/auth/Authentication";
+
 import Notification from "utils/NotifyManager.util";
 import InventoryStore from "store/Inventory.store";
-import { Authentication } from "pages/auth/Authentication";
 import EventManager from "utils/EventManager.util";
 
 import ChatStore from "./stores/Chat.store";
@@ -24,7 +26,7 @@ const App: FC = () => {
     const hudStore = useLocalObservable(() => new HudStore());
     const inventoryStore = useLocalObservable(() => new InventoryStore());
 
-    const [page, setPage] = useState<string>("hud");
+    const [page, setPage] = useState<string>("");
 
     initializeEvents({ chatStore, playerStore, hudStore, inventoryStore });
 

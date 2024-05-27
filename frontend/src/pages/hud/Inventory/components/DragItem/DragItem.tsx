@@ -16,7 +16,7 @@ interface IDragItemProps {
 const DragItem: FC<IDragItemProps> = ({ viewingBackpack, mouseData, store, targetCell }) => {
     const setImageSource = useCallback((img: string) => {
         try {
-            return require(`../../../../../assets/images/hud/inventory/items/${img}`);
+            return new URL(`../../../../../assets/images/hud/inventory/items/${img}`, import.meta.url).href;
         } catch (err) {
             return error;
         }

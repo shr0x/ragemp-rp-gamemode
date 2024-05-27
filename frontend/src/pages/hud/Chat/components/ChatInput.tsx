@@ -32,6 +32,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
             }
         };
 
+        //@ts-ignore
         if (typeof mp !== "undefined") {
             const api: Record<string, Function> = {
                 "chat:push": chatAPI.push,

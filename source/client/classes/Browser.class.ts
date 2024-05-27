@@ -9,7 +9,7 @@ const disabledControls = [
  * Manages the browser interface and related operations.
  */
 class _Browser {
-    private readonly url: string = "http://package2/build/index.html";
+    private readonly url: string = "http://package2/dist/index.html";
     mainUI: BrowserMp;
     currentPage: string | undefined;
 

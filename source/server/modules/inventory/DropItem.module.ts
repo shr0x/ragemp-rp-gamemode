@@ -21,16 +21,15 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
         }
 
         const playerItem = player.character.inventory.getItemByUUID(item.hash);
+
         if (!playerItem) {
             player.character.inventory.setInventory(player);
-            return;
+            return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "The item you're trying to drop is invalid.");
         }
 
         if (source.component === "clothes" && item.type === RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR && item.isPlaced) {
             player.armour = 0;
         }
-
-        const options = item.options || inventoryAssets.items[item.type].options;
 
         const itemInQuickUse = player.character.inventory.isItemInQuickUse(source.component, parseInt(source.slot));
 
@@ -45,11 +44,11 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             }
         }
 
-        if (player.character.inventory.isAmmoItem(item)) {
+        if (player.character.inventory.isAmmoItem(playerItem)) {
             let ammoHash = player.getVariable("ammoHash");
-            if (ammoHash?.items.includes(item.hash)) {
-                ammoHash.items.splice(ammoHash.items.indexOf(item.hash), 1);
-                player.setWeaponAmmo(player.weapon, player.weaponAmmo - item.count);
+            if (ammoHash?.items.includes(playerItem.hash)) {
+                ammoHash.items.splice(ammoHash.items.indexOf(playerItem.hash), 1);
+                player.setWeaponAmmo(player.weapon, player.weaponAmmo - playerItem.count);
                 player.setVariable("ammoHash", ammoHash);
                 player.setVariable("itemAsAmmo", ammoHash.items.length ? ammoHash.items[0] : null);
             }
@@ -58,19 +57,12 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
         const { x, y, z } = player.position;
 
         new ItemObject({
-            hash: item.hash,
-            key: item.key,
-            type: "item",
-            model: item.modelHash || "prop_food_bag1",
+            hash: playerItem.hash,
             coords: new mp.Vector3(x, y, z - 1),
-            rotation: player.character.inventory.isWeapon(item) ? new mp.Vector3(-90, 0, 0) : new mp.Vector3(0, 0, 0),
+            rotation: player.character.inventory.isWeapon(playerItem) ? new mp.Vector3(-90, 0, 0) : new mp.Vector3(0, 0, 0),
             collision: false,
-            itemType: item.type,
-            name: item.name,
-            image: item.image?.replace(".svg", "") || inventoryAssets.items[item.type].image.replace(".svg", ""),
             range: 10,
-            count: item.count,
-            assets: { ...item, isPlaced: false, options }
+            itemData: { ...playerItem, isPlaced: false }
         });
 
         if (source.component !== "clothes") {
@@ -79,7 +71,6 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             player.character.inventory.resetClothingItemData(parseInt(source.slot));
             player.character.inventory.reloadClothes(player);
         }
-
         player.character.inventory.setInventory(player);
     } catch (err) {
         console.log("dropInventoryItem error: ", err);

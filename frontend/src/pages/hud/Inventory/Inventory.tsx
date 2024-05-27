@@ -27,7 +27,7 @@ import { OnPlayerSplitItem } from "./actions/SplitItem";
 import { OnPlayerDragItem } from "./actions/ItemDrag";
 import { IItemImage, ICurrentItem, ITargetCell, IDropCell, CenterComponent } from "./Interfaces";
 
-const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ store, playerStore }) => {
+const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = observer(({ store, playerStore }) => {
     const [itemInformation, setItemInformation] = useState<IItemImage | null>(null);
 
     const [currentItem, setItem] = useState<ICurrentItem>({ component: null, id: null, options: null });
@@ -45,7 +45,22 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ st
     const putItemOn = OnPlayerPutItemOn(setItem, playerStore.data.gender, currentItem, store, viewingBackpack);
     const takeItemOff = OnPlayerTakeItemOff(setItem, currentItem, store);
     const handleDrop = OnPlayerDropItem(currentItem, store, viewingBackpack, setItem, setMiddleComponent);
-
+    const handleSplit = OnPlayerSplitItem(currentItem, store, viewingBackpack, setItem, setMiddleComponent);
+    const handleMouseUp = OnPlayerDragItem(
+        currentItem,
+        playerStore.data.gender,
+        isCellDragged,
+        targetCell,
+        store,
+        dropCell,
+        viewingBackpack,
+        setItem,
+        setTargetCell,
+        setDropCell,
+        setCellDragged,
+        handleDrop,
+        putItemOn
+    );
     const giveItemAway = useCallback(
         (id?: number) => {
             if (currentItem.id === null || currentItem.component === null) return Notification.info("what u want?");
@@ -119,8 +134,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ st
         [store.backpackData, store.clothes, store.inventory, store.quickUse, viewingBackpack]
     );
 
-    const handleSplit = OnPlayerSplitItem(currentItem, store, viewingBackpack, setItem, setMiddleComponent);
-
     const handleMouseDown = useCallback(
         (_targetCell: IDropCell) => {
             if (_targetCell.id === null || !_targetCell.component) return;
@@ -154,21 +167,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ st
             setShowModal(true);
         },
         [isCellDragged, getItemOptions]
-    );
-    const handleMouseUp = OnPlayerDragItem(
-        currentItem,
-        playerStore.data.gender,
-        isCellDragged,
-        targetCell,
-        store,
-        dropCell,
-        viewingBackpack,
-        setItem,
-        setTargetCell,
-        setDropCell,
-        setCellDragged,
-        handleDrop,
-        putItemOn
     );
 
     useEffect(() => {
@@ -228,7 +226,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ st
 
     const setImageSource = useCallback((img: string) => {
         try {
-            return require(`assets/images/hud/inventory/items/${img}`);
+            return new URL(`../../../assets/images/hud/inventory/items/${img}`, import.meta.url).href;
         } catch (err) {
             return error;
         }
@@ -329,6 +327,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = ({ st
             <DragItem viewingBackpack={viewingBackpack} mouseData={mouseData} store={store} targetCell={targetCell} />
         </div>
     );
-};
+});
 
-export default observer(Inventory);
+export default Inventory;

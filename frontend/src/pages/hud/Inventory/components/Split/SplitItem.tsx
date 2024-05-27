@@ -21,7 +21,7 @@ const Split: FC<ISplitProps> = ({ store, viewingBackpack, handleSplit, setMiddle
 
     const setSource = useCallback((img: string) => {
         try {
-            return require(`assets/images/hud/inventory/items/${img}`);
+            return new URL(`../../../../../assets/images/hud/inventory/items/${img}`, import.meta.url).href;
         } catch (err) {
             return error;
         }

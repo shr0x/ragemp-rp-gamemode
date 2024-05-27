@@ -18,15 +18,6 @@ class _PlayerInventory {
         // Bind keys for inventory actions
         mp.keys.bind(27, false, this.close.bind(this)); // ESC to close inventory
 
-        mp.keys.bind(49, false, () => this.toggleFastSlot(1)); // Key '1'
-        mp.keys.bind(50, false, () => this.toggleFastSlot(2)); // Key '2'
-        mp.keys.bind(51, false, () => this.toggleFastSlot(3)); // Key '3'
-        mp.keys.bind(52, false, () => this.toggleFastSlot(4)); // Key '4'
-        mp.keys.bind(53, false, () => this.toggleFastSlot(5)); // Key '5'
-        mp.keys.bind(54, false, () => this.toggleFastSlot(6)); // Key '6'
-
-        mp.keys.bind(73, false, this.open.bind(this)); // Key 'I' to open inventory
-
         // Event bindings
         mp.events.add("client::mainMenu:openInventory", this.open.bind(this));
         mp.events.add("server::mainMenu:closeInventory", this.close.bind(this));
@@ -86,8 +77,6 @@ class _PlayerInventory {
 
             mp.game.hud.replaceColourWithRgba(117, 0, 0, 0, 0);
             mp.game.invoke("0x98215325A695E78A", false);
-
-            mp.console.logWarning(`${mp.peds.at(playerPed.handle).isDead}`);
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(`${JSON.stringify(e.message)}`);
         }
@@ -149,7 +138,7 @@ class _PlayerInventory {
      *
      * @param slotNumber - The slot number to toggle.
      */
-    toggleFastSlot(slotNumber: number) {
+    toggleFastSlot(slotNumber: number): void {
         if (mp.game.ui.isPauseMenuActive() || Browser.currentPage) return;
         if (mp.game.ped.getVehicleIsEntering(mp.players.local.handle)) return;
         mp.events.callRemote("server::inventory:quickUse", `k_fastslot${slotNumber}`);
@@ -159,8 +148,11 @@ class _PlayerInventory {
      * Opens the inventory.
      */
     public async open() {
-        if (ChatClass.chatOpen) return;
         try {
+            if (ChatClass.chatOpen) return;
+
+            if (this.isOpen) return this.close();
+
             this.isOpen = !this.isOpen;
             await this.createPedScreen();
 
