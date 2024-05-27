@@ -1,6 +1,6 @@
 import { inventoryAssets } from "./Items.module";
 
-export const defaultClothes: { [key: number]: Array<{ type: "props" | "clothing"; component: number; drawable: number; texture: number }> } = {
+const defaultClothes: { [key: number]: Array<{ type: "props" | "clothing"; component: number; drawable: number; texture: number }> } = {
     [inventoryAssets.INVENTORY_CLOTHING.TYPE_HAT]: [
         { type: "props", component: 0, drawable: 11, texture: 0 },
         { type: "props", component: 0, drawable: 120, texture: 0 }
@@ -60,47 +60,17 @@ export const defaultClothes: { [key: number]: Array<{ type: "props" | "clothing"
     ]
 };
 
-type IclothesPresset = Record<
-    number,
-    {
-        componentId: number;
-        class: string;
-        type: RageShared.Enums.ITEM_TYPES;
-        isPlaced: boolean;
-        quality: number;
-        image: string;
-    }
->;
-
-//eventually it'll send the rest of the data
-export const clothesPresset: IclothesPresset = {
-    0: { componentId: 0, class: "prop", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAT, isPlaced: false, quality: -1, image: "hat.svg" },
-    1: { componentId: 1, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MASK, isPlaced: false, quality: -1, image: "mask.svg" },
-    2: { componentId: 1, class: "prop", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLASSES, isPlaced: false, quality: -1, image: "glasses.svg" },
-    3: { componentId: 2, class: "prop", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_EARRINGS, isPlaced: false, quality: -1, image: "earRings.svg" },
-    4: { componentId: 7, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CHAIN, isPlaced: false, quality: -1, image: "chain.svg" },
-    5: { componentId: 8, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TSHIRT, isPlaced: false, quality: -1, image: "tShirt.svg" },
-    6: { componentId: 11, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TOP, isPlaced: false, quality: -1, image: "top.svg" },
-    7: { componentId: 5, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BACKPACK, isPlaced: false, quality: -1, image: "backpack.svg" },
-    8: { componentId: 5, class: "misc", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WALLET, isPlaced: false, quality: -1, image: "wallet.svg" },
-    9: { componentId: 9, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR, isPlaced: false, quality: -1, image: "armour.svg" },
-    10: { componentId: 6, class: "prop", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WATCH, isPlaced: false, quality: -1, image: "watch.svg" },
-    11: { componentId: 3, class: "prop", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLOVES, isPlaced: false, quality: -1, image: "gloves.svg" },
-    12: { componentId: 4, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PANTS, isPlaced: false, quality: -1, image: "pants.svg" },
-    13: { componentId: 6, class: "clothes", type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOES, isPlaced: false, quality: -1, image: "shoes.svg" }
-};
-
-export const backpackQuality: { [key: number]: number } = {
+const backpackQuality: { [key: number]: number } = {
     0: 12, //level 0
     1: 24 //level 1
 };
 
-export const backpackWeight: { [key: number]: number } = {
+const backpackWeight: { [key: number]: number } = {
     0: 10.0,
     1: 15.0
 };
 
-export const inventorydataPresset = {
+const inventorydataPresset = {
     clothes: {
         0: null,
         1: null,
@@ -147,7 +117,8 @@ export const inventorydataPresset = {
         5: null
     }
 };
-export const backpackDataPreset = {
+
+const backpackDataPreset = {
     0: null,
     1: null,
     2: null,
@@ -173,3 +144,5 @@ export const backpackDataPreset = {
     22: null,
     23: null
 };
+
+export { defaultClothes, backpackQuality, backpackWeight, inventorydataPresset, backpackDataPreset };
