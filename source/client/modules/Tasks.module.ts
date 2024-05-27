@@ -1,11 +1,27 @@
+function getPlayerByRemoteId(remoteId: number) {
+    const player = mp.players.atRemoteId(remoteId);
+    if (player && mp.players.exists(player)) {
+        return player;
+    }
+    return null;
+}
+
+function getVehicleByRemoteId(remoteId: number) {
+    const vehicle = mp.vehicles.atRemoteId(remoteId);
+    if (vehicle && mp.vehicles.exists(vehicle)) {
+        return vehicle;
+    }
+    return null;
+}
+
 mp.events.add("client::task:taskAchieveHeading", (heading: number, timeout: number) => {
     mp.players.local.taskAchieveHeading(heading, timeout);
 });
 //-----------------------------------------------------------//
 
 mp.events.add("client::task:taskAimGunAt", (entity: number, duration: number, p3: boolean) => {
-    const target = mp.players.atRemoteId(entity);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(entity);
+    if (!target) return;
     mp.players.local.taskAimGunAt(target.handle, duration, p3);
 });
 //-----------------------------------------------------------//
@@ -19,22 +35,22 @@ mp.events.add("client::task:taskAimGunScripted", (scriptTask: Hash, p2: boolean,
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskArrest", (entity: number) => {
-    const target = mp.players.atRemoteId(entity);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(entity);
+    if (!target) return;
 
     mp.players.local.taskArrest(target.handle);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskBoatMission", (boat: number, p2: any, p3: any, x: number, y: number, z: number, p7: any, maxSpeed: number, p9: any, p10: number, p11: any) => {
-    const target = mp.vehicles.atRemoteId(boat);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(boat);
+    if (!target) return;
 
     mp.players.local.taskBoatMission(target.handle, p2, p3, x, y, z, p7, maxSpeed, p9, p10, p11);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskChatTo", (targetid: number, p2: any, p3: number, p4: number, p5: number, p6: number, p7: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskChatTo(target.handle, p2, p3, p4, p5, p6, p7);
 });
 //-----------------------------------------------------------//
@@ -51,8 +67,8 @@ mp.events.add("client::task:taskClimbLadder", (p1: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskCombat", (targetPlayer: number, p2: number, p3: number) => {
-    const target = mp.players.atRemoteId(targetPlayer);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetPlayer);
+    if (!target) return;
     mp.players.local.taskCombat(target.handle, p2, p3);
 });
 //-----------------------------------------------------------//
@@ -69,14 +85,14 @@ mp.events.add("client::task:taskCower", (duration: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskDriveBy", (targetid: number, p2: any, targetX: number, targetY: number, targetZ: number, p6: number, p7: any, p8: boolean, firingPattern: Hash) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskDriveBy(target.handle, p2, targetX, targetY, targetZ, p6, p7, p8, firingPattern);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskEnterVehicle", (vehicleid: number, timeout: number, seat: number, speed: number, p5: number, p6: any) => {
-    const target = mp.vehicles.atRemoteId(vehicleid);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicleid);
+    if (!target) return;
     mp.players.local.taskEnterVehicle(target.handle, timeout, seat, speed, p5, p6);
 });
 //-----------------------------------------------------------//
@@ -98,8 +114,8 @@ mp.events.add("client::task:taskFollowPointRoute", (speed: number, unknown: numb
 mp.events.add(
     "client::task:taskFollowToOffsetOf",
     (vehicleid: number, offsetX: number, offsetY: number, offsetZ: number, movementSpeed: number, timeout: number, stoppingRange: number, persistFollowing: boolean) => {
-        const target = mp.vehicles.atRemoteId(vehicleid);
-        if (!target || !mp.vehicles.exists(target)) return;
+        const target = getVehicleByRemoteId(vehicleid);
+        if (!target) return;
         mp.players.local.taskFollowToOffsetOf(target.handle, offsetX, offsetY, offsetZ, movementSpeed, timeout, stoppingRange, persistFollowing);
     }
 );
@@ -109,8 +125,8 @@ mp.events.add("client::task:taskForceMotionState", (state: Hash, p2: boolean) =>
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskGetOffBoat", (boat: number) => {
-    const target = mp.vehicles.atRemoteId(boat);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(boat);
+    if (!target) return;
     mp.players.local.taskGetOffBoat(target.handle);
 });
 //-----------------------------------------------------------//
@@ -119,8 +135,8 @@ mp.events.add("client::task:taskGoStraightToCoord", (x: number, y: number, z: nu
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskGotoAiming", (targetid: number, distanceToStopAt: number, StartAimingDist: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskGotoAiming(target.handle, distanceToStopAt, StartAimingDist);
 });
 //-----------------------------------------------------------//
@@ -195,14 +211,14 @@ mp.events.add("client::task:taskGuardSphereDefensiveArea", (p1: number, p2: numb
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskHandsUp", (duration: number, facingPed: number, p3: number, p4: boolean) => {
-    const targetPlayer = mp.players.atRemoteId(facingPed);
-    if (!targetPlayer || !mp.players.exists(targetPlayer)) return;
+    const targetPlayer = getPlayerByRemoteId(facingPed);
+    if (!targetPlayer) return;
     mp.players.local.taskHandsUp(duration, targetPlayer.handle, p3, p4);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskHeliChase", (targetid: number, x: number, y: number, z: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskHeliChase(target.handle, x, y, z);
 });
 //-----------------------------------------------------------//
@@ -240,14 +256,14 @@ mp.events.add("client::task:taskLeaveAnyVehicle", (p1: number, p2: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskLeaveVehicle", (targetvehicle: number, flags: number) => {
-    const target = mp.vehicles.atRemoteId(targetvehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(targetvehicle);
+    if (!target) return;
     mp.players.local.taskLeaveVehicle(target.handle, flags);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskLookAt", (targetid: number, duration: number, unknown1: number, unknown2: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskLookAt(target.handle, duration, unknown1, unknown2);
 });
 //-----------------------------------------------------------//
@@ -263,8 +279,8 @@ mp.events.add(
 );
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskOpenVehicleDoor", (targetvehicle: number, timeOut: number, doorIndex: number, speed: number) => {
-    const target = mp.vehicles.atRemoteId(targetvehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(targetvehicle);
+    if (!target) return;
     mp.players.local.taskOpenVehicleDoor(target.handle, timeOut, doorIndex, speed);
 });
 //-----------------------------------------------------------//
@@ -285,20 +301,20 @@ mp.events.add("client::task:taskPause", (ms: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskPerformSequence", (targetid: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskPerformSequence(target.handle);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskPlaneChase", (targetid: number, x: number, y: number, z: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskPlaneChase(target.handle, x, y, z);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskPlaneLand", (plane: number, runwayStartX: number, runwayStartY: number, runwayStartZ: number, runwayEndX: number, runwayEndY: number, runwayEndZ: number) => {
-    const target = mp.vehicles.atRemoteId(plane);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(plane);
+    if (!target) return;
     mp.players.local.taskPlaneLand(target.handle, runwayStartX, runwayStartY, runwayStartZ, runwayEndX, runwayEndY, runwayEndZ);
 });
 //-----------------------------------------------------------//
@@ -324,8 +340,8 @@ mp.events.add(
         const targetVehicle = mp.vehicles.atRemoteId(vehicleid);
         if (!targetVehicle || !mp.vehicles.exists(targetVehicle)) return;
 
-        const targetPlayer = mp.players.atRemoteId(playerid);
-        if (!targetPlayer || !mp.players.exists(targetPlayer)) return;
+        const targetPlayer = getPlayerByRemoteId(playerid);
+        if (!targetPlayer) return;
 
         mp.players.local.taskPlaneMission(targetPlane.handle, targetVehicle.handle, targetPlayer.handle, destinationX, destinationY, destinationZ, p7, physicsSpeed, p9, p10, maxAltitude, minAltitude);
     }
@@ -374,8 +390,8 @@ mp.events.add("client::task:taskPutDirectlyIntoCover", (x: number, y: number, z:
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskPutDirectlyIntoMelee", (meleeTarget: number, p2: number, p3: number, p4: number, p5: boolean) => {
-    const target = mp.players.atRemoteId(meleeTarget);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(meleeTarget);
+    if (!target) return;
     mp.players.local.taskPutDirectlyIntoMelee(target.handle, p2, p3, p4, p5);
 });
 //-----------------------------------------------------------//
@@ -384,8 +400,8 @@ mp.events.add("client::task:taskRappelFromHeli", (p1: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskReactAndFlee", (fleeTarget: number) => {
-    const target = mp.players.atRemoteId(fleeTarget);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(fleeTarget);
+    if (!target) return;
     mp.players.local.taskReactAndFlee(target.handle);
 });
 //-----------------------------------------------------------//
@@ -398,8 +414,8 @@ mp.events.add("client::task:taskScriptedAnimation", (lowData: number, midData: n
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskSeekCoverFrom", (fleeTarget: number, duration: number, p3: boolean) => {
-    const target = mp.players.atRemoteId(fleeTarget);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(fleeTarget);
+    if (!target) return;
     mp.players.local.taskSeekCoverFrom(target.handle, duration, p3);
 });
 //-----------------------------------------------------------//
@@ -442,8 +458,8 @@ mp.events.add("client::task:taskSlideToCoordHdgRate", (x: number, y: number, z: 
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskSmartFlee", (fleeTarget: number, distance: number, fleeTime: any, preferPavements: boolean, updateToNearestHatedPed: boolean) => {
-    const target = mp.players.atRemoteId(fleeTarget);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(fleeTarget);
+    if (!target) return;
     mp.players.local.taskSmartFlee(target.handle, distance, fleeTime, preferPavements, updateToNearestHatedPed);
 });
 //-----------------------------------------------------------//
@@ -472,8 +488,8 @@ mp.events.add("client::task:taskStayInCover", () => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskStealthKill", (targetid: number, killType: Hash, p3: number, p4: boolean) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskStealthKill(target.handle, killType, p3, p4);
 });
 //-----------------------------------------------------------//
@@ -499,8 +515,8 @@ mp.events.add(
 );
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskTurnToFace", (entity: number, duration: number) => {
-    const target = mp.players.atRemoteId(entity);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(entity);
+    if (!target) return;
     mp.players.local.taskTurnToFace(target.handle, duration);
 });
 //-----------------------------------------------------------//
@@ -521,84 +537,84 @@ mp.events.add("client::task:taskUseNearestScenarioToCoordWarp", (x: number, y: n
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleAimAt", (entity: number) => {
-    const target = mp.players.atRemoteId(entity);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(entity);
+    if (!target) return;
     mp.players.local.taskVehicleAimAt(target.handle);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleChase", (targetEnt: number) => {
-    const target = mp.players.atRemoteId(targetEnt);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetEnt);
+    if (!target) return;
     mp.players.local.taskVehicleChase(target.handle);
 });
 //-----------------------------------------------------------//
 mp.events.add(
     "client::task:taskVehicleDriveToCoord",
     (vehicle: number, x: number, y: number, z: number, speed: number, p6: any, vehicleModel: Hash, drivingMode: number, stopRange: number, p10: number) => {
-        const target = mp.vehicles.atRemoteId(vehicle);
-        if (!target || !mp.vehicles.exists(target)) return;
+        const target = getVehicleByRemoteId(vehicle);
+        if (!target) return;
         mp.players.local.taskVehicleDriveToCoord(target.handle, x, y, z, speed, p6, vehicleModel, drivingMode, stopRange, p10);
     }
 );
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleDriveToCoordLongrange", (vehicle: number, x: number, y: number, z: number, speed: number, driveMode: number, stopRange: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleDriveToCoordLongrange(target.handle, x, y, z, speed, driveMode, stopRange);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleDriveWander", (vehicle: number, speed: number, drivingStyle: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleDriveWander(target.handle, speed, drivingStyle);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleEscort", (vehicle: number, targetveh: number, mode: number, speed: number, drivingStyle: number, minDistance: number, p7: number, noRoadsDistance: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
+    const target = getVehicleByRemoteId(vehicle);
     const targetvehicle = mp.vehicles.at(targetveh);
-    if (!target || !mp.vehicles.exists(target) || !targetvehicle || !mp.vehicles.exists(targetvehicle)) return;
+    if (!target || !targetvehicle || !mp.vehicles.exists(targetvehicle)) return;
     mp.players.local.taskVehicleEscort(target.handle, targetvehicle.handle, mode, speed, drivingStyle, minDistance, p7, noRoadsDistance);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleFollow", (vehicle: number, targetEntity: number, drivingStyle: number, speed: number, minDistance: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    const targetPlayer = mp.players.atRemoteId(targetEntity);
-    if (!target || !mp.vehicles.exists(target) || !targetPlayer || !mp.players.exists(targetPlayer)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    const targetPlayer = getPlayerByRemoteId(targetEntity);
+    if (!target || !targetPlayer) return;
     mp.players.local.taskVehicleFollow(target.handle, targetPlayer.handle, drivingStyle, speed, minDistance);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleFollowWaypointRecording", (vehicle: number, WPRecording: string, p3: number, p4: number, p5: number, p6: number, p7: number, p8: boolean, p9: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleFollowWaypointRecording(target.handle, WPRecording, p3, p4, p5, p6, p7, p8, p9);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleGotoNavmesh", (vehicle: number, x: number, y: number, z: number, speed: number, behaviorFlag: number, stoppingRange: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleGotoNavmesh(target.handle, x, y, z, speed, behaviorFlag, stoppingRange);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleHeliProtect", (vehicle: number, entityToFollow: number, targetSpeed: number, p4: number, radius: number, altitude: number, p7: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
 
-    const targetPlayer = mp.players.atRemoteId(entityToFollow);
-    if (!targetPlayer || !mp.players.exists(targetPlayer)) return;
+    const targetPlayer = getPlayerByRemoteId(entityToFollow);
+    if (!targetPlayer) return;
 
     mp.players.local.taskVehicleHeliProtect(target.handle, targetPlayer.handle, targetSpeed, p4, radius, altitude, p7);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleMissionCoorsTarget", (vehicle: number, x: number, y: number, z: number, p5: number, p6: number, p7: number, p8: number, p9: number, p10: boolean) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleMissionCoorsTarget(target.handle, x, y, z, p5, p6, p7, p8, p9, p10);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleMissionTarget", (vehicle: number, pedTarget: number, mode: number, maxSpeed: number, drivingStyle: number, minDistance: number, p7: number, p8: boolean) => {
     const targetVehicle = mp.vehicles.atRemoteId(vehicle);
-    const targetPlayer = mp.players.atRemoteId(pedTarget);
-    if (!targetVehicle || !mp.vehicles.exists(targetVehicle) || !targetPlayer || !mp.players.exists(targetPlayer)) return;
+    const targetPlayer = getPlayerByRemoteId(pedTarget);
+    if (!targetVehicle || !mp.vehicles.exists(targetVehicle) || !targetPlayer) return;
     mp.players.local.taskVehicleMissionTarget(targetVehicle.handle, targetPlayer.handle, mode, maxSpeed, drivingStyle, minDistance, p7, p8);
 });
 //-----------------------------------------------------------//
@@ -609,8 +625,8 @@ mp.events.add("client::task:taskVehiclePark", (vehicle: number, x: number, y: nu
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskVehicleTempAction", (vehicle: number, action: number, time: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskVehicleTempAction(target.handle, action, time);
 });
 //-----------------------------------------------------------//
@@ -623,14 +639,14 @@ mp.events.add("client::task:taskWanderStandard", (p1: number, p2: number) => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskWarpIntoVehicle", (vehicle: number, seat: number) => {
-    const target = mp.vehicles.atRemoteId(vehicle);
-    if (!target || !mp.vehicles.exists(target)) return;
+    const target = getVehicleByRemoteId(vehicle);
+    if (!target) return;
     mp.players.local.taskWarpIntoVehicle(target.handle, seat);
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:taskWrithe", (targetid: number, time: number, p3: number) => {
-    const target = mp.players.atRemoteId(targetid);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(targetid);
+    if (!target) return;
     mp.players.local.taskWrithe(target.handle, time, p3);
 });
 //-----------------------------------------------------------//
@@ -639,8 +655,8 @@ mp.events.add("client::task:uncuff", () => {
 });
 //-----------------------------------------------------------//
 mp.events.add("client::task:updateTaskAimGunScriptedTarget", (p1: number, p2: number, p3: number, p4: number, p5: boolean) => {
-    const target = mp.players.atRemoteId(p1);
-    if (!target || !mp.players.exists(target)) return;
+    const target = getPlayerByRemoteId(p1);
+    if (!target) return;
     mp.players.local.updateTaskAimGunScriptedTarget(target.handle, p2, p3, p4, p5);
 });
 //-----------------------------------------------------------//

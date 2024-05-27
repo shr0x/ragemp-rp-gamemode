@@ -8,7 +8,7 @@ import MainHud from "./MainHud/MainHud";
 
 import InventoryStore from "store/Inventory.store";
 import Inventory from "./Inventory/Inventory";
-const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = ({ inventoryStore, store, hudStore }) => {
+const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = observer(({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
             <MainHud store={hudStore} playerStore={store} />
@@ -16,6 +16,6 @@ const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: Hu
             {inventoryStore.isVisible && <Inventory store={inventoryStore} playerStore={store} />}
         </div>
     );
-};
+});
 
-export default observer(HUD);
+export default HUD;
