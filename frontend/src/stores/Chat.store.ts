@@ -1,21 +1,42 @@
 import { makeObservable, observable, action } from "mobx";
 
-export default class ChatStore {
-    @observable isActive: boolean = false;
-    @observable messages: string[] = observable.array([]);
+interface IChatSettings {
+    timestamp: boolean;
+    fontsize: number;
+    background: boolean;
+}
 
-    @observable lastMessages: string[] = observable.array([]);
-    @observable historyCounter: number = -1;
+export default class ChatStore {
+    @observable
+    isActive: boolean = true;
+
+    @observable
+    messages: string[] = observable.array([]);
+
+    @observable
+    lastMessages: string[] = observable.array([]);
+
+    @observable
+    historyCounter: number = -1;
+
+    @observable
+    settings: IChatSettings = observable.object({
+        background: false,
+        fontsize: 1.48888889,
+        timestamp: false
+    });
 
     constructor() {
         makeObservable(this);
     }
 
-    @action.bound setActive(data: boolean) {
+    @action.bound
+    setActive(data: boolean) {
         this.isActive = data;
     }
 
-    @action.bound updateLastMessages(text: string) {
+    @action.bound
+    updateLastMessages(text: string) {
         if (text.length > 0) {
             let message = text.trim();
             let history = [...this.lastMessages];
@@ -28,7 +49,8 @@ export default class ChatStore {
         }
     }
 
-    @action.bound fetchNewMessage(obj: string) {
+    @action.bound
+    fetchNewMessage(obj: string) {
         this.messages.push(obj);
         if (this.messages.length > 150) this.messages.shift();
     }
