@@ -26,6 +26,31 @@ declare namespace RageShared.Interfaces {
         }
     }
 
+    interface CefEventMap {
+        notify: {
+            show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
+        };
+        player: {
+            setCharacters: any[];
+            setKeybindData: { [key: string]: string };
+        };
+        hud: {
+            setInteraction: RageShared.Interfaces.InteractionData;
+            setVehicleData: { key: keyof IVehicleData; data: any };
+        };
+        chat: {
+            setCommands: string[];
+        };
+        inventory: {
+            setVisible: boolean;
+            setClothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+            setInventory: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } };
+            setQuickUseItems: { [key: number]: { component: string; id: number } | null };
+            setDroppedItems: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+            setMaxWeight: number;
+        };
+        auth: {};
+    }
     interface IncomingCEFEvents {
         inventory: {
             onMoveItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) => void;
