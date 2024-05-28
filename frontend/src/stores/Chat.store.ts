@@ -8,10 +8,18 @@ interface IChatSettings {
 
 export default class ChatStore {
     @observable
-    isActive: boolean = true;
+    isActive: boolean = false;
 
     @observable
-    messages: string[] = observable.array([]);
+    commandList: string[] = observable.array(["/goto", "/help", "/ban", "/kick", "/mute", "/unmute"]);
+
+    @observable
+    messages: string[] = observable.array([
+        // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123',
+        // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123',
+        // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123',
+        // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123'
+    ]);
 
     @observable
     lastMessages: string[] = observable.array([]);
@@ -53,5 +61,10 @@ export default class ChatStore {
     fetchNewMessage(obj: string) {
         this.messages.push(obj);
         if (this.messages.length > 150) this.messages.shift();
+    }
+
+    @action.bound
+    fetchCommandList(commands: string[]) {
+        this.commandList = commands;
     }
 }

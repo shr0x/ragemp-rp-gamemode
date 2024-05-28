@@ -9,12 +9,14 @@ import style from "./input.module.scss";
 const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = ({ store, chatFocusFunc, chatBlur }) => {
     const [isFocused, setFocused] = useState(false),
         [selection, setSelection] = useState<{ start: number; end: number }>({ start: 0, end: 0 }),
-        [inputText, setInputText] = useState("");
+        [inputText, setInputText] = useState(""),
+        [suggestedCommand, setSuggestedCommand] = useState("");
 
     const input = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const chatAPI = {
+        //@ts-ignore
+        window.chatAPI = {
             clear: () => {
                 store.messages = [];
             },
@@ -35,10 +37,14 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
         //@ts-ignore
         if (typeof mp !== "undefined") {
             const api: Record<string, Function> = {
-                "chat:push": chatAPI.push,
-                "chat:clear": chatAPI.clear,
-                "chat:activate": chatAPI.activate,
-                "chat:show": chatAPI.show
+                //@ts-ignore
+                "chat:push": window.chatAPI.push,
+                //@ts-ignore
+                "chat:clear": window.chatAPI.clear,
+                //@ts-ignore
+                "chat:activate": window.chatAPI.activate,
+                //@ts-ignore
+                "chat:show": window.chatAPI.show
             };
 
             for (const fn in api) {
@@ -46,7 +52,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
                 mp.events.add(fn, api[fn]);
             }
         }
-    }, []);
+    }, [store]);
 
     useEffect(() => {
         EventManager.addHandler("chat", "setTextInput", (text: string) => setInputText(text));
@@ -59,12 +65,6 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
             EventManager.emitServer("chat", "sendMessage", String(inputText));
             store.updateLastMessages(String(inputText));
             setInputText("");
-        });
-
-        EventManager.addHandler("chat", "command", () => {
-            setFocused(true);
-            input.current?.focus();
-            setInputText(`/`);
         });
     }, [inputText, store]);
 
@@ -97,7 +97,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
             store.historyCounter = -1;
             setFocused(false);
         },
-        [] //eslint-disable-line
+        [isFocused, store]
     );
 
     useEffect(() => {
@@ -136,12 +136,32 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
                     setTimeout(() => setSelection({ start: start + store.lastMessages[counter].length, end: end + store.lastMessages[counter].length }), 2);
                     return;
                 }
+                case "Tab": {
+                    if (suggestedCommand) {
+                        setInputText(suggestedCommand);
+                        setSelection({ start: suggestedCommand.length, end: suggestedCommand.length });
+                        event.preventDefault();
+                    }
+                    return;
+                }
                 default:
                     return;
             }
         },
-        [store.lastMessages, store.historyCounter, inputText, isFocused]
+        [store.lastMessages, store.historyCounter, inputText, isFocused, suggestedCommand]
     );
+
+    const handleInputChange = useCallback((e: { target: { value: any } }) => {
+        const value = e.target.value;
+        setInputText(value);
+
+        if (value.startsWith("/") && value.length > 3) {
+            const match = store.commandList.find((cmd) => cmd.startsWith(value));
+            setSuggestedCommand(match || "");
+        } else {
+            setSuggestedCommand("");
+        }
+    }, []);
 
     useEffect(() => {
         document.addEventListener("keydown", handleKeyPress);
@@ -162,10 +182,16 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
                         chatFocusFunc();
                     }}
                     onBlur={() => chatBlur()}
-                    onChange={(e) => setInputText(e.target.value)}
+                    onChange={handleInputChange}
                     maxLength={200}
                     tabIndex={-1}
                 />
+                {suggestedCommand && (
+                    <div className={style.suggestion}>
+                        <span className={style.suggestionHighlight}>{inputText}</span>
+                        <span className={style.suggestionRest}>{suggestedCommand.slice(inputText.length)}</span>
+                    </div>
+                )}
             </div>
         </div>
     );

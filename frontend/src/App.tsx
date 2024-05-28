@@ -29,7 +29,6 @@ const App: FC = () => {
     const [page, setPage] = useState<string>("");
 
     initializeEvents({ chatStore, playerStore, hudStore, inventoryStore });
-
     useEffect(() => {
         EventManager.addHandler("system", "setPage", setPage);
         EventManager.addHandler("notify", "show", (data: { type: any; message: string; skin: any }) => Notification.show(data.type, data.message, data.skin));

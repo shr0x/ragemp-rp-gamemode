@@ -1,6 +1,6 @@
-# RAGEMP RP FRAMEWORK
+# RAGEMP RP GAMEMODE
 
-A RAGE MULTIPLAYER Roleplay framework.
+A RAGE MULTIPLAYER Roleplay game mode.
 
 # Introduction
 >
@@ -14,22 +14,24 @@ This game mode is still a work in progress, plenty features are planned to be ad
 | Client Side| Server Side | Frontend |
 |----------|----------|----------|
 | [Webpack](https://webpack.js.org/) | [Typescript](https://www.typescriptlang.org/)     | [React](https://react.dev/)    |
-| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [React Rewire](https://www.npmjs.com/package/react-app-rewired)    |
+| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [Vite](https://vitejs.dev/)    |
 |    | [TypeORM](https://typeorm.io/)    | [MobX](https://mobx.js.org/README.html)    |
 |    | [Webpack](https://webpack.js.org/)    | [Typescript](https://www.typescriptlang.org/)   |
 
 
 >
 # Credits<br>
-Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/)<br>
-Thanks to Morbo for [NoClip](https://rage.mp/files/file/163-noclip/)
+Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/) & [v-bettertorso](https://github.com/root-cause/v-besttorso)<br>
 
 # Current Features
  - Account system (Login/Register).
  - Character System (3 Available slots to create)
+ - Inventory system.
+ - HUD & Player data.
  - Notification system
  - Chat System
  - Command system
+ - Radial Interactive Menu
  #
 
 # Getting started with server development
