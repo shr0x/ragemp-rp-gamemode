@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import EventManager from "utils/EventManager.util";
 import ChatInput from "./components/ChatInput";
 import ChatStore from "store/Chat.store";
-
 import style from "./chat.module.scss";
 
 let chatHideTimeout: NodeJS.Timeout | null = null;

@@ -1,36 +1,98 @@
 import { makeObservable, observable, action, set } from "mobx";
 
 export interface IBaseItem {
-    type: string; //item type
-    isPlaced: boolean; //whether item is 'placed' in clothes
-    quality: number; //item quality level
-    image: string; //item image
-    hash: string; //unique item hash, also used as linked to a child item
-    key: string; //item key which contains clothes data only (such as texture,comp, etc)
-    render: string; //item render image which later on can be used in CDN if you have plenty items.
-    name: string; //item name
-    description: string; //item description
-    count: number; //item count, also determines whether you can split an item up
-    weight: number; //item weight
-    maxStack: number; //max stack determines how many items can be stacked in one slot
-    options: string[]; //item options (to be used when you right click an item) such
-    gender: number | null; //item gender, used on clothes whether the clothe is for female or male
+    /*
+     * Item Type
+     */
+    type: string;
+
+    /*
+     * Whether item is placed in clothes or not
+     */
+    isPlaced: boolean;
+
+    /*
+     * Item Quality Level -1 to 4
+     */
+    quality: number;
+
+    /*
+     * Item Image
+     */
+    image: string;
+
+    /*
+     * Unique item hash, also used as linked to a child item
+     */
+    hash: string;
+
+    /*
+     * Item key, contains clothes data such as component id, drawable and texture id.
+     */
+    key: string;
+
+    /*
+     * Item render image, shows when you click an item in the inventory slots
+     */
+    render: string;
+
+    /*
+     * Item name
+     */
+    name: string;
+
+    /*
+     * Item description
+     */
+    description: string;
+
+    /*
+     * Item count, also determines whether you can split an item up
+     */
+    count: number;
+
+    /**
+     * Item weight, how much an item weights
+     */
+    weight: number;
+
+    /*
+     * Item max stack, determines the count of an item that can be stacked together in one slot
+     */
+    maxStack: number;
+
+    /*
+     * Item options, used when you right click an item.
+     */
+    options: string[];
+
+    /*
+     * Item gender, used on clothes whether its for females or males.
+     */
+    gender: number | null;
 }
 
-interface IInventory {
+interface ICategory {
     [key: string]: { [key: number]: IBaseItem | null };
 }
 
+/**
+ * Represents an inventory store.
+ */
 export default class InventoryStore {
+    /** Indicates if the inventory is visible. */
     @observable
     isVisible: boolean = false;
 
+    /** The current weight of the inventory. */
     @observable
     currentWeight = 0;
 
+    /** The maximum allowed weight of the inventory. */
     @observable
     maxInventoryWeight = 40;
 
+    /** The clothes items in the inventory. */
     @observable
     clothes: { [key: number]: IBaseItem | null } = observable.object({
         0: null,
@@ -45,26 +107,11 @@ export default class InventoryStore {
         9: null,
         10: null,
         11: null,
-        12: {
-            type: "pants",
-            hash: "f38fdbfb-fee5-4298-849e-222222",
-            key: 'pants {"component":4,"drawable":1,"texture":0}',
-            quality: -1,
-            image: "pants.svg",
-            render: "male/c_m_4_1_0.webp",
-            name: "Pants",
-            description: "Beast Pants Eva",
-            count: 11,
-            weight: 1,
-            maxStack: 1,
-            options: ["putOn", "drop", "trade", "split"],
-            modelHash: "bkr_prop_duffel_bag_01a",
-            isPlaced: true,
-            gender: 0
-        },
+        12: null,
         13: null
     });
 
+    /** The quick use items in the inventory. */
     @observable
     quickUse: { [key: number]: { component: string; id: number } | null } = observable.object({
         0: null,
@@ -74,8 +121,10 @@ export default class InventoryStore {
         4: null,
         5: null
     });
+
+    /** The main inventory categorized by type. */
     @observable
-    inventory: IInventory = observable.object({
+    inventory: ICategory = observable.object({
         pockets: {
             "0": null,
             "1": null,
@@ -89,33 +138,16 @@ export default class InventoryStore {
             "9": null,
             "10": null,
             "11": null,
-            "12": {
-                type: "pants",
-                hash: "f38fdbfb-fee5-4298-849e-222222",
-                key: 'pants {"component":4,"drawable":1,"texture":0}',
-                quality: -1,
-                image: "pants.svg",
-                render: "male/c_m_4_1_0.webp",
-                name: "Pants",
-                description: "Beast Pants Eva",
-                count: 1,
-                weight: 1,
-                maxStack: 1,
-                options: ["putOn", "drop", "trade"],
-                modelHash: "bkr_prop_duffel_bag_01a",
-                isPlaced: false,
-                gender: 0
-            },
+            "12": null,
             "13": null,
             "14": null,
             "15": null,
             "16": null,
             "17": null
         }
-
-        //  "2": { "type": null }, "3": { "type": null }, "4": { "type": null }, "5": { "type": null }
     });
 
+    /** The side inventory items. */
     @observable
     sideInventory: { [key: number]: IBaseItem | null } = observable.object({
         0: null,
@@ -133,23 +165,7 @@ export default class InventoryStore {
         12: null,
         13: null,
         14: null,
-        15: {
-            type: "pants",
-            hash: "f38fdbfb-fee5-4298-849e-222222",
-            key: 'pants {"component":4,"drawable":1,"texture":0}',
-            quality: -1,
-            image: "pants.svg",
-            render: "male/c_m_4_1_0.webp",
-            name: "Pants",
-            description: "Beast Pants Eva",
-            count: 1,
-            weight: 1,
-            maxStack: 1,
-            options: ["putOn", "drop", "trade"],
-            modelHash: "bkr_prop_duffel_bag_01a",
-            isPlaced: false,
-            gender: 0
-        },
+        15: null,
         16: null,
         17: null,
         18: null,
@@ -160,106 +176,79 @@ export default class InventoryStore {
         23: null
     });
 
+    /** The backpack data categorized by unique identifiers. */
     @observable
     backpackData: { [key: string]: { [key: number]: IBaseItem | null } } = observable.object({
-        "77773377727777": {
-            0: {
-                type: "weapon",
-                class: 1,
-                hash: "496b4e3e-afa8-4633-b3cc-d54748dx3ad1f",
-                key: "",
-                quality: 4,
-                image: "pistol_mk2.svg",
-                render: "pistol_mk2.svg",
-                name: "Pistol MK2",
-                description: "A quick use handgun",
-                count: 5,
-                weight: 1,
-                maxStack: 5,
-                options: ["drop", "trade", "fast", "split"],
-                gender: null,
-                isPlaced: false
-            },
-            1: {
-                type: "weapon",
-                class: 1,
-                hash: "496b4e3e-afa8-4633-b3cc-d54748dx3ad1f",
-                key: "",
-                quality: -1,
-                image: "assaultrifle.svg",
-                render: "",
-                name: "Assault Rifle",
-                description: "A heavy assault rifle",
-                count: 1,
-                weight: 1,
-                maxStack: 2,
-                options: ["drop", "trade", "fast", "split"],
-                gender: null,
-                isPlaced: false
-            },
-            2: {
-                type: "weapon",
-                class: 1,
-                hash: "496b4e3e-afa8-4633-b3cc-d54748dx3ad1f",
-                key: "",
-                quality: -1,
-                image: "assaultrifle.svg",
-                render: "",
-                name: "Whatever",
-                description: "whatever desc",
-                count: 1,
-                weight: 1,
-                maxStack: 1,
-                options: ["drop", "trade", "fast"],
-                gender: null,
-                isPlaced: false
-            },
-            3: null,
-            4: null,
-            5: null,
-            6: null,
-            7: null,
-            8: null,
-            9: null,
-            10: null,
-            11: null,
-            12: null,
-            13: null,
-            14: null,
-            15: null,
-            16: null,
-            17: null,
-            18: null,
-            19: null,
-            20: null,
-            21: null,
-            22: null,
-            23: null
-        }
+        // Example structure
+        // "77773377727777": {
+        //     0: null,
+        //     1: null,
+        //     2: null,
+        //     3: null,
+        //     4: null,
+        //     5: null,
+        //     6: null,
+        //     7: null,
+        //     8: null,
+        //     9: null,
+        //     10: null,
+        //     11: null,
+        //     12: null,
+        //     13: null,
+        //     14: null,
+        //     15: null,
+        //     16: null,
+        //     17: null,
+        //     18: null,
+        //     19: null,
+        //     20: null,
+        //     21: null,
+        //     22: null,
+        //     23: null
+        // }
     });
 
+    /** The list of players around the current player. */
     @observable
     playersAround: any[] = [];
 
     constructor() {
         makeObservable(this);
+        this.calcInventoryWeight();
     }
 
+    /**
+     * Sets the maximum weight of the inventory.
+     * @param {number} number - The new maximum weight.
+     */
     @action.bound
     setInventoryMaxWeight(number: number) {
         this.maxInventoryWeight = number;
     }
 
+    /**
+     * Sets the visibility of the inventory.
+     * @param {boolean} bool - The new visibility state.
+     */
     @action.bound
     setVisible(bool: boolean) {
         this.isVisible = bool;
     }
 
+    /**
+     * Checks if an item is in the quick use slots.
+     * @param {number} id - The ID of the item.
+     * @returns {boolean} True if the item is in quick use, otherwise false.
+     */
     @action.bound
     public isItemInQuickUse(id: number): boolean {
         return Object.values(this.quickUse).find((x) => x && x.id === id) ? true : false;
     }
 
+    /**
+     * Calculates the total weight of the items in the backpack.
+     * @returns {number} The total backpack weight.
+     */
     @action.bound
     public calculateBackpackWeight(): number {
         return Object.values(this.backpackData).reduce((totalWeight, items) => {
@@ -272,6 +261,9 @@ export default class InventoryStore {
         }, 0);
     }
 
+    /**
+     * Calculates the total weight of the inventory.
+     */
     @action.bound
     calcInventoryWeight() {
         const calculateWeight = (items: any[]) => items.reduce((acc, item) => acc + (item ? item.weight * item.count : 0), 0);
@@ -280,6 +272,11 @@ export default class InventoryStore {
         this.currentWeight = parseFloat((pocketsWeight + backpackWeight).toFixed(3));
     }
 
+    /**
+     * Gets the quality color of an item.
+     * @param {IBaseItem | null} itemData - The item data.
+     * @returns {string} The quality color in hex format.
+     */
     public getItemQuality(itemData: IBaseItem | null) {
         const qualityColors: { [key: number]: string } = {
             0: "#B7C2F8",
@@ -291,6 +288,13 @@ export default class InventoryStore {
         return itemData ? qualityColors[itemData.quality] || "#FFFFFF00" : "#FFFFFF00";
     }
 
+    /**
+     * Changes the inventory data and optionally recalculates the weight.
+     * @param {{ component: string | null; id: number | null }} data - The data to change.
+     * @param {any} obj - The new object data.
+     * @param {boolean} recalculateWeight - Whether to recalculate the weight.
+     * @param {string | null} [linkedBackpack=null] - The linked backpack ID if applicable.
+     */
     @action.bound
     changeInventoryData(data: { component: string | null; id: number | null }, obj: any, recalculateWeight: boolean, linkedBackpack: string | null = null) {
         if (data.component === null || data.id === null) return;
@@ -306,17 +310,30 @@ export default class InventoryStore {
         if (recalculateWeight) this.calcInventoryWeight();
     }
 
+    /**
+     * Fetches quick use items.
+     * @param {{ [key: number]: { component: string; id: number } | null }} items - The quick use items.
+     */
     @action.bound
     fetchQuickUseItems(items: { [key: number]: { component: string; id: number } | null }) {
         this.quickUse = items;
     }
 
+    /**
+     * Fetches clothes data and recalculates inventory weight.
+     * @param {{ [key: number]: IBaseItem }} obj - The clothes data.
+     */
     @action.bound
     fetchClothesData(obj: { [key: number]: IBaseItem }) {
         this.clothes = obj;
         this.calcInventoryWeight();
     }
 
+    /**
+     * Sets the clothes data for a specific slot and recalculates inventory weight.
+     * @param {number} id - The slot ID.
+     * @param {IBaseItem} data - The item data.
+     */
     @action.bound
     setClothesData(id: number, data: IBaseItem) {
         if (!(id in this.clothes)) return;
@@ -324,29 +341,52 @@ export default class InventoryStore {
         this.calcInventoryWeight();
     }
 
+    /**
+     * Fetches the inventory data and recalculates inventory weight.
+     * @param {ICategory} obj - The inventory data.
+     */
     @action.bound
-    fetchInventoryData(obj: IInventory) {
+    fetchInventoryData(obj: ICategory) {
         this.inventory = obj;
         this.calcInventoryWeight();
     }
 
+    /**
+     * Fetches a specific inventory item and recalculates inventory weight.
+     * @param {string} component - The inventory component.
+     * @param {number} slot - The slot number.
+     * @param {IBaseItem | null} obj - The item data.
+     */
     @action.bound
     fetchInventoryItem(component: string, slot: number, obj: IBaseItem | null) {
         this.inventory[component][slot] = obj;
         this.calcInventoryWeight();
     }
 
+    /**
+     * Fetches the backpack data and recalculates inventory weight.
+     * @param {string} backpack - The backpack identifier.
+     * @param {{ [key: number]: IBaseItem | null }} data - The backpack data.
+     */
     @action.bound
     fetchBackpackData(backpack: string, data: { [key: number]: IBaseItem | null }) {
         this.backpackData[backpack] = data;
         this.calcInventoryWeight();
     }
 
+    /**
+     * Fetches the players around the current player.
+     * @param {any[]} array - The array of players.
+     */
     @action.bound
     fetchPlayersAround(array: any[]) {
         this.playersAround = array;
     }
 
+    /**
+     * Fetches the ground items.
+     * @param {typeof this.sideInventory} items - The ground items data.
+     */
     @action.bound
     fetchGroundItems(items: typeof this.sideInventory) {
         this.sideInventory = items;

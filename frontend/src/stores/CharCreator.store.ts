@@ -31,33 +31,26 @@ const defaultData = {
 };
 
 export default class CreatorStore {
-    data = defaultData;
+    @observable
+    data = observable.object(defaultData);
 
+    @observable
     lastFather = 0;
+
+    @observable
     lastMother = 0;
 
     constructor() {
-        makeObservable(this, {
-            data: observable,
-            lastFather: observable,
-            lastMother: observable,
-
-            fetchData: action.bound,
-            resetData: action.bound
-        });
+        makeObservable(this);
     }
 
+    @action.bound
     fetchData(data: any) {
         return (this.data = data);
     }
 
+    @action.bound
     resetData() {
-        this.data = defaultData;
-        this.lastFather = 0;
-        this.lastMother = 0;
-    }
-
-    destroy() {
         this.data = defaultData;
         this.lastFather = 0;
         this.lastMother = 0;

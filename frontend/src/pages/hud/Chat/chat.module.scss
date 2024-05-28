@@ -3,8 +3,7 @@
     top: 0;
     left: 0;
     z-index: 0;
-    width: 55.55555555555555vh;
-    // border: 1px solid black;
+    width: 68vh;
 
     .content {
         height: 27.777777777777775vh;
@@ -26,12 +25,13 @@
 
         .message {
             width: 100%;
-            text-shadow: 0 0 4px black;
-            font-family: "TT Norms Medium", sans-serif;
+            font-family: Myriad Pro, Open Sans, sans-serif;
             color: #fff;
             font-size: 1.48888889vh;
             line-height: 2.222222222222222vh;
             word-wrap: break-word;
+            font-weight: 700;
+            text-shadow: 0 0 0.1em black, 0 0 0.1em black, 0 0 0.1em black, 0 0 0.1em black;
         }
 
     }
