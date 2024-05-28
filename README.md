@@ -21,8 +21,7 @@ This game mode is still a work in progress, plenty features are planned to be ad
 
 >
 # Credits<br>
-Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/)<br>
-Thanks to Morbo for [NoClip](https://rage.mp/files/file/163-noclip/)
+Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/) & [v-bettertorso](https://github.com/root-cause/v-besttorso)<br>
 
 # Current Features
  - Account system (Login/Register).
