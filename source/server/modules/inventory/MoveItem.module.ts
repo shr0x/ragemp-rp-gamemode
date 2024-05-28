@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import { ItemObject } from "./ItemObject.class";
 import { inventoryAssets } from "./Items.module";
+import { Utils } from "../../../shared/utils.module";
 
 type MovingComponent = inventoryAssets.INVENTORY_CATEGORIES | "quickUse" | "groundItems";
 
@@ -154,11 +155,11 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
     }
 }
 
-export const moveInventoryItem = async (player: PlayerMp, data: string): Promise<void> => {
+export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>): Promise<void> => {
     try {
         if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 
-        const { item, source, target }: IMovingData = JSON.parse(data);
+        const { item, source, target } = Utils.parseObject(data);
 
         const draggedFrom = source;
         const droppedTo = target;

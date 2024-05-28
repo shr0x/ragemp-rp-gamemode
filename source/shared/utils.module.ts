@@ -1,5 +1,3 @@
-type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
-
 export const Utils = {
     sleep: function (ms: number) {
         return new Promise((res) => setTimeout(res, ms));

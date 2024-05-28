@@ -1,5 +1,7 @@
 /// <reference path="./interfaces/inventory.d.ts" />
+/// <reference path="./interfaces/cefevents.d.ts" />
 
+declare type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 declare namespace RageShared {
     namespace Interfaces {
         interface IPlayerData {

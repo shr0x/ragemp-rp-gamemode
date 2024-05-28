@@ -1,26 +1,15 @@
+import crypto from "crypto";
 import { RAGERP } from "../api";
 import { AccountEntity } from "../database/entity/Account.entity";
-import crypto from "crypto";
 import { CharacterEntity } from "../database/entity/Character.entity";
-
-interface IPlayerLogin {
-    username: string;
-    password: string;
-}
-
-interface IPlayerRegister {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+import { Utils } from "../../shared/utils.module";
 
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
 
-RAGERP.cef.register("auth", "register", async (player: PlayerMp, data: string) => {
-    const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
+RAGERP.cef.register("auth", "register", async (player, data) => {
+    const { username, email, password, confirmPassword } = Utils.parseObject(data);
 
     if (username.length < 4 || username.length > 32) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your username must be between 4 and 32 characters.");
     if (password.length < 5) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your password must contain at least 5 characters.");
@@ -47,8 +36,8 @@ RAGERP.cef.register("auth", "register", async (player: PlayerMp, data: string) =
     // player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
-RAGERP.cef.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
-    const { username, password }: IPlayerLogin = JSON.parse(data);
+RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
+    const { username, password } = Utils.parseObject(data);
 
     const accountData = await RAGERP.database.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
     if (!accountData) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We could not find that account!");

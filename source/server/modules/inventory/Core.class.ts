@@ -350,7 +350,106 @@ class InventoryClothes extends QuickUse {
             });
     }
 }
-export class Inventory extends InventoryClothes {
+
+class InventoryAction extends InventoryClothes {
+    async moveItem(player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>): Promise<void> {
+        moveInventoryItem(player, data);
+    }
+
+    openItem(player: PlayerMp, data: any): void {
+        try {
+            let { item }: { item: RageShared.Interfaces.Inventory.IInventoryItem } = JSON.parse(data);
+            if (!item) return;
+            switch (item.type) {
+                //backpack?...
+                default:
+                    return;
+            }
+        } catch (err) {
+            console.log("openInventoryItem err: ", err);
+        }
+    }
+
+    async useItem(player: PlayerMp, data: string): Promise<void> {
+        await useInventoryItem(player, data);
+    }
+
+    public deleteItemStack(player: PlayerMp, data: string): void {
+        if (!player.character || !mp.players.exists(player) || !player.character.inventory) return;
+
+        try {
+            const { item }: { item: RageShared.Interfaces.Inventory.IInventoryItem } = JSON.parse(data);
+
+            const source = player.character.inventory.getItemSlotComponentByHash(player.character.inventory.items, item.hash) as {
+                component: inventoryAssets.INVENTORY_CATEGORIES | null;
+                slot: number | null;
+            } | null;
+
+            if (!source || !source.component || source.slot === null) return;
+
+            const itemData = player.character.inventory.items[source.component][source.slot];
+            if (!itemData) return;
+
+            const count = itemData.count;
+
+            if (count > 1) {
+                player.character.inventory.items[source.component][source.slot] = { ...item, count: count - 1 };
+                player.character.inventory.setInventory(player);
+            } else {
+                const fastSlotIndex = Object.values(player.character.inventory.quickUse).findIndex((e) => e && e.component === source.component && Utils.tryParse(e.id) === source.slot);
+                if (fastSlotIndex !== -1) {
+                    player.character.inventory.quickUse[fastSlotIndex] = null;
+                }
+
+                player.character.inventory.deleteItem(player, item.hash);
+            }
+
+            if (source.component === "clothes") {
+                player.character.inventory.loadInventory(player);
+            }
+        } catch (err) {
+            console.error("deleteInventoryItemStack err: ", err);
+        }
+    }
+
+    deleteItem(player: PlayerMp, uuid: string): void {
+        if (!player.character || !mp.players.exists(player) || !player.character.inventory) return;
+
+        try {
+            const { items, quickUse } = player.character.inventory;
+
+            for (const category in items) {
+                if (Object.prototype.hasOwnProperty.call(items, category)) {
+                    const categoryItems = items[category as inventoryAssets.INVENTORY_CATEGORIES];
+
+                    for (const [slot, item] of Object.entries(categoryItems)) {
+                        if (!item) continue;
+
+                        if (item.hash === uuid) {
+                            const parsedSlot = Utils.tryParse(slot);
+                            const fastSlotIndex = Object.values(quickUse).findIndex((e) => e && e.component === category && Utils.tryParse(e.id) === parsedSlot);
+
+                            if (fastSlotIndex !== -1) {
+                                quickUse[fastSlotIndex] = null;
+                            }
+                            items[category as inventoryAssets.INVENTORY_CATEGORIES][parsedSlot] = null;
+                            player.character.inventory.setInventory(player);
+
+                            if (category === "clothes") {
+                                player.character.inventory.loadInventory(player);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("deleteInventoryItem err: ", err);
+        }
+    }
+}
+
+export class Inventory extends InventoryAction {
     public getItemModel(itemType: RageShared.Enums.ITEM_TYPES) {
         const item = inventoryAssets.items[itemType];
         if (!item) return null;
@@ -917,92 +1016,6 @@ export class Inventory extends InventoryClothes {
         // player.call("client::cef:close");
         // player.call("client::eventManager", ["cef::hud:showInteractionButton", false]);
         // player.playDurationAnimation("random@domestic", "pickup_low", 1, 1500);
-    }
-
-    async moveItem(player: PlayerMp, data: string): Promise<void> {
-        moveInventoryItem(player, data);
-    }
-
-    openItem(player: PlayerMp, data: any): void {
-        openInventoryItem(player, data);
-    }
-
-    async useItem(player: PlayerMp, data: string): Promise<void> {
-        await useInventoryItem(player, data);
-    }
-
-    public deleteItemStack(player: PlayerMp, data: string): void {
-        if (!player.character || !mp.players.exists(player) || !player.character.inventory) return;
-
-        try {
-            const { item }: { item: RageShared.Interfaces.Inventory.IInventoryItem } = JSON.parse(data);
-
-            const source = player.character.inventory.getItemSlotComponentByHash(player.character.inventory.items, item.hash) as {
-                component: inventoryAssets.INVENTORY_CATEGORIES | null;
-                slot: number | null;
-            } | null;
-
-            if (!source || !source.component || source.slot === null) return;
-
-            const itemData = player.character.inventory.items[source.component][source.slot];
-            if (!itemData) return;
-
-            const count = itemData.count;
-
-            if (count > 1) {
-                player.character.inventory.items[source.component][source.slot] = { ...item, count: count - 1 };
-                player.character.inventory.setInventory(player);
-            } else {
-                const fastSlotIndex = Object.values(player.character.inventory.quickUse).findIndex((e) => e && e.component === source.component && Utils.tryParse(e.id) === source.slot);
-                if (fastSlotIndex !== -1) {
-                    player.character.inventory.quickUse[fastSlotIndex] = null;
-                }
-
-                player.character.inventory.deleteItem(player, item.hash);
-            }
-
-            if (source.component === "clothes") {
-                player.character.inventory.loadInventory(player);
-            }
-        } catch (err) {
-            console.error("deleteInventoryItemStack err: ", err);
-        }
-    }
-
-    deleteItem(player: PlayerMp, uuid: string): void {
-        if (!player.character || !mp.players.exists(player) || !player.character.inventory) return;
-
-        try {
-            const { items, quickUse } = player.character.inventory;
-
-            for (const category in items) {
-                if (Object.prototype.hasOwnProperty.call(items, category)) {
-                    const categoryItems = items[category as inventoryAssets.INVENTORY_CATEGORIES];
-
-                    for (const [slot, item] of Object.entries(categoryItems)) {
-                        if (!item) continue;
-
-                        if (item.hash === uuid) {
-                            const parsedSlot = Utils.tryParse(slot);
-                            const fastSlotIndex = Object.values(quickUse).findIndex((e) => e && e.component === category && Utils.tryParse(e.id) === parsedSlot);
-
-                            if (fastSlotIndex !== -1) {
-                                quickUse[fastSlotIndex] = null;
-                            }
-                            items[category as inventoryAssets.INVENTORY_CATEGORIES][parsedSlot] = null;
-                            player.character.inventory.setInventory(player);
-
-                            if (category === "clothes") {
-                                player.character.inventory.loadInventory(player);
-                            }
-                            return;
-                        }
-                    }
-                }
-            }
-        } catch (err) {
-            console.error("deleteInventoryItem err: ", err);
-        }
     }
 
     public checkQuickUse(component: string, slot: number) {

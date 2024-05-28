@@ -8,11 +8,13 @@ interface EventEntry {
     _event: EventMp;
 }
 
-const MpEvent = <K extends keyof IServerEvents | string>(eventName: K) => {
-    return function (target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
-        mp.events.add(eventName, descriptor.value.bind(target));
-    };
-};
+// Define a type to extract the data type of a specific event
+type EventData<T extends keyof RageShared.Interfaces.IncomingCEFEvents, K extends keyof RageShared.Interfaces.IncomingCEFEvents[T]> = RageShared.Interfaces.IncomingCEFEvents[T][K] extends (
+    player: PlayerMp,
+    data: infer D
+) => void
+    ? D
+    : never;
 
 class Cef_Event {
     private eventsInMemory: EventEntry[] = [];
@@ -32,7 +34,24 @@ class Cef_Event {
      * @param pointer pointer thats coming from page
      * @param handler event handler
      */
-    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void {
+
+    /**
+     * Registers a new event that's being called from CEF (frontend)
+     * @param page page where the event is coming from
+     * @param pointer pointer that's coming from page
+     * @param handler event handler
+     */
+    register<P extends keyof RageShared.Interfaces.IncomingCEFEvents, K extends keyof RageShared.Interfaces.IncomingCEFEvents[P]>(
+        page: P,
+        pointer: K,
+        handler: (player: PlayerMp, data: EventData<P, K>) => void | EventHandler | EventHandlerAsync
+    ): void;
+    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void;
+    register(
+        page: keyof RageShared.Interfaces.IncomingCEFEvents | string,
+        pointer: keyof RageShared.Interfaces.IncomingCEFEvents[keyof RageShared.Interfaces.IncomingCEFEvents] | string,
+        handler: any // Allow any type for handler when page and pointer are provided as strings
+    ): void {
         if (!this.eventsInMemory.some((event) => event.target === page && event.name === pointer)) {
             const _event = new mp.Event(`server::${page}:${pointer}`, handler);
             this.eventsInMemory.push({ target: page, name: pointer, handler, _event });
@@ -122,4 +141,4 @@ class Cef_Event {
 }
 
 const CefEvent = new Cef_Event();
-export { CefEvent, MpEvent };
+export { CefEvent };
