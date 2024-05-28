@@ -15,6 +15,7 @@ import { ItemObject } from "./ItemObject.class";
 
 import * as maleClothes from "../../json/maleTorso.json";
 import * as femaleClothes from "../../json/femaleTorso.json";
+
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 const torsoDataMale: IClothesData = maleClothes;
 const femaleTorsos: IClothesData = femaleClothes;
@@ -161,6 +162,15 @@ class QuickUse extends InventoryItem {
 }
 
 class InventoryClothes extends QuickUse {
+    /**
+     * Returns whether a player is wearing a specified clothing index or not.
+     * @param type Clothing Index
+     * @returns {boolean}
+     */
+    public isWearingClothingType(type: inventoryAssets.INVENTORY_CLOTHING): boolean {
+        return this.items.clothes[type]?.isPlaced ?? false;
+    }
+
     /**
      * Updates on-screen ped for a specified player.
      * @param player player to update the ped to
@@ -578,19 +588,17 @@ export class Inventory extends InventoryAction {
         return foundItem;
     }
 
-    async getItemSlotComponentByHashKey(hashKey: string): Promise<{ component: string | null; slot: number | null } | null> {
-        let foundItem = { component: null as string | null, slot: null as number | null };
-        for (const [key, value] of Object.entries<any>(this.items)) {
-            if (key === "clothes" || key === "quickUse" || key === "wallet") continue;
-            for (let i = 0; i < Object.values<any>(value).length; i++) {
-                if (!value[i].hash) continue;
-                if (value[i].hash === hashKey) {
-                    foundItem = { component: key, slot: i };
-                    break;
+    async getItemSlotComponentByHashKey(hashKey: string): Promise<{ component: string; slot: number } | null> {
+        for (const [key, value] of Object.entries(this.items)) {
+            for (let i = 0; i < Object.values(value).length; i++) {
+                const item = value[i];
+                if (!item) continue;
+                if (item.hash === hashKey) {
+                    return { component: key, slot: i };
                 }
             }
         }
-        return foundItem;
+        return null;
     }
 
     async getClothesItemData(inv: any, hashKey: string): Promise<{ component: string | null; slot: number | null } | null> {
@@ -679,9 +687,7 @@ export class Inventory extends InventoryAction {
     }
 
     isAmmoItem(item: RageShared.Interfaces.Inventory.IInventoryItem): boolean {
-        if (item.type === null) return false;
-        const ammoItems: string[] = [];
-        return ammoItems.includes(item.type);
+        return item.typeCategory === RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO;
     }
 
     async reloadWeaponAmmo(player: PlayerMp, itemHash: string) {
@@ -694,12 +700,12 @@ export class Inventory extends InventoryAction {
             if (!weaponGroup || weaponGroup === RageShared.Enums.WEAPON_GROUP.UNKNOWN) return;
 
             const ammoTypeMap: { [key: number]: string } = {
-                [RageShared.Enums.WEAPON_GROUP.HANDGUNS]: inventoryAssets.AMMO_TYPES.TYPE_PISTOL,
-                [RageShared.Enums.WEAPON_GROUP.SUBMACHINE]: inventoryAssets.AMMO_TYPES.TYPE_SMG,
-                [RageShared.Enums.WEAPON_GROUP.SHOTGUN]: inventoryAssets.AMMO_TYPES.TYPE_GUAGE,
-                [RageShared.Enums.WEAPON_GROUP.ASSAULTRIFLE]: inventoryAssets.AMMO_TYPES.TYPE_RIFLE,
-                [RageShared.Enums.WEAPON_GROUP.LIGHTMACHINE]: inventoryAssets.AMMO_TYPES.TYPE_LMG,
-                [RageShared.Enums.WEAPON_GROUP.SNIPER]: inventoryAssets.AMMO_TYPES.TYPE_SNIPER
+                [RageShared.Enums.WEAPON_GROUP.HANDGUNS]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO,
+                [RageShared.Enums.WEAPON_GROUP.SUBMACHINE]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO,
+                [RageShared.Enums.WEAPON_GROUP.SHOTGUN]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO,
+                [RageShared.Enums.WEAPON_GROUP.ASSAULTRIFLE]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO,
+                [RageShared.Enums.WEAPON_GROUP.LIGHTMACHINE]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO,
+                [RageShared.Enums.WEAPON_GROUP.SNIPER]: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO
             };
 
             const expectedItemHash = ammoTypeMap[weaponGroup];

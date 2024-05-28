@@ -31,15 +31,7 @@ export namespace inventoryAssets {
         pants: "12",
         shoes: "13"
     };
-    export enum AMMO_TYPES {
-        TYPE_PISTOL = "PISTOLAMMO",
-        TYPE_50CAL = "REVOLVERAMMO",
-        TYPE_SMG = "SMGAMMO",
-        TYPE_GUAGE = "SHOTGUNAMMO",
-        TYPE_RIFLE = "RIFLEAMMO",
-        TYPE_SNIPER = "SNIPERAMMO",
-        TYPE_LMG = "LMGAMMO"
-    }
+
     export enum INVENTORY_CATEGORIES {
         CLOTHES = "clothes",
         POCKETS = "pockets"
@@ -2177,6 +2169,101 @@ export namespace inventoryAssets {
             maxStack: 1,
             options: ["drop", "trade", "fast"],
 
+            gender: null,
+            isPlaced: false,
+            modelHash: "prop_bomb_01_s"
+        },
+
+        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO]: {
+            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO,
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+            hash: "",
+            key: "",
+            quality: 0,
+            image: "pistol_ammo.svg",
+            render: "pistol_ammo.svg",
+            name: "Pistol Ammo",
+            description: "",
+            count: 1,
+            weight: 1,
+            maxStack: 60,
+            options: ["drop", "trade", "fast"],
+
+            gender: null,
+            isPlaced: false,
+            modelHash: "prop_bomb_01_s"
+        },
+        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO]: {
+            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO,
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+            hash: "",
+            key: "",
+            quality: 0,
+            image: "smg_ammo.svg",
+            render: "smg_ammo.svg",
+            name: "SMG Ammo",
+            description: "Ammunition to be used on Sub Machine Guns",
+            count: 1,
+            weight: 1,
+            maxStack: 60,
+            options: ["drop", "trade", "fast"],
+
+            gender: null,
+            isPlaced: false,
+            modelHash: "prop_bomb_01_s"
+        },
+        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO]: {
+            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO,
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+            hash: "",
+            key: "",
+            quality: 0,
+            image: "shotgun_ammo.svg",
+            render: "shotgun_ammo.svg",
+            name: "Shotgun Ammo",
+            description: "",
+            count: 1,
+            weight: 1,
+            maxStack: 30,
+            options: ["drop", "trade", "fast"],
+
+            gender: null,
+            isPlaced: false,
+            modelHash: "prop_bomb_01_s"
+        },
+        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO]: {
+            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO,
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+            hash: "",
+            key: "",
+            quality: 0,
+            image: "mg_ammo.svg",
+            render: "mg_ammo.svg",
+            name: "Machine Gun Ammo",
+            description: "",
+            count: 1,
+            weight: 10,
+            maxStack: 100,
+            options: ["drop", "trade", "fast"],
+
+            gender: null,
+            isPlaced: false,
+            modelHash: "prop_bomb_01_s"
+        },
+        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO]: {
+            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO,
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+            hash: "",
+            key: "",
+            quality: 0,
+            image: "rifle_ammo.svg",
+            render: "rifle_ammo.svg",
+            name: "Rifle Ammo",
+            description: "",
+            count: 1,
+            weight: 1,
+            maxStack: 100,
+            options: ["drop", "trade", "fast"],
             gender: null,
             isPlaced: false,
             modelHash: "prop_bomb_01_s"

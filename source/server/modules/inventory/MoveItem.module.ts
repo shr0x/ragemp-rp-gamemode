@@ -3,17 +3,9 @@ import { ItemObject } from "./ItemObject.class";
 import { inventoryAssets } from "./Items.module";
 import { Utils } from "../../../shared/utils.module";
 
-type MovingComponent = inventoryAssets.INVENTORY_CATEGORIES | "quickUse" | "groundItems";
-
-interface IMovingData {
-    source: { slot: string; component: MovingComponent };
-    target: { slot: string; component: MovingComponent; item: RageShared.Interfaces.Inventory.IInventoryItem };
-    item: RageShared.Interfaces.Inventory.IInventoryItem;
-}
-
 async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
     if (!player.character || !player.character.inventory) return;
-    const { item, source, target }: IMovingData = JSON.parse(data);
+    const { item, source, target }: RageShared.Interfaces.Inventory.IMoveItem = JSON.parse(data);
 
     const playerItem = player.character.inventory.getItemByUUID(item.hash);
     if (!playerItem) {

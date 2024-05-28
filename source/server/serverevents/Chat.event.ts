@@ -57,7 +57,7 @@ const sendChatMessage = (player: PlayerMp, msg: string) => {
         return;
     }
     mp.players.forEachInRange(player.position, 15, (target) => {
-        const sendText = `${player.name} says: ${msg}`;
+        const sendText = `${player.getRoleplayName()} says: ${msg}`;
         target.call("client::chat:newMessage", [sendText]);
     });
 };

@@ -46,3 +46,42 @@ mp.events.add("server::inventory:quickUse", (player: PlayerMp, event: any) => {
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {});
+
+//-------------------------------------------------------//
+mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {
+    try {
+        if (!player || !mp.players.exists(player)) return;
+        if (!player.getVariable("ammoHash")) return;
+
+        if (!player.character) return;
+        if (!player.character.inventory) return;
+
+        let ammoHash = player.getVariable("ammoHash") as { items: string[]; count: number };
+        let loadedin = player.getVariable("itemAsAmmo");
+        if (!loadedin) return;
+
+        let findAmmoItem = player.character.inventory.getItemByUUID(loadedin);
+        if (!findAmmoItem) return;
+
+        findAmmoItem.count--;
+
+        if (findAmmoItem.count === 0) {
+            let finditem = await player.character.inventory.getItemSlotComponentByHashKey(loadedin);
+            if (finditem) {
+                player.character.inventory.items[finditem.component as "pockets"][finditem.slot] = null;
+                player.character.inventory.setInventory(player);
+            }
+            ammoHash.items.splice(ammoHash.items.indexOf(loadedin), 1);
+
+            if (ammoHash.items.length) {
+                player.setVariable("itemAsAmmo", ammoHash.items[0]);
+                player.setVariable("ammoHash", ammoHash);
+            } else {
+                player.setVariable("itemAsAmmo", null);
+                player.setVariable("ammoHash", null);
+            }
+        }
+    } catch (err) {
+        console.error("server::player:weaponShot: err", err);
+    }
+});

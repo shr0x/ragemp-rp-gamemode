@@ -29,11 +29,6 @@ RAGERP.cef.register("auth", "register", async (player, data) => {
 
     player.account = result;
     player.name = player.account.username;
-    // player.setVariable("loggedin", true);
-    // player.call("client::auth:destroyCamera");
-    // player.call("client::cef:close");
-    // spawnPlayer(player);
-    // player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
 RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
@@ -49,6 +44,7 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
 
     const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: accountData.id }, take: 3 });
     const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
+
     characters.forEach((x, idx) => {
         const character = { id: x.id, type: 1, name: x.name, bank: 0, money: 0, level: x.level, lastlogin: ".." };
         Object.assign(characterData[idx], character);
@@ -56,7 +52,4 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
 
     RAGERP.cef.emit(player, "player", "setCharacters", characterData);
     player.call("client::eventManager", ["cef::system:setPage", "selectcharacter"]);
-
-    // spawnPlayer(player);
-    // player.showNotify("success", `Welcome back, ${player.account.username}`);
 });

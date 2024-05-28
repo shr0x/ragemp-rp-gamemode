@@ -115,6 +115,7 @@ declare namespace RageShared {
             TYPE_PROP, //prop item
 
             TYPE_WEAPON, //weapon item
+            TYPE_AMMO,
             TYPE_FOOD, //food item
             TYPE_DRINK, //drink item
 
@@ -231,7 +232,13 @@ declare namespace RageShared {
             ITEM_TYPE_PROXIMITYMINE = "weapon_proximitymine",
             ITEM_TYPE_PIPEBOMB = "weapon_pipebomb",
             ITEM_TYPE_SNOWBALL = "weapon_snowball",
-            ITEM_TYPE_STICKYBOMB = "weapon_stickybomb"
+            ITEM_TYPE_STICKYBOMB = "weapon_stickybomb",
+
+            ITEM_TYPE_PISTOLAMMO = "pistol_ammo",
+            ITEM_TYPE_SMGAMMO = "smg_ammo",
+            ITEM_TYPE_SHOTGUNAMMO = "shotgun_ammo",
+            ITEM_TYPE_MGAMMO = "mg_ammo",
+            ITEM_TYPE_RIFLEAMMO = "rifle_ammo"
         }
         const enum WEAPON_GROUP {
             UNKNOWN = 3566412288,
