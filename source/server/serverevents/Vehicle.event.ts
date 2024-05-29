@@ -1,4 +1,5 @@
 import { RAGERP } from "../api";
+import { CommandRegistry } from "../classes/Command.class";
 import { InteractionMenu } from "../classes/Interaction.class";
 
 /**
@@ -47,6 +48,4 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
             return player.interactionMenu?.closeMenu(player);
     }
     player.interactionMenu?.closeMenu(player);
-
-    console.log("tralalala?");
 });

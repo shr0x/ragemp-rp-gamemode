@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Timestamp
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "../../modules/inventory/Core.class";
 import { CefEvent } from "../../classes/CEFEvent.class";
+import { CommandRegistry } from "../../classes/Command.class";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -149,6 +150,11 @@ export class CharacterEntity {
         !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);
 
         player.character.lastlogin = new Date();
+
+        const scriptCommands = CommandRegistry.getallCommands();
+        const commandList = player.character.adminlevel <= 0 ? scriptCommands.filter((x) => !x.adminlevel).map((x) => `/${x.name}`) : scriptCommands.map((x) => `/${x.name}`);
+
+        CefEvent.emit(player, "chat", "setCommands", commandList);
     }
 
     public async getData(data: keyof CharacterEntity) {
