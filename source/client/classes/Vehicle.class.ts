@@ -5,6 +5,9 @@ class _Vehicle {
         mp.events.add("client::vehicle:setWindowStatus", this.setWindowState.bind(this));
         mp.events.add("client::vehicle:setWheelStatus", this.setWheelState.bind(this));
         mp.events.add("client::vehicle:setDirtLevel", this.setDirtLevel.bind(this));
+
+        mp.events.add("client::vehicle:setTrunkState", this.changeTrunkState.bind(this));
+        mp.events.add("client::vehicle:setHoodState", this.setDirtLevel.bind(this));
     }
 
     /**
@@ -124,6 +127,19 @@ class _Vehicle {
                 vehicle.setExtra(i, 1);
             }
         }
+    }
+
+    private changeTrunkState(vehicleId: number, state: boolean) {
+        const vehicle = mp.vehicles.atRemoteId(vehicleId);
+        if (!this.doesExist(vehicle)) return;
+        state ? vehicle.setDoorOpen(5, false, false) : vehicle.setDoorShut(5, false);
+    }
+
+    public setTrunkState(vehicle: VehicleMp, state: boolean) {
+        mp.events.callRemote("server::vehicle:setTrunkState", vehicle.remoteId, state);
+    }
+    public setHoodState(vehicle: VehicleMp, state: boolean) {
+        mp.events.callRemote("server::vehicle:setHoodState", vehicle.remoteId, state);
     }
 }
 

@@ -44,7 +44,7 @@ export class InteractionMenu {
         });
     }
     /**
-     *
+     * Set events which alter on will be triggered depending what player selects in the interaction menu.
      * @param accept
      * @param reject
      */

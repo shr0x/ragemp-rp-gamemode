@@ -1,5 +1,6 @@
 import { Browser } from "../classes/Browser.class";
 import { InteractionMenu } from "../classes/InteractMenu.class";
+import { Vehicle } from "../classes/Vehicle.class";
 import { current_object } from "./Interact.event";
 
 //temporary keybinds
@@ -32,8 +33,9 @@ mp.keys.bind(71, false, async () => {
     if (entity && mp.vehicles.exists(entity)) {
         const response = await showVehicleInteractionMenu(entity);
         mp.console.logInfo(`Vehicle interaction result: ${response}`);
-        if (response === 0) {
+        if (response == 0) {
             //open trunk
+            Vehicle.setTrunkState(entity, true);
         }
         InteractionMenu.closeMenu();
     }
