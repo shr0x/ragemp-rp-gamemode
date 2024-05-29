@@ -24,7 +24,7 @@ Understanding how store works:
 
 Understanding bridge, events and its functions within the code.<br>
 
-Event manager, [EventManager.util.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/frontend/src/utils/EventManager.util.ts) is used on frontend to hold events that can be called from backend but also trigger backend server-client side events.
+Event manager, [EventManager.util.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/frontend/src/utils/EventManager.util.ts) is used on frontend to hold events that can be called from backend but also trigger backend server-client side events.
 
   
 
@@ -55,11 +55,11 @@ Cef_Event.emit(player, "chat", "setActive", true);// -> returns player.call('cli
 
   
 
-If you have a look at [CEFEvent.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/backend/server/classes/CEFEvent.class.ts) on backend server side, you can see there's a class made to handle frontend events or to be more clear events that are triggered from frontend but also trigger frontend events directly from the server.
+If you have a look at [CEFEvent.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/server/classes/CEFEvent.class.ts) on backend server side, you can see there's a class made to handle frontend events or to be more clear events that are triggered from frontend but also trigger frontend events directly from the server.
 
   
 
-If you have a look at [AuthForm.tsx](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/frontend/src/pages/auth/components/AuthForm.tsx) there we trigger a server event when the player logs in like:
+If you have a look at [AuthForm.tsx](https://github.com/shr0x/ragemp-rp-framework/blob/main/frontend/src/pages/auth/components/AuthForm.tsx) there we trigger a server event when the player logs in like:
 
 ```ts
 EventManager.emitServer("auth", "loginPlayer", { username, password });
