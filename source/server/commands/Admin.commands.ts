@@ -12,7 +12,8 @@ RAGERP.commands.add({
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
         if (!fullText.length || !vehicleModel.length) return;
 
-        mp.vehicles.new(mp.joaat(vehicleModel), player.position);
+        const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
     }
 });
 

@@ -2,6 +2,7 @@
 import "./classes/Browser.class";
 import "./classes/Chat.class";
 import "./classes/Creator.class";
+import "./classes/Vehicle.class";
 //-----------------------------------------//
 import "./clientevents/Auth.event";
 import "./clientevents/Render.event";
@@ -21,7 +22,6 @@ import "./prototype/Player.prototype";
 import "./classes/Spectate.class";
 import { InteractablePed } from "./classes/InteractablePed.class";
 //-----------------------------------------//
-
 async function initClientSide() {
     mp.console.clear();
 

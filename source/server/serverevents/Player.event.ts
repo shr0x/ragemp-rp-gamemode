@@ -1,5 +1,6 @@
 import { RAGERP } from "../api";
 import { BanEntity } from "../database/entity/Ban.entity";
+import { CharacterEntity } from "../database/entity/Character.entity";
 import { Utils } from "../utils/Utils.module";
 
 const onPlayerJoin = async (player: PlayerMp) => {
@@ -14,16 +15,6 @@ const onPlayerJoin = async (player: PlayerMp) => {
             } else {
                 player.kick(`Banned: ${banData.reason}`);
                 return;
-                //todo a ban detail page
-                /*
-                    player.disableOutgoingSync = true;
-                    player.dimension = 2000 + player.id;
-                    
-                    setTimeout(() => {
-                        if (!player || !mp.players.exists(player)) return;
-                        player.kick(`Banned: ${banData.reason}`);
-                    }, 5000);
-                */
             }
         }
         player.account = null;
@@ -38,7 +29,19 @@ const onPlayerJoin = async (player: PlayerMp) => {
     }
 };
 
+const onPlayerQuit = async (player: PlayerMp) => {
+    const character = player.character;
+    if (!character) return;
+    const lastPosition = { ...player.position };
+
+    await RAGERP.database.getRepository(CharacterEntity).update(character.id, {
+        position: { x: lastPosition.x, y: lastPosition.y, z: lastPosition.z, heading: player.heading },
+        lastlogin: character.lastlogin
+    });
+};
+
 mp.events.add("playerJoin", onPlayerJoin);
+mp.events.add("playerQuit", onPlayerQuit);
 
 mp.events.add("server::spectate:stop", async (player: PlayerMp) => {
     if (!player || !mp.players.exists(player)) return;

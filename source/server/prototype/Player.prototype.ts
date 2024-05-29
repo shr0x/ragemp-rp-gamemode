@@ -24,3 +24,8 @@ mp.Player.prototype.getRoleplayName = function (checkmask: boolean = true) {
     }
     return this.name;
 };
+
+mp.Player.prototype.requestCollisionAt = async function (x: number, y: number, z: number) {
+    const collision = await this.callProc("client::proc:requestCollisionAt", [x, y, z]);
+    return collision;
+};

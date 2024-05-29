@@ -1,5 +1,6 @@
 /// <reference path="./interfaces/inventory.d.ts" />
 /// <reference path="./interfaces/cefevents.d.ts" />
+/// <reference path="./enums/vehicle.d.ts" />
 
 declare type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 declare namespace RageShared {

@@ -17,6 +17,7 @@ declare global {
         getVariable<K extends keyof RageShared.Interfaces.PlayerVars>(key: K): RageShared.Interfaces.PlayerVars[K];
         getAdminLevel(): number;
         getRoleplayName(checkmask: boolean = true): string;
+        requestCollisionAt(x: number, y: number, z: number): Promise<boolean>;
     }
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;

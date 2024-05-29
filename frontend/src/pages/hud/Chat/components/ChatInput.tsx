@@ -55,6 +55,11 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
     }, [store]);
 
     useEffect(() => {
+        //@ts-ignore
+        mp.trigger("setTypingInChatState", isFocused);
+    }, [isFocused]);
+
+    useEffect(() => {
         EventManager.addHandler("chat", "setTextInput", (text: string) => setInputText(text));
         EventManager.addHandler("chat", "toggle", (bool: true) => {
             setFocused(bool);

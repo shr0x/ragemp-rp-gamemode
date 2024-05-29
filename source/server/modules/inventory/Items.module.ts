@@ -282,7 +282,7 @@ export namespace inventoryAssets {
             weight: 5,
             maxStack: 1,
             isPlaced: false,
-            options: ["putOn", "drop", "trade"],
+            options: ["open", "putOn", "drop", "trade"],
             gender: null,
             modelHash: "vw_prop_vw_backpack_01a"
         },

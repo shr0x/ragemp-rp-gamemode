@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "../../modules/inventory/Core.class";
 import { CefEvent } from "../../classes/CEFEvent.class";
@@ -42,6 +42,9 @@ export class CharacterEntity {
         hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
         color: { head: 0, head_secondary: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, lipstick: 0 }
     };
+
+    @Column({ type: "timestamp", nullable: true })
+    lastlogin: Date | null = null;
 
     @Column({ type: "varchar", length: 32 })
     name: string;
@@ -137,10 +140,15 @@ export class CharacterEntity {
 
         CefEvent.emit(player, "player", "setKeybindData", { I: "Open Inventory", ALT: "Interaction" });
 
-        player.spawn(new mp.Vector3(x, y, z));
+        await player.requestCollisionAt(x, y, z).then(() => {
+            player.spawn(new mp.Vector3(x, y, z));
+        });
         player.heading = heading;
-
         player.outputChatBox(`Welcome to !{red}RAGEMP ROLEPLAY!{white} ${player.name}!`);
+
+        !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);
+
+        player.character.lastlogin = new Date();
     }
 
     public async getData(data: keyof CharacterEntity) {
