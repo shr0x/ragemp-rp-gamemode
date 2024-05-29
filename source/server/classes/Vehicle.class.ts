@@ -599,7 +599,7 @@ export class Vehicle {
      * @param {number} vehicleClass - The class of the vehicle.
      * @returns {boolean} - Whether the vehicle class is windowed.
      */
-    static isWindowedVehicle(vehicleClass: number): boolean {
+    public isWindowedVehicle(vehicleClass: number): boolean {
         if (
             [
                 RageShared.Vehicle.Enums.VEHICLE_CLASS.BOATS,

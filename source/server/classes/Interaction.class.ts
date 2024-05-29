@@ -20,6 +20,7 @@ export class InteractionMenu {
      */
     new(player: PlayerMp, data: RageShared.Interfaces.InteractionData) {
         this.player = player;
+        player.call("client::cef:start", ["interactionMenu"]);
         RAGERP.cef.emit(player, "hud", "setInteraction", data);
 
         return new Promise<number | null>((resolve) => {
@@ -66,6 +67,6 @@ export class InteractionMenu {
     closeMenu(player: PlayerMp) {
         if (!mp.players.exists(player)) return;
         this.clearPromiseEvents();
-        mp.events.call("client::cef:close");
+        player.call("client::cef:close");
     }
 }

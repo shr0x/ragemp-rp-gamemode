@@ -6,9 +6,7 @@ import "./classes/Vehicle.class";
 //-----------------------------------------//
 import "./clientevents/Auth.event";
 import "./clientevents/Render.event";
-import "./clientevents/Interact.event";
 import "./clientevents/Player.event";
-import "./clientevents/Keybinds.event";
 //-----------------------------------------//
 import "./handlers/Object.handler";
 //-----------------------------------------//
