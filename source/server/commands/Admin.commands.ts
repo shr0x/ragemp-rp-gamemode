@@ -51,11 +51,11 @@ RAGERP.commands.add({
         if (!targetPlayer || !mp.players.exists(targetPlayer) || !targetPlayer.character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
 
         targetPlayer.character.adminlevel = adminLevel;
-
+        targetPlayer.setVariable("adminLevel", targetPlayer.character.adminlevel);
         await RAGERP.database.getRepository(CharacterEntity).update(targetPlayer.character.id, { adminlevel: adminLevel });
-
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully made ${targetPlayer.name} an admin level ${adminLevel}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `${player.name} has made you an admin level ${adminLevel}`);
+        RAGERP.commands.reloadCommands(targetPlayer);
     }
 });
 

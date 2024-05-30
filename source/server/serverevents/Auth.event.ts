@@ -41,7 +41,7 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
     player.account = accountData;
     player.name = player.account.username;
 
-    const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: accountData.id }, take: 3 });
+    const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { account: { id: accountData.id } }, take: 3 });
     const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
 
     characters.forEach((x, idx) => {

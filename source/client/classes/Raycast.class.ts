@@ -36,7 +36,6 @@ class _EntityRaycast {
             this.entity = null;
             return;
         }
-
         const cameraMode = mp.game.cam.getFollowPedViewMode();
         const cameraModeValues: { [key: number]: number } = { 1: 7.0, 2: 9.0, 4: 3.0 };
         this.entity = this.pointingAtWithRadius(cameraModeValues[cameraMode] ?? 5.0);
