@@ -23,7 +23,8 @@ interface IVehicleData {
 }
 
 class HudStore {
-    @observable interactionMenu: IInteractionMenu = observable.object({
+    @observable
+    interactionMenu: IInteractionMenu = observable.object({
         isActive: false,
         items: [
             // { id: 0, type: 0, text: "Seatbelt" },
@@ -44,7 +45,14 @@ class HudStore {
         ]
     });
 
-    @observable vehicleData: IVehicleData = observable.object({
+    @observable
+    areaData: { area: string; street: string } = observable.object({
+        area: "San Andreas",
+        street: "Los SAntos International"
+    });
+
+    @observable
+    vehicleData: IVehicleData = observable.object({
         isActive: false,
         gear: 5,
         engine: true,
@@ -67,6 +75,11 @@ class HudStore {
     @action.bound setVehicleData<K extends keyof IVehicleData>(data: { key: K; data: IVehicleData[K] }) {
         if (typeof this.vehicleData[data.key] === "undefined") return console.log(data.key, "dont exist");
         this.vehicleData[data.key] = data.data;
+    }
+
+    @action.bound
+    setAreaData(data: { area: string; street: string }) {
+        this.areaData = data;
     }
 }
 

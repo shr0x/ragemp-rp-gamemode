@@ -14,6 +14,11 @@ RAGERP.commands.add({
 
         const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
+
+        vehicle._vehicle.setVariable("test", 123);
+
+        player.setOwnVariable("test", 123);
+        console.log(player.getOwnVariable("test"));
     }
 });
 
