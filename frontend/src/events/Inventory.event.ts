@@ -12,7 +12,6 @@ export const InitInventoryEvents = (store: InventoryStore) => {
         EventManager.addHandler("inventory", "setQuickUseItems", (obj: { [key: number]: { component: string; id: number } | null }) => store.fetchQuickUseItems(obj));
         EventManager.addHandler("inventory", "setInventoryItem", (component: string, slot: number, obj: IBaseItem | null) => store.fetchInventoryItem(component, slot, obj));
 
-        EventManager.addHandler("inventory", "setBackpackData", (backpack: string, data: { [key: number]: IBaseItem | null }) => store.fetchBackpackData(backpack, data));
         EventManager.addHandler("inventory", "setDroppedItems", (items: any) => store.fetchGroundItems(items));
 
         EventManager.addHandler("inventory", "setPlayersAround", (array: any) => store.fetchPlayersAround(array));
