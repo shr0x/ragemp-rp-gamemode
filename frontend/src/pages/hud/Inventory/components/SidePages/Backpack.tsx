@@ -20,16 +20,24 @@ interface IBackpackProps {
 }
 
 const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, currentItem, isCellDragged, setDropCell, setTargetCell, handleMouseDown, handleContextMenu, setSource }) => {
+    const getItemsInBackpack = useMemo(() => {
+        if (!viewingBackpack) return null;
+        const itemData = store.findItemByUUID(viewingBackpack);
+
+        if (!itemData || !itemData.items) return null;
+        return itemData.items;
+    }, [viewingBackpack]);
+
     const getBackpackData = useMemo(() => {
-        if (!viewingBackpack || !store.backpackData[viewingBackpack]) return null;
-        return store.backpackData[viewingBackpack];
-    }, [store.backpackData, viewingBackpack]);
+        if (!viewingBackpack) return null;
+        return store.findItemByUUID(viewingBackpack);
+    }, [viewingBackpack]);
 
     const getBackpackAsItem = useMemo(() => {
         return values(currentItem.component === "clothes" ? store.clothes : store.inventory.pockets).find((x) => x && x?.hash === viewingBackpack) ?? null;
     }, [currentItem.component, store.clothes, store.inventory.pockets, viewingBackpack]);
 
-    if (!getBackpackData || !getBackpackAsItem) return null;
+    if (!getItemsInBackpack || !getBackpackAsItem) return null;
     return (
         <div className={style.sidepage}>
             <div className={style.header}>
@@ -38,7 +46,7 @@ const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, current
                 </div>
             </div>
             <div className={style.content}>
-                {entries(getBackpackData).map(([key, el]) => {
+                {entries(getItemsInBackpack).map(([key, el]) => {
                     const quality = store.getItemQuality(el);
                     const backpackLvl = getBackpackAsItem?.quality;
 
@@ -134,7 +142,7 @@ const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, current
                         <div key={key + el?.hash || key} className={style.locked} />
                     );
                 })}
-                {store.clothes[7] && store.clothes[7].quality < 1 && (
+                {getBackpackData && getBackpackData.quality < 1 && (
                     <div className={style.second_lock}>
                         <div className={style.title}>Buy a level 2 backpack</div>
                         <div className={style.subtitle}>to unlock additional slots</div>

@@ -38,10 +38,10 @@ const Split: FC<ISplitProps> = ({ store, viewingBackpack, handleSplit, setMiddle
             return itemData;
         } else if (currentItem.component === "backpack") {
             if (!viewingBackpack) return null;
-            return store.backpackData[viewingBackpack][currentItem.id];
+            return store.getBackpackItemData(viewingBackpack, currentItem.id);
         }
         return currentItem.component === "clothes" ? store.clothes[currentItem.id] : store.inventory[currentItem.component][currentItem.id];
-    }, [currentItem.component, currentItem.id, store.backpackData, store.clothes, store.inventory, store.quickUse, viewingBackpack]);
+    }, [currentItem.component, currentItem.id, store.clothes, store.inventory, store.quickUse, viewingBackpack]);
 
     const changeSplitValue = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {

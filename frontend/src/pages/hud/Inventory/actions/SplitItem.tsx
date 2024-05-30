@@ -22,19 +22,20 @@ export const OnPlayerSplitItem = (
             if (currentItem.component === "backpack") {
                 if (!viewingBackpack) return setMiddleComponent("dropZone");
                 let findFreeSlot = -1;
-                const backpackData = store.backpackData[viewingBackpack];
 
-                const linkedBackpackData = Object.values(store.inventory.pockets).find((x) => x && x.hash === viewingBackpack);
-                if (!linkedBackpackData) return setMiddleComponent("dropZone");
+                const backpackData = store.findItemByUUID(viewingBackpack);
+                if (!backpackData || !backpackData.items) return setMiddleComponent("dropZone");
 
-                const itemData = store.backpackData[viewingBackpack][currentItem.id];
+                const itemData = backpackData.items[currentItem.id];
+
                 if (!itemData) return setMiddleComponent("dropZone");
+
                 const backpackQualityList: { [key: number]: number } = { 0: 12, 1: 24 };
 
-                const backpackQuality = backpackQualityList[linkedBackpackData.quality];
+                const backpackQuality = backpackQualityList[backpackData.quality];
 
                 for (let i = 0; i < backpackQuality; i++) {
-                    if (backpackData[i] === null) {
+                    if (backpackData.items[i] === null) {
                         findFreeSlot = i;
                         break;
                     }
@@ -68,11 +69,11 @@ export const OnPlayerSplitItem = (
                 //checking if backpack is placed to clothes
                 if (store.clothes[7]?.isPlaced) {
                     const itemData = store.clothes[7];
-                    const backpackData = store.backpackData[itemData.hash];
-                    if (backpackData) {
+                    const backpackData = store.findItemByUUID(itemData.hash);
+                    if (backpackData && backpackData.items) {
                         const quality = backpackQuality[itemData.quality];
                         for (let i = 0; i < quality; i++) {
-                            if (backpackData[i] === null) {
+                            if (backpackData.items[i] === null) {
                                 backpackFreeIndex = i;
                                 break;
                             }

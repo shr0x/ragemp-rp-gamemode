@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { Component, useCallback } from "react";
 import { ICurrentItem, IDropCell, ITargetCell } from "../Interfaces";
 import InventoryStore, { IBaseItem } from "store/Inventory.store";
 import Notification from "utils/NotifyManager.util";
@@ -36,7 +36,7 @@ export const OnPlayerDragItem = (
                     targetItem = store.inventory[quickUseData.component]?.[quickUseData.id];
                 }
             } else if (component === "backpack" && viewingBackpack) {
-                targetItem = store.backpackData[viewingBackpack][id];
+                targetItem = store.getBackpackItemData(viewingBackpack, id);
             } else if (component === "groundItems") {
                 targetItem = store.sideInventory[id];
             } else {
@@ -54,7 +54,7 @@ export const OnPlayerDragItem = (
             const componentMapping: { [key: string]: string[] | undefined } = {
                 clothes: store.clothes[id]?.options,
                 pockets: store.inventory.pockets[id]?.options,
-                backpack: viewingBackpack ? store.backpackData[viewingBackpack]?.[id]?.options : [],
+                backpack: viewingBackpack ? store.getBackpackItemData(viewingBackpack, id)?.options : [],
                 quickUse: (() => {
                     const quickUseData = store.quickUse[id];
                     if (quickUseData && quickUseData.component && quickUseData.id !== null) {
@@ -96,11 +96,12 @@ export const OnPlayerDragItem = (
 
             const sendData = {
                 item: target,
-                source: { component: targetCell.component, slot: `${targetCell.id}` },
+                source: { component: targetCell.component, slot: `${targetCell.id}`, backpackHash: targetCell.component === "backpack" ? viewingBackpack : null },
                 target: {
                     component: dropCell.component,
                     slot: `${dropCell.id}`,
-                    item: dropCell.component === "clothes" && itemDropData && !itemDropData.isPlaced ? null : dropCell.component === "quickUse" ? null : itemDropData
+                    item: dropCell.component === "clothes" && itemDropData && !itemDropData.isPlaced ? null : dropCell.component === "quickUse" ? null : itemDropData,
+                    backpackHash: dropCell.component === "backpack" ? viewingBackpack : null
                 }
             };
             EventManager.emitServer("inventory", "onMoveItem", sendData);
@@ -196,7 +197,7 @@ export const OnPlayerDragItem = (
 
         const itemDropData =
             dropCell.component === "backpack"
-                ? (viewingBackpack && store.backpackData[viewingBackpack][dropCell.id]) || null
+                ? store.getBackpackItemData(viewingBackpack, dropCell.id) || null
                 : dropCell.component === "clothes"
                 ? store.clothes[dropCell.id]
                 : store.inventory[dropCell.component][dropCell.id];

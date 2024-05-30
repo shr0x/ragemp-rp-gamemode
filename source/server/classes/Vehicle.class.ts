@@ -26,7 +26,6 @@ interface IVehicleData {
     inventory: any | null;
 
     price: number;
-    family: number | null;
 
     impoundState: number;
 }
@@ -46,11 +45,7 @@ interface IVehicleMods {
 
     interiorcolor: number;
     dashboardcolor: number;
-    anchor: boolean;
-    frozen: boolean;
-    spotLight: boolean;
     dirtlevel: number;
-    trunkattached: null | number;
     windows: { 0: boolean; 1: boolean; 2: boolean; 3: boolean };
 }
 
@@ -70,7 +65,6 @@ const defaultVehicleData: IVehicleData = {
     hoodState: false,
     price: 0,
     inventory: null,
-    family: null,
     impoundState: 0
 };
 const defaultVehicleMods: IVehicleMods = {
@@ -83,13 +77,9 @@ const defaultVehicleMods: IVehicleMods = {
     primaryColorType: 0,
     secondaryColorType: 0,
     smokecolor: { r: 255, g: 255, b: 255 },
-    anchor: false,
-    frozen: false,
     dashboardcolor: 0,
     interiorcolor: 0,
-    spotLight: false,
     dirtlevel: 0,
-    trunkattached: null,
     windows: { 0: false, 1: false, 2: false, 3: false }
 };
 

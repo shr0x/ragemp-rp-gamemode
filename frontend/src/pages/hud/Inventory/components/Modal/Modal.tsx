@@ -78,13 +78,15 @@ const Modal: FC<IModalProps> = ({
                 return store.inventory[fastSlot.component][fastSlot.id];
             } else if (component === "backpack") {
                 if (!viewingBackpack) return null;
-                return store.backpackData[viewingBackpack][id];
+                const backpackdata = store.findItemByUUID(viewingBackpack);
+                if (!backpackdata || !backpackdata.items) return null;
+                return backpackdata.items[id];
             } else if (component === "clothes") {
                 return store.clothes[id];
             }
             return store.inventory[component][id];
         },
-        [store.backpackData, store.clothes, store.inventory, store.quickUse, viewingBackpack]
+        [store.clothes, store.inventory, store.quickUse, viewingBackpack]
     );
 
     const useItem = useCallback(() => {
@@ -113,12 +115,13 @@ const Modal: FC<IModalProps> = ({
         const item = getItem(currentItem.id, currentItem.component);
         if (!item) return;
         if (item.type === "backpack") {
-            if (!store.backpackData[item.hash]) return Notification.error("Something is wrong with this backpack, contact an admin!");
+            if (viewingBackpack) return setViewingBackpack(null);
+            if (!item.items) return Notification.error("Something is wrong with this backpack, contact an admin!");
             return setViewingBackpack(item.hash);
         }
         const itemData = { item, source: { component: currentItem.component, slot: `${currentItem.id}` } };
         EventManager.emitServer("inventory", "onOpenItem", itemData);
-    }, [currentItem.id, currentItem.component, getItem, store.backpackData, setViewingBackpack]);
+    }, [currentItem.id, currentItem.component, getItem, setViewingBackpack]);
 
     const renderOption = (option: string, handler: any, label: string) =>
         ensureOptionsIsArray().includes(option) && (

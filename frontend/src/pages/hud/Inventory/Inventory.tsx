@@ -96,9 +96,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
         console.log("store.quickUse changed", store.quickUse);
     }, [store.quickUse]);
 
-    useEffect(() => {
-        console.log("store.backpackData changed", store.backpackData);
-    }, [store.backpackData]);
 
     useEffect(() => {
         console.log("store.clothes changed", store.clothes);
@@ -118,7 +115,12 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
             const componentMapping: { clothes?: string[]; pockets?: string[]; backpack?: string[]; quickUse?: string[] } = {
                 clothes: store.clothes[targetId]?.options,
                 pockets: store.inventory.pockets[targetId]?.options,
-                backpack: viewingBackpack ? store.backpackData[viewingBackpack]?.[targetId]?.options : [],
+                backpack: (() => {
+                    if (!viewingBackpack) return [];
+                    const backpack = store.findItemByUUID(viewingBackpack);
+                    if (!backpack || !backpack.items) return [];
+                    return backpack.items[targetId]?.options ?? [];
+                })(),
                 quickUse: (() => {
                     const quickUseData = store.quickUse[targetId];
                     if (quickUseData && quickUseData.component && quickUseData.id !== null) {
@@ -131,7 +133,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
 
             return componentMapping[component as keyof typeof componentMapping] ?? [];
         },
-        [store.backpackData, store.clothes, store.inventory, store.quickUse, viewingBackpack]
+        [store.clothes, store.inventory, store.quickUse, viewingBackpack]
     );
 
     const handleMouseDown = useCallback(
@@ -196,7 +198,13 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
                     setItemInformation({ image: null, quality: null, name: null, description: null });
                     return;
                 }
-                item = store.backpackData[viewingBackpack][currentItem.id];
+                const itemdata = store.findItemByUUID(viewingBackpack);
+                if (!itemdata || !itemdata.items) {
+                    setItemInformation({ image: null, quality: null, name: null, description: null });
+                    return;
+                }
+                const iteminfo = itemdata.items[currentItem.id];
+                item = iteminfo;
                 break;
             case "groundItems":
                 item = store.sideInventory[currentItem.id];
@@ -213,7 +221,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
 
         setItemInformation({ image: item.image, quality: item.quality, name: item.name, description: item.description, render: item.render });
         setMiddleComponent("dropZone");
-    }, [currentItem, store.backpackData, store.clothes, store.inventory, store.quickUse, store.sideInventory, viewingBackpack]);
+    }, [currentItem, store.clothes, store.inventory, store.quickUse, store.sideInventory, viewingBackpack]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {

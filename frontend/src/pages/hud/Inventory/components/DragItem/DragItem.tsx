@@ -36,13 +36,13 @@ const DragItem: FC<IDragItemProps> = ({ viewingBackpack, mouseData, store, targe
             if (!component || id === null) return null;
             if (component === "backpack") {
                 if (!viewingBackpack) return null;
-                return store.backpackData[viewingBackpack][id];
+                return store.getBackpackItemData(viewingBackpack, id);
             } else if (component === "groundItems") {
                 return store.sideInventory[id];
             }
             return store.inventory[component][id];
         },
-        [store.backpackData, store.inventory, store.sideInventory, viewingBackpack]
+        [store.inventory, store.sideInventory, viewingBackpack]
     );
 
     const item = useMemo(() => {
