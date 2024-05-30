@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import { RAGERP } from "../api";
-import { Utils } from "../../shared/utils.module";
 import { VehicleEntity } from "../database/entity/Vehicle.entity";
 import { vehicleClasses, vehicleModelSeats } from "../assets/Vehicle.assets";
 
@@ -587,7 +586,7 @@ export class Vehicle {
     static getNearest = (player: PlayerMp, radius: number): Vehicle | null => {
         for (const vehicle of Vehicle.List) {
             if (vehicle && vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle)) {
-                if (Utils.distanceToPos(player.position, vehicle._vehicle.position) > radius) continue;
+                if (RAGERP.utils.distanceToPos(player.position, vehicle._vehicle.position) > radius) continue;
                 return vehicle;
             }
         }

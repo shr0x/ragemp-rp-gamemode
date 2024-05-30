@@ -2,14 +2,13 @@ import crypto from "crypto";
 import { RAGERP } from "../api";
 import { AccountEntity } from "../database/entity/Account.entity";
 import { CharacterEntity } from "../database/entity/Character.entity";
-import { Utils } from "../../shared/utils.module";
 
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
 
 RAGERP.cef.register("auth", "register", async (player, data) => {
-    const { username, email, password, confirmPassword } = Utils.parseObject(data);
+    const { username, email, password, confirmPassword } = RAGERP.utils.parseObject(data);
 
     if (username.length < 4 || username.length > 32) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your username must be between 4 and 32 characters.");
     if (password.length < 5) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your password must contain at least 5 characters.");
@@ -32,7 +31,7 @@ RAGERP.cef.register("auth", "register", async (player, data) => {
 });
 
 RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
-    const { username, password } = Utils.parseObject(data);
+    const { username, password } = RAGERP.utils.parseObject(data);
 
     const accountData = await RAGERP.database.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
     if (!accountData) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We could not find that account!");

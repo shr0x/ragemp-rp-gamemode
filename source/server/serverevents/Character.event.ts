@@ -69,6 +69,7 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
     characterData.appearance = { color, face, hair, parents };
     characterData.name = fullname;
     characterData.gender = sex;
+
     characterData.position = {
         x: -541.0401611328125,
         y: -1287.0777587890625,

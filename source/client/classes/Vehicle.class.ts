@@ -134,13 +134,6 @@ class _Vehicle {
         if (!this.doesExist(vehicle)) return;
         state ? vehicle.setDoorOpen(5, false, false) : vehicle.setDoorShut(5, false);
     }
-
-    public setTrunkState(vehicle: VehicleMp, state: boolean) {
-        mp.events.callRemote("server::vehicle:setTrunkState", vehicle.remoteId, state);
-    }
-    public setHoodState(vehicle: VehicleMp, state: boolean) {
-        mp.events.callRemote("server::vehicle:setHoodState", vehicle.remoteId, state);
-    }
 }
 
 export const Vehicle = new _Vehicle();
