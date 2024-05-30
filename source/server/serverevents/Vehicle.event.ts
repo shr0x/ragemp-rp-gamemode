@@ -34,6 +34,7 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
     if (result === null) return player.interactionMenu?.closeMenu(player);
     switch (result) {
         case 0: {
+            vehicle.setData("hoodState", !vehicle.getData("hoodState"));
             break;
         }
         case 1: {

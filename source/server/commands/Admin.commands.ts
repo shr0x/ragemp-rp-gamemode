@@ -2,39 +2,37 @@ import { RAGERP } from "../api";
 import { CharacterEntity } from "../database/entity/Character.entity";
 
 RAGERP.commands.add({
-    name: "testchat",
-    run: (player: PlayerMp, fullText) => {
-        player.outputChatBox(fullText);
-    }
-});
-RAGERP.commands.add({
     name: "veh",
+    aliases: ["vehicle", "spawnveh", "spawncar"],
+    adminlevel: 1,
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
-        if (!fullText.length || !vehicleModel.length) return;
+        if (!fullText.length || !vehicleModel.length) return player.outputChatBox("Usage: /veh [vehiclemodel]");
 
         const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
-
-        vehicle._vehicle.setVariable("test", 123);
-
-        player.setOwnVariable("test", 123);
-        console.log(player.getOwnVariable("test"));
-    }
-});
-
-RAGERP.commands.add({
-    name: "ped",
-    run: (player: PlayerMp) => {
-        const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
-        player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
-        ped.controller = player;
     }
 });
 
 RAGERP.commands.add({
     name: "dim",
-    run: (player: PlayerMp, full, dim) => {
-        player.dimension = parseInt(dim);
+    aliases: ["setdimension", "setdim"],
+    adminlevel: 1,
+    run: (player: PlayerMp, fullText: string, target: string, dimension: string) => {
+        if (!fullText.length || !target.length || !dimension.length) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const parseTarget = parseInt(target);
+        if (isNaN(parseTarget)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const parseDimension = parseInt(dimension);
+        if (isNaN(parseDimension)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const targetPlayer = mp.players.at(parseTarget);
+        if (!targetPlayer || !mp.players.exists(targetPlayer)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        targetPlayer.dimension = parseDimension;
+
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully changed ${targetPlayer.name} dimension to ${parseDimension}`);
+        targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Administrator ${player.name} changed your dimension to ${parseDimension}`);
     }
 });
 

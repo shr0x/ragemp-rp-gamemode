@@ -50,15 +50,11 @@ RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {});
 //-------------------------------------------------------//
 mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {
     try {
-        if (!player || !mp.players.exists(player)) return;
-        if (!player.getVariable("ammoHash")) return;
-
-        if (!player.character) return;
-        if (!player.character.inventory) return;
-
-        let ammoHash = player.getVariable("ammoHash") as { items: string[]; count: number };
+        if (!player || !mp.players.exists(player) || !player.character || !player.character.inventory) return;
+        let ammoHash = player.getVariable("ammoHash");
         let loadedin = player.getVariable("itemAsAmmo");
-        if (!loadedin) return;
+
+        if (!ammoHash || !loadedin) return;
 
         let findAmmoItem = player.character.inventory.getItemByUUID(loadedin);
         if (!findAmmoItem) return;

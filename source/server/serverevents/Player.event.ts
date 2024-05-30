@@ -1,7 +1,6 @@
 import { RAGERP } from "../api";
 import { BanEntity } from "../database/entity/Ban.entity";
 import { CharacterEntity } from "../database/entity/Character.entity";
-import { Utils } from "../utils/Utils.module";
 
 const onPlayerJoin = async (player: PlayerMp) => {
     try {
@@ -10,7 +9,7 @@ const onPlayerJoin = async (player: PlayerMp) => {
         });
 
         if (banData) {
-            if (Utils.hasDatePassedTimestamp(parseInt(banData.lifttime))) {
+            if (RAGERP.utils.hasDatePassedTimestamp(parseInt(banData.lifttime))) {
                 await RAGERP.database.getRepository(BanEntity).delete({ id: banData.id });
             } else {
                 player.kick(`Banned: ${banData.reason}`);

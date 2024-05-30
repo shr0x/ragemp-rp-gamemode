@@ -1,7 +1,14 @@
 import { RAGERP } from "../api";
 import { InteractionMenu } from "../classes/Interaction.class";
 import { inventorydataPresset } from "../modules/inventory/Assets.module";
-
+RAGERP.commands.add({
+    name: "ped",
+    run: (player: PlayerMp) => {
+        const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
+        player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
+        ped.controller = player;
+    }
+});
 RAGERP.commands.add({
     name: "savepos",
     aliases: ["getpos", "mypos"],

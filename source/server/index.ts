@@ -26,6 +26,7 @@ import "./serverevents/Player.event";
 import "./serverevents/Inventory.event";
 import "./serverevents/Death.event";
 import "./serverevents/Vehicle.event";
+import "./serverevents/Point.event";
 //---------------------------------------//
 import { blue, green, yellow } from "colorette";
 //---------------------------------------//
