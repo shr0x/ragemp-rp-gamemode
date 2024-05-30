@@ -6,7 +6,6 @@ import EventManager from "utils/EventManager.util";
 import { values } from "mobx";
 
 export const OnPlayerDragItem = (
-    currentItem: ICurrentItem,
     gender: number,
     isCellDragged: boolean,
     targetCell: ITargetCell,

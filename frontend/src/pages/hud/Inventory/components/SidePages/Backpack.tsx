@@ -34,10 +34,14 @@ const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, current
     }, [viewingBackpack]);
 
     const getBackpackAsItem = useMemo(() => {
-        return values(currentItem.component === "clothes" ? store.clothes : store.inventory.pockets).find((x) => x && x?.hash === viewingBackpack) ?? null;
+        if (!viewingBackpack) return null;
+        return store.findItemByUUID(viewingBackpack);
     }, [currentItem.component, store.clothes, store.inventory.pockets, viewingBackpack]);
 
-    if (!getItemsInBackpack || !getBackpackAsItem) return null;
+    if (!getItemsInBackpack || !getBackpackAsItem) {
+        return;
+    }
+
     return (
         <div className={style.sidepage}>
             <div className={style.header}>

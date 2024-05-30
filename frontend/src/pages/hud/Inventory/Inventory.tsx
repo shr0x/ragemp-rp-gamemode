@@ -47,7 +47,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
     const handleDrop = OnPlayerDropItem(currentItem, store, viewingBackpack, setItem, setMiddleComponent);
     const handleSplit = OnPlayerSplitItem(currentItem, store, viewingBackpack, setItem, setMiddleComponent);
     const handleMouseUp = OnPlayerDragItem(
-        currentItem,
         playerStore.data.gender,
         isCellDragged,
         targetCell,
@@ -79,7 +78,11 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
     /**
      * Enable only for debugging purposes!
      */
-    /*
+
+    useEffect(() => {
+        console.log("viewing backpack changed", viewingBackpack);
+    }, [viewingBackpack]);
+
     useEffect(() => {
         console.log("currentItem changed", currentItem);
     }, [currentItem]);
@@ -96,7 +99,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
         console.log("store.quickUse changed", store.quickUse);
     }, [store.quickUse]);
 
-
     useEffect(() => {
         console.log("store.clothes changed", store.clothes);
     }, [store.clothes]);
@@ -104,7 +106,6 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
     useEffect(() => {
         console.log("store.inventory changed", store.inventory);
     }, [store.inventory]);
-    */
 
     const getItemOptions = useCallback(
         (targetCell: { id: number | null; component: string | null }) => {
@@ -302,7 +303,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
 
                 <div className={style.right}>
                     <div className={style.adaptive}>
-                        {viewingBackpack ? (
+                        {viewingBackpack && (
                             <Backpack
                                 viewingBackpack={viewingBackpack}
                                 store={store}
@@ -315,7 +316,7 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
                                 handleContextMenu={handleContextMenu}
                                 setSource={setImageSource}
                             />
-                        ) : null}
+                        )}
                         <SideInventory
                             title="Ground Items"
                             store={store}

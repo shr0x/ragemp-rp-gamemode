@@ -147,6 +147,55 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
     }
 }
 
+async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) {
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    const { item, source, target } = Utils.parseObject(data);
+    const draggedFrom = source;
+    const droppedTo = target;
+
+    if (draggedFrom.component === "backpack" && droppedTo.component === "backpack") {
+        const { backpackHash } = draggedFrom;
+        if (!backpackHash) return;
+        const itemData = player.character.inventory.getItemByUUID(backpackHash);
+        if (!itemData || !itemData.items) return;
+
+        const draggedFromItemData = itemData.items[parseInt(draggedFrom.slot)];
+        const droppedToItemData = itemData.items[parseInt(droppedTo.slot)];
+
+        if (droppedToItemData) {
+            itemData.items[parseInt(draggedFrom.slot)] = droppedToItemData;
+            itemData.items[parseInt(droppedTo.slot)] = draggedFromItemData;
+            player.character.inventory.setInventory(player);
+            return;
+        }
+
+        itemData.items[parseInt(droppedTo.slot)] = draggedFromItemData;
+        player.character.inventory.setInventory(player);
+        return;
+    }
+    if (draggedFrom.component === "backpack" && droppedTo.component !== "backpack") {
+        const { backpackHash } = draggedFrom;
+        if (!backpackHash) return;
+        const itemData = player.character.inventory.getItemByUUID(backpackHash);
+        if (!itemData || !itemData.items) return;
+        const inventoryData = player.character.inventory.items[droppedTo.component as inventoryAssets.INVENTORY_CATEGORIES];
+        const draggedFromItemData = itemData.items[parseInt(draggedFrom.slot)];
+        const droppedToItemData = inventoryData[parseInt(droppedTo.slot)];
+
+        if (droppedToItemData) {
+            inventoryData[parseInt(droppedTo.slot)] = draggedFromItemData;
+            itemData.items[parseInt(draggedFrom.slot)] = droppedToItemData;
+            player.character.inventory.setInventory(player);
+            return;
+        }
+
+        inventoryData[parseInt(droppedTo.slot)] = draggedFromItemData;
+        itemData.items[parseInt(draggedFrom.slot)] = null;
+        player.character.inventory.setInventory(player);
+        return;
+    }
+}
+
 export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>): Promise<void> => {
     try {
         if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
@@ -157,6 +206,10 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
         const droppedTo = target;
 
         switch (true) {
+            case draggedFrom.component === "backpack" || droppedTo.component === "backpack": {
+                await moveBackpackItem(player, data);
+                return;
+            }
             case draggedFrom.component === "groundItems" || droppedTo.component === "groundItems": {
                 if (droppedTo.component === "groundItems") return;
                 const droppedItem = ItemObject.List.get(item.hash);
