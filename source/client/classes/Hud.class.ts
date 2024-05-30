@@ -3,12 +3,13 @@ import { Browser } from "./Browser.class";
 
 export class PlayerHud {
     onlinePlayersCounter: NodeJS.Timeout | null = null;
-
     weaponInterval: NodeJS.Timeout | null = null;
+    zoneInterval: NodeJS.Timeout | null = null;
 
     constructor() {
         this.onlinePlayersCounter = setInterval(this.setOnlinePlayers.bind(this), 5_000);
         this.weaponInterval = setInterval(this.trackPlayerWeapon.bind(this), 100);
+        this.zoneInterval = setInterval(this.trackPlayerZone.bind(this), 1_000);
         this.setPlayerData("id", mp.players.local.remoteId);
 
         mp.events.add("playerEnterVehicle", this.playerEnterVehicle.bind(this));
@@ -16,6 +17,12 @@ export class PlayerHud {
     }
 
     //#region PLAYER RELATED
+    public trackPlayerZone() {
+        const arename = mp.game.hud.getCurrentAreaNameString();
+        const streetName = mp.game.hud.getCurrentStreetNameString();
+        Browser.processEvent("cef::hud:setAreaData", { area: arename, street: streetName });
+    }
+
     public trackPlayerWeapon() {
         if (!mp.players.local.getVariable("loggedin") || mp.players.local.isJumping()) return;
 
