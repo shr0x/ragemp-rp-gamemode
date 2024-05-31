@@ -8,7 +8,6 @@ interface EventEntry {
     _event: EventMp;
 }
 
-// Define a type to extract the data type of a specific event
 type EventData<T extends keyof RageShared.Interfaces.IncomingCEFEvents, K extends keyof RageShared.Interfaces.IncomingCEFEvents[T]> = RageShared.Interfaces.IncomingCEFEvents[T][K] extends (
     player: PlayerMp,
     data: infer D
@@ -27,13 +26,6 @@ class Cef_Event {
     public get poolSize() {
         return this.eventsInMemory.length;
     }
-
-    /**
-     * Registers a new event that's being called from CEF (frontend)
-     * @param page page where the event is coming from
-     * @param pointer pointer thats coming from page
-     * @param handler event handler
-     */
 
     /**
      * Registers a new event that's being called from CEF (frontend)

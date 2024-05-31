@@ -1,4 +1,4 @@
-export const vehicleModelSeats = [
+const vehicleModelSeats = [
     { vehicleHash: 1032823388, seats: 2 },
     { vehicleHash: 2833484545, seats: 2 },
     { vehicleHash: 3950024287, seats: 2 },
@@ -843,7 +843,7 @@ export const vehicleModelSeats = [
     { vehicleHash: 1039032026, seats: 2 },
     { vehicleHash: 3703315515, seats: 2 }
 ];
-export const vehicleClasses = [
+const vehicleClasses = [
     { vehicleHash: 1032823388, vehicleClass: 6 },
     { vehicleHash: 2833484545, vehicleClass: 6 },
     { vehicleHash: 3950024287, vehicleClass: 0 },
@@ -1688,3 +1688,4 @@ export const vehicleClasses = [
     { vehicleHash: 1039032026, vehicleClass: 6 },
     { vehicleHash: 3703315515, vehicleClass: 6 }
 ];
+export { vehicleModelSeats, vehicleClasses };

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "../../modules/inventory/Core.class";
 import { CefEvent } from "../../classes/CEFEvent.class";

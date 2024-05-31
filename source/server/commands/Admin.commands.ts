@@ -95,3 +95,21 @@ RAGERP.commands.add({
         player.setVariable("isSpectating", !player.getVariable("isSpectating"));
     }
 });
+
+RAGERP.commands.add({
+    name: "destroyveh",
+    aliases: ["destroyvehicles", "destroycar", "destroycars"],
+    description: "Destroy admin spawned vehicles",
+    adminlevel: 2,
+    run: (player: PlayerMp) => {
+        if (player.vehicle) {
+            const vehicleData = RAGERP.entities.vehicle.at(player.vehicle.id);
+            if (!vehicleData) return;
+            vehicleData.destroy();
+            return;
+        }
+        const adminVehicles = RAGERP.entities.vehicle.List.filter((x) => x.type === RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN);
+        adminVehicles.forEach((vehicle) => vehicle.destroy());
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
+    }
+});
