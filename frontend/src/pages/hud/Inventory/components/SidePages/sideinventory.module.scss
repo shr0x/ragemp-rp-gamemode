@@ -4,6 +4,24 @@
     width: 43.814815vh;
     overflow: hidden;
     margin-bottom: 2.3148148148vh;
+    animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
+
+
+    @keyframes slide-left {
+        0% {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: .5;
+        }
+
+        100% {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+    }
 
     .header {
         width: 100%;
@@ -67,14 +85,10 @@
 
             text-shadow: 0 0.18518518518518517vh 0.18518518518518517vh rgba(0, 0, 0, 0.53);
 
-
-
-
             .image {
                 position: absolute;
                 width: 70%;
                 height: 100%;
-
                 pointer-events: none;
             }
 
@@ -98,8 +112,6 @@
                 font-family: $global-font;
                 pointer-events: none;
             }
-
-
         }
 
         .locked {

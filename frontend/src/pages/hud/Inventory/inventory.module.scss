@@ -73,12 +73,14 @@
 
 			transition: opacity .2s, transform .2s;
 
+
 			.adaptive {
 				display: flex;
 				align-items: center;
 				flex-direction: column;
 				gap: 1vh;
 				margin-right: 5vh;
+
 			}
 		}
 	}

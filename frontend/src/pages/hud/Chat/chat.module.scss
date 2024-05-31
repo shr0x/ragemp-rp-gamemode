@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     z-index: 0;
-    width: 68vh;
+    width: 60vh;
 
     .content {
         height: 27.777777777777775vh;
@@ -23,14 +23,26 @@
         position: relative;
         margin: 0 0 0vh 0.666667vh;
 
-        .message {
+        .timestamp {
+            margin: 0 .3vh 0 0;
             width: 100%;
-            font-family: Myriad Pro, Open Sans, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #28272b;
+            font-size: 1.2vh;
+            line-height: 2.222222222222222vh;
+            word-wrap: break-word;
+            font-weight: bold;
+            border-radius: .5vh;
+            padding: .2vh;
+        }
+
+        .message {
+            width: 90%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: #fff;
             font-size: 1.48888889vh;
             line-height: 2.222222222222222vh;
             word-wrap: break-word;
-            font-weight: 700;
             text-shadow: 0 0 0.1em black, 0 0 0.1em black, 0 0 0.1em black, 0 0 0.1em black;
         }
 
