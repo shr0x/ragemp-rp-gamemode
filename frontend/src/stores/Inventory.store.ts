@@ -316,12 +316,14 @@ export default class InventoryStore {
         return itemData ? qualityColors[itemData.quality] || "#FFFFFF00" : "#FFFFFF00";
     }
 
+    @action.bound
     public findItemByUUID(uuid: string) {
         let data = values(this.inventory.pockets).find((x) => x && x.hash === uuid);
         if (!data) data = values(this.clothes).find((x) => x && x.hash === uuid);
         return data ?? null;
     }
 
+    @action.bound
     public getBackpackItemData(hash: string | null, slot: number) {
         if (!hash) return null;
 

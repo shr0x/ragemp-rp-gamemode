@@ -121,12 +121,12 @@ RAGERP.commands.add({
         const itemData = player.character.inventory.addItem(item);
 
         if (itemData) {
-            itemData.count = parseInt(count) ?? 0;
+            itemData.count = isNaN(parseInt(count)) ? 0 : parseInt(count);
             if (!itemData.options.includes("split") && itemData.count > 1) itemData.options.push("split");
         }
         player.showNotify(
             itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
-            itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
+            itemData ? `You received a ${itemData.name} (x${itemData.count})` : `An error occurred giving u the item.`
         );
     }
 });

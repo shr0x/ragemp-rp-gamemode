@@ -79,33 +79,33 @@ const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = obser
      * Enable only for debugging purposes!
      */
 
-    useEffect(() => {
-        console.log("viewing backpack changed", viewingBackpack);
-    }, [viewingBackpack]);
+    // useEffect(() => {
+    //     console.log("viewing backpack changed", viewingBackpack);
+    // }, [viewingBackpack]);
 
-    useEffect(() => {
-        console.log("currentItem changed", currentItem);
-    }, [currentItem]);
+    // useEffect(() => {
+    //     console.log("currentItem changed", currentItem);
+    // }, [currentItem]);
 
-    useEffect(() => {
-        console.log("targetCell changed", targetCell);
-    }, [targetCell]);
+    // useEffect(() => {
+    //     console.log("targetCell changed", targetCell);
+    // }, [targetCell]);
 
-    useEffect(() => {
-        console.log("dropCell changed", dropCell);
-    }, [dropCell]);
+    // useEffect(() => {
+    //     console.log("dropCell changed", dropCell);
+    // }, [dropCell]);
 
-    useEffect(() => {
-        console.log("store.quickUse changed", store.quickUse);
-    }, [store.quickUse]);
+    // useEffect(() => {
+    //     console.log("store.quickUse changed", store.quickUse);
+    // }, [store.quickUse]);
 
-    useEffect(() => {
-        console.log("store.clothes changed", store.clothes);
-    }, [store.clothes]);
+    // useEffect(() => {
+    //     console.log("store.clothes changed", store.clothes);
+    // }, [store.clothes]);
 
-    useEffect(() => {
-        console.log("store.inventory changed", store.inventory);
-    }, [store.inventory]);
+    // useEffect(() => {
+    //     console.log("store.inventory changed", store.inventory);
+    // }, [store.inventory]);
 
     const getItemOptions = useCallback(
         (targetCell: { id: number | null; component: string | null }) => {

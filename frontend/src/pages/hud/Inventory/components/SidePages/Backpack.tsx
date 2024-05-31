@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { entries, values } from "mobx";
 import cn from "classnames";
@@ -20,7 +20,7 @@ interface IBackpackProps {
 }
 
 const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, currentItem, isCellDragged, setDropCell, setTargetCell, handleMouseDown, handleContextMenu, setSource }) => {
-    const getItemsInBackpack = useMemo(() => {
+    const getItemsInBackpack = useCallback(() => {
         if (!viewingBackpack) return null;
         const itemData = store.findItemByUUID(viewingBackpack);
 
@@ -33,13 +33,8 @@ const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, current
         return store.findItemByUUID(viewingBackpack);
     }, [viewingBackpack]);
 
-    const getBackpackAsItem = useMemo(() => {
-        if (!viewingBackpack) return null;
-        return store.findItemByUUID(viewingBackpack);
-    }, [currentItem.component, store.clothes, store.inventory.pockets, viewingBackpack]);
-
-    if (!getItemsInBackpack || !getBackpackAsItem) {
-        return;
+    if (!getItemsInBackpack() || !getBackpackData) {
+        return null;
     }
 
     return (
@@ -50,9 +45,9 @@ const Backpack: FC<IBackpackProps> = ({ viewingBackpack, store, setItem, current
                 </div>
             </div>
             <div className={style.content}>
-                {entries(getItemsInBackpack).map(([key, el]) => {
+                {entries(getItemsInBackpack()).map(([key, el]) => {
                     const quality = store.getItemQuality(el);
-                    const backpackLvl = getBackpackAsItem?.quality;
+                    const backpackLvl = getBackpackData.quality;
 
                     return backpackLvl === 0 && parseInt(key) <= 11 ? (
                         <div

@@ -2,13 +2,13 @@ declare namespace RageShared.Interfaces {
     namespace Inventory {
         interface IMoveItem {
             item: RageShared.Interfaces.Inventory.IInventoryItem;
-            source: { component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems"; slot: string; backpackHash: string | null };
+            source: { component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems"; slot: string };
             target: {
                 component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems";
                 slot: string;
-                backpackHash: string | null;
                 item: RageShared.Interfaces.Inventory.IInventoryItem | null;
             };
+            backpackHash: string | null;
         }
         interface IUseItem {
             item: RageShared.Interfaces.Inventory.IInventoryItem;

@@ -525,18 +525,9 @@ export class Inventory extends InventoryAction {
     }
 
     getItemByUUID(hashKey: string): RageShared.Interfaces.Inventory.IInventoryItem | null {
-        const playerItems = Utils.mergeObjects(this.items, this.items.clothes);
-
-        for (const getcategory in this.items) {
-            let category = getcategory as inventoryAssets.INVENTORY_CATEGORIES;
-            for (const item of Object.values(this.items[category])) {
-                if (!item) continue;
-                if (item.hash === hashKey) {
-                    return item;
-                }
-            }
-        }
-        return null;
+        let item = Object.values(this.items.pockets).find((x) => x && x.hash === hashKey);
+        if (!item) item = Object.values(this.items.clothes).find((x) => x && x.hash === hashKey);
+        return item ?? null;
     }
 
     async getItemWithHigherCount(inv: typeof this.items, itemHash: string) {
@@ -653,6 +644,7 @@ export class Inventory extends InventoryAction {
     setInventory(player: PlayerMp): void {
         try {
             let data = { pockets: this.items.pockets };
+
             RAGERP.cef.emit(player, "inventory", "setMaxWeight", this.getWeight());
             RAGERP.cef.emit(player, "inventory", "setInventory", data);
             RAGERP.cef.emit(player, "inventory", "setQuickUseItems", this.quickUse);

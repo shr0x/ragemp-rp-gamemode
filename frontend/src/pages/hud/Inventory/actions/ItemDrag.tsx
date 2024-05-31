@@ -95,13 +95,13 @@ export const OnPlayerDragItem = (
 
             const sendData = {
                 item: target,
-                source: { component: targetCell.component, slot: `${targetCell.id}`, backpackHash: targetCell.component === "backpack" ? viewingBackpack : null },
+                source: { component: targetCell.component, slot: `${targetCell.id}` },
                 target: {
                     component: dropCell.component,
                     slot: `${dropCell.id}`,
-                    item: dropCell.component === "clothes" && itemDropData && !itemDropData.isPlaced ? null : dropCell.component === "quickUse" ? null : itemDropData,
-                    backpackHash: dropCell.component === "backpack" ? viewingBackpack : null
-                }
+                    item: dropCell.component === "clothes" && itemDropData && !itemDropData.isPlaced ? null : dropCell.component === "quickUse" ? null : itemDropData
+                },
+                backpackHash: viewingBackpack
             };
             EventManager.emitServer("inventory", "onMoveItem", sendData);
             return;
