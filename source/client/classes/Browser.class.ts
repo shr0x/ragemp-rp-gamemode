@@ -61,13 +61,14 @@ class _Browser {
      */
     processEvent(eventName: string, ...args: any): void {
         if (!eventName || !this.mainUI) return;
+
         if (eventName === "cef::system:setPage") {
             this.startPage(args[0]);
         }
-        if (this.mainUI && eventName.indexOf("cef::") != -1) {
-            let event = eventName.split("cef::")[1];
 
-            const argsString = args.map((arg: any) => JSON.stringify(arg)).join(", ");
+        if (this.mainUI && eventName.indexOf("cef::") != -1) {
+            const event = eventName.split("cef::")[1];
+            const argsString = args.map((arg: string) => JSON.stringify(arg)).join(", ");
 
             const script = `
                 window.callHandler("${event}", ${argsString})

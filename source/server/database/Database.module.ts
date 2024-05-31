@@ -7,6 +7,7 @@ import { BanEntity } from "./entity/Ban.entity";
 
 import * as dotenv from "dotenv";
 import { InventoryItemsEntity } from "./entity/Inventory.entity";
+import { VehicleEntity } from "./entity/Vehicle.entity";
 
 dotenv.config();
 let beta = true;
@@ -39,7 +40,7 @@ export const MainDataSource = new DataSource({
     synchronize: true,
     connectTimeoutMS: config.connectTimeout,
     logging: ["error"],
-    entities: [AccountEntity, CharacterEntity, BanEntity, InventoryItemsEntity],
+    entities: [AccountEntity, CharacterEntity, BanEntity, InventoryItemsEntity, VehicleEntity],
     migrations: [],
     subscribers: [],
     logger: DatabaseLogger.getInstance(loggerConfig)

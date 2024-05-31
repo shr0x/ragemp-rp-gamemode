@@ -143,3 +143,5 @@ dotnet
 bin/*
 
 .idea
+
+changelog.md

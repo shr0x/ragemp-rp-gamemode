@@ -1,5 +1,5 @@
 .chatinput {
-    width: 100%;
+    width: 90%;
     margin: 0.462963vh 0 0 0.2vh;
 
     font-family: Arial, Helvetica, sans-serif;
@@ -17,6 +17,18 @@
 
         transition: width .4s ease, opacity .2s;
         border-radius: 0.46296296296296297vh;
+        filter: drop-shadow(0 0 1vh black);
+
+        &::after {
+            content: "";
+            width: 2.314814814814815vh;
+            height: 2.314814814814815vh;
+
+            background: url('../../../../assets/images/hud/icons/enter.svg') no-repeat;
+            background-size: cover;
+
+        }
+
 
         .input {
             width: 100%;
@@ -24,8 +36,11 @@
             outline: none;
             background: none;
 
+
             color: #fff;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial,
+                Helvetica,
+                sans-serif;
             font-size: 1.574074074074074vh;
 
             &::placeholder {
@@ -50,5 +65,9 @@
         width: 0%;
         opacity: 0;
         transition: width .4s ease .1s, opacity .2s .4s;
+
+
     }
+
+
 }

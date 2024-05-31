@@ -1,5 +1,5 @@
 declare namespace RageShared.Interfaces {
-    declare namespace Inventory {
+    namespace Inventory {
         interface IInventoryItem {
             type: RageShared.Enums.ITEM_TYPES; //item type
 
@@ -18,10 +18,13 @@ declare namespace RageShared.Interfaces {
             options: string[]; //item options (to be used when you right click an item) such
             gender: number | null; //item gender, used on clothes whether the clothe is for female or male
 
+            items?: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+
             modelHash?: string; //prop model name or hash that will be used to create object when dropping item
             ammoType?: string; //ammo type that a weapon will contain
             ammoInClip?: number; //ammo in weapon clip
             amount?: number; //used for armor to contain its amount
+
             effect?: {
                 //a feature to be developed whether the item will have an effect or not
                 [key: string]: number;

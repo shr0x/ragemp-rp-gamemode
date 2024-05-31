@@ -60,15 +60,16 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
 
     const { sex, parents, hair, face, color }: RageShared.Interfaces.CreatorData = parseData;
 
-    const characterLimit = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: player.account?.id }, take: 3 });
+    const characterLimit = await RAGERP.database.getRepository(CharacterEntity).find({ where: { account: { id: player.account.id } }, take: 3 });
 
     if (characterLimit.length > 2) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We're sorry but you already have three characters, you cannot create anymore.");
 
     const characterData = new CharacterEntity();
-    characterData.accountid = player.account.id;
+    characterData.account = player.account;
     characterData.appearance = { color, face, hair, parents };
     characterData.name = fullname;
     characterData.gender = sex;
+
     characterData.position = {
         x: -541.0401611328125,
         y: -1287.0777587890625,

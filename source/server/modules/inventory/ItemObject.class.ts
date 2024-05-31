@@ -56,6 +56,7 @@ export class ItemObject implements IItemObjectData {
         this.collision = data.collision;
         this.range = data.range;
         this.itemData = data.itemData;
+        this.hash = this.itemData.hash;
 
         this.object = mp.objects.new(mp.joaat(this.itemData.modelHash ?? "prop_food_bag1"), this.coords, {
             rotation: new mp.Vector3(data.rotation.x, data.rotation.y, data.rotation.z)

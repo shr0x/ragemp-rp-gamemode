@@ -42,7 +42,7 @@ const invokeCommand = async (player: PlayerMp, message: string) => {
             }
         }
     } catch (e) {
-        // CommandEvents.emit('fail', player, command, fullText, args, e);
+        console.error(e);
     }
 };
 
@@ -53,20 +53,17 @@ const sendChatMessage = (player: PlayerMp, msg: string) => {
         msg = msg;
     }
 
-    if (msg.length <= 0) {
-        return;
-    }
+    if (msg.length <= 0) return;
+
     mp.players.forEachInRange(player.position, 15, (target) => {
-        const sendText = `${player.name} says: ${msg}`;
+        const sendText = `${player.getRoleplayName()} says: ${msg}`;
         target.call("client::chat:newMessage", [sendText]);
     });
 };
 
-const invokeMessage = async (player: PlayerMp, data: any) => {
+const invokeMessage = async (player: PlayerMp, data: string) => {
     const message = JSON.parse(data);
-
     player.call("client::chat:close");
-
     if (message[0] === "/" && message.length > 1) {
         return invokeCommand(player, message);
     } else {

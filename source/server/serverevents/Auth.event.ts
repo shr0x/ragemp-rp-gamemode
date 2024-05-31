@@ -1,26 +1,14 @@
+import crypto from "crypto";
 import { RAGERP } from "../api";
 import { AccountEntity } from "../database/entity/Account.entity";
-import crypto from "crypto";
 import { CharacterEntity } from "../database/entity/Character.entity";
-
-interface IPlayerLogin {
-    username: string;
-    password: string;
-}
-
-interface IPlayerRegister {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
 
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
 
-RAGERP.cef.register("auth", "register", async (player: PlayerMp, data: string) => {
-    const { username, email, password, confirmPassword }: IPlayerRegister = JSON.parse(data);
+RAGERP.cef.register("auth", "register", async (player, data) => {
+    const { username, email, password, confirmPassword } = RAGERP.utils.parseObject(data);
 
     if (username.length < 4 || username.length > 32) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your username must be between 4 and 32 characters.");
     if (password.length < 5) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Your password must contain at least 5 characters.");
@@ -40,15 +28,10 @@ RAGERP.cef.register("auth", "register", async (player: PlayerMp, data: string) =
 
     player.account = result;
     player.name = player.account.username;
-    // player.setVariable("loggedin", true);
-    // player.call("client::auth:destroyCamera");
-    // player.call("client::cef:close");
-    // spawnPlayer(player);
-    // player.showNotify("success", `Account registered successfully! Welcome ${player.account.username}`);
 });
 
-RAGERP.cef.register("auth", "loginPlayer", async (player: PlayerMp, data: string) => {
-    const { username, password }: IPlayerLogin = JSON.parse(data);
+RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
+    const { username, password } = RAGERP.utils.parseObject(data);
 
     const accountData = await RAGERP.database.getRepository(AccountEntity).findOne({ where: { username: username.toLowerCase() } });
     if (!accountData) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We could not find that account!");
@@ -58,8 +41,9 @@ RAGERP.cef.register("auth", "loginPlayer", async (player: PlayerMp, data: string
     player.account = accountData;
     player.name = player.account.username;
 
-    const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { accountid: accountData.id }, take: 3 });
+    const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { account: { id: accountData.id } }, take: 3 });
     const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
+
     characters.forEach((x, idx) => {
         const character = { id: x.id, type: 1, name: x.name, bank: 0, money: 0, level: x.level, lastlogin: ".." };
         Object.assign(characterData[idx], character);
@@ -67,7 +51,4 @@ RAGERP.cef.register("auth", "loginPlayer", async (player: PlayerMp, data: string
 
     RAGERP.cef.emit(player, "player", "setCharacters", characterData);
     player.call("client::eventManager", ["cef::system:setPage", "selectcharacter"]);
-
-    // spawnPlayer(player);
-    // player.showNotify("success", `Welcome back, ${player.account.username}`);
 });

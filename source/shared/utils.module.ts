@@ -1,10 +1,11 @@
-type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
-
 export const Utils = {
     sleep: function (ms: number) {
         return new Promise((res) => setTimeout(res, ms));
     },
-
+    hasDatePassedTimestamp(timestamp: number): boolean {
+        const currentTimestamp = Date.now();
+        return currentTimestamp > timestamp;
+    },
     tryParse(obj: any): any {
         try {
             return JSON.parse(obj);

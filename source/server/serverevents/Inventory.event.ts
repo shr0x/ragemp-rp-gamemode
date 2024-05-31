@@ -1,24 +1,14 @@
 import { RAGERP } from "../api";
 
 //-------------------------------------------------------//
-// mp.events.add("server::player:inventory:load", (player: PlayerMp) => {
-//     if (!mp.players.exists(player) || !player.character) return;
-//     if (player.character.inventory) player.character.inventory.loadInventory(player);
-// });
-//-------------------------------------------------------//
-RAGERP.cef.register("inventory", "onMoveItem", async (player: PlayerMp, data: any) => {
+RAGERP.cef.register("inventory", "onMoveItem", async (player, data) => {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
     await player.character.inventory.moveItem(player, data);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "onUseITem", (player: PlayerMp, data: any) => {
+RAGERP.cef.register("inventory", "onUseItem", (player, data) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.useItem(player, data);
-});
-//-------------------------------------------------------//
-mp.events.add("server::inventory:quickUse", (player: PlayerMp, event: any) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.manageFastSlots(player, event);
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onSplitItem", (player: PlayerMp, data: any) => {
@@ -26,7 +16,7 @@ RAGERP.cef.register("inventory", "onSplitItem", (player: PlayerMp, data: any) =>
     if (player.character.inventory) player.character.inventory.splitStack(player, data);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "onDropItem", (player: PlayerMp, itemData: any) => {
+RAGERP.cef.register("inventory", "onDropItem", (player: PlayerMp, itemData) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.dropItem(player, itemData);
 });
@@ -45,32 +35,49 @@ RAGERP.cef.register("inventory", "onGiveItemAway", (player) => player.call("clie
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "confirmItemDrop", (player) => player.call("client::inventory:deletePedScreen"));
 //-------------------------------------------------------//
-RAGERP.cef.register("interactionButton", "sendCount", async (player: PlayerMp, data: string) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) {
-        await player.character.inventory.pickupItem(player, data);
-    }
-});
-//-------------------------------------------------------//
 RAGERP.cef.register("inventory", "openItem", (player: PlayerMp, data: any) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.openItem(player, data);
 });
-
 //-------------------------------------------------------//
-mp.events.add("server::player:closeCEF", (player: PlayerMp, key: string) => {
-    if (key === "inventory") {
-    }
+mp.events.add("server::inventory:quickUse", (player: PlayerMp, event: any) => {
+    if (!mp.players.exists(player) || !player.character) return;
+    if (player.character.inventory) player.character.inventory.manageFastSlots(player, event);
 });
-RAGERP.cef.register("mainMenu", "openInventory", (player: PlayerMp) => player.call("client::mainMenu:openInventory"));
-//-------------------------------------------------------//
-//-------------------------------------------------------//
-//-------------------------------------------------------//
-//-------------------------------------------------------//
-
-//-------------------------------------------------------//
-
-//-------------------------------------------------------//
-
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {});
+
+//-------------------------------------------------------//
+mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {
+    try {
+        if (!player || !mp.players.exists(player) || !player.character || !player.character.inventory) return;
+        let ammoHash = player.getVariable("ammoHash");
+        let loadedin = player.getVariable("itemAsAmmo");
+
+        if (!ammoHash || !loadedin) return;
+
+        let findAmmoItem = player.character.inventory.getItemByUUID(loadedin);
+        if (!findAmmoItem) return;
+
+        findAmmoItem.count--;
+
+        if (findAmmoItem.count === 0) {
+            let finditem = await player.character.inventory.getItemSlotComponentByHashKey(loadedin);
+            if (finditem) {
+                player.character.inventory.items[finditem.component as "pockets"][finditem.slot] = null;
+                player.character.inventory.setInventory(player);
+            }
+            ammoHash.items.splice(ammoHash.items.indexOf(loadedin), 1);
+
+            if (ammoHash.items.length) {
+                player.setVariable("itemAsAmmo", ammoHash.items[0]);
+                player.setVariable("ammoHash", ammoHash);
+            } else {
+                player.setVariable("itemAsAmmo", null);
+                player.setVariable("ammoHash", null);
+            }
+        }
+    } catch (err) {
+        console.error("server::player:weaponShot: err", err);
+    }
+});

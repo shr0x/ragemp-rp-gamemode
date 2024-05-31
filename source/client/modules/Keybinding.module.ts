@@ -1,5 +1,7 @@
+import { Browser } from "../classes/Browser.class";
 import { Inventory } from "../classes/Inventory.class";
 import { PlayerKeybind } from "../classes/Keybind.class";
+import { EntityRaycast } from "../classes/Raycast.class";
 
 /**
  * Adds a keybind for toggling inventory fast slots.
@@ -28,4 +30,13 @@ PlayerKeybind.addKeybind(
         await Inventory.open();
     },
     "Open or close Inventory"
+);
+
+PlayerKeybind.addKeybind(
+    { keyCode: 71, up: false },
+    async () => {
+        if ((Browser.currentPage && Browser.currentPage !== "interactionMenu") || !EntityRaycast.entity) return;
+        mp.events.callRemote(EntityRaycast.entity.type === "player" ? "server::interaction:player" : "server::interaction:vehicle", EntityRaycast.entity.remoteId);
+    },
+    "Interact with an entity"
 );

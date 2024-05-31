@@ -2,46 +2,31 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "../../modules/inventory/Core.class";
 import { CefEvent } from "../../classes/CEFEvent.class";
+import { CommandRegistry } from "../../classes/Command.class";
+import { AccountEntity } from "./Account.entity";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
-    @Column({ type: "int", width: 11, default: -1 })
-    accountid: number = -1;
+    @OneToOne(() => AccountEntity, (account) => account.id)
+    @JoinColumn()
+    account: AccountEntity;
 
     @Column({ type: "int", width: 11, default: 0 })
     adminlevel: number = 0;
 
     @Column({ type: "jsonb", default: null })
     appearance = {
-        face: {
-            0: 0,
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-            6: 0,
-            7: 0,
-            8: 0,
-            9: 0,
-            10: 0,
-            11: 0,
-            12: 0,
-            13: 0,
-            14: 0,
-            15: 0,
-            16: 0,
-            17: 0,
-            18: 0,
-            19: 0
-        },
+        face: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0 },
         parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
         hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
         color: { head: 0, head_secondary: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0, lipstick: 0 }
     };
+
+    @Column({ type: "timestamp", nullable: true })
+    lastlogin: Date | null = null;
 
     @Column({ type: "varchar", length: 32 })
     name: string;
@@ -137,10 +122,17 @@ export class CharacterEntity {
 
         CefEvent.emit(player, "player", "setKeybindData", { I: "Open Inventory", ALT: "Interaction" });
 
-        player.spawn(new mp.Vector3(x, y, z));
+        await player.requestCollisionAt(x, y, z).then(() => {
+            player.spawn(new mp.Vector3(x, y, z));
+        });
         player.heading = heading;
-
         player.outputChatBox(`Welcome to !{red}RAGEMP ROLEPLAY!{white} ${player.name}!`);
+
+        !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);
+
+        player.character.lastlogin = new Date();
+
+        CommandRegistry.reloadCommands(player);
     }
 
     public async getData(data: keyof CharacterEntity) {

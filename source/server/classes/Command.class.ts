@@ -1,3 +1,5 @@
+import { CefEvent } from "./CEFEvent.class";
+
 class _CommandRegistry {
     notFoundMessageEnabled: boolean;
     _notFoundMessage: string;
@@ -104,6 +106,13 @@ class _CommandRegistry {
         // Finding by name failed, try to find by alias
         const aliasCommand = this._aliasToCommand.get(commandName);
         return this._commands.get(aliasCommand);
+    }
+
+    reloadCommands(player: PlayerMp) {
+        if (!player || !mp.players.exists(player) || !player.character) return;
+        const scriptCommands = CommandRegistry.getallCommands();
+        const commandList = player.character.adminlevel <= 0 ? scriptCommands.filter((x) => !x.adminlevel).map((x) => `/${x.name}`) : scriptCommands.map((x) => `/${x.name}`);
+        CefEvent.emit(player, "chat", "setCommands", commandList);
     }
 }
 

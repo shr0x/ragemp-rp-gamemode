@@ -18,9 +18,16 @@ export const OnPlayerDropItem = (
             if (currentItem.component === "quickUse") return Notification.error("You cannot drop an item from fast slots.");
             if (currentItem.component === "groundItems") return Notification.error("You cant drop an item that's already dropped.");
 
+            const getBackpackData = (hash: string | null) => {
+                if (!hash || currentItem.id === null) return null;
+                const itemdata = store.findItemByUUID(hash);
+                if (!itemdata || !itemdata.items) return null;
+                return itemdata.items[currentItem.id] ?? null;
+            };
+
             const item =
                 currentItem.component === "backpack"
-                    ? (viewingBackpack && store.backpackData[viewingBackpack][currentItem.id]) || null
+                    ? getBackpackData(viewingBackpack)
                     : currentItem.component === "clothes"
                     ? store.clothes[currentItem.id]
                     : store.inventory[currentItem.component][currentItem.id];
@@ -43,6 +50,6 @@ export const OnPlayerDropItem = (
                 EventManager.emitServer("inventory", "onDropItem", dropItemData);
             }
         },
-        [currentItem.component, currentItem.id, setItem, setMiddleComponent, store.backpackData, store.clothes, store.inventory, viewingBackpack]
+        [currentItem.component, currentItem.id, setItem, setMiddleComponent, store.clothes, store.inventory, viewingBackpack]
     );
 };

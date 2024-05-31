@@ -24,7 +24,16 @@ class _PlayerInventory {
         mp.events.add("client:inventory:updatePedComponent", this.setPedComponentVariation.bind(this));
         mp.events.add("client:inventory:updatePedProp", this.setPedProps.bind(this));
         mp.events.add("client::inventory:deletePedScreen", this.deletePedScreen.bind(this));
+        mp.events.add("playerWeaponShot", this.playerWeaponShot.bind(this));
         mp.events.add("playerQuit", this.playerQuit.bind(this));
+    }
+
+    public playerWeaponShot(_targetEntity: EntityMp) {
+        if (mp.players.local.getVariable("loggedin")) {
+            if (mp.players.local.getVariable("ammoHash")) {
+                mp.events.callRemote("server::player:weaponShot");
+            }
+        }
     }
 
     /**

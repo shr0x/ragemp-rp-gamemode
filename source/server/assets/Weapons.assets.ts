@@ -4,7 +4,7 @@ interface IWeapon {
 interface IDeathReason {
     [key: number]: string;
 }
-export const weaponHash: IWeapon = {
+const weaponHash: IWeapon = {
     unarmed: 2725352035,
     knife: 2578778090,
     nightstick: 1737195953,
@@ -87,7 +87,7 @@ export const weaponHash: IWeapon = {
     pipebomb: 3125143736,
     parachute: 4222310262
 };
-export const weaponUnhash: Record<number, string> = {
+const weaponUnhash: Record<number, string> = {
     2725352035: "weapon_unarmed",
     2578778090: "weapon_knife",
     1737195953: "weapon_nightstick",
@@ -170,7 +170,7 @@ export const weaponUnhash: Record<number, string> = {
     3125143736: "weapon_pipebomb",
     4222310262: "weapon_parachute"
 };
-export const deathReasons: IDeathReason = {
+const deathReasons: IDeathReason = {
     "2460120199": "Antique Cavalry Dagger",
     "2508868239": "Baseball Bat",
     "4192643659": "Bottle",
@@ -399,3 +399,5 @@ export const deathReasons: IDeathReason = {
     "1150790720": "Vehicle Volatol Dual MG",
     "1741783703": "Vehicle Water Cannon"
 };
+
+export { weaponHash, weaponUnhash, deathReasons };

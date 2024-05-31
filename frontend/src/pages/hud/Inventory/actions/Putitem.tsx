@@ -35,7 +35,7 @@ export const OnPlayerPutItemOn = (setItem: (item: ICurrentItem) => void, gender:
 
             const freeIndex =
                 currentItem.component === "backpack"
-                    ? (viewingBackpack && values(store.backpackData[viewingBackpack]).findIndex((el) => !el)) || -1
+                    ? (viewingBackpack && values(store.findItemByUUID(viewingBackpack)?.items).findIndex((el) => !el)) || -1
                     : currentItem.component === "groundItems"
                     ? values(store.sideInventory).findIndex((el) => !el)
                     : values(store.inventory[currentItem.component]).findIndex((el) => !el);

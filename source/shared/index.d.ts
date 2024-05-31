@@ -1,5 +1,8 @@
 /// <reference path="./interfaces/inventory.d.ts" />
+/// <reference path="./interfaces/cefevents.d.ts" />
+/// <reference path="./enums/vehicle.d.ts" />
 
+declare type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 declare namespace RageShared {
     namespace Interfaces {
         interface IPlayerData {
@@ -91,29 +94,6 @@ declare namespace RageShared {
                 lipstick: number;
             };
         }
-
-        interface CefEventMap {
-            notify: {
-                show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
-            };
-            player: {
-                setCharacters: any[];
-                setKeybindData: { [key: string]: string };
-            };
-            hud: {
-                setInteraction: RageShared.Interfaces.InteractionData;
-                setVehicleData: { key: keyof IVehicleData; data: any };
-            };
-            inventory: {
-                setVisible: boolean;
-                setClothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
-                setInventory: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } };
-                setQuickUseItems: { [key: number]: { component: string; id: number } | null };
-                setDroppedItems: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
-                setMaxWeight: number;
-            };
-            auth: {};
-        }
     }
 
     namespace Enums {
@@ -136,6 +116,7 @@ declare namespace RageShared {
             TYPE_PROP, //prop item
 
             TYPE_WEAPON, //weapon item
+            TYPE_AMMO,
             TYPE_FOOD, //food item
             TYPE_DRINK, //drink item
 
@@ -252,7 +233,13 @@ declare namespace RageShared {
             ITEM_TYPE_PROXIMITYMINE = "weapon_proximitymine",
             ITEM_TYPE_PIPEBOMB = "weapon_pipebomb",
             ITEM_TYPE_SNOWBALL = "weapon_snowball",
-            ITEM_TYPE_STICKYBOMB = "weapon_stickybomb"
+            ITEM_TYPE_STICKYBOMB = "weapon_stickybomb",
+
+            ITEM_TYPE_PISTOLAMMO = "pistol_ammo",
+            ITEM_TYPE_SMGAMMO = "smg_ammo",
+            ITEM_TYPE_SHOTGUNAMMO = "shotgun_ammo",
+            ITEM_TYPE_MGAMMO = "mg_ammo",
+            ITEM_TYPE_RIFLEAMMO = "rifle_ammo"
         }
         const enum WEAPON_GROUP {
             UNKNOWN = 3566412288,

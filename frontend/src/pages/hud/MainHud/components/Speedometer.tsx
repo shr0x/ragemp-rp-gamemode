@@ -12,6 +12,9 @@ const Speedometer: React.FC<{ store: HudStore }> = ({ store }) => {
 
     const lineX = 120 + (radius - 10) * Math.cos(angle);
     const lineY = 120 + (radius - 10) * Math.sin(angle);
+    const minorTickCount = 4;
+    const majorTickAngleStep = 260 / (ticks.length - 1);
+    const minorTickAngleStep = majorTickAngleStep / (minorTickCount + 1);
 
     return (
         <svg width="300" height="300" viewBox="0 0 240 240">
@@ -49,24 +52,42 @@ const Speedometer: React.FC<{ store: HudStore }> = ({ store }) => {
                 {store.vehicleData.speed.toFixed()} KM/H
             </text>
             {ticks.map((tick, index) => {
-                const angle = ((index * 260) / 10 - 180) * (Math.PI / 180); // Adjust the angle calculation for 260 degrees
-                const x1 = 120 + radius * Math.cos(angle);
-                const y1 = 120 + radius * Math.sin(angle);
-                const x2 = 120 + (radius - 10) * Math.cos(angle);
-                const y2 = 120 + (radius - 10) * Math.sin(angle);
-                const xText = 120 + (radius - 25) * Math.cos(angle);
-                const yText = 120 + (radius - 25) * Math.sin(angle);
+                const majorAngle = (index * majorTickAngleStep - 180) * (Math.PI / 180);
+                const majorX1 = 120 + radius * Math.cos(majorAngle);
+                const majorY1 = 120 + radius * Math.sin(majorAngle);
+                const majorX2 = 120 + (radius - 20) * Math.cos(majorAngle);
+                const majorY2 = 120 + (radius - 20) * Math.sin(majorAngle);
+                const textX = 120 + (radius - 35) * Math.cos(majorAngle);
+                const textY = 120 + (radius - 35) * Math.sin(majorAngle);
 
                 return (
                     <g key={tick}>
-                        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="red" strokeWidth="2" />
-                        <text x={xText} y={yText} textAnchor="middle" fontFamily="Arial" fontSize="12" fill="#fff" dy=".35em">
+                        {/* Major tick line */}
+                        <line x1={majorX1} y1={majorY1} x2={majorX2} y2={majorY2} stroke={store.vehicleData.speed >= tick ? "red" : "white"} strokeWidth="2" />
+                        {/* Major tick text */}
+                        <text x={textX} y={textY} textAnchor="middle" fontFamily="Arial" fontSize="12" fill="#fff" dy=".35em">
                             {tick}
                         </text>
+
+                        {/* Minor ticks */}
+                        {index < ticks.length - 1 &&
+                            Array.from({ length: minorTickCount }).map((_, minorIndex) => {
+                                const minorAngle = (index * majorTickAngleStep + (minorIndex + 1) * minorTickAngleStep - 180) * (Math.PI / 180);
+                                const minorX1 = 120 + radius * Math.cos(minorAngle);
+                                const minorY1 = 120 + radius * Math.sin(minorAngle);
+                                const minorX2 = 120 + (radius - 10) * Math.cos(minorAngle);
+                                const minorY2 = 120 + (radius - 10) * Math.sin(minorAngle);
+
+                                // Calculate the minor tick value for speed comparison
+                                const minorTickValue = tick + ((minorIndex + 1) / (minorTickCount + 1)) * (ticks[index + 1] - tick);
+
+                                return (
+                                    <line key={minorIndex} x1={minorX1} y1={minorY1} x2={minorX2} y2={minorY2} stroke={store.vehicleData.speed >= minorTickValue ? "red" : "white"} strokeWidth="1" />
+                                );
+                            })}
                     </g>
                 );
             })}
-
             {/* <path
                 d="M9.00018 0C9.53061 0 10.0393 0.210714 10.4144 0.585786C10.7895 0.960859 11.0002 1.46957 11.0002 2C11.0002 3.11 10.1102 4 9.00018 4C8.46974 4 7.96104 3.78929 7.58596 3.41421C7.21089 3.03914 7.00018 2.53043 7.00018 2C7.00018 1.46957 7.21089 0.960859 7.58596 0.585786C7.96104 0.210714 8.46974 0 9.00018 0ZM9.39018 12.79C10.8107 12.7845 12.2301 12.868 13.6402 13.04C13.7002 10.32 13.4602 7.92 13.0002 7C12.8702 6.73 12.6902 6.5 12.5002 6.3L4.43018 13.22C5.79018 13 7.50018 12.79 9.39018 12.79ZM4.46018 15C4.59018 16.74 4.85018 18.5 5.27018 20H7.34018C7.05018 19.12 6.84018 18.09 6.68018 17C6.68018 17 9.00018 16.56 11.3202 17C11.1602 18.09 10.9502 19.12 10.6602 20H12.7302C13.1702 18.45 13.4302 16.61 13.5602 14.79C12.1764 14.6237 10.7839 14.5402 9.39018 14.54C7.46018 14.54 5.78018 14.75 4.46018 15ZM9.00018 5C9.00018 5 6.00018 5 5.00018 7C4.66018 7.68 4.44018 9.15 4.37018 10.96L10.9202 5.34C9.93018 5 9.00018 5 9.00018 5ZM15.5702 3.67L14.4302 2.34L10.9202 5.35C11.4702 5.54 12.0502 5.84 12.5002 6.3L15.5702 3.67ZM17.6702 13.83C17.5802 13.8 16.1402 13.33 13.6402 13.04C13.6302 13.61 13.6002 14.2 13.5602 14.79C15.8102 15.07 17.1002 15.5 17.1202 15.5L17.6702 13.83ZM4.37018 10.96L0.430176 14.34L1.32018 15.82C1.34018 15.81 2.50018 15.36 4.46018 15C4.35018 13.59 4.32018 12.2 4.37018 10.96Z"
                 fill="#fff"

@@ -2,33 +2,37 @@ import { RAGERP } from "../api";
 import { CharacterEntity } from "../database/entity/Character.entity";
 
 RAGERP.commands.add({
-    name: "testchat",
-    run: (player: PlayerMp, fullText) => {
-        player.outputChatBox(fullText);
-    }
-});
-RAGERP.commands.add({
     name: "veh",
+    aliases: ["vehicle", "spawnveh", "spawncar"],
+    adminlevel: 1,
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
-        if (!fullText.length || !vehicleModel.length) return;
+        if (!fullText.length || !vehicleModel.length) return player.outputChatBox("Usage: /veh [vehiclemodel]");
 
-        mp.vehicles.new(mp.joaat(vehicleModel), player.position);
-    }
-});
-
-RAGERP.commands.add({
-    name: "ped",
-    run: (player: PlayerMp) => {
-        const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
-        player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
-        ped.controller = player;
+        const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
     }
 });
 
 RAGERP.commands.add({
     name: "dim",
-    run: (player: PlayerMp, full, dim) => {
-        player.dimension = parseInt(dim);
+    aliases: ["setdimension", "setdim"],
+    adminlevel: 1,
+    run: (player: PlayerMp, fullText: string, target: string, dimension: string) => {
+        if (!fullText.length || !target.length || !dimension.length) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const parseTarget = parseInt(target);
+        if (isNaN(parseTarget)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const parseDimension = parseInt(dimension);
+        if (isNaN(parseDimension)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        const targetPlayer = mp.players.at(parseTarget);
+        if (!targetPlayer || !mp.players.exists(targetPlayer)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+
+        targetPlayer.dimension = parseDimension;
+
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully changed ${targetPlayer.name} dimension to ${parseDimension}`);
+        targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Administrator ${player.name} changed your dimension to ${parseDimension}`);
     }
 });
 
@@ -47,11 +51,11 @@ RAGERP.commands.add({
         if (!targetPlayer || !mp.players.exists(targetPlayer) || !targetPlayer.character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
 
         targetPlayer.character.adminlevel = adminLevel;
-
+        targetPlayer.setVariable("adminLevel", targetPlayer.character.adminlevel);
         await RAGERP.database.getRepository(CharacterEntity).update(targetPlayer.character.id, { adminlevel: adminLevel });
-
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully made ${targetPlayer.name} an admin level ${adminLevel}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `${player.name} has made you an admin level ${adminLevel}`);
+        RAGERP.commands.reloadCommands(targetPlayer);
     }
 });
 
@@ -89,5 +93,23 @@ RAGERP.commands.add({
             player.call("client::spectate:start", [target]);
         }
         player.setVariable("isSpectating", !player.getVariable("isSpectating"));
+    }
+});
+
+RAGERP.commands.add({
+    name: "destroyveh",
+    aliases: ["destroyvehicles", "destroycar", "destroycars"],
+    description: "Destroy admin spawned vehicles",
+    adminlevel: 2,
+    run: (player: PlayerMp) => {
+        if (player.vehicle) {
+            const vehicleData = RAGERP.entities.vehicle.at(player.vehicle.id);
+            if (!vehicleData) return;
+            vehicleData.destroy();
+            return;
+        }
+        const adminVehicles = RAGERP.entities.vehicle.List.filter((x) => x.type === RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN);
+        adminVehicles.forEach((vehicle) => vehicle.destroy());
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
     }
 });

@@ -6,7 +6,6 @@ interface EventEntry {
     name: string;
     handler: EventHandler;
 }
-
 class EventManager {
     private static eventsInMemory: EventEntry[] = [];
 
@@ -85,5 +84,4 @@ class EventManager {
         if (isDev) console.log(`Emitted: ${event}\n`, ...args);
     }
 }
-
 export default EventManager;

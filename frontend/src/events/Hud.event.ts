@@ -6,6 +6,7 @@ export const InitHudEvents = (store: HudStore) => {
     useEffect(() => {
         EventManager.addHandler("hud", "setInteraction", (data: any) => store.setInteractionMenu(data));
         EventManager.addHandler("hud", "setVehicleData", (data: any) => store.setVehicleData(data));
+        EventManager.addHandler("hud", "setAreaData", (data: { area: string; street: string }) => store.setAreaData(data));
 
         EventManager.stopAddingHandlers("hud");
         return () => EventManager.removeTargetHandlers("hud");
