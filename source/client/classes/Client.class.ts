@@ -25,6 +25,26 @@ class _Client {
     readonly hud: PlayerHud;
 
     /**
+     * Whether player is crawling or not
+     */
+    crawling: boolean = false;
+
+    /**
+     * Crawling animation
+     */
+    crawlingAnimation: string | null = null;
+
+    /**
+     * Crawling timeout
+     */
+    crawlingTimeout: NodeJS.Timeout | null = null;
+
+    /**
+     * Crawling interval
+     */
+    crawlingInterval: NodeJS.Timeout | null = null;
+
+    /**
      * Constructs a new Client instance.
      */
     constructor() {
@@ -138,6 +158,71 @@ class _Client {
             }
         }
         mp.players.local.setComponentVariation(component, drawable, texture, 2);
+    }
+
+    /**
+     * Toggles the crawling state for the player.
+     * If currently crawling, it stops the crawling process and clears the interval.
+     * If not currently crawling, it starts the crawling process and sets the interval.
+     * @private
+     */
+    private toggleCrawling() {
+        if (this.crawling) {
+            Client.crawling = false;
+            if (this.crawlingInterval !== null) clearInterval(this.crawlingInterval);
+            mp.players.local.clearTasks();
+        } else {
+            this.crawlingInterval = setInterval(this.processCrawlingControls.bind(this), 0);
+            Client.crawling = true;
+            mp.game.streaming.requestAnimDict("move_crawlprone2crawlfront");
+            mp.players.local.taskPlayAnim("move_crawlprone2crawlfront", "front", 8.0, 1000, -1, 2, 0, false, false, false);
+        }
+    }
+
+    /**
+     * Processes the crawling controls for the player.
+     * Disables movement controls and handles the crawling animations based on user input.
+     * @private
+     */
+    private processCrawlingControls() {
+        const dict = "move_crawl";
+        const rotation = mp.players.local.getRotation(2);
+        const controls = mp.game.controls;
+
+        controls.disableControlAction(0, 32, true); // Disable move forward
+        controls.disableControlAction(0, 33, true); // Disable move backward
+        controls.disableControlAction(0, 34, true); // Disable move left
+        controls.disableControlAction(0, 35, true); // Disable move right
+
+        if (controls.isDisabledControlPressed(0, 34)) {
+            mp.players.local.setRotation(rotation.x, rotation.y, rotation.z + 0.5, 2, true);
+        }
+
+        if (controls.isDisabledControlPressed(0, 35)) {
+            mp.players.local.setRotation(rotation.x, rotation.y, rotation.z - 0.5, 2, true);
+        }
+
+        const processcrawlingAnimationation = (anim: string) => {
+            if (this.crawlingAnimation === anim || this.crawlingTimeout) return;
+
+            this.crawlingAnimation = anim;
+            const timer = mp.game.entity.getEntityAnimDuration(dict, anim);
+            mp.game.streaming.requestAnimDict(dict);
+            mp.players.local.taskPlayAnim(dict, anim, 8.0, 1000, -1, 2, 0, false, false, false);
+
+            this.crawlingTimeout = setTimeout(() => {
+                this.crawlingAnimation = null;
+                this.crawlingTimeout = null;
+            }, (timer - 0.1) * 1000);
+        };
+
+        if (controls.isDisabledControlPressed(0, 32)) {
+            processcrawlingAnimationation("onfront_fwd");
+        }
+
+        if (controls.isDisabledControlPressed(0, 33)) {
+            processcrawlingAnimationation("onfront_bwd");
+        }
     }
 }
 

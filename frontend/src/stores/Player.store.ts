@@ -13,6 +13,7 @@ interface IPlayerData {
     id: number;
     gender: number;
     ping: number;
+    isDead: boolean;
     weapondata: {
         weapon: string;
         ammo: number;
@@ -30,6 +31,7 @@ export default class PlayerStore {
         id: 3000,
         gender: 0,
         ping: 47,
+        isDead: false,
         weapondata: {
             ammo: 30,
             maxammo: 260,
