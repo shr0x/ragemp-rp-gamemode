@@ -1,6 +1,5 @@
-import { RAGERP } from "../api";
-import { CommandRegistry } from "../classes/Command.class";
-import { InteractionMenu } from "../classes/Interaction.class";
+import { RAGERP } from "@api";
+import { InteractionMenu } from "@classes/Interaction.class";
 
 /**
  * This events are triggered from client-side

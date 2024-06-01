@@ -12,21 +12,21 @@
 */
 
 //---------------------------------------//
-import { RAGERP } from "./api";
+import { RAGERP } from "@api";
 //---------------------------------------//
-import "./commands";
+import "@commands/index";
 //---------------------------------------//
-import "./prototype/Player.prototype";
+import "@prototype/Player.prototype";
 //---------------------------------------//
-import "./serverevents/Auth.event";
-import "./serverevents/Chat.event";
-import "./serverevents/Server.event";
-import "./serverevents/Character.event";
-import "./serverevents/Player.event";
-import "./serverevents/Inventory.event";
-import "./serverevents/Death.event";
-import "./serverevents/Vehicle.event";
-import "./serverevents/Point.event";
+import "@events/Auth.event";
+import "@events/Chat.event";
+import "@events/Server.event";
+import "@events/Character.event";
+import "@events/Player.event";
+import "@events/Inventory.event";
+import "@events/Death.event";
+import "@events/Vehicle.event";
+import "@events/Point.event";
 //---------------------------------------//
 import { blue, green, yellow } from "colorette";
 //---------------------------------------//

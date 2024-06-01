@@ -1,4 +1,4 @@
-import { DynamicPoint } from "../classes/Point.class";
+import { DynamicPoint } from "@classes/Point.class";
 
 mp.events.add("server::player:pressE", async (player: PlayerMp) => {
     try {

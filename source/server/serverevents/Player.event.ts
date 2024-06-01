@@ -1,6 +1,6 @@
-import { RAGERP } from "../api";
-import { BanEntity } from "../database/entity/Ban.entity";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { RAGERP } from "@api";
+import { BanEntity } from "@entities/Ban.entity";
+import { CharacterEntity } from "@entities/Character.entity";
 
 const onPlayerJoin = async (player: PlayerMp) => {
     try {

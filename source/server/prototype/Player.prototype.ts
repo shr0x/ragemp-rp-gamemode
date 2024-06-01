@@ -1,8 +1,8 @@
-import { CefEvent } from "../classes/CEFEvent.class";
-import { inventoryAssets } from "../modules/inventory/Items.module";
+import { RAGERP } from "@api";
+import { inventoryAssets } from "@modules/inventory/Items.module";
 
 mp.Player.prototype.showNotify = function (type: RageShared.Enums.NotifyType, message: string, skin: "light" | "dark" | "colored" = "dark") {
-    return CefEvent.emit(this, "notify", "show", { type, message, skin });
+    return RAGERP.cef.emit(this, "notify", "show", { type, message, skin });
 };
 
 mp.Player.prototype.getAdminLevel = function (): number {

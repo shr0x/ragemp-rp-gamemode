@@ -1,5 +1,35 @@
 declare namespace RageShared.Interfaces {
     namespace Inventory {
+        interface IMoveItem {
+            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            source: { component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems"; slot: string };
+            target: {
+                component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems";
+                slot: string;
+                item: RageShared.Interfaces.Inventory.IInventoryItem | null;
+            };
+            backpackHash: string | null;
+        }
+        interface IUseItem {
+            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            source: { component: "pockets" | "clothes"; slot: string };
+        }
+
+        interface IDropItem {
+            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            source: { component: "pockets" | "clothes" | "backpack"; slot: string; viewingBackpack?: string };
+        }
+
+        interface ISplitItem {
+            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            source: { component: "pockets" | "backpack"; slot: string };
+            target: { component: "pockets" | "backpack"; count: number; slot: string };
+        }
+        interface IOpenItem {
+            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            source: { component: "backpack" | "pockets"; slot: string };
+        }
+
         interface IInventoryItem {
             type: RageShared.Enums.ITEM_TYPES; //item type
 

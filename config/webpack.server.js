@@ -44,7 +44,7 @@ module.exports = {
     },
     resolve: {
         plugins: [new TsconfigPathsPlugin({ configFile: configPath, baseUrl: sourcePath })],
-        extensions: ['.ts', '.tsx', '.js'],
+        extensions: ['.ts'],
         mainFields: ['main']
     },
     output: {

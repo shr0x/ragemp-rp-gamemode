@@ -1,6 +1,7 @@
-import { RAGERP } from "../api";
-import { InteractionMenu } from "../classes/Interaction.class";
-import { inventorydataPresset } from "../modules/inventory/Assets.module";
+import { RAGERP } from "@api";
+import { InteractionMenu } from "@classes/Interaction.class";
+import { inventorydataPresset } from "@modules/inventory/Assets.module";
+
 RAGERP.commands.add({
     name: "ped",
     run: (player: PlayerMp) => {

@@ -50,7 +50,7 @@ export class PlayerHud {
      * @param value value to set to the data you're about to change
      * @returns void
      */
-    public setPlayerData<K extends keyof RageShared.Interfaces.IPlayerData>(key: K, value: RageShared.Interfaces.IPlayerData[K]) {
+    public setPlayerData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(key: K, value: RageShared.Players.Interfaces.IPlayerData[K]) {
         return Browser.processEvent("cef::player:setPlayerData", key, value);
     }
     //#endregion
@@ -86,7 +86,7 @@ export class PlayerHud {
      * @param value The value to set to the data
      * @returns void;
      */
-    public setSpeedometerData<K extends keyof RageShared.Interfaces.IVehicleData>(data: K, value: RageShared.Interfaces.IVehicleData[K]) {
+    public setSpeedometerData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(data: K, value: RageShared.Vehicles.Interfaces.IVehicleData[K]) {
         return Browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
     }
     //#endregion

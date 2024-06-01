@@ -7,7 +7,7 @@ let taskInterval: NodeJS.Timeout | null = null;
 
 type TCreatorCamera = Record<string, { coords: Vector3; fov: number; zpos: number }>;
 
-const creatorData: RageShared.Interfaces.CreatorData = {
+const creatorData: RageShared.Players.Interfaces.CreatorData = {
     sex: 0,
     name: { firstname: "", lastname: "" },
     parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
@@ -108,19 +108,19 @@ class ModelCreator {
 
     //#region Creator
 
-    chosenData: RageShared.Interfaces.CreatorData = {
+    chosenData: RageShared.Players.Interfaces.CreatorData = {
         ...creatorData
     };
     //selected random customization
     randomizer(data: any) {
-        let randomData: RageShared.Interfaces.CreatorData = data;
+        let randomData: RageShared.Players.Interfaces.CreatorData = data;
 
         try {
             this.chosenData.sex = randomData.sex;
 
             //Face features
             for (let i = 0; i < 20; i++) {
-                this.chosenData.face[i as keyof RageShared.Interfaces.CreatorFace] = randomData.face[i as keyof RageShared.Interfaces.CreatorFace];
+                this.chosenData.face[i as keyof RageShared.Players.Interfaces.CreatorFace] = randomData.face[i as keyof RageShared.Players.Interfaces.CreatorFace];
             }
 
             //Parents
@@ -315,7 +315,7 @@ class ModelCreator {
             }
             case "face": {
                 if (typeof firstData === "undefined" || typeof secondData === "undefined") return;
-                const facefeatureData: keyof RageShared.Interfaces.CreatorFace = firstData;
+                const facefeatureData: keyof RageShared.Players.Interfaces.CreatorFace = firstData;
                 this.chosenData.face[facefeatureData] = secondData;
                 mp.players.local.setFaceFeature(firstData, secondData / 100);
                 return;

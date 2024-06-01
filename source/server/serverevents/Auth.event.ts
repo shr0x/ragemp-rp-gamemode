@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import { RAGERP } from "../api";
-import { AccountEntity } from "../database/entity/Account.entity";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { RAGERP } from "@api";
+import { AccountEntity } from "@entities/Account.entity";
+import { CharacterEntity } from "@entities/Character.entity";
 
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");

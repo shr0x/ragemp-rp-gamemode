@@ -1,31 +1,43 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "module": "CommonJS",
-        "target": "ESNext",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": false,
         "outDir": "../../packages/server",
+        "sourceMap": false,
         "declaration": false,
-        "strict": true,
-        "strictNullChecks": true,
-        "resolveJsonModule": true,
-        "strictFunctionTypes": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "strictPropertyInitialization": false,
-        "noImplicitThis": false,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
         "alwaysStrict": true,
         "diagnostics": true,
         "pretty": true,
         "allowJs": true,
-        "typeRoots": [
-            "../../node_modules/@types"
-        ]
+        "esModuleInterop": true,
+        "paths": {
+            "@api": [
+                "./api/index.ts"
+            ],
+            "@assets/*": [
+                "./assets/*"
+            ],
+            "@classes/*": [
+                "./classes/*"
+            ],
+            "@events/*": [
+                "./serverevents/*"
+            ],
+            "@modules/*": [
+                "./modules/*"
+            ],
+            "@entities/*": [
+                "./database/entity/*"
+            ],
+            "@commands/*": [
+                "./commands/*"
+            ],
+            "@prototype/*": [
+                "./prototype/*"
+            ],
+            "@shared/*": [
+                "../shared/*"
+            ]
+        }
     },
     "files": [
         "../../node_modules/@ragempcommunity/types-server/index.d.ts",

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { RAGERP } from "../api";
-import { VehicleEntity } from "../database/entity/Vehicle.entity";
-import { vehicleClasses, vehicleModelSeats } from "../assets/Vehicle.assets";
+import { RAGERP } from "@api";
+import { vehicleClasses, vehicleModelSeats } from "@assets/Vehicle.assets";
+import { VehicleEntity } from "@entities/Vehicle.entity";
 
 interface IVehicleData {
     locked: boolean;
@@ -88,7 +88,7 @@ export class Vehicle {
     static List: Vehicle[] = [];
 
     /** The type of the vehicle. */
-    type: RageShared.Vehicle.Enums.VEHICLETYPES;
+    type: RageShared.Vehicles.Enums.VEHICLETYPES;
 
     /** The vehicle object from the game engine. */
     _vehicle: VehicleMp;
@@ -107,7 +107,7 @@ export class Vehicle {
 
     /**
      * Creates an instance of Vehicle.
-     * @param {RageShared.Vehicle.Enums.VEHICLETYPES} type - The type of the vehicle.
+     * @param {RageShared.Vehicles.Enums.VEHICLETYPES} type - The type of the vehicle.
      * @param {string | number} model - The model of the vehicle.
      * @param {Vector3} position - The position where the vehicle spawns.
      * @param {number} heading - The heading (direction) the vehicle faces.
@@ -116,7 +116,7 @@ export class Vehicle {
      * @param {IVehicleMods | null} [mods=null] - The modifications applied to the vehicle.
      */
     constructor(
-        type: RageShared.Vehicle.Enums.VEHICLETYPES,
+        type: RageShared.Vehicles.Enums.VEHICLETYPES,
         model: string | number,
         position: Vector3,
         heading: number,
@@ -161,7 +161,7 @@ export class Vehicle {
             }
         }
 
-        if (this.isValid() && this.type === RageShared.Vehicle.Enums.VEHICLETYPES.OWNED) {
+        if (this.isValid() && this.type === RageShared.Vehicles.Enums.VEHICLETYPES.OWNED) {
             this.createMods();
         }
         Vehicle.List.push(this);
@@ -272,9 +272,9 @@ export class Vehicle {
 
     /**
      * Gets the type of the vehicle.
-     * @returns {RageShared.Vehicle.Enums.VEHICLETYPES} - The type of the vehicle.
+     * @returns {RageShared.Vehicles.Enums.VEHICLETYPES} - The type of the vehicle.
      */
-    public getType(): RageShared.Vehicle.Enums.VEHICLETYPES {
+    public getType(): RageShared.Vehicles.Enums.VEHICLETYPES {
         return this.type;
     }
 
@@ -305,7 +305,7 @@ export class Vehicle {
      */
     public getFaction(): string | null {
         if (!this._vehicle || !mp.vehicles.exists(this._vehicle)) return null;
-        if (this.type !== RageShared.Vehicle.Enums.VEHICLETYPES.FACTION) return null;
+        if (this.type !== RageShared.Vehicles.Enums.VEHICLETYPES.FACTION) return null;
         return this._data.faction;
     }
 
@@ -315,7 +315,7 @@ export class Vehicle {
      */
     public getOwner(): string | null {
         if (!this._vehicle || !mp.vehicles.exists(this._vehicle)) return null;
-        if (this.type !== RageShared.Vehicle.Enums.VEHICLETYPES.OWNED) return null;
+        if (this.type !== RageShared.Vehicles.Enums.VEHICLETYPES.OWNED) return null;
         return this._data.ownerName;
     }
 
@@ -334,9 +334,12 @@ export class Vehicle {
      */
     public isValid(): boolean {
         if (
-            [RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, RageShared.Vehicle.Enums.VEHICLETYPES.RENTAL, RageShared.Vehicle.Enums.VEHICLETYPES.JOB, RageShared.Vehicle.Enums.VEHICLETYPES.NONE].includes(
-                this.type
-            )
+            [
+                RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN,
+                RageShared.Vehicles.Enums.VEHICLETYPES.RENTAL,
+                RageShared.Vehicles.Enums.VEHICLETYPES.JOB,
+                RageShared.Vehicles.Enums.VEHICLETYPES.NONE
+            ].includes(this.type)
         ) {
             return false;
         }
@@ -411,7 +414,7 @@ export class Vehicle {
 
                     if (modIndex >= 100) continue;
                     if (modIndex === 18) this._vehicle.setVariable("boost", 1.3);
-                    if (modIndex === RageShared.Vehicle.Enums.VEHICLEMODS.WINDOW_TINT) {
+                    if (modIndex === RageShared.Vehicles.Enums.VEHICLEMODS.WINDOW_TINT) {
                         this._vehicle.windowTint = vehiclemods[modIndex];
                     } else this._vehicle.setMod(parseInt(tune), vehiclemods[modIndex]);
                 }
@@ -591,11 +594,11 @@ export class Vehicle {
     public isWindowedVehicle(vehicleClass: number): boolean {
         if (
             [
-                RageShared.Vehicle.Enums.VEHICLE_CLASS.BOATS,
-                RageShared.Vehicle.Enums.VEHICLE_CLASS.CYCLES,
-                RageShared.Vehicle.Enums.VEHICLE_CLASS.UTILITY,
-                RageShared.Vehicle.Enums.VEHICLE_CLASS.MOTORCYCLES,
-                RageShared.Vehicle.Enums.VEHICLE_CLASS.OPEN_WHEEL
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.BOATS,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.CYCLES,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.UTILITY,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.MOTORCYCLES,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.OPEN_WHEEL
             ].includes(vehicleClass)
         )
             return false;

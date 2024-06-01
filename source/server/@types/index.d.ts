@@ -5,6 +5,7 @@ import { CharacterEntity } from "../database/entity/Character.entity";
 declare global {
     interface PlayerMp {
         this: PlayerMp;
+
         account: AccountEntity | null;
         character: CharacterEntity | null;
         lastPosition: Vector3 | null;
