@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import style from "./deathscreen.module.scss";
 import PlayerStore from "store/Player.store";
 import EventManager from "utils/EventManager.util";
-const DeathScreen: FC<{ store: PlayerStore }> = ({ store }) => {
+const DeathScreen: FC<{ store: PlayerStore }> = observer(({ store }) => {
     const [timeLeft, setTimeLeft] = useState(30);
     const [isActive, setActive] = useState(false);
 
@@ -27,8 +27,8 @@ const DeathScreen: FC<{ store: PlayerStore }> = ({ store }) => {
     return (
         <div className={style.deathscreen}>
             <div className={style.header}>you are injured right now...</div>
-            <div className={style.bottomdata}>{timeLeft === 0 ? "HOLD E TO ACCEPT DEATH" : <span className={style.timer}>{timeLeft}</span>}</div>
+            <div className={style.bottomdata}>{timeLeft === 0 ? "PRESS E TO ACCEPT DEATH" : <span className={style.timer}>{timeLeft}</span>}</div>
         </div>
     );
-};
+});
 export default DeathScreen;
