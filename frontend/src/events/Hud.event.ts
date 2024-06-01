@@ -8,7 +8,7 @@ export const InitHudEvents = (store: HudStore) => {
         EventManager.addHandler("hud", "setVehicleData", (data: any) => store.setVehicleData(data));
         EventManager.addHandler("hud", "setAreaData", (data: { area: string; street: string }) => store.setAreaData(data));
 
-        EventManager.stopAddingHandlers("hud");
+        EventManager.stopAddingHandler("hud");
         return () => EventManager.removeTargetHandlers("hud");
     }, [store]);
 };

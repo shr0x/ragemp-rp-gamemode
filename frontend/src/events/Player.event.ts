@@ -9,7 +9,7 @@ export const InitPlayerEvents = (store: PlayerStore) => {
         EventManager.addHandler("player", "setPlayerData", (data: any, key: any) => store.setData(data, key));
         EventManager.addHandler("player", "setKeybindData", (keys: { [key: string]: string }) => store.setKeybindData(keys));
 
-        EventManager.stopAddingHandlers("player");
+        EventManager.stopAddingHandler("player");
         return () => EventManager.removeTargetHandlers("player");
     }, [store]);
 };
