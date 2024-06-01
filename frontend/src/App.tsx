@@ -13,11 +13,13 @@ import ChatStore from "./stores/Chat.store";
 import CreatorStore from "./stores/CharCreator.store";
 import PlayerStore from "./stores/Player.store";
 import HudStore from "store/Hud.store";
+import TattooShopStore from "store/Tattoo.store";
 
 const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
 const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
 const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
 const PlayerHud = lazy(() => import("pages/hud/Hud"));
+const TattooShop = lazy(() => import("pages/tattooshop/TattooShop"));
 
 const App: FC = () => {
     const chatStore = useLocalObservable(() => new ChatStore());
@@ -25,6 +27,7 @@ const App: FC = () => {
     const playerStore = useLocalObservable(() => new PlayerStore());
     const hudStore = useLocalObservable(() => new HudStore());
     const inventoryStore = useLocalObservable(() => new InventoryStore());
+    const tattooStore = useLocalObservable(() => new TattooShopStore());
 
     const [page, setPage] = useState<string>("");
 
@@ -59,6 +62,7 @@ const App: FC = () => {
                 {page === "auth" && <Authentication />}
                 {page === "creator" && <CharacterCreator store={creatorStore} />}
                 {page === "selectcharacter" && <CharacterSelector store={playerStore} />}
+                {page === "tattooShop" && <TattooShop store={tattooStore} />}
             </Suspense>
         </div>
     );

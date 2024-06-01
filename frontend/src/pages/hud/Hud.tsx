@@ -8,9 +8,11 @@ import MainHud from "./MainHud/MainHud";
 
 import InventoryStore from "store/Inventory.store";
 import Inventory from "./Inventory/Inventory";
+import DeathScreen from "./DeathScreen/DeathScreen";
 const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = observer(({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
+            <DeathScreen store={store} />
             <MainHud store={hudStore} playerStore={store} />
             <InteractionMenu store={hudStore} />
             {inventoryStore.isVisible && <Inventory store={inventoryStore} playerStore={store} />}

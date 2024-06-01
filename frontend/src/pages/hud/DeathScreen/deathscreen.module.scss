@@ -1,0 +1,51 @@
+.deathscreen {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    bottom: 10vh;
+    filter: drop-shadow(0 0 5vh black);
+
+    width: 600px;
+    height: 200px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transition: all .2s;
+
+    .header {
+        font-family: 'Beast Duh';
+        font-size: 5vh;
+
+        color: red;
+        text-shadow: 0 0 10px black;
+        text-transform: uppercase;
+
+    }
+
+    .bottomdata {
+        width: 400px;
+        height: 100px;
+        font-family: 'Beast Duh';
+        font-size: 2vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        color: white;
+        text-shadow: 0 0 10px black;
+        text-transform: uppercase;
+
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgb(105, 44, 44) 50%, rgba(0, 0, 0, 0) 100%);
+
+        .timer {
+            font-size: 3vh;
+            color: red;
+        }
+    }
+}

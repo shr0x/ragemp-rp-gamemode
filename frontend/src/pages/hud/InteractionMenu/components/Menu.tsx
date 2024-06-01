@@ -87,9 +87,15 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, animationTimeout, sh
                 {...props}
                 width={"50vh"}
                 height={"35vh"}
-                viewBox={`-3 -3 ${menuWidth + 6} ${menuHeight + 6}`}
+                stroke="#28272b"
+                strokeWidth={"2"}
+                viewBox={`${-35} ${-35} ${menuWidth + 35 * 2} ${menuHeight + 35 * 2}`}
                 className={clsx(props.className, cx("menu", transition, animation, theme, !data.drawBackground && "no-bg"))}
             >
+                <circle key={1} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 10} fill="none" stroke="#AAAAAA" />
+                <circle key={2} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 20} fill="none" stroke="#afafaf" />
+                <circle key={3} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 30} fill="none" stroke="#AAAAAA" />
+
                 {React.Children.map(props.children, (child, index) => {
                     if (React.isValidElement(child)) {
                         let prop = {

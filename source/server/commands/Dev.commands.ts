@@ -115,6 +115,13 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "playerweapons",
+    run: (player: PlayerMp) => {
+        console.log(player.weapons);
+    }
+});
+
+RAGERP.commands.add({
     name: "giveitem",
     run: (player: PlayerMp, fulltext, item: RageShared.Enums.ITEM_TYPES, count: string) => {
         if (!player.character || !player.character.inventory) return;
@@ -145,12 +152,8 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "testhandlers",
+    name: "testcrawl",
     run: (player: PlayerMp) => {
-        const obj = mp.objects.new(mp.joaat("prop_parking_sign_2"), new mp.Vector3(87.40638732910156, -1374.9691162109375, 29.294981002807617));
-
-        obj.setVariable("hash", 123456);
-
-        player.outputChatBox("object created");
+        player.call("testcrawl");
     }
 });
