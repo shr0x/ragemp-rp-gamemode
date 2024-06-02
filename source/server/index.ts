@@ -18,6 +18,8 @@ import "@commands/index";
 //---------------------------------------//
 import "@prototype/Player.prototype";
 //---------------------------------------//
+import "@classes/WorldManager.class";
+//---------------------------------------//
 import "@events/Auth.event";
 import "@events/Chat.event";
 import "@events/Server.event";

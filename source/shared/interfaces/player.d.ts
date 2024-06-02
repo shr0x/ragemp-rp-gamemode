@@ -15,6 +15,7 @@ declare namespace RageShared.Players {
         interface PlayerVars {
             adminLevel: number;
             isSpectating: boolean;
+            isDead: boolean;
             loggedin: boolean;
             ammoType: string;
             ammoHash: { items: string[]; count: number } | null;
@@ -83,5 +84,10 @@ declare namespace RageShared.Players {
         //#endregion
     }
 
-    namespace Enums {}
+    namespace Enums {
+        const enum DEATH_STATES {
+            STATE_NONE = 0,
+            STATE_INJURED
+        }
+    }
 }

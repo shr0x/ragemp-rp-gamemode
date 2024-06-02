@@ -1,4 +1,5 @@
 import { Browser } from "../classes/Browser.class";
+import { Client } from "../classes/Client.class";
 import { Inventory } from "../classes/Inventory.class";
 import { PlayerKeybind } from "../classes/Keybind.class";
 import { EntityRaycast } from "../classes/Raycast.class";
@@ -39,4 +40,14 @@ PlayerKeybind.addKeybind(
         mp.events.callRemote(EntityRaycast.entity.type === "player" ? "server::interaction:player" : "server::interaction:vehicle", EntityRaycast.entity.remoteId);
     },
     "Interact with an entity"
+);
+
+PlayerKeybind.addKeybind(
+    { keyCode: 69, up: false },
+    () => {
+        if (!Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
+        mp.events.callRemote("server::player:acceptDeath");
+        Client.canAcceptDeath = false;
+    },
+    "Accept death"
 );

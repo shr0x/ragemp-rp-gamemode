@@ -1,4 +1,5 @@
 import { Utils } from "../../shared/Utils.module";
+import { Client } from "../classes/Client.class";
 import { Inventory } from "../classes/Inventory.class";
 
 mp.events.add("playerReady", () => {
@@ -35,4 +36,8 @@ mp.events.add("client::inventory:setVisible", async (enable) => {
 
 mp.events.add("client::weapon:giveWeapon", async (weapon: number, totalAmmo: number, ammoInClip?: number) => {
     await Inventory.giveWeapon(weapon, totalAmmo, ammoInClip).catch((err) => Utils.clientDebug("An error occurred giving weapon to player " + mp.players.local.name));
+});
+
+mp.events.add("client::player:canAcceptDeath", (enable) => {
+    Client.canAcceptDeath = enable;
 });

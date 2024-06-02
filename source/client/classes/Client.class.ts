@@ -45,6 +45,11 @@ class _Client {
     crawlingInterval: NodeJS.Timeout | null = null;
 
     /**
+     * Whether a player can accept death or not
+     */
+    public canAcceptDeath: boolean = false;
+
+    /**
      * Constructs a new Client instance.
      */
     constructor() {

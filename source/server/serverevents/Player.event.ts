@@ -35,7 +35,8 @@ const onPlayerQuit = async (player: PlayerMp) => {
 
     await RAGERP.database.getRepository(CharacterEntity).update(character.id, {
         position: { x: lastPosition.x, y: lastPosition.y, z: lastPosition.z, heading: player.heading },
-        lastlogin: character.lastlogin
+        lastlogin: character.lastlogin,
+        deathState: character.deathState
     });
 };
 

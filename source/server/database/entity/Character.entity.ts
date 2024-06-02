@@ -4,6 +4,7 @@ import { Inventory } from "@modules/inventory/Core.class";
 import { CefEvent } from "@classes/CEFEvent.class";
 import { CommandRegistry } from "@classes/Command.class";
 import { AccountEntity } from "./Account.entity";
+import { setPlayerToInjuredState } from "@events/Death.event";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -47,11 +48,14 @@ export class CharacterEntity {
     @Column({ type: "int", width: 11, default: 0 })
     wantedLevel: number = 0;
 
+    @Column({ type: "int", width: 11, default: 0 })
+    deathState: RageShared.Players.Enums.DEATH_STATES = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
+
     public inventory: Inventory | null = null;
 
     constructor() {}
 
-    public async save() {}
+    public async save(player: PlayerMp) {}
 
     public applyAppearance(player: PlayerMp) {
         if (!player || !mp.players.exists(player) || !player.character) return;
@@ -104,7 +108,11 @@ export class CharacterEntity {
         await player.requestCollisionAt(x, y, z).then(() => {
             player.spawn(new mp.Vector3(x, y, z));
         });
+
         player.heading = heading;
+        if (player.character.deathState === RageShared.Players.Enums.DEATH_STATES.STATE_INJURED) {
+            setPlayerToInjuredState(player);
+        }
         player.outputChatBox(`Welcome to !{red}RAGEMP ROLEPLAY!{white} ${player.name}!`);
 
         !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);

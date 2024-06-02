@@ -40,8 +40,18 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "getvar",
-    run: (player: PlayerMp) => {}
+    name: "sethealth",
+    run: (player: PlayerMp, fulltext, health) => {
+        player.health = parseInt(health);
+    }
+});
+
+RAGERP.commands.add({
+    name: "setdata",
+    run: (player: PlayerMp) => {
+        if (!player.character) return;
+        player.character.setStoreData(player, "isDead", true);
+    }
 });
 
 RAGERP.commands.add({
