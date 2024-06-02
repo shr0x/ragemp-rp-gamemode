@@ -1,4 +1,4 @@
-import { RAGERP } from "../api";
+import { RAGERP } from "@api";
 
 export class InteractionMenu {
     player: PlayerMp | null = null;

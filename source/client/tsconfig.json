@@ -1,25 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "outDir": "../../../client_packages/",
-    "moduleResolution": "node",
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "strictFunctionTypes": true,
-    "skipLibCheck": true,
-    "strictPropertyInitialization": false,
-    "noImplicitThis": false,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-  },
-  "files": [
-    "../../node_modules/@ragempcommunity/types-client/index.d.ts",
-    "../shared/index.d.ts"
-  ],
-  "include": [
-    "./**/*"
-  ]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../../client_packages/",
+		"strictNullChecks": true
+	},
+	"files": [
+		"../../node_modules/@ragempcommunity/types-client/index.d.ts",
+		"../shared/index.d.ts"
+	],
+	"include": [
+		"./**/*"
+	]
 }

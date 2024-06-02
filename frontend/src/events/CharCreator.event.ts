@@ -6,7 +6,7 @@ export const InitCreatorEvents = (creatorStore: CreatorStore) => {
     return useEffect(() => {
         EventManager.addHandler("creator", "resetData", () => creatorStore.resetData());
         EventManager.addHandler("creator", "setData", (data: any) => creatorStore.fetchData(data));
-        EventManager.stopAddingHandlers("creator");
+        EventManager.stopAddingHandler("creator");
         return () => EventManager.removeTargetHandlers("creator");
     }, [creatorStore]);
 };

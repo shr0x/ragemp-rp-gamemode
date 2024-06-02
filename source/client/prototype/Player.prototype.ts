@@ -135,3 +135,4 @@ mp.events.add("entityStreamIn", (entity) => {
 mp.events.add("hairOverlay::update", (player, newHairIndex) => {
     applyHairOverlayToEntity(player, newHairIndex);
 });
+// ---------------------------------------------------------------

@@ -170,12 +170,13 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
             const droppedToData = inventory.items[droppedTo.component][droppedTo.slot];
 
             if (draggedFrom.component === "groundItems") {
-                console.log(draggedFromData);
+                console.log("what u want?", draggedFromData);
 
                 inventory.items.clothes[droppedTo.slot] = { ...draggedFromData, isPlaced: true };
                 ItemObject.deleteDroppedItemByHash(item.hash);
                 inventory.loadClothes(player, droppedTo.slot, JSON.parse(draggedFromData.key.replace(draggedFromData.type, "")));
                 notifyPlayer(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You equipped ${draggedFromData.name}`);
+
                 inventory.setInventory(player);
                 return;
             }
@@ -220,7 +221,14 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 if (!droppedItem) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Couldnt find that item on the ground");
 
                 droppedItem.remove();
-                player.character.inventory.items[droppedTo.component as "clothes" | "pockets"][parseInt(droppedTo.slot)] = { ...item, hash: v4() };
+
+                player.character.inventory.items[droppedTo.component as "clothes" | "pockets"][parseInt(droppedTo.slot)] = {
+                    ...item,
+                    isPlaced: droppedTo.component === "clothes" ? true : false,
+                    hash: v4()
+                };
+
+                if (droppedTo.component === "clothes") player.character.inventory.reloadClothes(player);
                 player.character.inventory.setInventory(player);
                 return;
             }

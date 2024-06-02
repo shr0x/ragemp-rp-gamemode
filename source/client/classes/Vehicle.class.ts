@@ -82,6 +82,7 @@ class _Vehicle {
      */
     public syncValues(vehicle: VehicleMp) {
         if ((vehicle as EntityMp).type !== "vehicle" || !this.doesExist(vehicle)) return;
+        if (this.isPlaneOrHeli(vehicle.getClass())) return;
 
         const windows = vehicle.getVariable("windows"),
             frozen = vehicle.getVariable("frozen");

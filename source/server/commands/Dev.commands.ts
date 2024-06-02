@@ -1,6 +1,7 @@
-import { RAGERP } from "../api";
-import { InteractionMenu } from "../classes/Interaction.class";
-import { inventorydataPresset } from "../modules/inventory/Assets.module";
+import { RAGERP } from "@api";
+import { InteractionMenu } from "@classes/Interaction.class";
+import { inventorydataPresset } from "@modules/inventory/Assets.module";
+
 RAGERP.commands.add({
     name: "ped",
     run: (player: PlayerMp) => {
@@ -39,8 +40,18 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "getvar",
-    run: (player: PlayerMp) => {}
+    name: "sethealth",
+    run: (player: PlayerMp, fulltext, health) => {
+        player.health = parseInt(health);
+    }
+});
+
+RAGERP.commands.add({
+    name: "setdata",
+    run: (player: PlayerMp) => {
+        if (!player.character) return;
+        player.character.setStoreData(player, "isDead", true);
+    }
 });
 
 RAGERP.commands.add({
@@ -148,12 +159,5 @@ RAGERP.commands.add({
             itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
             itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
         );
-    }
-});
-
-RAGERP.commands.add({
-    name: "testcrawl",
-    run: (player: PlayerMp) => {
-        player.call("testcrawl");
     }
 });

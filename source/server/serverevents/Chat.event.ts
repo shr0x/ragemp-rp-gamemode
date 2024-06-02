@@ -1,5 +1,5 @@
-import { CommandRegistry } from "../classes/Command.class";
 import _ from "lodash";
+import { CommandRegistry } from "@classes/Command.class";
 
 const invokeCommand = async (player: PlayerMp, message: string) => {
     message = message.substring(1);

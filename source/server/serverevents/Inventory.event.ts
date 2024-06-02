@@ -1,4 +1,4 @@
-import { RAGERP } from "../api";
+import { RAGERP } from "@api";
 
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onMoveItem", async (player, data) => {

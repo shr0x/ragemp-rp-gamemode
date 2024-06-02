@@ -274,8 +274,8 @@ export default class InventoryStore {
      * @returns {boolean} True if the item is in quick use, otherwise false.
      */
     @action.bound
-    public isItemInQuickUse(id: number): boolean {
-        return values(this.quickUse).find((x) => x && x.id === id) ? true : false;
+    public isItemInQuickUse(component: string, id: number): boolean {
+        return values(this.quickUse).find((x) => x && x.id === id && x.component === component) ? true : false;
     }
 
     /**

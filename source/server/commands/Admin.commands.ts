@@ -1,5 +1,5 @@
-import { RAGERP } from "../api";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { RAGERP } from "@api";
+import { CharacterEntity } from "@entities/Character.entity";
 
 RAGERP.commands.add({
     name: "veh",
@@ -8,7 +8,7 @@ RAGERP.commands.add({
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
         if (!fullText.length || !vehicleModel.length) return player.outputChatBox("Usage: /veh [vehiclemodel]");
 
-        const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
+        const vehicle = new RAGERP.entities.vehicle(RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
     }
 });
@@ -108,7 +108,7 @@ RAGERP.commands.add({
             vehicleData.destroy();
             return;
         }
-        const adminVehicles = RAGERP.entities.vehicle.List.filter((x) => x.type === RageShared.Vehicle.Enums.VEHICLETYPES.ADMIN);
+        const adminVehicles = RAGERP.entities.vehicle.List.filter((x) => x.type === RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN);
         adminVehicles.forEach((vehicle) => vehicle.destroy());
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
     }

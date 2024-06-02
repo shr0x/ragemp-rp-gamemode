@@ -22,6 +22,8 @@ const PlayerHud = lazy(() => import("pages/hud/Hud"));
 const TattooShop = lazy(() => import("pages/tattooshop/TattooShop"));
 
 const App: FC = () => {
+    const [page, setPage] = useState<string>("");
+
     const chatStore = useLocalObservable(() => new ChatStore());
     const creatorStore = useLocalObservable(() => new CreatorStore());
     const playerStore = useLocalObservable(() => new PlayerStore());
@@ -29,16 +31,15 @@ const App: FC = () => {
     const inventoryStore = useLocalObservable(() => new InventoryStore());
     const tattooStore = useLocalObservable(() => new TattooShopStore());
 
-    const [page, setPage] = useState<string>("");
-
     initializeEvents({ chatStore, playerStore, hudStore, inventoryStore });
+
     useEffect(() => {
         EventManager.addHandler("system", "setPage", setPage);
         EventManager.addHandler("notify", "show", (data: { type: any; message: string; skin: any }) => Notification.show(data.type, data.message, data.skin));
 
         return () => {
-            EventManager.stopAddingHandlers("notify");
-            EventManager.stopAddingHandlers("system");
+            EventManager.stopAddingHandler("notify");
+            EventManager.stopAddingHandler("system");
         };
     }, []);
 

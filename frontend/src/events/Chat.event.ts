@@ -7,7 +7,7 @@ export const InitChatEvents = (chatStore: ChatStore) => {
         EventManager.addHandler("chat", "setActive", (data: boolean) => chatStore.setActive(data));
         EventManager.addHandler("chat", "setCommands", (data: string[]) => chatStore.fetchCommandList(data));
 
-        EventManager.stopAddingHandlers("chat");
+        EventManager.stopAddingHandler("chat");
         return () => EventManager.removeTargetHandlers("chat");
     }, [chatStore]);
 };

@@ -1,6 +1,6 @@
-import { RAGERP } from "../api";
-import { BanEntity } from "../database/entity/Ban.entity";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { RAGERP } from "@api";
+import { BanEntity } from "@entities/Ban.entity";
+import { CharacterEntity } from "@entities/Character.entity";
 
 const onPlayerJoin = async (player: PlayerMp) => {
     try {
@@ -35,7 +35,8 @@ const onPlayerQuit = async (player: PlayerMp) => {
 
     await RAGERP.database.getRepository(CharacterEntity).update(character.id, {
         position: { x: lastPosition.x, y: lastPosition.y, z: lastPosition.z, heading: player.heading },
-        lastlogin: character.lastlogin
+        lastlogin: character.lastlogin,
+        deathState: character.deathState
     });
 };
 

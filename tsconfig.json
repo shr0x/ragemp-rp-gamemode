@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "strictPropertyInitialization": false,
+        "noImplicitThis": false,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true
+    }
+}

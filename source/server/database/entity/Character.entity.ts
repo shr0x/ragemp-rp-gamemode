@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
-import { Inventory } from "../../modules/inventory/Core.class";
-import { CefEvent } from "../../classes/CEFEvent.class";
-import { CommandRegistry } from "../../classes/Command.class";
+import { Inventory } from "@modules/inventory/Core.class";
+import { CefEvent } from "@classes/CEFEvent.class";
+import { CommandRegistry } from "@classes/Command.class";
 import { AccountEntity } from "./Account.entity";
+import { setPlayerToInjuredState } from "@events/Death.event";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -18,7 +19,7 @@ export class CharacterEntity {
     adminlevel: number = 0;
 
     @Column({ type: "jsonb", default: null })
-    appearance = {
+    appearance: Omit<RageShared.Players.Interfaces.CreatorData, "name" | "sex"> = {
         face: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0 },
         parents: { father: 0, mother: 0, leatherMix: 0, similarity: 0 },
         hair: { head: 0, eyebrows: 0, chest: 0, beard: 0 },
@@ -44,9 +45,17 @@ export class CharacterEntity {
     @JoinColumn()
     items: InventoryItemsEntity;
 
+    @Column({ type: "int", width: 11, default: 0 })
+    wantedLevel: number = 0;
+
+    @Column({ type: "int", width: 11, default: 0 })
+    deathState: RageShared.Players.Enums.DEATH_STATES = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
+
     public inventory: Inventory | null = null;
 
-    public async save() {}
+    constructor() {}
+
+    public async save(player: PlayerMp) {}
 
     public applyAppearance(player: PlayerMp) {
         if (!player || !mp.players.exists(player) || !player.character) return;
@@ -67,41 +76,8 @@ export class CharacterEntity {
         player.setClothes(2, data.hair.head, 0, 0);
 
         for (let i = 0; i < 20; i++) {
-            player.setFaceFeature(i, data.face[i as keyof RageShared.Interfaces.CreatorFace] / 100);
+            player.setFaceFeature(i, data.face[i as keyof RageShared.Players.Interfaces.CreatorFace] / 100);
         }
-
-        //just so you know whats going on
-        // //first category
-        // player.setFaceFeature(0, data.face[0] / 100);
-        // player.setFaceFeature(1, data.face[1] / 100);
-        // player.setFaceFeature(2, data.face[2] / 100);
-        // player.setFaceFeature(3, data.face[3] / 100);
-        // player.setFaceFeature(4, data.face[4] / 100);
-        // player.setFaceFeature(5, data.face[5] / 100);
-
-        // //eye brows
-        // player.setFaceFeature(6, data.face[6] / 100);
-        // player.setFaceFeature(7, data.face[7] / 100);
-
-        // //checkbone
-        // player.setFaceFeature(8, data.face[8] / 100);
-        // player.setFaceFeature(9, data.face[9] / 100);
-
-        // //deepness of cheeks
-        // player.setFaceFeature(10, data.face[10] / 100);
-
-        // //eye width
-        // player.setFaceFeature(11, data.face[11] / 100);
-
-        // //other stuff
-        // player.setFaceFeature(12, data.face[12] / 100);
-        // player.setFaceFeature(13, data.face[13] / 100);
-        // player.setFaceFeature(14, data.face[14] / 100);
-        // player.setFaceFeature(15, data.face[15] / 100);
-        // player.setFaceFeature(16, data.face[16] / 100);
-        // player.setFaceFeature(17, data.face[17] / 100);
-        // player.setFaceFeature(18, data.face[18] / 100);
-        // player.setFaceFeature(19, data.face[19] / 100);
     }
 
     public loadInventory = function (player: PlayerMp) {
@@ -113,6 +89,10 @@ export class CharacterEntity {
         player.character.inventory.loadInventory(player);
     };
 
+    public setStoreData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(player: PlayerMp, key: K, value: RageShared.Players.Interfaces.IPlayerData[K]) {
+        return player.call("client::eventManager", ["cef::player:setPlayerData", key, value]);
+    }
+
     public async spawn(player: PlayerMp) {
         if (!player || !mp.players.exists(player) || !player.character) return;
         const { x, y, z, heading } = player.character.position;
@@ -120,12 +100,19 @@ export class CharacterEntity {
         player.character.applyAppearance(player);
         player.character.loadInventory(player);
 
+        player.character.setStoreData(player, "ping", player.ping);
+        player.character.setStoreData(player, "wantedLevel", player.character.wantedLevel);
+
         CefEvent.emit(player, "player", "setKeybindData", { I: "Open Inventory", ALT: "Interaction" });
 
         await player.requestCollisionAt(x, y, z).then(() => {
             player.spawn(new mp.Vector3(x, y, z));
         });
+
         player.heading = heading;
+        if (player.character.deathState === RageShared.Players.Enums.DEATH_STATES.STATE_INJURED) {
+            setPlayerToInjuredState(player);
+        }
         player.outputChatBox(`Welcome to !{red}RAGEMP ROLEPLAY!{white} ${player.name}!`);
 
         !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);

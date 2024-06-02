@@ -8,6 +8,8 @@ const DeathScreen: FC<{ store: PlayerStore }> = observer(({ store }) => {
     const [isActive, setActive] = useState(false);
 
     useEffect(() => {
+        if (!isActive) return;
+
         if (timeLeft === 0) {
             EventManager.emitClient("player", "canAcceptDeath", true);
             return;
@@ -16,7 +18,7 @@ const DeathScreen: FC<{ store: PlayerStore }> = observer(({ store }) => {
             setTimeLeft(timeLeft - 1);
         }, 1000);
         return () => clearTimeout(timer);
-    }, [timeLeft]);
+    }, [isActive, timeLeft]);
 
     useEffect(() => {
         setActive(store.data.isDead);

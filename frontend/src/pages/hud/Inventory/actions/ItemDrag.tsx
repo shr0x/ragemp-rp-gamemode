@@ -143,7 +143,7 @@ export const OnPlayerDragItem = (
             return cancel("You can only put an item to quick use from your pocket.");
         }
 
-        if (dropCell.component !== "pockets" && store.isItemInQuickUse(targetCell.id)) {
+        if (dropCell.component !== "pockets" && store.isItemInQuickUse(targetCell.component, targetCell.id)) {
             return cancel("This item is placed in quick use, remove it from there before moving it elsewhere.");
         }
 
@@ -229,7 +229,7 @@ export const OnPlayerDragItem = (
                 if (target.hash === itemDropData?.hash) return error("You are already wearing this item.");
                 if (target.gender && target.gender !== gender) return error("Gender mismatch");
                 if (itemDropData?.isPlaced) store.changeInventoryData(targetCell, { ...itemDropData }, false, viewingBackpack);
-                else store.changeInventoryData(targetCell, null, false);
+                else store.changeInventoryData(targetCell, null, false, viewingBackpack);
                 store.changeInventoryData(dropCell, { ...target, isPlaced: true }, true);
                 return success();
             } else return error("The item cannot be placed in this location");

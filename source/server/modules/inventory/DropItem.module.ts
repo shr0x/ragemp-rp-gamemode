@@ -11,7 +11,11 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
     try {
         if (!player.character || !player.character.inventory) return;
 
-        const { item, source }: { item: RageShared.Interfaces.Inventory.IInventoryItem; source: { component: inventoryAssets.INVENTORY_CATEGORIES; slot: string } } = JSON.parse(itemData);
+        const {
+            item,
+            source
+        }: { item: RageShared.Interfaces.Inventory.IInventoryItem; source: { component: inventoryAssets.INVENTORY_CATEGORIES | "backpack"; slot: string; viewingBackpack: string | null } } =
+            JSON.parse(itemData);
 
         if (!item) return;
 
@@ -20,7 +24,10 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             return;
         }
 
-        const playerItem = player.character.inventory.getItemByUUID(item.hash);
+        const playerItem =
+            source.component === "backpack" && source.viewingBackpack
+                ? player.character.inventory.getBackpackItemByUUID(source.viewingBackpack, item.hash)
+                : player.character.inventory.getItemByUUID(item.hash);
 
         if (!playerItem) {
             player.character.inventory.setInventory(player);
@@ -64,13 +71,19 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             range: 10,
             itemData: { ...playerItem, isPlaced: false }
         });
-
-        if (source.component !== "clothes") {
+        if (source.component === "pockets") {
             player.character.inventory.resetItemData(source.component, parseInt(source.slot));
+        } else if (source.component === "backpack") {
+            if (!source.viewingBackpack) return;
+            const itemData = player.character.inventory.getItemByUUID(source.viewingBackpack);
+            if (!itemData || !itemData.items) return;
+
+            itemData.items[parseInt(source.slot)] = null;
         } else {
             player.character.inventory.resetClothingItemData(parseInt(source.slot));
             player.character.inventory.reloadClothes(player);
         }
+
         player.character.inventory.setInventory(player);
     } catch (err) {
         console.log("dropInventoryItem error: ", err);

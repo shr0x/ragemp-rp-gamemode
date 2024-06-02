@@ -51,7 +51,7 @@
 		"@types/node": "^20.12.11",
 		"@types/uuid": "^9.0.1",
 		"fork-ts-checker-webpack-plugin": "^9.0.2",
-		"tsconfig-paths-webpack-plugin": "^4.0.1",
+		"tsconfig-paths-webpack-plugin": "^4.1.0",
 		"typescript": "^5.0.4",
 		"webpack": "^5.78.0",
 		"webpack-node-externals": "^3.0.0"
