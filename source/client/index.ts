@@ -37,7 +37,3 @@ async function initClientSide() {
         .then(() => mp.console.logInfo("[SHR0X FRAMEWORK]: Initialized client-side."))
         .catch((err) => mp.console.logError(`${err.message}`));
 })();
-/** dev only */
-mp.events.add("consoleCommand", (cmd) => {
-    eval(cmd);
-});
