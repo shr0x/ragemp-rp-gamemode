@@ -137,7 +137,45 @@ class InventoryItem extends InventoryBase {
         return items[itemIndex];
     }
 
-    public resetBackpackItemData() {}
+    async addPlayerItem(item: RageShared.Interfaces.Inventory.IInventoryItem) {
+        try {
+            let { itemIndex, type } = this.getFreeSlot();
+            if (itemIndex === -1) return false;
+            this.items[type][itemIndex] = item;
+            return true;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+    async addPlayerItemEx(item: RageShared.Interfaces.Inventory.IInventoryItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
+        try {
+            if (this.items[category][slot] === null) {
+                this.items[category][slot] = item;
+                return true;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            return false;
+        }
+    }
+
+    async addMultipleItems(items: RageShared.Interfaces.Inventory.IInventoryItem[]) {
+        try {
+            let itemCount = items.length;
+            let { itemIndex, type } = this.getFreeSlot();
+            if (itemIndex === -1) return false;
+            for (let i = 0; i < itemCount; i++) {
+                this.items[type][itemIndex] = items[i];
+                itemIndex++;
+            }
+            return true;
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 class QuickUse extends InventoryItem {
@@ -530,6 +568,14 @@ export class Inventory extends InventoryAction {
         return item ?? null;
     }
 
+    getBackpackItemByUUID(backpackHash: string, uuid: string) {
+        const itemData = this.getItemByUUID(backpackHash);
+        if (!itemData || !itemData.items) return null;
+
+        const itemInBackpack = Object.values(itemData.items).find((x) => x && x.hash === uuid);
+        return itemInBackpack ?? null;
+    }
+
     async getItemWithHigherCount(inv: typeof this.items, itemHash: string) {
         let foundItem: any = null;
         for (const [key, value] of Object.entries(inv)) {
@@ -913,47 +959,6 @@ export class Inventory extends InventoryAction {
         return splitInventoryItem(player, data);
     }
 
-    async addPlayerItem(item: RageShared.Interfaces.Inventory.IInventoryItem) {
-        try {
-            let { itemIndex, type } = this.getFreeSlot();
-            if (itemIndex === -1) return false;
-
-            this.items[type][itemIndex] = item;
-            return true;
-        } catch (err) {
-            console.log(err);
-            return false;
-        }
-    }
-
-    async addPlayerItemEx(item: RageShared.Interfaces.Inventory.IInventoryItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
-        try {
-            if (this.items[category][slot] === null) {
-                this.items[category][slot] = item;
-                return true;
-            } else {
-                return false;
-            }
-        } catch (err) {
-            return false;
-        }
-    }
-
-    async addMultipleItems(items: RageShared.Interfaces.Inventory.IInventoryItem[]) {
-        try {
-            let itemCount = items.length;
-            let { itemIndex, type } = this.getFreeSlot();
-            if (itemIndex === -1) return false;
-            for (let i = 0; i < itemCount; i++) {
-                this.items[type][itemIndex] = items[i];
-                itemIndex++;
-            }
-            return true;
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     async addCountToPlayerItem(player: PlayerMp, item: RageShared.Interfaces.Inventory.IInventoryItem, count: number) {
         try {
             if (item.type === null) return;
@@ -989,31 +994,6 @@ export class Inventory extends InventoryAction {
 
     async manageFastSlots(player: PlayerMp, event: any) {
         await manageInventoryFastSlot(player, event);
-    }
-
-    async pickupItem(player: PlayerMp, data: string) {
-        // const { type, count } = JSON.parse(data);
-        // const weaponAmmo = ["pistolAmmo", "shotgunAmmo", "smgAmmo", "assaultrifleAmmo"];
-        // console.log(count, player.interactObject.count);
-        // if (parseInt(count) === 0 || parseInt(count) < 0) return;
-        // if (!player.interactObject) return;
-        // let item = player.interactObject.assets;
-        // if (isNaN(parseInt(count)) || parseInt(count) > player.interactObject.count) return;
-        // if (this.getActualWeight() + item.weight * count > this.getWeight()) {
-        //     return
-        // }
-        // let result = await this.addCountToPlayerItem(player, item, parseInt(count));
-        // if (!result) return;
-        // if (weaponAmmo.includes(type)) {
-        //     this.reloadWeaponAmmo(player, type);
-        // }
-        // player.interactObject.count -= count;
-        // player.interactObject.assets.count = count;
-        // player.interactObject.assets.hash = uuidv4();
-        // if (player.interactObject.count <= 0) player.interactObject.remove();
-        // player.call("client::cef:close");
-        // player.call("client::eventManager", ["cef::hud:showInteractionButton", false]);
-        // player.playDurationAnimation("random@domestic", "pickup_low", 1, 1500);
     }
 
     public checkQuickUse(component: string, slot: number) {

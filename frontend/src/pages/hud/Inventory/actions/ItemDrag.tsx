@@ -229,7 +229,7 @@ export const OnPlayerDragItem = (
                 if (target.hash === itemDropData?.hash) return error("You are already wearing this item.");
                 if (target.gender && target.gender !== gender) return error("Gender mismatch");
                 if (itemDropData?.isPlaced) store.changeInventoryData(targetCell, { ...itemDropData }, false, viewingBackpack);
-                else store.changeInventoryData(targetCell, null, false);
+                else store.changeInventoryData(targetCell, null, false, viewingBackpack);
                 store.changeInventoryData(dropCell, { ...target, isPlaced: true }, true);
                 return success();
             } else return error("The item cannot be placed in this location");
