@@ -151,10 +151,3 @@ RAGERP.commands.add({
         );
     }
 });
-
-RAGERP.commands.add({
-    name: "testcrawl",
-    run: (player: PlayerMp) => {
-        player.call("testcrawl");
-    }
-});

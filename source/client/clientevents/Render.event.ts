@@ -7,7 +7,6 @@ mp.events.add("render", () => {
 
     if (mp.players.local.vehicle && mp.players.local.vehicle.getPedInSeat(-1) === mp.players.local.handle) {
         const vehicleSpeed = mp.players.local.vehicle.getSpeed() * 3.6;
-
         Client.hud.setSpeedometerData("speed", vehicleSpeed);
         Client.hud.setSpeedometerData("gear", mp.players.local.vehicle.gear);
     }

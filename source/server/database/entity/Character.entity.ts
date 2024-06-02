@@ -85,12 +85,19 @@ export class CharacterEntity {
         player.character.inventory.loadInventory(player);
     };
 
+    public setStoreData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(player: PlayerMp, key: K, value: RageShared.Players.Interfaces.IPlayerData[K]) {
+        return player.call("client::eventManager", ["cef::player:setPlayerData", key, value]);
+    }
+
     public async spawn(player: PlayerMp) {
         if (!player || !mp.players.exists(player) || !player.character) return;
         const { x, y, z, heading } = player.character.position;
 
         player.character.applyAppearance(player);
         player.character.loadInventory(player);
+
+        player.character.setStoreData(player, "ping", player.ping);
+        player.character.setStoreData(player, "wantedLevel", player.character.wantedLevel);
 
         CefEvent.emit(player, "player", "setKeybindData", { I: "Open Inventory", ALT: "Interaction" });
 

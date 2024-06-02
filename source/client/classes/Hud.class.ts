@@ -64,10 +64,8 @@ export class PlayerHud {
         if (vehicleClass === RageEnums.Vehicle.Classes.CYCLES) return;
         this.showVehicleSpeedometer(true);
     }
-    public playerExitVehicle(vehicle: VehicleMp, seat: number) {
+    public playerExitVehicle() {
         if (!mp.players.local.getVariable("loggedin")) return;
-        const vehicleClass = vehicle.getClass();
-        if (vehicleClass === RageEnums.Vehicle.Classes.CYCLES) return;
         this.showVehicleSpeedometer(false);
     }
 
