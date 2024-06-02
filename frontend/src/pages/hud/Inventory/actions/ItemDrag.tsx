@@ -143,7 +143,7 @@ export const OnPlayerDragItem = (
             return cancel("You can only put an item to quick use from your pocket.");
         }
 
-        if (dropCell.component !== "pockets" && store.isItemInQuickUse(targetCell.id)) {
+        if (dropCell.component !== "pockets" && store.isItemInQuickUse(targetCell.component, targetCell.id)) {
             return cancel("This item is placed in quick use, remove it from there before moving it elsewhere.");
         }
 

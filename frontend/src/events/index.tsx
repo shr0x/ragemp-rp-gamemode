@@ -1,11 +1,11 @@
 import { InitChatEvents } from "./Chat.event";
-import ChatStore from "../stores/Chat.store";
-import PlayerStore from "store/Player.store";
 import { InitPlayerEvents } from "./Player.event";
-import HudStore from "store/Hud.store";
 import { InitHudEvents } from "./Hud.event";
-import InventoryStore from "store/Inventory.store";
 import { InitInventoryEvents } from "./Inventory.event";
+import PlayerStore from "store/Player.store";
+import ChatStore from "../stores/Chat.store";
+import HudStore from "store/Hud.store";
+import InventoryStore from "store/Inventory.store";
 
 interface IStores {
     chatStore: ChatStore;
