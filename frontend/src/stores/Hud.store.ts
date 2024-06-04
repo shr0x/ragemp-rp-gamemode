@@ -99,7 +99,7 @@ class HudStore {
         EventManager.addHandler("hud", "setInteraction", (data: any) => this.setInteractionMenu(data));
         EventManager.addHandler("hud", "setVehicleData", (data: any) => this.setVehicleData(data));
         EventManager.addHandler("hud", "setAreaData", (data: { area: string; street: string }) => this.setAreaData(data));
-        EventManager.addHandler("hud", "showInteractionButton", (data: { button: string; title: string; text: string }) => this.setInteractionButtonData(data));
+        EventManager.addHandler("hud", "showInteractionButton", (data: { button: string; text: string }) => this.setInteractionButtonData(data));
         EventManager.stopAddingHandler("hud");
     }
 }

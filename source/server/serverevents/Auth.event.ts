@@ -49,5 +49,5 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
     });
 
     RAGERP.cef.emit(player, "player", "setCharacters", characterData);
-    RAGERP.cef.emit(player, "system", "showPage", "selectcharacter");
+    RAGERP.cef.emit(player, "system", "setPage", "selectcharacter");
 });

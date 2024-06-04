@@ -2,7 +2,7 @@ declare namespace RageShared.Cef {
     namespace Interfaces {
         interface CefEventMap {
             system: {
-                showPage: string;
+                setPage: string;
             };
             notify: {
                 show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };

@@ -1,9 +1,9 @@
 import { Utils } from "../../shared/Utils.module";
+import { Browser } from "./Browser.class";
 import { Camera } from "./Camera.class";
 import { Client } from "./Client.class";
 
-type onKeyPressAsync = () => Promise<void>;
-type onKeyPress = () => void;
+type onKeyPress = () => void | Promise<void>;
 
 interface IPedData {
     blockInteraction?: boolean;
@@ -17,21 +17,27 @@ interface IPedData {
     id?: number;
 }
 
+let interactInterval: NodeJS.Timer | null = null;
+let showInteractionButton: boolean = false;
+
 export class InteractablePed {
     static pool: InteractablePed[] = [];
+
     model: string;
     coords: Vector3;
     heading: number;
+
     event: string;
     name: string;
-    ped: PedMp | null;
 
+    ped: PedMp | null;
     textLabel: TextLabelMp | null = null;
+
     blockInteraction: boolean = false;
 
-    onKeyPress: onKeyPressAsync | onKeyPress;
+    onKeyPress: onKeyPress;
 
-    constructor(data: IPedData, onKeyPress?: onKeyPress | onKeyPressAsync) {
+    constructor(data: IPedData, onKeyPress?: onKeyPress) {
         this.model = data.model;
         this.coords = data.coords;
         this.heading = data.heading || 0;
@@ -49,31 +55,24 @@ export class InteractablePed {
     async create() {
         let modelHash = mp.game.joaat(this.model);
 
-        await Client.requestModel(modelHash);
+        await Client.requestModel(modelHash).then(() => {
+            this.ped = mp.peds.new(modelHash, new mp.Vector3(this.coords.x, this.coords.y, this.coords.z), this.heading, 0);
 
-        let interval = setInterval(() => {
-            if (modelHash) {
-                mp.game.streaming.requestModel(modelHash);
-                if (mp.game.streaming.hasModelLoaded(modelHash)) {
-                    this.ped = mp.peds.new(modelHash, new mp.Vector3(this.coords.x, this.coords.y, this.coords.z), this.heading, 0);
+            const position = new mp.Vector3(this.coords.x, this.coords.y, this.coords.z + 1);
 
-                    const position = new mp.Vector3(this.coords.x, this.coords.y, this.coords.z + 1);
-                    this.textLabel = mp.labels.new(`~y~NPC~n~~w~~c~${this.name}`, position, { dimension: 0, font: 4, los: true });
-                    this.ped.setBlockingOfNonTemporaryEvents(true);
-                    this.ped.taskSetBlockingOfNonTemporaryEvents(true);
-                    this.ped.setInvincible(true);
-                    this.ped.setFleeAttributes(15, true);
-                    this.ped.freezePosition(true);
-                    this.ped.setRandomComponentVariation(true);
-                    this.ped.setRandomProps();
-                    this.ped.setCanBeTargetted(false);
-                    InteractablePed.pool.push(this);
-                    clearInterval(interval);
-                }
-            }
-        }, 100);
+            this.textLabel = mp.labels.new(`~y~NPC~n~~w~~c~${this.name}`, position, { dimension: 0, font: 4, los: true });
 
-        return this;
+            this.ped.setBlockingOfNonTemporaryEvents(true);
+            this.ped.taskSetBlockingOfNonTemporaryEvents(true);
+            this.ped.setInvincible(true);
+            this.ped.setFleeAttributes(15, true);
+            this.ped.freezePosition(true);
+            this.ped.setRandomComponentVariation(true);
+            this.ped.setRandomProps();
+            this.ped.setCanBeTargetted(false);
+
+            InteractablePed.pool.push(this);
+        });
     }
 
     public deletePed() {
@@ -87,8 +86,28 @@ export class InteractablePed {
     static init() {
         mp.events.add("client::ped:interact", this.createForwardCamera.bind(this));
         mp.events.add("client::ped:destroyCamera", this.destroyForwardCamera.bind(this));
+
         mp.keys.bind(69, false, this.interact.bind(this));
         mp.keys.bind(69, false, this.destroyForwardCamera.bind(this));
+
+        interactInterval = setInterval(() => {
+            InteractablePed.showInteraction();
+        }, 1000);
+    }
+
+    static showInteraction() {
+        if (Browser.currentPage) return;
+
+        const ped = InteractablePed.getClosest();
+        if (!ped) {
+            if (showInteractionButton) {
+                Browser.processEvent("cef::hud:showInteractionButton", null);
+                showInteractionButton = false;
+            }
+            return;
+        }
+        showInteractionButton = true;
+        Browser.processEvent("cef::hud:showInteractionButton", { button: "E", text: "Press E to interact with NPC" });
     }
 
     static getClosest(range: number = 3): InteractablePed | null {

@@ -5,6 +5,7 @@ declare namespace RageShared.Players {
             ping: number;
             wantedLevel: number;
             isDead: boolean;
+            gender: number;
             weapondata: {
                 weapon: string;
                 ammo: number;
