@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import EventManager from "utils/EventManager.util";
+
 export interface ICharacters {
     id: number;
     name: string;
@@ -10,25 +11,12 @@ export interface ICharacters {
     lastlogin: string;
 }
 
-interface IPlayerData {
-    id: number;
-    gender: number;
-    ping: number;
-    isDead: boolean;
-    weapondata: {
-        weapon: string;
-        ammo: number;
-        maxammo: number;
-    } | null;
-    wantedLevel: number;
-}
-
 export default class PlayerStore {
     @observable
     nowPlaying: number = 0;
 
     @observable
-    data: IPlayerData = observable.object({
+    data: RageShared.Players.Interfaces.IPlayerData = observable.object({
         id: 3000,
         gender: 0,
         ping: 47,
@@ -66,7 +54,7 @@ export default class PlayerStore {
     }
 
     @action.bound
-    setData<K extends keyof IPlayerData>(data: K, value: any) {
+    setData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(data: K, value: any) {
         this.data[data] = value;
     }
 

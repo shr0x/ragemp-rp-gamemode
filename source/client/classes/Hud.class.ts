@@ -84,7 +84,7 @@ export class PlayerHud {
      * @param value The value to set to the data
      * @returns void;
      */
-    public setSpeedometerData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(data: K, value: RageShared.Vehicles.Interfaces.IVehicleData[K]) {
+    public setSpeedometerData<K extends keyof RageShared.Vehicles.Interfaces.SpeedometerData>(data: K, value: RageShared.Vehicles.Interfaces.SpeedometerData[K]) {
         return Browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
     }
     //#endregion

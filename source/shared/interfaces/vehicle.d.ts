@@ -1,6 +1,6 @@
 declare namespace RageShared.Vehicles {
     namespace Interfaces {
-        interface IVehicleData {
+        interface SpeedometerData {
             isActive: boolean;
             gear: number;
             speed: number;
@@ -8,6 +8,52 @@ declare namespace RageShared.Vehicles {
             locked: boolean;
             lights: boolean;
             maxSpeed: number;
+        }
+
+        interface IVehicleData {
+            locked: boolean;
+            engine: boolean;
+            numberplate: string;
+            fuel: number;
+
+            sqlid: number | null;
+
+            faction: string | null;
+            keyhole: string | null;
+
+            owner: number | null;
+            ownerName: string | null;
+
+            trunkState: boolean;
+            hoodState: boolean;
+
+            primaryColor: [number, number, number];
+            secondaryColor: [number, number, number];
+
+            inventory: any | null;
+
+            price: number;
+
+            impoundState: number;
+        }
+        interface IVehicleMods {
+            tunningMods: { [key: number]: number };
+
+            plateColor: number;
+            wheelType: number;
+            wheelMod: number;
+
+            neonColor: Array3d | null;
+            hasNeon: boolean;
+            primaryColorType: number;
+            secondaryColorType: number;
+
+            smokecolor: { r: number; g: number; b: number };
+
+            interiorcolor: number;
+            dashboardcolor: number;
+            dirtlevel: number;
+            windows: { 0: boolean; 1: boolean; 2: boolean; 3: boolean };
         }
     }
 

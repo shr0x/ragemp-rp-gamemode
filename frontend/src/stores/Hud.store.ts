@@ -14,16 +14,6 @@ interface IInteractionMenu {
     items: IMenuItems[];
 }
 
-interface IVehicleData {
-    isActive: boolean;
-    gear: number;
-    speed: number;
-    engine: boolean;
-    locked: boolean;
-    lights: boolean;
-    maxSpeed: number;
-}
-
 class HudStore {
     @observable
     interactionMenu: IInteractionMenu = observable.object({
@@ -69,7 +59,7 @@ class HudStore {
     });
 
     @observable
-    vehicleData: IVehicleData = observable.object({
+    vehicleData: RageShared.Vehicles.Interfaces.SpeedometerData = observable.object({
         isActive: false,
         gear: 5,
         engine: true,
@@ -91,7 +81,7 @@ class HudStore {
     }
 
     @action.bound
-    setVehicleData<K extends keyof IVehicleData>(data: { key: K; data: IVehicleData[K] }) {
+    setVehicleData<K extends keyof RageShared.Vehicles.Interfaces.SpeedometerData>(data: { key: K; data: RageShared.Vehicles.Interfaces.SpeedometerData[K] }) {
         if (typeof this.vehicleData[data.key] === "undefined") return console.log(data.key, "dont exist");
         this.vehicleData[data.key] = data.data;
     }

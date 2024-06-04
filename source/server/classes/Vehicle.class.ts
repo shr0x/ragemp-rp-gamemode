@@ -3,53 +3,7 @@ import { RAGERP } from "@api";
 import { vehicleClasses, vehicleModelSeats } from "@assets/Vehicle.assets";
 import { VehicleEntity } from "@entities/Vehicle.entity";
 
-interface IVehicleData {
-    locked: boolean;
-    engine: boolean;
-    numberplate: string;
-    fuel: number;
-
-    sqlid: number | null;
-
-    faction: string | null;
-    keyhole: string | null;
-
-    owner: number | null;
-    ownerName: string | null;
-
-    trunkState: boolean;
-    hoodState: boolean;
-
-    primaryColor: Array3d;
-    secondaryColor: Array3d;
-
-    inventory: any | null;
-
-    price: number;
-
-    impoundState: number;
-}
-interface IVehicleMods {
-    tunningMods: { [key: number]: number };
-
-    plateColor: number;
-    wheelType: number;
-    wheelMod: number;
-
-    neonColor: Array3d | null;
-    hasNeon: boolean;
-    primaryColorType: number;
-    secondaryColorType: number;
-
-    smokecolor: { r: number; g: number; b: number };
-
-    interiorcolor: number;
-    dashboardcolor: number;
-    dirtlevel: number;
-    windows: { 0: boolean; 1: boolean; 2: boolean; 3: boolean };
-}
-
-const defaultVehicleData: IVehicleData = {
+const defaultVehicleData: RageShared.Vehicles.Interfaces.IVehicleData = {
     locked: false,
     engine: false,
     numberplate: "",
@@ -67,7 +21,8 @@ const defaultVehicleData: IVehicleData = {
     inventory: null,
     impoundState: 0
 };
-const defaultVehicleMods: IVehicleMods = {
+
+const defaultVehicleMods: RageShared.Vehicles.Interfaces.IVehicleMods = {
     tunningMods: {},
     plateColor: 0,
     wheelType: -1,
@@ -94,10 +49,10 @@ export class Vehicle {
     _vehicle: VehicleMp;
 
     /** Data associated with the vehicle. */
-    _data: IVehicleData = defaultVehicleData;
+    _data: RageShared.Vehicles.Interfaces.IVehicleData = defaultVehicleData;
 
     /** Modifications applied to the vehicle. */
-    _mods: IVehicleMods = defaultVehicleMods;
+    _mods: RageShared.Vehicles.Interfaces.IVehicleMods = defaultVehicleMods;
 
     /** Indicates if the vehicle is wanted by the police. */
     isWanted: boolean = false;
@@ -112,8 +67,8 @@ export class Vehicle {
      * @param {Vector3} position - The position where the vehicle spawns.
      * @param {number} heading - The heading (direction) the vehicle faces.
      * @param {number} dimension - The dimension in which the vehicle exists.
-     * @param {IVehicleData} [data=defaultVehicleData] - The data associated with the vehicle.
-     * @param {IVehicleMods | null} [mods=null] - The modifications applied to the vehicle.
+     * @param {RageShared.Vehicles.Interfaces.IVehicleData} [data=defaultVehicleData] - The data associated with the vehicle.
+     * @param {RageShared.Vehicles.Interfaces.IVehicleMods | null} [mods=null] - The modifications applied to the vehicle.
      */
     constructor(
         type: RageShared.Vehicles.Enums.VEHICLETYPES,
@@ -121,13 +76,11 @@ export class Vehicle {
         position: Vector3,
         heading: number,
         dimension: number,
-        data: IVehicleData = defaultVehicleData,
-        mods: IVehicleMods | null = null
+        data: RageShared.Vehicles.Interfaces.IVehicleData = defaultVehicleData,
+        mods: RageShared.Vehicles.Interfaces.IVehicleMods | null = null
     ) {
         this.type = type;
-
         if (this._vehicle && mp.vehicles.exists(this._vehicle)) this._vehicle.destroy();
-
         this._vehicle = mp.vehicles.new(typeof model === "string" ? mp.joaat(model) : model, position, {
             dimension,
             numberPlate: data.numberplate ?? "Babylon",
@@ -139,9 +92,7 @@ export class Vehicle {
 
         // this._vehicle.spawnPosition = position;
         // this._vehicle.spawnHeading = heading;
-
         this._vehicle.setVariable("unlockable", false);
-
         this._vehicle.setVariable("rentedby", null);
 
         this._data = data;
@@ -149,19 +100,19 @@ export class Vehicle {
 
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
-                const value = data[key as keyof IVehicleData];
-                this.setData(key as keyof IVehicleData, value);
+                const value = data[key as keyof RageShared.Vehicles.Interfaces.IVehicleData];
+                this.setData(key as keyof RageShared.Vehicles.Interfaces.IVehicleData, value);
             }
         }
 
         for (const key in this._mods) {
             if (this._mods.hasOwnProperty(key)) {
-                const value = this._mods[key as keyof IVehicleMods];
-                this.setMod(key as keyof IVehicleMods, value);
+                const value = this._mods[key as keyof RageShared.Vehicles.Interfaces.IVehicleMods];
+                this.setMod(key as keyof RageShared.Vehicles.Interfaces.IVehicleMods, value);
             }
         }
 
-        if (this.isValid() && this.type === RageShared.Vehicles.Enums.VEHICLETYPES.OWNED) {
+        if (this.isValid()) {
             this.createMods();
         }
         Vehicle.List.push(this);
@@ -169,10 +120,10 @@ export class Vehicle {
 
     /**
      * Sets a modification on the vehicle.
-     * @param {keyof IVehicleMods} key - The key of the modification.
-     * @param {IVehicleMods[keyof IVehicleMods]} value - The value of the modification.
+     * @param {keyof RageShared.Vehicles.Interfaces.IVehicleMods} key - The key of the modification.
+     * @param {RageShared.Vehicles.Interfaces.IVehicleMods[keyof RageShared.Vehicles.Interfaces.IVehicleMods]} value - The value of the modification.
      */
-    public setMod<K extends keyof IVehicleMods>(key: K, value: IVehicleMods[K]): void {
+    public setMod<K extends keyof RageShared.Vehicles.Interfaces.IVehicleMods>(key: K, value: RageShared.Vehicles.Interfaces.IVehicleMods[K]): void {
         this._mods[key] = value;
         if (this._vehicle && mp.vehicles.exists(this._vehicle)) {
             if (key !== "tunningMods") {
@@ -191,26 +142,26 @@ export class Vehicle {
 
     /**
      * Gets a modification from the vehicle.
-     * @param {keyof IVehicleMods} key - The key of the modification.
-     * @returns {IVehicleMods[keyof IVehicleMods]} - The value of the modification.
+     * @param {keyof RageShared.Vehicles.Interfaces.IVehicleMods} key - The key of the modification.
+     * @returns {RageShared.Vehicles.Interfaces.IVehicleMods[keyof IVehicRageShared.Vehicles.Interfaces.IVehicleModsleMods]} - The value of the modification.
      */
-    public getMod<K extends keyof IVehicleMods>(key: K): IVehicleMods[K] {
+    public getMod<K extends keyof RageShared.Vehicles.Interfaces.IVehicleMods>(key: K): RageShared.Vehicles.Interfaces.IVehicleMods[K] {
         return this._mods[key];
     }
     /**
      * Gets data from the vehicle.
-     * @param {keyof IVehicleData} key - The key of the data.
-     * @returns {IVehicleData[keyof IVehicleData]} - The value of the data.
+     * @param {keyof RageShared.Vehicles.Interfaces.IVehicleData} key - The key of the data.
+     * @returns {RageShared.Vehicles.Interfaces.IVehicleData[keyof RageShared.Vehicles.Interfaces.IVehicleData]} - The value of the data.
      */
-    public getData<K extends keyof IVehicleData>(key: K): IVehicleData[K] {
+    public getData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(key: K): RageShared.Vehicles.Interfaces.IVehicleData[K] {
         return this._data[key];
     }
     /**
      * Sets data on the vehicle.
-     * @param {keyof IVehicleData} key - The key of the data.
-     * @param {IVehicleData[keyof IVehicleData]} value - The value of the data.
+     * @param {keyof RageShared.Vehicles.Interfaces.IVehicleData} key - The key of the data.
+     * @param {RageShared.Vehicles.Interfaces.IVehicleData[keyof RageShared.Vehicles.Interfaces.IVehicleData]} value - The value of the data.
      */
-    public setData<K extends keyof IVehicleData>(key: K, value: IVehicleData[K]): void {
+    public setData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(key: K, value: RageShared.Vehicles.Interfaces.IVehicleData[K]): void {
         if (!this._vehicle || !mp.vehicles.exists(this._vehicle)) return;
 
         this._data[key] = value;

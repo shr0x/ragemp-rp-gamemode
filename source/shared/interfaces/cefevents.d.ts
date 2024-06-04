@@ -1,6 +1,9 @@
 declare namespace RageShared.Cef {
     namespace Interfaces {
         interface CefEventMap {
+            system: {
+                showPage: string;
+            };
             notify: {
                 show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
             };
@@ -10,7 +13,7 @@ declare namespace RageShared.Cef {
             };
             hud: {
                 setInteraction: RageShared.Interfaces.InteractionData;
-                setVehicleData: { key: keyof RageShared.Vehicles.Interfaces.IVehicleData; data: any };
+                setVehicleData: { key: keyof RageShared.Vehicles.Interfaces.SpeedometerData; data: any };
                 showInteractionButton: { button: string; title: string; text: string } | null;
             };
             chat: {
