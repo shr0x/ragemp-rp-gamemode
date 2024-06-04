@@ -14,6 +14,8 @@ export function setPlayerToInjuredState(player: PlayerMp) {
     player.setVariable("isDead", true);
     const randomDeath = randomDeathAnimations[Math.floor(Math.random() * randomDeathAnimations.length)];
     player.playAnimation(randomDeath.dict, randomDeath.anim, 2, 9);
+
+    player.startScreenEffect("DeathFailMPIn", 10 * 1000, true);
 }
 
 function findClosestHospital(player: PlayerMp) {
@@ -42,6 +44,7 @@ function playerAcceptedDeath(player: PlayerMp) {
     player.setVariable("isDead", false);
     player.spawn(hospitalData.position);
     player.heading = hospitalData.heading;
+    player.stopScreenEffect("DeathFailMPIn");
 }
 
 async function playerDeath(player: PlayerMp, reason: number, killer: PlayerMp | undefined) {

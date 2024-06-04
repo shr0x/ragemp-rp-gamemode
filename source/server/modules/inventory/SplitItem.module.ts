@@ -1,7 +1,7 @@
 import { inventoryAssets } from "./Items.module";
 import { v4 as uuidv4 } from "uuid";
 interface ISplitData {
-    item: RageShared.Interfaces.Inventory.IInventoryItem;
+    item: RageShared.Interfaces.Inventory.IBaseItem;
     source: { component: inventoryAssets.INVENTORY_CATEGORIES; slot: number };
     target: { component: inventoryAssets.INVENTORY_CATEGORIES; slot: number; count: number };
 }

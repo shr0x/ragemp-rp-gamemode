@@ -11,16 +11,17 @@ declare namespace RageShared.Cef {
             hud: {
                 setInteraction: RageShared.Interfaces.InteractionData;
                 setVehicleData: { key: keyof RageShared.Vehicles.Interfaces.IVehicleData; data: any };
+                showInteractionButton: { button: string; title: string; text: string } | null;
             };
             chat: {
                 setCommands: string[];
             };
             inventory: {
                 setVisible: boolean;
-                setClothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
-                setInventory: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } };
+                setClothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
+                setInventory: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } };
                 setQuickUseItems: { [key: number]: { component: string; id: number } | null };
-                setDroppedItems: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+                setDroppedItems: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
                 setMaxWeight: number;
             };
             auth: {};
@@ -29,7 +30,7 @@ declare namespace RageShared.Cef {
             inventory: {
                 onMoveItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) => void;
                 onUseItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IUseItem>) => void;
-                onGiveItem: (player: PlayerMp, data: StringifiedObject<{ playerId: number; item: RageShared.Interfaces.Inventory.IInventoryItem; source: { slot: string } }>) => void;
+                onGiveItem: (player: PlayerMp, data: StringifiedObject<{ playerId: number; item: RageShared.Interfaces.Inventory.IBaseItem; source: { slot: string } }>) => void;
                 onDropItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IDropItem>) => void;
                 onSplitItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.ISplitItem>) => void;
                 confirmItemDrop: (player: PlayerMp) => void;

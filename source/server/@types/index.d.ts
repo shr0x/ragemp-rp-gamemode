@@ -19,6 +19,8 @@ declare global {
         getAdminLevel(): number;
         getRoleplayName(checkmask: boolean = true): string;
         requestCollisionAt(x: number, y: number, z: number): Promise<boolean>;
+        startScreenEffect(effectName: string, duration: number, looped: boolean): void;
+        stopScreenEffect(effectName: string): void;
     }
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;

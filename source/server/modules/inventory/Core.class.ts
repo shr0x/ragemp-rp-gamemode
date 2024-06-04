@@ -21,7 +21,7 @@ const torsoDataMale: IClothesData = maleClothes;
 const femaleTorsos: IClothesData = femaleClothes;
 
 interface IUsingItemData {
-    item: RageShared.Interfaces.Inventory.IInventoryItem;
+    item: RageShared.Interfaces.Inventory.IBaseItem;
     animDict?: string;
     animName?: string;
     flag?: number;
@@ -32,8 +32,8 @@ class InventoryBase {
     private readonly p: PlayerMp;
 
     public items: {
-        pockets: { [key: number]: Omit<RageShared.Interfaces.Inventory.IInventoryItem, "components"> | null };
-        clothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+        pockets: { [key: number]: Omit<RageShared.Interfaces.Inventory.IBaseItem, "components"> | null };
+        clothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
     } = { clothes: {}, pockets: {} };
 
     public quickUse: { [key: number]: { component: "pockets"; id: number } | null };
@@ -43,8 +43,8 @@ class InventoryBase {
 
     constructor(
         p: PlayerMp,
-        clothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null },
-        pockets: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null },
+        clothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null },
+        pockets: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null },
         quickUse: { [key: number]: { component: "pockets"; id: number } | null }
     ) {
         this.p = p;
@@ -109,7 +109,7 @@ class InventoryItem extends InventoryBase {
         return clothingList[type] ?? -1;
     }
 
-    public addItem(type: RageShared.Enums.ITEM_TYPES): RageShared.Interfaces.Inventory.IInventoryItem | null {
+    public addItem(type: RageShared.Enums.ITEM_TYPES): RageShared.Interfaces.Inventory.IBaseItem | null {
         const itemData = inventoryAssets.items[type];
         const { itemIndex } = this.getFreeSlot();
         if (!itemData || itemIndex < 0) return null;
@@ -129,7 +129,7 @@ class InventoryItem extends InventoryBase {
         type: RageShared.Enums.ITEM_TYPES,
         data: { component: number; drawable: number; texture: number },
         equipNow: boolean = false
-    ): RageShared.Interfaces.Inventory.IInventoryItem | null {
+    ): RageShared.Interfaces.Inventory.IBaseItem | null {
         const [itemData, itemIndex] = [inventoryAssets.items[type], equipNow ? this.getFreeSlot().itemIndex : this.getClothingIndex(type)];
         if (!itemData || itemIndex < 0) return null;
         const items = equipNow ? this.items.clothes : this.items.pockets;
@@ -137,7 +137,7 @@ class InventoryItem extends InventoryBase {
         return items[itemIndex];
     }
 
-    async addPlayerItem(item: RageShared.Interfaces.Inventory.IInventoryItem) {
+    async addPlayerItem(item: RageShared.Interfaces.Inventory.IBaseItem) {
         try {
             let { itemIndex, type } = this.getFreeSlot();
             if (itemIndex === -1) return false;
@@ -149,7 +149,7 @@ class InventoryItem extends InventoryBase {
         }
     }
 
-    async addPlayerItemEx(item: RageShared.Interfaces.Inventory.IInventoryItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
+    async addPlayerItemEx(item: RageShared.Interfaces.Inventory.IBaseItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
         try {
             if (this.items[category][slot] === null) {
                 this.items[category][slot] = item;
@@ -162,7 +162,7 @@ class InventoryItem extends InventoryBase {
         }
     }
 
-    async addMultipleItems(items: RageShared.Interfaces.Inventory.IInventoryItem[]) {
+    async addMultipleItems(items: RageShared.Interfaces.Inventory.IBaseItem[]) {
         try {
             let itemCount = items.length;
             let { itemIndex, type } = this.getFreeSlot();
@@ -406,7 +406,7 @@ class InventoryAction extends InventoryClothes {
 
     openItem(player: PlayerMp, data: any): void {
         try {
-            let { item }: { item: RageShared.Interfaces.Inventory.IInventoryItem } = JSON.parse(data);
+            let { item }: { item: RageShared.Interfaces.Inventory.IBaseItem } = JSON.parse(data);
             if (!item) return;
             switch (item.type) {
                 //backpack?...
@@ -426,7 +426,7 @@ class InventoryAction extends InventoryClothes {
         if (!player.character || !mp.players.exists(player) || !player.character.inventory) return;
 
         try {
-            const { item }: { item: RageShared.Interfaces.Inventory.IInventoryItem } = JSON.parse(data);
+            const { item }: { item: RageShared.Interfaces.Inventory.IBaseItem } = JSON.parse(data);
 
             const source = player.character.inventory.getItemSlotComponentByHash(player.character.inventory.items, item.hash) as {
                 component: inventoryAssets.INVENTORY_CATEGORIES | null;
@@ -514,8 +514,8 @@ export class Inventory extends InventoryAction {
      * @param {string} itemHash -> Item hash name
      * @returns -> An array of items.
      */
-    async getItemsByHashName(itemHash: RageShared.Enums.ITEM_TYPES): Promise<RageShared.Interfaces.Inventory.IInventoryItem[]> {
-        let foundItems: RageShared.Interfaces.Inventory.IInventoryItem[] = [];
+    async getItemsByHashName(itemHash: RageShared.Enums.ITEM_TYPES): Promise<RageShared.Interfaces.Inventory.IBaseItem[]> {
+        let foundItems: RageShared.Interfaces.Inventory.IBaseItem[] = [];
 
         for (const getcategory in this.items) {
             let category = getcategory as inventoryAssets.INVENTORY_CATEGORIES;
@@ -529,8 +529,8 @@ export class Inventory extends InventoryAction {
         return foundItems;
     }
 
-    getItemsInCategoryByHashName(category: inventoryAssets.INVENTORY_CATEGORIES[], itemHash: RageShared.Enums.ITEM_TYPES): RageShared.Interfaces.Inventory.IInventoryItem[] {
-        let foundItems: RageShared.Interfaces.Inventory.IInventoryItem[] = [];
+    getItemsInCategoryByHashName(category: inventoryAssets.INVENTORY_CATEGORIES[], itemHash: RageShared.Enums.ITEM_TYPES): RageShared.Interfaces.Inventory.IBaseItem[] {
+        let foundItems: RageShared.Interfaces.Inventory.IBaseItem[] = [];
 
         for (const getcategory in this.items) {
             let categories = getcategory as inventoryAssets.INVENTORY_CATEGORIES;
@@ -548,7 +548,7 @@ export class Inventory extends InventoryAction {
 
     //this method will not check for item count
     getItemsByHashNameEx(itemHash: RageShared.Enums.ITEM_TYPES) {
-        let foundItems: RageShared.Interfaces.Inventory.IInventoryItem[] = [];
+        let foundItems: RageShared.Interfaces.Inventory.IBaseItem[] = [];
         for (const getcategory in this.items) {
             let category = getcategory as inventoryAssets.INVENTORY_CATEGORIES;
             for (const item of Object.values(this.items[category])) {
@@ -562,7 +562,7 @@ export class Inventory extends InventoryAction {
         return foundItems;
     }
 
-    getItemByUUID(hashKey: string): RageShared.Interfaces.Inventory.IInventoryItem | null {
+    getItemByUUID(hashKey: string): RageShared.Interfaces.Inventory.IBaseItem | null {
         let item = Object.values(this.items.pockets).find((x) => x && x.hash === hashKey);
         if (!item) item = Object.values(this.items.clothes).find((x) => x && x.hash === hashKey);
         return item ?? null;
@@ -654,7 +654,7 @@ export class Inventory extends InventoryAction {
         return foundItem;
     }
 
-    getCountStack(item: RageShared.Interfaces.Inventory.IInventoryItem) {
+    getCountStack(item: RageShared.Interfaces.Inventory.IBaseItem) {
         if (item.type === null) return -1;
 
         let presset = inventoryAssets.items[item.type];
@@ -697,7 +697,7 @@ export class Inventory extends InventoryAction {
             RAGERP.cef.emit(player, "inventory", "setClothes", this.items.clothes);
 
             const droppedItems = ItemObject.fetchInRange(player, 2);
-            const groundItems: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } = {};
+            const groundItems: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } = {};
 
             for (let i = 0; i < 24; i++) {
                 groundItems[i] = droppedItems[i] ?? null;
@@ -720,11 +720,11 @@ export class Inventory extends InventoryAction {
     }
 
     //#region Weapon
-    isWeapon(item: RageShared.Interfaces.Inventory.IInventoryItem): boolean {
+    isWeapon(item: RageShared.Interfaces.Inventory.IBaseItem): boolean {
         return item.typeCategory === RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON;
     }
 
-    isAmmoItem(item: RageShared.Interfaces.Inventory.IInventoryItem): boolean {
+    isAmmoItem(item: RageShared.Interfaces.Inventory.IBaseItem): boolean {
         return item.typeCategory === RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO;
     }
 
@@ -889,7 +889,7 @@ export class Inventory extends InventoryAction {
         let currentweight = 0.0;
         for (const [category, items] of Object.entries<any>(this.items)) {
             if (category === "clothes" || category === "quickUse" || category === "wallet") continue;
-            for (const [key, data] of Object.entries<RageShared.Interfaces.Inventory.IInventoryItem>(items)) {
+            for (const [key, data] of Object.entries<RageShared.Interfaces.Inventory.IBaseItem>(items)) {
                 if (data.type === null) continue;
                 currentweight += data.weight * data.count;
             }
@@ -959,7 +959,7 @@ export class Inventory extends InventoryAction {
         return splitInventoryItem(player, data);
     }
 
-    async addCountToPlayerItem(player: PlayerMp, item: RageShared.Interfaces.Inventory.IInventoryItem, count: number) {
+    async addCountToPlayerItem(player: PlayerMp, item: RageShared.Interfaces.Inventory.IBaseItem, count: number) {
         try {
             if (item.type === null) return;
 

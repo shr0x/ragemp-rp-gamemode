@@ -86,7 +86,7 @@ const inventorydataPresset = {
         11: null,
         12: null,
         13: null
-    } as { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null },
+    } as { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null },
     pockets: {
         0: null,
         1: null,

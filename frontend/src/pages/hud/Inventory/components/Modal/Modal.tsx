@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef } from "react";
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import EventManager from "utils/EventManager.util";
 import { CenterComponent, ICurrentItem } from "../../Interfaces";
 import style from "./modal.module.scss";
@@ -10,7 +10,7 @@ interface IModalProps {
     viewingBackpack: string | null;
     setViewingBackpack: (key: string | null) => void;
     takeItemOff: () => void;
-    putItemOn: (item?: IBaseItem) => void;
+    putItemOn: (item?: RageShared.Interfaces.Inventory.IBaseItem) => void;
     handleDrop: (isAccepted?: boolean) => void;
     giveItemAway: (id?: number) => void;
     setMiddleComponent: (component: CenterComponent) => void;

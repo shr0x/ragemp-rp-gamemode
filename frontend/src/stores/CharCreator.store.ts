@@ -1,4 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
+import EventManager from "utils/EventManager.util";
 
 const defaultData = {
     sex: 0,
@@ -54,5 +55,11 @@ export default class CreatorStore {
         this.data = defaultData;
         this.lastFather = 0;
         this.lastMother = 0;
+    }
+
+    public createEvents() {
+        EventManager.addHandler("creator", "resetData", () => this.resetData());
+        EventManager.addHandler("creator", "setData", (data: typeof this.data) => this.fetchData(data));
+        EventManager.stopAddingHandler("creator");
     }
 }

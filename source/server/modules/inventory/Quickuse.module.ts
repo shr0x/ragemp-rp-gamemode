@@ -1,7 +1,7 @@
 import { weaponHash } from "../../assets/Weapons.assets";
 import { inventoryAssets } from "./Items.module";
 
-async function giveWeaponByType(player: PlayerMp, item: RageShared.Interfaces.Inventory.IInventoryItem, weaponGroup: number, itemType: string) {
+async function giveWeaponByType(player: PlayerMp, item: RageShared.Interfaces.Inventory.IBaseItem, weaponGroup: number, itemType: string) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 
     if (item.type === null) return;

@@ -7,10 +7,10 @@ export class InventoryItemsEntity {
     readonly id: number;
 
     @Column({ type: "jsonb" })
-    clothes: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } = {};
+    clothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } = {};
 
     @Column({ type: "jsonb" })
-    pockets: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null } = {};
+    pockets: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } = {};
 
     @Column({ type: "jsonb" })
     quickUse: { [key: number]: null | { component: "pockets"; id: number } } = {};

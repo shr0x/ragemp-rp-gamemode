@@ -51,6 +51,9 @@
             ]
         }
     },
+    "files": [
+        "../source/shared/index.d.ts"
+    ],
     "include": [
         "./src/**/*"
     ]

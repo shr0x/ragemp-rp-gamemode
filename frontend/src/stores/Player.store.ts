@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
+import EventManager from "utils/EventManager.util";
 export interface ICharacters {
     id: number;
     name: string;
@@ -77,5 +78,14 @@ export default class PlayerStore {
     @action.bound
     setNowPlaying(data: number) {
         this.nowPlaying = data;
+    }
+
+    public createEvents() {
+        EventManager.addHandler("player", "setCharacters", (data: any[]) => this.setCharacters(data));
+        EventManager.addHandler("player", "setNowPlaying", (amount: number) => this.setNowPlaying(amount));
+        EventManager.addHandler("player", "setPlayerData", (data: any, key: any) => this.setData(data, key));
+        EventManager.addHandler("player", "setKeybindData", (keys: { [key: string]: string }) => this.setKeybindData(keys));
+
+        EventManager.stopAddingHandler("player");
     }
 }

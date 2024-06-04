@@ -125,9 +125,9 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
         if (!mp.players.exists(player) || !player.character?.inventory) return;
 
         const { item, source, target } = JSON.parse(data) as {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES | "groundItems" };
-            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Interfaces.Inventory.IInventoryItem };
+            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Interfaces.Inventory.IBaseItem };
         };
 
         const draggedFrom = source;

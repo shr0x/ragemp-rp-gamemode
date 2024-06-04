@@ -4,6 +4,7 @@ declare type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 declare namespace RageShared {
     namespace Players {}
     namespace Vehicles {}
+    namespace Cef {}
 
     namespace Interfaces {
         interface IMenuItems {

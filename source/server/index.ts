@@ -10,7 +10,7 @@
                                                                       ~How beasts do it~
 
 */
-
+import crypto from "crypto";
 //---------------------------------------//
 import { RAGERP } from "@api";
 //---------------------------------------//
@@ -31,6 +31,7 @@ import "@events/Vehicle.event";
 import "@events/Point.event";
 //---------------------------------------//
 import { blue, green, yellow } from "colorette";
+import { v4 } from "uuid";
 //---------------------------------------//
 async function initGamemode() {
     mp.events.delayInitialization = true;

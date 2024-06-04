@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import { CenterComponent, ICurrentItem } from "../Interfaces";
 import Notification from "utils/NotifyManager.util";
 import EventManager from "utils/EventManager.util";
@@ -13,7 +13,7 @@ export const OnPlayerSplitItem = (
     setMiddleComponent: (comp: CenterComponent) => void
 ) => {
     return useCallback(
-        (splitItem: IBaseItem, value: number) => {
+        (splitItem: RageShared.Interfaces.Inventory.IBaseItem, value: number) => {
             if (currentItem.id === null || currentItem.component === null) return;
 
             if (value <= 0) return setMiddleComponent("dropZone");

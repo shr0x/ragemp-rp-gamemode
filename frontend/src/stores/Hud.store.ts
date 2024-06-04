@@ -1,4 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
+import { useEffect } from "react";
+import EventManager from "utils/EventManager.util";
 
 interface IMenuItems {
     id: number;
@@ -54,6 +56,13 @@ class HudStore {
     });
 
     @observable
+    interactButtonData: {
+        button: string;
+        title: string;
+        text: string;
+    } | null = null;
+
+    @observable
     areaData: { area: string; street: string } = observable.object({
         area: "San Andreas",
         street: "Los SAntos International"
@@ -73,14 +82,16 @@ class HudStore {
     constructor() {
         makeObservable(this);
     }
-    @action.bound setInteractionMenu(data: IInteractionMenu) {
+    @action.bound
+    setInteractionMenu(data: IInteractionMenu) {
         this.interactionMenu = data;
     }
     @action.bound hideInteraction() {
         this.setInteractionMenu({ isActive: false, items: [] });
     }
 
-    @action.bound setVehicleData<K extends keyof IVehicleData>(data: { key: K; data: IVehicleData[K] }) {
+    @action.bound
+    setVehicleData<K extends keyof IVehicleData>(data: { key: K; data: IVehicleData[K] }) {
         if (typeof this.vehicleData[data.key] === "undefined") return console.log(data.key, "dont exist");
         this.vehicleData[data.key] = data.data;
     }
@@ -88,6 +99,19 @@ class HudStore {
     @action.bound
     setAreaData(data: { area: string; street: string }) {
         this.areaData = data;
+    }
+
+    @action.bound
+    setInteractionButtonData(data: typeof this.interactButtonData) {
+        this.interactButtonData = data;
+    }
+
+    public createEvents() {
+        EventManager.addHandler("hud", "setInteraction", (data: any) => this.setInteractionMenu(data));
+        EventManager.addHandler("hud", "setVehicleData", (data: any) => this.setVehicleData(data));
+        EventManager.addHandler("hud", "setAreaData", (data: { area: string; street: string }) => this.setAreaData(data));
+        EventManager.addHandler("hud", "showInteractionButton", (data: { button: string; title: string; text: string }) => this.setInteractionButtonData(data));
+        EventManager.stopAddingHandler("hud");
     }
 }
 

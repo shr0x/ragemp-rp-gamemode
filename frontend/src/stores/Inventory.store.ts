@@ -1,83 +1,9 @@
 import { makeObservable, observable, action, set, values } from "mobx";
-
-export interface IBaseItem {
-    /*
-     * Item Type
-     */
-    type: string;
-
-    /*
-     * Whether item is placed in clothes or not
-     */
-    isPlaced: boolean;
-
-    /*
-     * Item Quality Level -1 to 4
-     */
-    quality: number;
-
-    /*
-     * Item Image
-     */
-    image: string;
-
-    /*
-     * Unique item hash, also used as linked to a child item
-     */
-    hash: string;
-
-    /*
-     * Item key, contains clothes data such as component id, drawable and texture id.
-     */
-    key: string;
-
-    /*
-     * Item render image, shows when you click an item in the inventory slots
-     */
-    render: string;
-
-    /*
-     * Item name
-     */
-    name: string;
-
-    /*
-     * Item description
-     */
-    description: string;
-
-    /*
-     * Item count, also determines whether you can split an item up
-     */
-    count: number;
-
-    /**
-     * Item weight, how much an item weights
-     */
-    weight: number;
-
-    /*
-     * Item max stack, determines the count of an item that can be stacked together in one slot
-     */
-    maxStack: number;
-
-    /*
-     * Item options, used when you right click an item.
-     */
-    options: string[];
-
-    /*
-     * Item gender, used on clothes whether its for females or males.
-     */
-    gender: number | null;
-
-    items?: { [key: number]: IBaseItem | null };
-}
+import EventManager from "utils/EventManager.util";
 
 interface ICategory {
-    [key: string]: { [key: number]: IBaseItem | null };
+    [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
 }
-
 /**
  * Represents an inventory store.
  */
@@ -96,7 +22,7 @@ export default class InventoryStore {
 
     /** The clothes items in the inventory. */
     @observable
-    clothes: { [key: number]: IBaseItem | null } = observable.object({
+    clothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } = observable.object({
         0: null,
         1: null,
         2: null,
@@ -214,7 +140,7 @@ export default class InventoryStore {
 
     /** The side inventory items. */
     @observable
-    sideInventory: { [key: number]: IBaseItem | null } = observable.object({
+    sideInventory: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } = observable.object({
         0: null,
         1: null,
         2: null,
@@ -302,10 +228,10 @@ export default class InventoryStore {
 
     /**
      * Gets the quality color of an item.
-     * @param {IBaseItem | null} itemData - The item data.
+     * @param {RageShared.Interfaces.Inventory.IBaseItem | null} itemData - The item data.
      * @returns {string} The quality color in hex format.
      */
-    public getItemQuality(itemData: IBaseItem | null) {
+    public getItemQuality(itemData: RageShared.Interfaces.Inventory.IBaseItem | null) {
         const qualityColors: { [key: number]: string } = {
             0: "#B7C2F8",
             1: "#8A9EFF",
@@ -367,10 +293,10 @@ export default class InventoryStore {
 
     /**
      * Fetches clothes data and recalculates inventory weight.
-     * @param {{ [key: number]: IBaseItem }} obj - The clothes data.
+     * @param {{ [key: number]: RageShared.Interfaces.Inventory.IBaseItem }} obj - The clothes data.
      */
     @action.bound
-    fetchClothesData(obj: { [key: number]: IBaseItem }) {
+    fetchClothesData(obj: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem }) {
         this.clothes = obj;
         this.calcInventoryWeight();
     }
@@ -378,10 +304,10 @@ export default class InventoryStore {
     /**
      * Sets the clothes data for a specific slot and recalculates inventory weight.
      * @param {number} id - The slot ID.
-     * @param {IBaseItem} data - The item data.
+     * @param {RageShared.Interfaces.Inventory.IBaseItem} data - The item data.
      */
     @action.bound
-    setClothesData(id: number, data: IBaseItem) {
+    setClothesData(id: number, data: RageShared.Interfaces.Inventory.IBaseItem) {
         if (!(id in this.clothes)) return;
         this.clothes[id] = data;
         this.calcInventoryWeight();
@@ -401,10 +327,10 @@ export default class InventoryStore {
      * Fetches a specific inventory item and recalculates inventory weight.
      * @param {string} component - The inventory component.
      * @param {number} slot - The slot number.
-     * @param {IBaseItem | null} obj - The item data.
+     * @param {RageShared.Interfaces.Inventory.IBaseItem | null} obj - The item data.
      */
     @action.bound
-    fetchInventoryItem(component: string, slot: number, obj: IBaseItem | null) {
+    fetchInventoryItem(component: string, slot: number, obj: RageShared.Interfaces.Inventory.IBaseItem | null) {
         this.inventory[component][slot] = obj;
         this.calcInventoryWeight();
     }
@@ -425,5 +351,22 @@ export default class InventoryStore {
     @action.bound
     fetchGroundItems(items: typeof this.sideInventory) {
         this.sideInventory = items;
+    }
+
+    public createEvents() {
+        EventManager.addHandler("inventory", "setVisible", (enable: boolean) => this.setVisible(enable));
+        EventManager.addHandler("inventory", "setClothes", (obj: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem }) => this.fetchClothesData(obj));
+        EventManager.addHandler("inventory", "setClothesItem", (id: number, data: RageShared.Interfaces.Inventory.IBaseItem) => this.setClothesData(id, data));
+
+        EventManager.addHandler("inventory", "setInventory", (obj: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } }) => this.fetchInventoryData(obj));
+        EventManager.addHandler("inventory", "setQuickUseItems", (obj: { [key: number]: { component: string; id: number } | null }) => this.fetchQuickUseItems(obj));
+        EventManager.addHandler("inventory", "setInventoryItem", (component: string, slot: number, obj: RageShared.Interfaces.Inventory.IBaseItem | null) =>
+            this.fetchInventoryItem(component, slot, obj)
+        );
+
+        EventManager.addHandler("inventory", "setDroppedItems", (items: any) => this.fetchGroundItems(items));
+
+        EventManager.addHandler("inventory", "setPlayersAround", (array: any) => this.fetchPlayersAround(array));
+        EventManager.addHandler("inventory", "setMaxWeight", (weight: number) => this.setInventoryMaxWeight(weight));
     }
 }

@@ -8,6 +8,8 @@ RAGERP.commands.add({
         const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
         player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
         ped.controller = player;
+        ped.heading = 2;
+        console.log(ped.heading);
     }
 });
 RAGERP.commands.add({
@@ -36,6 +38,13 @@ RAGERP.commands.add({
         await player.interactionMenu.new(player, data).then((res) => {
             console.log(res);
         });
+    }
+});
+
+RAGERP.commands.add({
+    name: "settime",
+    run: (player: PlayerMp, fulltext: string, time: string) => {
+        mp.world.time.set(parseInt(time), 0, 0);
     }
 });
 

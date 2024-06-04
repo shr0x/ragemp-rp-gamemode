@@ -89,5 +89,15 @@ declare namespace RageShared.Players {
             STATE_NONE = 0,
             STATE_INJURED
         }
+
+        const enum ADMIN_LEVELS {
+            LEVEL_NONE = 0,
+            LEVEL_ONE,
+            LEVEL_TWO,
+            LEVEL_THREE,
+            LEVEL_FOUR,
+            LEVEL_FIVE,
+            LEVEL_SIX
+        }
     }
 }

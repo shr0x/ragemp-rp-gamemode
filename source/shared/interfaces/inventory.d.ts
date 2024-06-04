@@ -1,65 +1,140 @@
 declare namespace RageShared.Interfaces {
     namespace Inventory {
         interface IMoveItem {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems"; slot: string };
             target: {
                 component: "pockets" | "clothes" | "quickUse" | "backpack" | "groundItems";
                 slot: string;
-                item: RageShared.Interfaces.Inventory.IInventoryItem | null;
+                item: RageShared.Interfaces.Inventory.IBaseItem | null;
             };
             backpackHash: string | null;
         }
         interface IUseItem {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { component: "pockets" | "clothes"; slot: string };
         }
 
         interface IDropItem {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { component: "pockets" | "clothes" | "backpack"; slot: string; viewingBackpack?: string };
         }
 
         interface ISplitItem {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { component: "pockets" | "backpack"; slot: string };
             target: { component: "pockets" | "backpack"; count: number; slot: string };
         }
         interface IOpenItem {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Interfaces.Inventory.IBaseItem;
             source: { component: "backpack" | "pockets"; slot: string };
         }
 
-        interface IInventoryItem {
-            type: RageShared.Enums.ITEM_TYPES; //item type
+        interface IBaseItem {
+            /*
+             * Item Type
+             */
+            type: RageShared.Enums.ITEM_TYPES;
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY; //item category see ITEM_TYPE_CATEGORY enum in index.d.ts
-            isPlaced: boolean; //whether item is 'placed' in clothes
-            quality: number; //item quality level
-            image: string; //item image
-            hash: string; //unique item hash, also used as linked to a child item
-            key: string; //item key which contains clothes data only (such as texture,comp, etc)
-            render: string; //item render image which later on can be used in CDN if you have plenty items.
-            name: string; //item name
-            description: string; //item description
-            count: number; //item count, also determines whether you can split an item up
-            weight: number; //item weight
-            maxStack: number; //max stack determines how many items can be stacked in one slot
-            options: string[]; //item options (to be used when you right click an item) such
-            gender: number | null; //item gender, used on clothes whether the clothe is for female or male
+            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY;
 
-            items?: { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null };
+            /*
+             * Whether item is placed in clothes or not
+             */
+            isPlaced: boolean;
 
-            modelHash?: string; //prop model name or hash that will be used to create object when dropping item
-            ammoType?: string; //ammo type that a weapon will contain
+            /*
+             * Item Quality Level -1 to 4
+             */
+            quality: number;
+
+            /*
+             * Item Image
+             */
+            image: string;
+
+            /*
+             * Unique item hash, also used as linked to a child item
+             */
+            hash: string;
+
+            /*
+             * Item key, contains clothes data such as component id, drawable and texture id.
+             */
+            key: string;
+
+            /*
+             * Item render image, shows when you click an item in the inventory slots
+             */
+            render: string;
+
+            /*
+             * Item name
+             */
+            name: string;
+
+            /*
+             * Item description
+             */
+            description: string;
+
+            /*
+             * Item count, also determines whether you can split an item up
+             */
+            count: number;
+
+            /**
+             * Item weight, how much an item weights
+             */
+            weight: number;
+
+            /*
+             * Item max stack, determines the count of an item that can be stacked together in one slot
+             */
+            maxStack: number;
+
+            /*
+             * Item options, used when you right click an item.
+             */
+            options: string[];
+
+            /*
+             * Item gender, used on clothes whether its for females or males.
+             */
+            gender: number | null;
+
+            /**
+             * Items within item, used on backpacks
+             */
+            items?: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
+
+            /**
+             * Prop model name or hash that will be used to create object when dropping item
+             */
+            modelHash?: string;
+
+            /**
+             * Ammo type, setting item ammo type will check later on whether the ammo fits the weapon player is using.
+             */
+            ammoType?: string;
+
+            /**
+             * Used to store how many ammo player's weapon has in clip, so later on can force-set them when the player re-equip the weapon.
+             */
             ammoInClip?: number; //ammo in weapon clip
+
+            /**
+             * Used for armour only, contains the amount of armour an item has.
+             */
             amount?: number; //used for armor to contain its amount
 
+            //a feature to be developed whether the item will have an effect or not
             effect?: {
-                //a feature to be developed whether the item will have an effect or not
                 [key: string]: number;
             };
-            components?: Array<number>; //will be used for weapon attachments in future
+
+            //will be used for weapon attachments in future
+            components?: Array<number>;
         }
     }
 }

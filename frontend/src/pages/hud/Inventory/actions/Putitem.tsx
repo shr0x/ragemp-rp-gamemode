@@ -1,4 +1,4 @@
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import { ICurrentItem } from "../Interfaces";
 import { useCallback } from "react";
 import EventManager from "utils/EventManager.util";
@@ -7,7 +7,7 @@ import { values } from "mobx";
 
 export const OnPlayerPutItemOn = (setItem: (item: ICurrentItem) => void, gender: number, currentItem: ICurrentItem, store: InventoryStore, viewingBackpack: string | null) => {
     return useCallback(
-        (item?: IBaseItem) => {
+        (item?: RageShared.Interfaces.Inventory.IBaseItem) => {
             if (currentItem.id === null || currentItem.component === null) return;
 
             const target = item ? item : { ...store.inventory[currentItem.component][currentItem.id] };

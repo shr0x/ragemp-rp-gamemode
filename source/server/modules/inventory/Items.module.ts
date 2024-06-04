@@ -37,7 +37,7 @@ export namespace inventoryAssets {
         POCKETS = "pockets"
     }
 
-    export type Item = Record<string, RageShared.Interfaces.Inventory.IInventoryItem>;
+    export type Item = Record<string, RageShared.Interfaces.Inventory.IBaseItem>;
 
     export const items: Item = {
         [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAT]: {

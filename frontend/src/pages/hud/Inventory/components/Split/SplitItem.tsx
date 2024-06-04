@@ -1,6 +1,6 @@
 import { FC, useState, useMemo, useRef, useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import { CenterComponent, ICurrentItem } from "../../Interfaces";
 
 import error from "assets/images/error.svg";
@@ -9,7 +9,7 @@ import style from "./splititem.module.scss";
 interface ISplitProps {
     store: InventoryStore;
     viewingBackpack: string | null;
-    handleSplit: (item: IBaseItem, value: number) => void;
+    handleSplit: (item: RageShared.Interfaces.Inventory.IBaseItem, value: number) => void;
     setMiddleComponent: (comp: CenterComponent) => void;
     currentItem: ICurrentItem;
 }

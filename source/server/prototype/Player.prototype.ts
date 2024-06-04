@@ -29,3 +29,11 @@ mp.Player.prototype.requestCollisionAt = async function (x: number, y: number, z
     const collision = await this.callProc("client::proc:requestCollisionAt", [x, y, z]);
     return collision;
 };
+
+mp.Player.prototype.startScreenEffect = function (effectName: string, duration = 3000, looped: boolean = true) {
+    this.call("client::effects:startScreenEffect", [effectName, duration, looped]);
+};
+
+mp.Player.prototype.stopScreenEffect = function (effectName: string) {
+    this.call("client::effects:stopScreenEffect", [effectName]);
+};

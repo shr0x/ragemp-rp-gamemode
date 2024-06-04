@@ -8,7 +8,7 @@
 export const useInventoryItem = async (player: PlayerMp, data: string): Promise<void> => {
     try {
         if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
-        const { item, source }: { item: RageShared.Interfaces.Inventory.IInventoryItem; source: { component: string; slot: number } } = JSON.parse(data);
+        const { item, source }: { item: RageShared.Interfaces.Inventory.IBaseItem; source: { component: string; slot: number } } = JSON.parse(data);
 
         switch (item.type) {
             default:
