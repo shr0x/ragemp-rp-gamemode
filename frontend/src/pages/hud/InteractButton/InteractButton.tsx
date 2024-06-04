@@ -10,7 +10,6 @@ const InteractionButton: FC<{ store: HUDStore }> = ({ store }) => {
         <div className={style.interactbutton}>
             <div className={style.top}>{store.interactButtonData.button}</div>
             <div className={style.bottom}>
-                <span className={style.header}>{store.interactButtonData.title}</span>
                 <span className={style.desc}>{store.interactButtonData.text}</span>
             </div>
         </div>

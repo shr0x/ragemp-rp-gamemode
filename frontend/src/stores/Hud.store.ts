@@ -48,7 +48,6 @@ class HudStore {
     @observable
     interactButtonData: {
         button: string;
-        title: string;
         text: string;
     } | null = null;
 
