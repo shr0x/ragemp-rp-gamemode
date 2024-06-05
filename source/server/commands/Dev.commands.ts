@@ -13,6 +13,7 @@ RAGERP.commands.add({
         console.log(ped.heading);
     }
 });
+
 RAGERP.commands.add({
     name: "savepos",
     aliases: ["getpos", "mypos"],

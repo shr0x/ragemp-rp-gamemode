@@ -271,11 +271,6 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 break;
             }
             default: {
-                let checkFastSlots = player.character.inventory.checkQuickUse(draggedFrom.component, parseInt(draggedFrom.slot));
-                if (checkFastSlots !== -1) {
-                    player.character.inventory.quickUse[checkFastSlots] = { component: droppedTo.component, id: parseInt(droppedTo.slot) };
-                }
-
                 if (item.type && droppedTo.item && droppedTo.item.type === item.type) {
                     if (item.count + droppedTo.item.count <= item.maxStack) {
                         item.count = item.count + droppedTo.item.count;
@@ -286,6 +281,17 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                         }
                     }
                 } else {
+                    const [draggedItemInQuickUse, dropToItemInQuickUse] = [
+                        player.character.inventory.checkQuickUse(draggedFrom.component, parseInt(draggedFrom.slot)),
+                        player.character.inventory.checkQuickUse(droppedTo.component, parseInt(droppedTo.slot))
+                    ];
+                    if (draggedItemInQuickUse !== -1) {
+                        player.character.inventory.quickUse[draggedItemInQuickUse] = { component: droppedTo.component, id: parseInt(droppedTo.slot) };
+                    }
+                    if (dropToItemInQuickUse !== -1) {
+                        player.character.inventory.quickUse[dropToItemInQuickUse] = { component: draggedFrom.component, id: parseInt(draggedFrom.slot) };
+                    }
+
                     player.character.inventory.items[draggedFrom.component][parseInt(draggedFrom.slot)] = droppedTo.item;
                     player.character.inventory.items[droppedTo.component][parseInt(droppedTo.slot)] = item;
                 }
