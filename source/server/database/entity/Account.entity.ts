@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CharacterEntity } from "./Character.entity";
 
 @Entity({ name: "accounts" })
 export class AccountEntity {
@@ -16,4 +17,7 @@ export class AccountEntity {
 
     @Column({ type: "varchar", length: 52 })
     socialClubId: string;
+
+    @OneToMany(() => CharacterEntity, (char) => char.account)
+    characters: CharacterEntity[];
 }

@@ -23,11 +23,17 @@ RAGERP.cef.register("auth", "register", async (player, data) => {
     accountData.password = hashPassword(password);
     accountData.socialClubId = player.rgscId;
     accountData.email = email;
+    accountData.characters = [];
 
     const result = await RAGERP.database.getRepository(AccountEntity).save(accountData);
 
     player.account = result;
     player.name = player.account.username;
+
+    const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
+
+    RAGERP.cef.emit(player, "player", "setCharacters", characterData);
+    RAGERP.cef.emit(player, "system", "setPage", "selectcharacter");
 });
 
 RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {

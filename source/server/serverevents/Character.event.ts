@@ -92,6 +92,7 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
 
     player.name = fullname;
     player.character = result;
+    player.setVariable("loggedin", true);
 
     player.call("client::creator:destroycam");
     player.call("client::cef:close");
