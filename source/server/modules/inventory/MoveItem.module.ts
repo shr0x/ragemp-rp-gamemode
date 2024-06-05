@@ -2,8 +2,9 @@ import { v4 } from "uuid";
 import { ItemObject } from "./ItemObject.class";
 import { inventoryAssets } from "./Items.module";
 import { Utils } from "../../../shared/utils.module";
+import { RageShared, StringifiedObject } from "@shared/index";
 
-async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) {
+async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
     const { source, target, backpackHash } = Utils.parseObject(data);
     const draggedFrom = source;
@@ -58,7 +59,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
 }
 async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
     if (!player.character || !player.character.inventory) return;
-    const { item, source, target }: RageShared.Interfaces.Inventory.IMoveItem = JSON.parse(data);
+    const { item, source, target }: RageShared.Inventory.Interfaces.IMoveItem = JSON.parse(data);
 
     const playerItem = player.character.inventory.getItemByUUID(item.hash);
     if (!playerItem) {
@@ -125,9 +126,9 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
         if (!mp.players.exists(player) || !player.character?.inventory) return;
 
         const { item, source, target } = JSON.parse(data) as {
-            item: RageShared.Interfaces.Inventory.IInventoryItem;
+            item: RageShared.Inventory.Interfaces.IBaseItem;
             source: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES | "groundItems" };
-            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Interfaces.Inventory.IInventoryItem };
+            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Inventory.Interfaces.IBaseItem };
         };
 
         const draggedFrom = source;
@@ -201,7 +202,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
     }
 }
 
-export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>): Promise<void> => {
+export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>): Promise<void> => {
     try {
         if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 
@@ -249,8 +250,8 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 let sourceItem = player.character.inventory.items[draggedFrom.component][parseInt(draggedFrom.slot)];
                 if (!targetItem || !sourceItem) return;
 
-                let targetItemCount = targetItem?.count;
-                let sourceItemCount = sourceItem?.count;
+                let targetItemCount = targetItem.count;
+                let sourceItemCount = sourceItem.count;
                 if (targetItemCount + sourceItemCount > targetItem.maxStack) {
                     difference = targetItem?.count + sourceItem.count - targetItem.maxStack;
 
@@ -270,18 +271,6 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 break;
             }
             default: {
-                let checkFastSlots = player.character.inventory.checkQuickUse(draggedFrom.component, parseInt(draggedFrom.slot));
-                if (checkFastSlots !== -1) {
-                    player.character.inventory.quickUse[checkFastSlots] = { component: droppedTo.component, id: parseInt(droppedTo.slot) };
-                }
-
-                // if (item.type === "backpack") {
-                //     let indexBackpack = Object.values(player.character.inventory.items.backpack).find((s: any) => s.type !== null);
-                //     if (indexBackpack) {
-                //         return;
-                //     }
-                // }
-
                 if (item.type && droppedTo.item && droppedTo.item.type === item.type) {
                     if (item.count + droppedTo.item.count <= item.maxStack) {
                         item.count = item.count + droppedTo.item.count;
@@ -292,6 +281,17 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                         }
                     }
                 } else {
+                    const [draggedItemInQuickUse, dropToItemInQuickUse] = [
+                        player.character.inventory.checkQuickUse(draggedFrom.component, parseInt(draggedFrom.slot)),
+                        player.character.inventory.checkQuickUse(droppedTo.component, parseInt(droppedTo.slot))
+                    ];
+                    if (draggedItemInQuickUse !== -1) {
+                        player.character.inventory.quickUse[draggedItemInQuickUse] = { component: droppedTo.component, id: parseInt(droppedTo.slot) };
+                    }
+                    if (dropToItemInQuickUse !== -1) {
+                        player.character.inventory.quickUse[dropToItemInQuickUse] = { component: draggedFrom.component, id: parseInt(draggedFrom.slot) };
+                    }
+
                     player.character.inventory.items[draggedFrom.component][parseInt(draggedFrom.slot)] = droppedTo.item;
                     player.character.inventory.items[droppedTo.component][parseInt(droppedTo.slot)] = item;
                 }

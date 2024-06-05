@@ -1,3 +1,4 @@
+import { StringifiedObject } from "./index";
 /**
  * Utility functions used throughout the client and server side
  */

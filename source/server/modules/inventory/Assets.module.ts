@@ -1,3 +1,4 @@
+import { RageShared } from "@shared/index";
 import { inventoryAssets } from "./Items.module";
 
 const defaultClothes: { [key: number]: Array<{ type: "props" | "clothing"; component: number; drawable: number; texture: number }> } = {
@@ -69,7 +70,6 @@ const backpackWeight: { [key: number]: number } = {
     0: 10.0,
     1: 15.0
 };
-
 const inventorydataPresset = {
     clothes: {
         0: null,
@@ -86,7 +86,7 @@ const inventorydataPresset = {
         11: null,
         12: null,
         13: null
-    } as { [key: number]: RageShared.Interfaces.Inventory.IInventoryItem | null },
+    } as { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null },
     pockets: {
         0: null,
         1: null,

@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference path="../source/shared/index.ts" />
 
 declare module "*.style.scss" {
     const classes: { readonly [key: string]: string };

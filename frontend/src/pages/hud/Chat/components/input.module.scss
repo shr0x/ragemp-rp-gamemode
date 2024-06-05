@@ -19,16 +19,6 @@
         border-radius: 0.46296296296296297vh;
         filter: drop-shadow(0 0 1vh black);
 
-        &::after {
-            content: "";
-            width: 2.314814814814815vh;
-            height: 2.314814814814815vh;
-
-            background: url('../../../../assets/images/hud/icons/enter.svg') no-repeat;
-            background-size: cover;
-
-        }
-
 
         .input {
             width: 100%;

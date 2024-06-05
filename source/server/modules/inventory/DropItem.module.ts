@@ -1,6 +1,6 @@
+import { RageShared } from "@shared/index";
 import { ItemObject } from "./ItemObject.class";
 import { inventoryAssets } from "./Items.module";
-
 /**
  * Drops an inventory item from the player's inventory.
  *
@@ -14,7 +14,7 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
         const {
             item,
             source
-        }: { item: RageShared.Interfaces.Inventory.IInventoryItem; source: { component: inventoryAssets.INVENTORY_CATEGORIES | "backpack"; slot: string; viewingBackpack: string | null } } =
+        }: { item: RageShared.Inventory.Interfaces.IBaseItem; source: { component: inventoryAssets.INVENTORY_CATEGORIES | "backpack"; slot: string; viewingBackpack: string | null } } =
             JSON.parse(itemData);
 
         if (!item) return;
@@ -34,7 +34,7 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "The item you're trying to drop is invalid.");
         }
 
-        if (source.component === "clothes" && item.type === RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR && item.isPlaced) {
+        if (source.component === "clothes" && item.type === RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR && item.isPlaced) {
             player.armour = 0;
         }
 

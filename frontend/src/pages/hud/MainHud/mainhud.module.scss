@@ -68,49 +68,58 @@
             font-size: 3vh;
             font-family: 'Beast Duh';
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: transparent;
             border-radius: .5vh;
             text-shadow: .1vh .1vh 2vh black;
             background: $global-bg-transparent;
-        }
 
-        .playerInfo {
-            position: absolute;
-            right: 0vh;
-            top: 5vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2vh;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5vh;
-            text-shadow: 0 0 1vh black;
-            font-weight: bold;
-            width: 20vh;
-            border-radius: .5vh;
-            background: $global-bg-transparent;
-
-            .id,
-            .ping,
-            .online {
+            .playerInfo {
                 display: flex;
-                align-items: center;
+                font-weight: bold;
+                border-radius: .5vh;
+                gap: 2vh;
 
-                img {
-                    width: 2.314814814814815vh;
-                    height: 2.314814814814815vh;
+                &::before {
+                    content: "";
+
+                    position: absolute;
+                    width: 90%;
+                    height: 1%;
+                    background: $global-bg;
+                    right: 1vh;
+                    top: 3.7vh;
+
                 }
+
+                .id,
+                .ping,
+                .online {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.5vh;
+                    text-shadow: 0 0 1vh black;
+
+                    img {
+                        width: 2.314814814814815vh;
+                        height: 2.314814814814815vh;
+                    }
+                }
+
+                .ping {}
+
+                .online {}
+
+
+
             }
-
-            .ping {}
-
-            .online {}
-
-
-
         }
+
 
         .stars {
             position: absolute;

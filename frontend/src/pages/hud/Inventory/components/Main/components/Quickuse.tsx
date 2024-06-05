@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { entries } from "mobx";
 import cn from "classnames";
 
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "pages/hud/Inventory/Interfaces";
 
 import style from "./quickuse.module.scss";
@@ -27,7 +27,7 @@ const FastSlots: FC<IFastSlotProps> = ({ store, setItem, currentItem, isCellDrag
             </div>
             <div className={style.content}>
                 {entries(store.quickUse).map(([key, el]) => {
-                    const itemData: IBaseItem | null = el?.component && el.id !== null ? store.inventory[el.component][el.id] : null;
+                    const itemData = el?.component && el.id !== null ? store.inventory[el.component][el.id] : null;
 
                     const quality = store.getItemQuality(itemData);
 

@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
+
 import style from "./hud.module.scss";
 import PlayerStore from "store/Player.store";
 import InteractionMenu from "./InteractionMenu/InteractionMenu";
@@ -9,10 +10,15 @@ import MainHud from "./MainHud/MainHud";
 import InventoryStore from "store/Inventory.store";
 import Inventory from "./Inventory/Inventory";
 import DeathScreen from "./DeathScreen/DeathScreen";
+import InteractButton from "./InteractButton/InteractButton";
+import EventManager from "utils/EventManager.util";
+
 const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = observer(({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
             <DeathScreen store={store} />
+
+            <InteractButton store={hudStore} />
             <MainHud store={hudStore} playerStore={store} />
             <InteractionMenu store={hudStore} />
             {inventoryStore.isVisible && <Inventory store={inventoryStore} playerStore={store} />}

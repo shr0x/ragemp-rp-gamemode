@@ -11,7 +11,7 @@ RAGERP.cef.register("inventory", "onUseItem", (player, data) => {
     if (player.character.inventory) player.character.inventory.useItem(player, data);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "onSplitItem", (player: PlayerMp, data: any) => {
+RAGERP.cef.register("inventory", "onSplitItem", (player: PlayerMp, data) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.splitStack(player, data);
 });
@@ -21,7 +21,7 @@ RAGERP.cef.register("inventory", "onDropItem", (player: PlayerMp, itemData) => {
     if (player.character.inventory) player.character.inventory.dropItem(player, itemData);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "deleteItem", (player: PlayerMp, itemData: any) => {
+RAGERP.cef.register("inventory", "deleteItem", (player: PlayerMp, itemData) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.deleteItem(player, itemData);
 });
@@ -35,7 +35,7 @@ RAGERP.cef.register("inventory", "onGiveItemAway", (player) => player.call("clie
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "confirmItemDrop", (player) => player.call("client::inventory:deletePedScreen"));
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "openItem", (player: PlayerMp, data: any) => {
+RAGERP.cef.register("inventory", "openItem", (player: PlayerMp, data) => {
     if (!mp.players.exists(player) || !player.character) return;
     if (player.character.inventory) player.character.inventory.openItem(player, data);
 });

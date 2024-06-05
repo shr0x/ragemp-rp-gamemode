@@ -1,4 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
+import EventManager from "utils/EventManager.util";
 
 interface IChatSettings {
     timestamp: boolean;
@@ -86,5 +87,11 @@ export default class ChatStore {
     @action.bound
     fetchCommandList(commands: string[]) {
         this.commandList = commands;
+    }
+
+    public createEvents() {
+        EventManager.addHandler("chat", "setActive", (data: boolean) => this.setActive(data));
+        EventManager.addHandler("chat", "setCommands", (data: string[]) => this.fetchCommandList(data));
+        EventManager.stopAddingHandler("chat");
     }
 }

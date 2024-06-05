@@ -2,7 +2,7 @@ import crypto from "crypto";
 import { RAGERP } from "@api";
 import { AccountEntity } from "@entities/Account.entity";
 import { CharacterEntity } from "@entities/Character.entity";
-
+import { RageShared } from "@shared/index";
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
@@ -50,5 +50,5 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
     });
 
     RAGERP.cef.emit(player, "player", "setCharacters", characterData);
-    player.call("client::eventManager", ["cef::system:setPage", "selectcharacter"]);
+    RAGERP.cef.emit(player, "system", "setPage", "selectcharacter");
 });

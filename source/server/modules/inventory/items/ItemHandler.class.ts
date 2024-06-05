@@ -3,8 +3,8 @@
 // type onUse = (player: PlayerMp) => void | Promise<void>;
 // type onDrop = (player: PlayerMp) => void | Promise<void>;
 
-// export class ItemRegistry implements RageShared.Interfaces.Inventory.IInventoryItem {
-//     static List: Map<RageShared.Enums.ITEM_TYPES, RageShared.Interfaces.Inventory.IInventoryItem> = new Map();
+// export class ItemRegistry implements RageShared.Interfaces.Inventory.IBaseItem {
+//     static List: Map<RageShared.Enums.ITEM_TYPES, RageShared.Interfaces.Inventory.IBaseItem> = new Map();
 
 //     type: RageShared.Enums.ITEM_TYPES;
 //     typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY;
@@ -34,7 +34,7 @@
 //     onUse?: onUse;
 //     onDrop?: onDrop;
 
-//     constructor(itemData: RageShared.Interfaces.Inventory.IInventoryItem, functionality?: { onUse?: onUse; onDrop?: onDrop }) {
+//     constructor(itemData: RageShared.Interfaces.Inventory.IBaseItem, functionality?: { onUse?: onUse; onDrop?: onDrop }) {
 //         const { type, typeCategory, image, render, name, description, weight, maxStack, options, modelHash } = itemData;
 
 //         this.type = type;

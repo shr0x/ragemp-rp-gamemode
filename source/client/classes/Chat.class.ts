@@ -3,7 +3,7 @@ import { Browser } from "./Browser.class";
 /**
  * Manages the chat functionality, including opening, closing, and sending messages.
  */
-class ChatAPI {
+class _ChatAPI {
     sendModeCount: number = 0;
     arrayMessage: number = -1;
     chatOpen: boolean = false;
@@ -59,4 +59,4 @@ class ChatAPI {
     }
 }
 
-export default new ChatAPI();
+export const ChatAPI = new _ChatAPI();

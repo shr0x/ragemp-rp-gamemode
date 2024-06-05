@@ -1,4 +1,5 @@
 import { RAGERP } from "@api";
+import { RageShared } from "@shared/index";
 
 export class InteractionMenu {
     player: PlayerMp | null = null;

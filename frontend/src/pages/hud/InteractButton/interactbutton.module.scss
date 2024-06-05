@@ -1,0 +1,58 @@
+@import "../../../styles/vars.scss";
+
+.interactbutton {
+    position: absolute;
+    width: 100%;
+    bottom: 1vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    filter: drop-shadow(0 0 2vh black);
+    animation: fadeIn .5s;
+
+
+    transition: all .3s;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .top {
+        font-family: 'Beast Duh';
+        font-size: 3vh;
+
+        background: $global-color;
+        width: 4vh;
+        height: 4vh;
+
+        border-radius: 2vh;
+
+        text-align: center;
+        border: .2vh solid white;
+        z-index: 1;
+    }
+
+    .bottom {
+
+        margin-left: 1vh;
+
+        background: radial-gradient(circle, rgba(255, 0, 0, 1) 0%, rgb(88, 18, 18) 0%, rgba(0, 0, 0, 1) 100%);
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5vh;
+
+        border-radius: .5vh;
+        text-align: center;
+        text-shadow: 0 0 1vh white;
+        padding: .5vh;
+    }
+
+}

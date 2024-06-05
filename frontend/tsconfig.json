@@ -48,6 +48,9 @@
             ],
             "configs/*": [
                 "src/configs/*"
+            ],
+            "shared/*": [
+                "../../source/shared/*"
             ]
         }
     },

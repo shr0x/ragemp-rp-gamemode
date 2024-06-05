@@ -1,3 +1,5 @@
+import { RageShared } from "@shared/index";
+
 export namespace inventoryAssets {
     export const enum INVENTORY_CLOTHING {
         TYPE_HAT = 0,
@@ -37,12 +39,12 @@ export namespace inventoryAssets {
         POCKETS = "pockets"
     }
 
-    export type Item = Record<string, RageShared.Interfaces.Inventory.IInventoryItem>;
+    export type Item = Record<string, RageShared.Inventory.Interfaces.IBaseItem>;
 
     export const items: Item = {
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAT]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAT,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HAT]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HAT,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
             hash: "",
             key: "",
             quality: -1,
@@ -58,9 +60,9 @@ export namespace inventoryAssets {
             gender: null,
             isPlaced: false
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MASK]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MASK,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MASK]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MASK,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -77,9 +79,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "p_orleans_mask_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLASSES]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLASSES,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GLASSES]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GLASSES,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
             hash: "",
             key: "",
             quality: -1,
@@ -96,9 +98,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_cs_sol_glasses"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_EARRINGS]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_EARRINGS,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_EARRINGS]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_EARRINGS,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
             hash: "",
             key: "",
             quality: -1,
@@ -115,9 +117,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "p_tmom_earrings_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CHAIN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CHAIN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CHAIN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CHAIN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
             hash: "",
             key: "",
             quality: -1,
@@ -134,9 +136,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "vw_prop_vw_backpack_01a"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TSHIRT]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TSHIRT,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TSHIRT]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TSHIRT,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -153,9 +155,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_ld_tshirt_01"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TOP]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TOP,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TOP]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TOP,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -172,9 +174,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_ld_shirt_01"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ARMOUR,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -192,9 +194,9 @@ export namespace inventoryAssets {
             modelHash: "prop_bodyarmour_03",
             amount: 100
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WATCH]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WATCH,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_WATCH]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_WATCH,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_PROP,
             hash: "",
             key: "",
             quality: -1,
@@ -211,9 +213,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "vw_prop_vw_backpack_01a"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLOVES]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GLOVES,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GLOVES]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GLOVES,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -230,9 +232,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "vw_prop_vw_backpack_01a"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PANTS]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PANTS,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PANTS]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PANTS,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -249,9 +251,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "bkr_prop_duffel_bag_01a"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOES]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOES,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOES]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOES,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: -1,
@@ -268,9 +270,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "v_res_fa_shoebox4"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BACKPACK]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BACKPACK,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BACKPACK]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BACKPACK,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
             hash: "",
             key: "",
             quality: 0,
@@ -313,10 +315,10 @@ export namespace inventoryAssets {
             }
         },
 
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DAGGER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DAGGER,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DAGGER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DAGGER,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -333,10 +335,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_dagger"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BAT]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BAT,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BAT]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BAT,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -353,10 +355,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_bat"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BOTTLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BOTTLE,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BOTTLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BOTTLE,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -373,10 +375,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_bottle"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CROWBAR]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CROWBAR,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CROWBAR]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CROWBAR,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -393,10 +395,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_crowbar"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLASHLIGHT]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLASHLIGHT,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLASHLIGHT]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLASHLIGHT,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -413,10 +415,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "WEAPON_FLASHLIGHT"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GOLFCLUB]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GOLFCLUB,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GOLFCLUB]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GOLFCLUB,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -433,10 +435,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_gclub"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAMMER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HAMMER,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HAMMER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HAMMER,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -453,10 +455,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_hammer"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HATCHET]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HATCHET,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HATCHET]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HATCHET,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -473,10 +475,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_hatchet"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_KNUCKLEDUSTER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_KNUCKLEDUSTER,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_KNUCKLEDUSTER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_KNUCKLEDUSTER,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -493,10 +495,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "WEAPON_KNUCKLE"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_KNIFE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_KNIFE,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_KNIFE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_KNIFE,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -513,10 +515,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_knife_01"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MACHETE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MACHETE,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MACHETE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MACHETE,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -533,10 +535,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_ld_w_me_machette"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SWITCHBLADE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SWITCHBLADE,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SWITCHBLADE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SWITCHBLADE,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -553,10 +555,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "WEAPON_SWITCHBLADE"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_NIGHTSTICK]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_NIGHTSTICK,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_NIGHTSTICK]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_NIGHTSTICK,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -573,10 +575,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_me_nightstick"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WRENCH]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_WRENCH,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_WRENCH]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_WRENCH,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -593,9 +595,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_tool_wrench"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BATTLEAXE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BATTLEAXE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BATTLEAXE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BATTLEAXE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -612,10 +614,10 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_ld_fireaxe"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_POOLCUE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_POOLCUE,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_POOLCUE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_POOLCUE,
 
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -632,9 +634,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_pool_cue"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -651,9 +653,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -671,9 +673,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -691,9 +693,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_combatpistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_APPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_APPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_APPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_APPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -711,9 +713,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_appistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -730,9 +732,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_pi_stungun"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL50]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL50,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL50]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL50,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -750,9 +752,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_pistol50",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -770,9 +772,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_sns_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNSPISTOL_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -790,9 +792,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_sns_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -810,9 +812,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_heavypistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_VINTAGEPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_VINTAGEPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_VINTAGEPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_VINTAGEPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -830,9 +832,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_vintage_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLAREGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLAREGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLAREGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLAREGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -850,9 +852,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_flaregun",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -870,9 +872,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_marksmanpistol ",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -890,9 +892,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_revolver",
             ammoType: "REVOLVERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVERMK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVERMK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVERMK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_REVOLVERMK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -910,9 +912,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_revolver",
             ammoType: "REVOLVERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DOUBLEACTION]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DOUBLEACTION,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DOUBLEACTION]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DOUBLEACTION,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -930,9 +932,9 @@ export namespace inventoryAssets {
             modelHash: "prop_space_pistol",
             ammoType: "REVOLVERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAYPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAYPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAYPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAYPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -950,9 +952,9 @@ export namespace inventoryAssets {
             modelHash: "prop_space_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CERAMICPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CERAMICPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CERAMICPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CERAMICPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -970,9 +972,9 @@ export namespace inventoryAssets {
             modelHash: "prop_space_pistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_NAVYREVOLVER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_NAVYREVOLVER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_NAVYREVOLVER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_NAVYREVOLVER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -990,9 +992,9 @@ export namespace inventoryAssets {
             modelHash: "prop_space_pistol",
             ammoType: "REVOLVERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GADGETPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GADGETPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GADGETPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GADGETPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1010,9 +1012,9 @@ export namespace inventoryAssets {
             modelHash: "w_pi_heavypistol",
             ammoType: "PISTOLAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUNMP]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUNMP,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUNMP]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STUNGUNMP,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1029,9 +1031,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_pi_stungun"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MICROSMG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MICROSMG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MICROSMG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MICROSMG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1049,9 +1051,9 @@ export namespace inventoryAssets {
             modelHash: "w_sb_microsmg",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1069,9 +1071,9 @@ export namespace inventoryAssets {
             modelHash: "w_sb_smg",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMG_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMG_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMG_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMG_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1089,9 +1091,9 @@ export namespace inventoryAssets {
             modelHash: "w_sb_smg",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSMG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSMG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSMG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSMG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1109,9 +1111,9 @@ export namespace inventoryAssets {
             modelHash: "w_sb_assaultsmg",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPDW]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPDW,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPDW]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATPDW,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1129,9 +1131,9 @@ export namespace inventoryAssets {
             modelHash: "WEAPON_COMBATPDW",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MACHINEPISTOL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MACHINEPISTOL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MACHINEPISTOL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MACHINEPISTOL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1149,9 +1151,9 @@ export namespace inventoryAssets {
             modelHash: "WEAPON_MACHINEPISTOL",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MINISMG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MINISMG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MINISMG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MINISMG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1169,9 +1171,9 @@ export namespace inventoryAssets {
             modelHash: "WEAPON_MINISMG",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAYCARBINE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAYCARBINE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAYCARBINE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAYCARBINE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1189,9 +1191,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_carbinerifle",
             ammoType: "SMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1209,9 +1211,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_pumpshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PUMPSHOTGUN_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1229,9 +1231,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_pumpshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SAWNOFFSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SAWNOFFSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SAWNOFFSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SAWNOFFSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1249,9 +1251,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_sawnoff",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1269,9 +1271,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_assaultshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1289,9 +1291,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_bullpupshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MUKSET]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MUKSET,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MUKSET]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MUKSET,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1309,9 +1311,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_musket",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1329,9 +1331,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_heavyshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DBSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_DBSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DBSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_DBSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1349,9 +1351,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_assaultshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_AUTOSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_AUTOSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_AUTOSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_AUTOSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1369,9 +1371,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_assaultshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATSHOTGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATSHOTGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATSHOTGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATSHOTGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1389,9 +1391,9 @@ export namespace inventoryAssets {
             modelHash: "w_sg_assaultshotgun",
             ammoType: "SHOTGUNAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1409,9 +1411,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ASSAULTRIFLE_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1429,9 +1431,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1449,9 +1451,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_carbinerifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_CARBINERIFLE_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1469,9 +1471,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_carbinerifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ADVANCEDRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_ADVANCEDRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ADVANCEDRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_ADVANCEDRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1489,9 +1491,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_advancedrifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1509,9 +1511,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_specialcarbine",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SPECIALCARBINE_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1529,9 +1531,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_specialcarbine",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1549,9 +1551,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_bullpuprifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE_MK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE_MK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE_MK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BULLPUPRIFLE_MK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1569,9 +1571,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_bullpuprifle",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1589,9 +1591,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle_smg",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MILITARYRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MILITARYRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MILITARYRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MILITARYRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1609,9 +1611,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle_smg",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1629,9 +1631,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle_smg",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TACTICALRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_TACTICALRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TACTICALRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TACTICALRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1649,9 +1651,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_assaultrifle_smg",
             ammoType: "RIFLEAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1669,9 +1671,9 @@ export namespace inventoryAssets {
             modelHash: "w_mg_mg",
             ammoType: "LMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1689,9 +1691,9 @@ export namespace inventoryAssets {
             modelHash: "w_mg_combatmg",
             ammoType: "LMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMGMK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMGMK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMGMK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMBATMGMK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1709,9 +1711,9 @@ export namespace inventoryAssets {
             modelHash: "w_mg_combatmg",
             ammoType: "LMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GUSENBERG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GUSENBERG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GUSENBERG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GUSENBERG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1729,9 +1731,9 @@ export namespace inventoryAssets {
             modelHash: "w_sb_gusenberg",
             ammoType: "LMGAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNIPERRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNIPERRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNIPERRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNIPERRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1749,9 +1751,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_sniperrifle",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1769,9 +1771,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_heavysniper",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPERMK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPERMK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPERMK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HEAVYSNIPERMK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1789,9 +1791,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_heavysniper",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1809,9 +1811,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_marksmanrifle",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLEMK2]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLEMK2,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLEMK2]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MARKSMANRIFLEMK2,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1829,9 +1831,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_marksmanrifle",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PRECISIONRIFLE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PRECISIONRIFLE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PRECISIONRIFLE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PRECISIONRIFLE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1849,9 +1851,9 @@ export namespace inventoryAssets {
             modelHash: "w_sr_marksmanrifle",
             ammoType: "SNIPERAMMO"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTLAUNCHER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTLAUNCHER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTLAUNCHER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_COMPACTLAUNCHER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1869,9 +1871,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_grenadelauncher",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FIREWORK]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FIREWORK,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FIREWORK]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FIREWORK,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1889,9 +1891,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_firework",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHERSMOKE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHERSMOKE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHERSMOKE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHERSMOKE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1909,9 +1911,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_grenadelauncher",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADELAUNCHER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1929,9 +1931,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_grenadelauncher",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HOMINGLAUNCHER]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_HOMINGLAUNCHER,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HOMINGLAUNCHER]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_HOMINGLAUNCHER,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1949,9 +1951,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_homing",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MINIGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MINIGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MINIGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MINIGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1969,9 +1971,9 @@ export namespace inventoryAssets {
             modelHash: "w_mg_minigun",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAILGUN]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RAILGUN,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAILGUN]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RAILGUN,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -1989,9 +1991,9 @@ export namespace inventoryAssets {
             modelHash: "w_ar_railgun",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RPG]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RPG,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RPG]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RPG,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2009,9 +2011,9 @@ export namespace inventoryAssets {
             modelHash: "w_lr_rpg",
             ammoType: ""
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BALL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BALL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BALL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BALL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2028,9 +2030,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_golf_ball"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BZGAS]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_BZGAS,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BZGAS]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_BZGAS,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2047,9 +2049,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_gas_grenade"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMOKEGRENADE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMOKEGRENADE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMOKEGRENADE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMOKEGRENADE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2066,9 +2068,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_gas_grenade"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLARE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_FLARE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLARE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_FLARE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2085,9 +2087,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_am_flare"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_GRENADE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_GRENADE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2104,9 +2106,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_ex_grenadefrag"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MOLOTOV]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MOLOTOV,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MOLOTOV]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MOLOTOV,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2123,9 +2125,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_ex_molotov"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PROXIMITYMINE]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PROXIMITYMINE,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PROXIMITYMINE]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PROXIMITYMINE,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2142,9 +2144,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_ex_apmine"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PIPEBOMB]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PIPEBOMB,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PIPEBOMB]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PIPEBOMB,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2161,9 +2163,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_bomb_01_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNOWBALL]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SNOWBALL,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNOWBALL]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SNOWBALL,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2180,9 +2182,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "w_ex_snowball"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STICKYBOMB]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_STICKYBOMB,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STICKYBOMB]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_STICKYBOMB,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON,
             hash: "",
             key: "",
             quality: 0,
@@ -2200,9 +2202,9 @@ export namespace inventoryAssets {
             modelHash: "prop_bomb_01_s"
         },
 
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
             hash: "",
             key: "",
             quality: 0,
@@ -2219,9 +2221,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_bomb_01_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
             hash: "",
             key: "",
             quality: 0,
@@ -2238,9 +2240,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_bomb_01_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
             hash: "",
             key: "",
             quality: 0,
@@ -2257,9 +2259,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_bomb_01_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
             hash: "",
             key: "",
             quality: 0,
@@ -2276,9 +2278,9 @@ export namespace inventoryAssets {
             isPlaced: false,
             modelHash: "prop_bomb_01_s"
         },
-        [RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO]: {
-            type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO,
-            typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
+        [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO]: {
+            type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO,
+            typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_AMMO,
             hash: "",
             key: "",
             quality: 0,

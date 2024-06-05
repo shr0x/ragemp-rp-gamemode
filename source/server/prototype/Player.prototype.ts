@@ -1,10 +1,10 @@
 import { RAGERP } from "@api";
 import { inventoryAssets } from "@modules/inventory/Items.module";
+import { RageShared } from "@shared/index";
 
 mp.Player.prototype.showNotify = function (type: RageShared.Enums.NotifyType, message: string, skin: "light" | "dark" | "colored" = "dark") {
     return RAGERP.cef.emit(this, "notify", "show", { type, message, skin });
 };
-
 mp.Player.prototype.getAdminLevel = function (): number {
     if (!this || !mp.players.exists(this) || !this.character) return 0;
     return this.character.adminlevel;
@@ -28,4 +28,12 @@ mp.Player.prototype.getRoleplayName = function (checkmask: boolean = true) {
 mp.Player.prototype.requestCollisionAt = async function (x: number, y: number, z: number) {
     const collision = await this.callProc("client::proc:requestCollisionAt", [x, y, z]);
     return collision;
+};
+
+mp.Player.prototype.startScreenEffect = function (effectName: string, duration = 3000, looped: boolean = true) {
+    this.call("client::effects:startScreenEffect", [effectName, duration, looped]);
+};
+
+mp.Player.prototype.stopScreenEffect = function (effectName: string) {
+    this.call("client::effects:stopScreenEffect", [effectName]);
 };

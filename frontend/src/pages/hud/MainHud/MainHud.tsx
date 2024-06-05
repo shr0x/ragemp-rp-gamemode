@@ -33,17 +33,19 @@ const MainHUD: FC<{ store: HudStore; playerStore: PlayerStore }> = ({ store, pla
             <div className={style.center}></div>
             <div className={style.right}>
                 <div className={style.servername}>
-                    RAGEMP<span style={{ color: "red" }}>ROLEPLAY</span>
-                </div>
-                <div className={style.playerInfo}>
-                    <div className={style.id}>ID: {playerStore.data.id}</div>
-                    <div className={style.ping}>
-                        <img src={ping} alt="" />
-                        {playerStore.data.ping}
-                    </div>
-                    <div className={style.online}>
-                        <img src={users} alt="" />
-                        {playerStore.nowPlaying}
+                    <span style={{ color: "red" }}>RAGEMP ROLEPLAY</span>
+
+                    <div className={style.playerInfo}>
+                        <div className={style.id}>ID: {playerStore.data.id}</div>
+
+                        <div className={style.ping}>
+                            <img src={ping} alt="" />
+                            {playerStore.data.ping}
+                        </div>
+                        <div className={style.online}>
+                            <img src={users} alt="" />
+                            {playerStore.nowPlaying}
+                        </div>
                     </div>
                 </div>
 

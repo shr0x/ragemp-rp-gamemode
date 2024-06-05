@@ -1,11 +1,11 @@
+import { RageShared } from "@shared/index";
 import { weaponHash } from "../../assets/Weapons.assets";
 import { inventoryAssets } from "./Items.module";
-
-async function giveWeaponByType(player: PlayerMp, item: RageShared.Interfaces.Inventory.IInventoryItem, weaponGroup: number, itemType: string) {
+async function giveWeaponByType(player: PlayerMp, item: RageShared.Inventory.Interfaces.IBaseItem, weaponGroup: number, itemType: RageShared.Inventory.Enums.ITEM_TYPES) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 
     if (item.type === null) return;
-    const fullAmmo = await player.character.inventory.getAllCountByItemType(player.character.inventory.items, itemType);
+    const fullAmmo = player.character.inventory.getAllCountByItemType(itemType);
 
     if (fullAmmo && fullAmmo.items.length) {
         const ammoCount = fullAmmo.count;
@@ -40,32 +40,32 @@ export const manageInventoryFastSlot = async (player: PlayerMp, event: string[])
 
                 if (weaponGroup) {
                     switch (weaponGroup) {
-                        case RageShared.Enums.WEAPON_GROUP.UNKNOWN: {
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.UNKNOWN: {
                             player.giveWeaponEx(mp.joaat(item.type), 0);
                             return;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.HANDGUNS: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.HANDGUNS: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOLAMMO);
                             break;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.SUBMACHINE: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.SUBMACHINE: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO);
                             break;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.SHOTGUN: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.SHOTGUN: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO);
                             break;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.ASSAULTRIFLE: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.ASSAULTRIFLE: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO);
                             break;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.LIGHTMACHINE: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.LIGHTMACHINE: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO);
                             break;
                         }
-                        case RageShared.Enums.WEAPON_GROUP.SNIPER: {
-                            await giveWeaponByType(player, item, weaponGroup, RageShared.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO);
+                        case RageShared.Inventory.Enums.WEAPON_GROUP.SNIPER: {
+                            await giveWeaponByType(player, item, weaponGroup, RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO);
                             break;
                         }
                         default:

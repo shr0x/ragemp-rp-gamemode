@@ -1,3 +1,5 @@
+import { RageShared } from "@shared/index";
+
 /**
  * Interface representing the data structure for item objects.
  */
@@ -15,9 +17,8 @@ interface IItemObjectData {
     /** The range within which the item object is active. */
     range: number;
     /** The data of the item associated with the object. */
-    itemData: RageShared.Interfaces.Inventory.IInventoryItem;
+    itemData: RageShared.Inventory.Interfaces.IBaseItem;
 }
-
 /**
  * Class representing an item object in the game.
  */
@@ -40,7 +41,7 @@ export class ItemObject implements IItemObjectData {
     /** The range within which the item object is active. */
     range: number;
     /** The data of the item associated with the object. */
-    itemData: RageShared.Interfaces.Inventory.IInventoryItem;
+    itemData: RageShared.Inventory.Interfaces.IBaseItem;
 
     /** Timeout for removing the item object after a certain period. */
     timeout: NodeJS.Timeout | null = null;
@@ -102,7 +103,7 @@ export class ItemObject implements IItemObjectData {
      * @returns An array of item objects within the specified range.
      */
     static fetchInRange(player: PlayerMp, range: number = 1) {
-        const result: RageShared.Interfaces.Inventory.IInventoryItem[] = [];
+        const result: RageShared.Inventory.Interfaces.IBaseItem[] = [];
         for (const item of ItemObject.List.values()) {
             if (player.dist(item.coords) <= range) {
                 result.push(item.itemData);

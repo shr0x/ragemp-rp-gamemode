@@ -3,14 +3,17 @@ import { observer } from "mobx-react-lite";
 import cn from "classnames";
 import EventManager from "utils/EventManager.util";
 import ChatStore from "store/Chat.store";
-
+import enterIcon from "assets/images/hud/icons/enter.svg";
 import style from "./input.module.scss";
 
-const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = ({ store, chatFocusFunc, chatBlur }) => {
-    const [isFocused, setFocused] = useState(false),
-        [selection, setSelection] = useState<{ start: number; end: number }>({ start: 0, end: 0 }),
-        [inputText, setInputText] = useState(""),
-        [suggestedCommand, setSuggestedCommand] = useState("");
+const ChatInput: FC<{ store: ChatStore; chatFocusFunc: () => void; chatBlur: () => void }> = ({ store, chatFocusFunc, chatBlur }) => {
+    const [isFocused, setFocused] = useState(false);
+
+    const [selection, setSelection] = useState<{ start: number; end: number }>({ start: 0, end: 0 });
+
+    const [inputText, setInputText] = useState("");
+
+    const [suggestedCommand, setSuggestedCommand] = useState("");
 
     const input = useRef<HTMLInputElement>(null);
 
@@ -61,6 +64,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
 
     useEffect(() => {
         EventManager.addHandler("chat", "setTextInput", (text: string) => setInputText(text));
+
         EventManager.addHandler("chat", "toggle", (bool: true) => {
             setFocused(bool);
             bool ? input.current?.focus() : input.current?.blur();
@@ -78,13 +82,6 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
             input.current?.focus();
         }
     }, [isFocused]);
-
-    useEffect(() => {
-        EventManager.addHandler("chat", "setLastMessage", (int: number) => {
-            if (int === -1) setInputText("");
-            else setInputText(store.lastMessages[int]);
-        });
-    }, [input, store.lastMessages]);
 
     const sendMessage = useCallback(
         (text: string) => {
@@ -197,6 +194,7 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: any; chatBlur: any }> = (
                         <span className={style.suggestionRest}>{suggestedCommand.slice(inputText.length)}</span>
                     </div>
                 )}
+                <img src={enterIcon} alt="enter" />
             </div>
         </div>
     );

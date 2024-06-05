@@ -6,6 +6,7 @@
   "homepage": ".",
   "scripts": {
     "start": "vite",
+    "build:watch": "tsc && vite build --watch",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

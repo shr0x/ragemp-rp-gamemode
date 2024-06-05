@@ -1,9 +1,11 @@
-import { Component, useCallback } from "react";
+import { useCallback } from "react";
+import { values } from "mobx";
+
 import { ICurrentItem, IDropCell, ITargetCell } from "../Interfaces";
-import InventoryStore, { IBaseItem } from "store/Inventory.store";
+import InventoryStore from "store/Inventory.store";
 import Notification from "utils/NotifyManager.util";
 import EventManager from "utils/EventManager.util";
-import { values } from "mobx";
+import { RageShared } from "../../../../../../source/shared";
 
 export const OnPlayerDragItem = (
     gender: number,
@@ -17,7 +19,7 @@ export const OnPlayerDragItem = (
     setDropCell: (slot: IDropCell) => void,
     setCellDragged: (enable: boolean) => void,
     handleDrop: () => void,
-    putItemOn: (target: IBaseItem) => void
+    putItemOn: (target: RageShared.Inventory.Interfaces.IBaseItem) => void
 ) => {
     return useCallback(() => {
         if (!isCellDragged) return;
@@ -28,7 +30,7 @@ export const OnPlayerDragItem = (
                 return null;
             }
 
-            let targetItem: IBaseItem | null = null;
+            let targetItem: RageShared.Inventory.Interfaces.IBaseItem | null = null;
             if (component === "quickUse") {
                 const quickUseData = store.quickUse[id];
                 if (quickUseData && quickUseData.component && quickUseData.id !== null) {
@@ -44,7 +46,7 @@ export const OnPlayerDragItem = (
             return targetItem;
         };
 
-        const target: IBaseItem | null = getTargetItem();
+        const target = getTargetItem();
 
         const getItemOptions = (targetCell: ITargetCell) => {
             const { id, component } = targetCell;

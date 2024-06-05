@@ -6,9 +6,9 @@ class _WorldManager {
     private hourTimerInterval: NodeJS.Timer;
 
     constructor() {
-        this.secondTimerInterval = setInterval(this.secondTimer.bind(this), 1_000);
-        this.minuteTimerInterval = setInterval(this.secondTimer.bind(this), 60 * 1000);
-        this.hourTimerInterval = setInterval(this.secondTimer.bind(this), 1_000);
+        // this.secondTimerInterval = setInterval(this.secondTimer.bind(this), 1_000);
+        // this.minuteTimerInterval = setInterval(this.secondTimer.bind(this), 60 * 1000);
+        // this.hourTimerInterval = setInterval(this.secondTimer.bind(this), 1_000);
     }
 
     private secondTimer() {

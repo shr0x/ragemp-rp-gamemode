@@ -41,7 +41,6 @@
     },
     "files": [
         "../../node_modules/@ragempcommunity/types-server/index.d.ts",
-        "../shared/index.d.ts",
         "./@types/index.d.ts"
     ],
     "include": [
