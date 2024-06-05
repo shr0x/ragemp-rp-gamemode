@@ -1,11 +1,11 @@
 import { RageShared } from "@shared/index";
 import { weaponHash } from "../../assets/Weapons.assets";
 import { inventoryAssets } from "./Items.module";
-async function giveWeaponByType(player: PlayerMp, item: RageShared.Inventory.Interfaces.IBaseItem, weaponGroup: number, itemType: string) {
+async function giveWeaponByType(player: PlayerMp, item: RageShared.Inventory.Interfaces.IBaseItem, weaponGroup: number, itemType: RageShared.Inventory.Enums.ITEM_TYPES) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 
     if (item.type === null) return;
-    const fullAmmo = await player.character.inventory.getAllCountByItemType(player.character.inventory.items, itemType);
+    const fullAmmo = player.character.inventory.getAllCountByItemType(itemType);
 
     if (fullAmmo && fullAmmo.items.length) {
         const ammoCount = fullAmmo.count;

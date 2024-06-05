@@ -113,3 +113,30 @@ RAGERP.commands.add({
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
     }
 });
+
+RAGERP.commands.add({
+    name: "revive",
+    adminlevel: 1,
+    description: "Revive a player",
+    run: async (player: PlayerMp, fulltext: string, target: string) => {
+        if (!fulltext.length || !target.length) return player.outputChatBox("Usage: /revive [targetplayer]");
+
+        const parseTarget = parseInt(target);
+        if (isNaN(parseTarget)) return player.outputChatBox("Usage: /revive [targetplayer]");
+
+        const targetPlayer = mp.players.at(parseTarget);
+        if (!targetPlayer || !mp.players.exists(targetPlayer) || !targetPlayer.character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
+        if (targetPlayer.character.deathState !== RageShared.Players.Enums.DEATH_STATES.STATE_INJURED) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "That player is not injured.");
+
+        targetPlayer.spawn(targetPlayer.position);
+        targetPlayer.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
+
+        targetPlayer.character.setStoreData(player, "isDead", false);
+        targetPlayer.setVariable("isDead", false);
+        targetPlayer.stopScreenEffect("DeathFailMPIn");
+
+        await targetPlayer.character.save(targetPlayer);
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You successfully revived ${targetPlayer.name}`);
+        targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You were revived by admin ${player.name}`);
+    }
+});

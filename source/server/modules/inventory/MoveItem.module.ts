@@ -250,8 +250,8 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 let sourceItem = player.character.inventory.items[draggedFrom.component][parseInt(draggedFrom.slot)];
                 if (!targetItem || !sourceItem) return;
 
-                let targetItemCount = targetItem?.count;
-                let sourceItemCount = sourceItem?.count;
+                let targetItemCount = targetItem.count;
+                let sourceItemCount = sourceItem.count;
                 if (targetItemCount + sourceItemCount > targetItem.maxStack) {
                     difference = targetItem?.count + sourceItem.count - targetItem.maxStack;
 
@@ -275,13 +275,6 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 if (checkFastSlots !== -1) {
                     player.character.inventory.quickUse[checkFastSlots] = { component: droppedTo.component, id: parseInt(droppedTo.slot) };
                 }
-
-                // if (item.type === "backpack") {
-                //     let indexBackpack = Object.values(player.character.inventory.items.backpack).find((s: any) => s.type !== null);
-                //     if (indexBackpack) {
-                //         return;
-                //     }
-                // }
 
                 if (item.type && droppedTo.item && droppedTo.item.type === item.type) {
                     if (item.count + droppedTo.item.count <= item.maxStack) {
