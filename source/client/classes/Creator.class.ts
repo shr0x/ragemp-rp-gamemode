@@ -2,6 +2,7 @@ import { femaleHairOverlays, genderPreset, maleHairOverlays } from "../assets/Cr
 import { Client } from "./Client.class";
 import { Utils } from "../../shared/Utils.module";
 import { Camera } from "./Camera.class";
+import { RageShared } from "../../shared";
 
 let taskInterval: NodeJS.Timeout | null = null;
 

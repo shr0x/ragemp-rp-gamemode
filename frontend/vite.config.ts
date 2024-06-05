@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
+import { resolve } from "path";
 
 export default defineConfig({
     // depending on your application, base can also be "/"

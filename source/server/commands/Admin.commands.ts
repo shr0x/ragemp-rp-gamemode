@@ -1,5 +1,6 @@
 import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
+import { RageShared } from "@shared/index";
 
 RAGERP.commands.add({
     name: "veh",
@@ -35,7 +36,6 @@ RAGERP.commands.add({
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Administrator ${player.name} changed your dimension to ${parseDimension}`);
     }
 });
-
 RAGERP.commands.add({
     name: "makeadmin",
     adminlevel: 6,

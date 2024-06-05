@@ -5,11 +5,11 @@ import { CenterComponent, ICurrentItem } from "../../Interfaces";
 
 import error from "assets/images/error.svg";
 import style from "./splititem.module.scss";
-
+import { RageShared } from "../../../../../../../source/shared";
 interface ISplitProps {
     store: InventoryStore;
     viewingBackpack: string | null;
-    handleSplit: (item: RageShared.Interfaces.Inventory.IBaseItem, value: number) => void;
+    handleSplit: (item: RageShared.Inventory.Interfaces.IBaseItem, value: number) => void;
     setMiddleComponent: (comp: CenterComponent) => void;
     currentItem: ICurrentItem;
 }

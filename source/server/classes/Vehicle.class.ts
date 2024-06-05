@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { RAGERP } from "@api";
 import { vehicleClasses, vehicleModelSeats } from "@assets/Vehicle.assets";
 import { VehicleEntity } from "@entities/Vehicle.entity";
+import { RageShared } from "@shared/index";
 
 const defaultVehicleData: RageShared.Vehicles.Interfaces.IVehicleData = {
     locked: false,

@@ -1,3 +1,4 @@
+import { RageShared } from "../../shared";
 import { weaponList } from "../assets/Weapons.assets";
 import { Browser } from "./Browser.class";
 

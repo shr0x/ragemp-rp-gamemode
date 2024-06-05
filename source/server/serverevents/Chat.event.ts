@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { CommandRegistry } from "@classes/Command.class";
+import { RageShared } from "@shared/index";
 
 const invokeCommand = async (player: PlayerMp, message: string) => {
     message = message.substring(1);

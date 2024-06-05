@@ -1,3 +1,4 @@
+import { RageShared } from "../../shared";
 import { Browser } from "./Browser.class";
 
 class _Interaction {

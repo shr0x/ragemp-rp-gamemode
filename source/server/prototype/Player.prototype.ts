@@ -1,10 +1,10 @@
 import { RAGERP } from "@api";
 import { inventoryAssets } from "@modules/inventory/Items.module";
+import { RageShared } from "@shared/index";
 
 mp.Player.prototype.showNotify = function (type: RageShared.Enums.NotifyType, message: string, skin: "light" | "dark" | "colored" = "dark") {
     return RAGERP.cef.emit(this, "notify", "show", { type, message, skin });
 };
-
 mp.Player.prototype.getAdminLevel = function (): number {
     if (!this || !mp.players.exists(this) || !this.character) return 0;
     return this.character.adminlevel;

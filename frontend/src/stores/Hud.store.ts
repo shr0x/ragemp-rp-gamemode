@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
-import { useEffect } from "react";
 import EventManager from "utils/EventManager.util";
+import { RageShared } from "../../../source/shared";
 
 interface IMenuItems {
     id: number;
@@ -8,7 +8,6 @@ interface IMenuItems {
     type: number;
     subItems?: IMenuItems[];
 }
-
 interface IInteractionMenu {
     isActive: boolean;
     items: IMenuItems[];

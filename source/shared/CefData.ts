@@ -1,6 +1,8 @@
-declare namespace RageShared.Cef {
-    namespace Interfaces {
-        interface CefEventMap {
+import { RageShared, StringifiedObject } from "./index";
+
+export namespace CefData {
+    export namespace Interfaces {
+        export interface CefEventMap {
             system: {
                 setPage: string;
             };
@@ -21,24 +23,24 @@ declare namespace RageShared.Cef {
             };
             inventory: {
                 setVisible: boolean;
-                setClothes: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
-                setInventory: { [key: string]: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null } };
+                setClothes: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null };
+                setInventory: { [key: string]: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null } };
                 setQuickUseItems: { [key: number]: { component: string; id: number } | null };
-                setDroppedItems: { [key: number]: RageShared.Interfaces.Inventory.IBaseItem | null };
+                setDroppedItems: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null };
                 setMaxWeight: number;
             };
             auth: {};
         }
-        interface IncomingCEFEvents {
+        export interface IncomingCEFEvents {
             inventory: {
-                onMoveItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) => void;
-                onUseItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IUseItem>) => void;
-                onGiveItem: (player: PlayerMp, data: StringifiedObject<{ playerId: number; item: RageShared.Interfaces.Inventory.IBaseItem; source: { slot: string } }>) => void;
-                onDropItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IDropItem>) => void;
-                onSplitItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.ISplitItem>) => void;
+                onMoveItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) => void;
+                onUseItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IUseItem>) => void;
+                onGiveItem: (player: PlayerMp, data: StringifiedObject<{ playerId: number; item: RageShared.Inventory.Interfaces.IBaseItem; source: { slot: string } }>) => void;
+                onDropItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IDropItem>) => void;
+                onSplitItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.ISplitItem>) => void;
                 confirmItemDrop: (player: PlayerMp) => void;
                 onCancelItemDrop: (player: PlayerMp) => void;
-                onOpenItem: (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IOpenItem>) => void;
+                onOpenItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IOpenItem>) => void;
             };
 
             auth: {
@@ -47,5 +49,5 @@ declare namespace RageShared.Cef {
             };
         }
     }
-    namespace Enums {}
+    export namespace Enums {}
 }

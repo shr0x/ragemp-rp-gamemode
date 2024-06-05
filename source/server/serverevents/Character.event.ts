@@ -3,6 +3,7 @@ import { CharacterEntity } from "@entities/Character.entity";
 import { InventoryItemsEntity } from "@entities/Inventory.entity";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { Inventory } from "@modules/inventory/Core.class";
+import { RageShared } from "@shared/index";
 
 /**
  * When a player changes navigation in character creator, example going from general data to appearance
@@ -56,7 +57,6 @@ RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) 
 
     const nameisTaken = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { name: fullname } });
     if (nameisTaken) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "We're sorry but that name is already taken, choose another one.");
-
     const { sex, parents, hair, face, color }: RageShared.Players.Interfaces.CreatorData = parseData;
 
     const characterLimit = await RAGERP.database.getRepository(CharacterEntity).find({ where: { account: { id: player.account.id } }, take: 3 });

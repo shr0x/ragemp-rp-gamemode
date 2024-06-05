@@ -7,16 +7,16 @@ import Notification from "utils/NotifyManager.util";
 import InventoryStore from "store/Inventory.store";
 import EventManager from "utils/EventManager.util";
 
-import ChatStore from "./stores/Chat.store";
-import CreatorStore from "./stores/CharCreator.store";
-import PlayerStore from "./stores/Player.store";
+import ChatStore from "store/Chat.store";
+import CreatorStore from "store/CharCreator.store";
+import PlayerStore from "store/Player.store";
 import HudStore from "store/Hud.store";
 import TattooShopStore from "store/Tattoo.store";
 
 const Authentication = lazy(() => import("pages/auth/Authentication"));
-const Chat = lazy(() => import("./pages/hud/Chat/Chat"));
-const CharacterCreator = lazy(() => import("./pages/creator/Creator"));
-const CharacterSelector = lazy(() => import("./pages/selectcharacter/SelectCharacter"));
+const Chat = lazy(() => import("pages/hud/Chat/Chat"));
+const CharacterCreator = lazy(() => import("pages/creator/Creator"));
+const CharacterSelector = lazy(() => import("pages/selectcharacter/SelectCharacter"));
 const PlayerHud = lazy(() => import("pages/hud/Hud"));
 const TattooShop = lazy(() => import("pages/tattooshop/TattooShop"));
 

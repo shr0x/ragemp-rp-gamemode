@@ -5,6 +5,7 @@ import { CefEvent } from "@classes/CEFEvent.class";
 import { CommandRegistry } from "@classes/Command.class";
 import { AccountEntity } from "./Account.entity";
 import { setPlayerToInjuredState } from "@events/Death.event";
+import { RageShared } from "@shared/index";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -108,7 +109,6 @@ export class CharacterEntity {
         await player.requestCollisionAt(x, y, z).then(() => {
             player.spawn(new mp.Vector3(x, y, z));
         });
-
         player.heading = heading;
         if (player.character.deathState === RageShared.Players.Enums.DEATH_STATES.STATE_INJURED) {
             setPlayerToInjuredState(player);

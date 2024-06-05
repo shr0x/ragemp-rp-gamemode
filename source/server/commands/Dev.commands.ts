@@ -1,6 +1,7 @@
 import { RAGERP } from "@api";
 import { InteractionMenu } from "@classes/Interaction.class";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
+import { RageShared } from "@shared/index";
 
 RAGERP.commands.add({
     name: "ped",
@@ -80,8 +81,8 @@ RAGERP.commands.add({
             pockets: {
                 ...inventorydataPresset.pockets,
                 "12": {
-                    type: RageShared.Enums.ITEM_TYPES.ITEM_TYPE_PANTS, //"pants",
-                    typeCategory: RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
+                    type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PANTS, //"pants",
+                    typeCategory: RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_CLOTHING,
                     hash: "f38fdbfb-fee5-4298-849e-222222",
                     key: 'pants {"component":4,"drawable":1,"texture":0}',
                     quality: -1,
@@ -123,10 +124,10 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "giveweapon",
-    run: (player: PlayerMp, fulltext, weapon: RageShared.Enums.ITEM_TYPES) => {
+    run: (player: PlayerMp, fulltext, weapon: RageShared.Inventory.Enums.ITEM_TYPES) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addItem(weapon);
-        if (!itemData || itemData.typeCategory !== RageShared.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON) return;
+        if (!itemData || itemData.typeCategory !== RageShared.Inventory.Enums.ITEM_TYPE_CATEGORY.TYPE_WEAPON) return;
         player.showNotify(
             itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
             itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
@@ -143,7 +144,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "giveitem",
-    run: (player: PlayerMp, fulltext, item: RageShared.Enums.ITEM_TYPES, count: string) => {
+    run: (player: PlayerMp, fulltext, item: RageShared.Inventory.Enums.ITEM_TYPES, count: string) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addItem(item);
 
@@ -160,7 +161,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "giveclothes",
-    run: (player: PlayerMp, fulltext: string, item: RageShared.Enums.ITEM_TYPES, comp: string, drawable: string, texture: string) => {
+    run: (player: PlayerMp, fulltext: string, item: RageShared.Inventory.Enums.ITEM_TYPES, comp: string, drawable: string, texture: string) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addClothingItem(item, { component: parseInt(comp), drawable: parseInt(drawable), texture: parseInt(texture) });
 

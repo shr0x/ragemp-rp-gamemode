@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import EventManager from "utils/EventManager.util";
-
+import { RageShared } from "../../../source/shared";
 export interface ICharacters {
     id: number;
     name: string;

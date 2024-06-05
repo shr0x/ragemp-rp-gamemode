@@ -1,3 +1,5 @@
+import { CefData } from "@shared/CefData";
+
 type EventHandlerAsync = (...args: any[]) => Promise<void>;
 type EventHandler = (...args: any[]) => void;
 
@@ -8,10 +10,12 @@ interface EventEntry {
     _event: EventMp;
 }
 
-type EventData<
-    T extends keyof RageShared.Cef.Interfaces.IncomingCEFEvents,
-    K extends keyof RageShared.Cef.Interfaces.IncomingCEFEvents[T]
-> = RageShared.Cef.Interfaces.IncomingCEFEvents[T][K] extends (player: PlayerMp, data: infer D) => void ? D : never;
+type EventData<T extends keyof CefData.Interfaces.IncomingCEFEvents, K extends keyof CefData.Interfaces.IncomingCEFEvents[T]> = CefData.Interfaces.IncomingCEFEvents[T][K] extends (
+    player: PlayerMp,
+    data: infer D
+) => void
+    ? D
+    : never;
 
 class Cef_Event {
     private eventsInMemory: EventEntry[] = [];
@@ -31,15 +35,15 @@ class Cef_Event {
      * @param pointer pointer that's coming from page
      * @param handler event handler
      */
-    register<P extends keyof RageShared.Cef.Interfaces.IncomingCEFEvents, K extends keyof RageShared.Cef.Interfaces.IncomingCEFEvents[P]>(
+    register<P extends keyof CefData.Interfaces.IncomingCEFEvents, K extends keyof CefData.Interfaces.IncomingCEFEvents[P]>(
         page: P,
         pointer: K,
         handler: (player: PlayerMp, data: EventData<P, K>) => void | EventHandler | EventHandlerAsync
     ): void;
     register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void;
     register(
-        page: keyof RageShared.Cef.Interfaces.IncomingCEFEvents | string,
-        pointer: keyof RageShared.Cef.Interfaces.IncomingCEFEvents[keyof RageShared.Cef.Interfaces.IncomingCEFEvents] | string,
+        page: keyof CefData.Interfaces.IncomingCEFEvents | string,
+        pointer: keyof CefData.Interfaces.IncomingCEFEvents[keyof CefData.Interfaces.IncomingCEFEvents] | string,
         handler: any // Allow any type for handler when page and pointer are provided as strings
     ): void {
         if (!this.eventsInMemory.some((event) => event.target === page && event.name === pointer)) {
@@ -95,12 +99,7 @@ class Cef_Event {
      * @param data Data to send
      * @returns void
      */
-    emit<T extends keyof RageShared.Cef.Interfaces.CefEventMap, K extends keyof RageShared.Cef.Interfaces.CefEventMap[T]>(
-        player: PlayerMp,
-        page: T,
-        pointer: K,
-        data: RageShared.Cef.Interfaces.CefEventMap[T][K]
-    ): void {
+    emit<T extends keyof CefData.Interfaces.CefEventMap, K extends keyof CefData.Interfaces.CefEventMap[T]>(player: PlayerMp, page: T, pointer: K, data: CefData.Interfaces.CefEventMap[T][K]): void {
         if (!mp.players.exists(player)) return;
         const eventName = `cef::${page}:${String(pointer)}`;
         return player.call("client::eventManager", [eventName, data]);
@@ -118,11 +117,11 @@ class Cef_Event {
      * @param data Data to send
      * @returns void
      */
-    async emitAsync<T extends keyof RageShared.Cef.Interfaces.CefEventMap, K extends keyof RageShared.Cef.Interfaces.CefEventMap[T]>(
+    async emitAsync<T extends keyof CefData.Interfaces.CefEventMap, K extends keyof CefData.Interfaces.CefEventMap[T]>(
         player: PlayerMp,
         target: T,
         name: K,
-        obj: RageShared.Cef.Interfaces.CefEventMap[T][K]
+        obj: CefData.Interfaces.CefEventMap[T][K]
     ): Promise<void> {
         if (!mp.players.exists(player)) return;
         const eventName = `cef::${target}:${String(name)}`;

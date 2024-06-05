@@ -2,8 +2,9 @@ import { v4 } from "uuid";
 import { ItemObject } from "./ItemObject.class";
 import { inventoryAssets } from "./Items.module";
 import { Utils } from "../../../shared/utils.module";
+import { RageShared, StringifiedObject } from "@shared/index";
 
-async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>) {
+async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
     const { source, target, backpackHash } = Utils.parseObject(data);
     const draggedFrom = source;
@@ -58,7 +59,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
 }
 async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
     if (!player.character || !player.character.inventory) return;
-    const { item, source, target }: RageShared.Interfaces.Inventory.IMoveItem = JSON.parse(data);
+    const { item, source, target }: RageShared.Inventory.Interfaces.IMoveItem = JSON.parse(data);
 
     const playerItem = player.character.inventory.getItemByUUID(item.hash);
     if (!playerItem) {
@@ -125,9 +126,9 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
         if (!mp.players.exists(player) || !player.character?.inventory) return;
 
         const { item, source, target } = JSON.parse(data) as {
-            item: RageShared.Interfaces.Inventory.IBaseItem;
+            item: RageShared.Inventory.Interfaces.IBaseItem;
             source: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES | "groundItems" };
-            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Interfaces.Inventory.IBaseItem };
+            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Inventory.Interfaces.IBaseItem };
         };
 
         const draggedFrom = source;
@@ -201,7 +202,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
     }
 }
 
-export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Interfaces.Inventory.IMoveItem>): Promise<void> => {
+export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>): Promise<void> => {
     try {
         if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
 

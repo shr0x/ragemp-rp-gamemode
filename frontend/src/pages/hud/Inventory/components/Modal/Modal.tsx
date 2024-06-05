@@ -4,13 +4,16 @@ import EventManager from "utils/EventManager.util";
 import { CenterComponent, ICurrentItem } from "../../Interfaces";
 import style from "./modal.module.scss";
 import Notification from "utils/NotifyManager.util";
+
+import { RageShared } from "../../../../../../../source/shared";
+
 interface IModalProps {
     store: InventoryStore;
     currentItem: ICurrentItem;
     viewingBackpack: string | null;
     setViewingBackpack: (key: string | null) => void;
     takeItemOff: () => void;
-    putItemOn: (item?: RageShared.Interfaces.Inventory.IBaseItem) => void;
+    putItemOn: (item?: RageShared.Inventory.Interfaces.IBaseItem) => void;
     handleDrop: (isAccepted?: boolean) => void;
     giveItemAway: (id?: number) => void;
     setMiddleComponent: (component: CenterComponent) => void;

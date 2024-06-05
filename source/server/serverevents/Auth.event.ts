@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { RAGERP } from "@api";
 import { AccountEntity } from "@entities/Account.entity";
 import { CharacterEntity } from "@entities/Character.entity";
+import { RageShared } from "@shared/index";
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }

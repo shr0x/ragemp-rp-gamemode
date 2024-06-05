@@ -48,12 +48,12 @@
             ],
             "configs/*": [
                 "src/configs/*"
+            ],
+            "shared/*": [
+                "../../source/shared/*"
             ]
         }
     },
-    "files": [
-        "../source/shared/index.d.ts"
-    ],
     "include": [
         "./src/**/*"
     ]
