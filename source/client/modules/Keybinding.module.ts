@@ -1,4 +1,5 @@
 import { Browser } from "../classes/Browser.class";
+import { ChatAPI } from "../classes/Chat.class";
 import { Client } from "../classes/Client.class";
 import { Inventory } from "../classes/Inventory.class";
 import { PlayerKeybind } from "../classes/Keybind.class";
@@ -45,7 +46,7 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     () => {
-        if (!Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
+        if (ChatAPI.chatOpen || Browser.currentPage || !Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
         mp.events.callRemote("server::player:acceptDeath");
         Client.canAcceptDeath = false;
     },

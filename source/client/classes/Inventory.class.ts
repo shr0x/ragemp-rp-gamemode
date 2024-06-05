@@ -1,6 +1,6 @@
 import { Utils } from "../../shared/Utils.module";
 import { Browser } from "../classes/Browser.class";
-import ChatClass from "./Chat.class";
+import { ChatAPI } from "./Chat.class";
 
 /**
  * Class responsible for managing the player's inventory.
@@ -158,7 +158,7 @@ class _PlayerInventory {
      */
     public async open() {
         try {
-            if (ChatClass.chatOpen) return;
+            if (ChatAPI.chatOpen) return;
 
             if (this.isOpen) return this.close();
 
