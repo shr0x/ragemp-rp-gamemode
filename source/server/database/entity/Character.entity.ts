@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "@modules/inventory/Core.class";
 import { CefEvent } from "@classes/CEFEvent.class";
@@ -12,8 +12,7 @@ export class CharacterEntity {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
-    @OneToOne(() => AccountEntity, (account) => account.id)
-    @JoinColumn()
+    @ManyToOne(() => AccountEntity, (account) => account.id)
     account: AccountEntity;
 
     @Column({ type: "int", width: 11, default: 0 })
@@ -110,6 +109,7 @@ export class CharacterEntity {
             player.spawn(new mp.Vector3(x, y, z));
         });
         player.heading = heading;
+
         if (player.character.deathState === RageShared.Players.Enums.DEATH_STATES.STATE_INJURED) {
             setPlayerToInjuredState(player);
         }
