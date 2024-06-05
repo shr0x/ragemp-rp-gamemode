@@ -85,7 +85,20 @@ class _Vehicle {
         if (this.isPlaneOrHeli(vehicle.getClass())) return;
 
         const windows = vehicle.getVariable("windows"),
-            frozen = vehicle.getVariable("frozen");
+            frozen = vehicle.getVariable("frozen"),
+            trunkState = vehicle.getVariable("trunkState"),
+            hoodState = vehicle.getVariable("hoodState"),
+            smokeColor = vehicle.getVariable("smokecolor"),
+            interiorColor = vehicle.getVariable("interiorcolor"),
+            dashboardColor = vehicle.getVariable("dashboardcolor"),
+            primaryColorType = vehicle.getVariable("primaryColorType"),
+            secondaryColorType = vehicle.getVariable("secondaryColorType"),
+            engineState = vehicle.getVariable("engine");
+
+        mp.console.logWarning(
+            `[::vehicleStreamIn]-> Vehicle Stream In\n[::vehicleStreamIn]-> Streamed vehicle id ${vehicle.remoteId}\n==========================[DATA==========================\n[::states]-> Engine: ${engineState} | Trunk: ${trunkState} | Hood: ${hoodState} | Frozen: ${frozen}\n[::colors]-> Smoke: ${smokeColor} | Interior: ${interiorColor} | Dashboard ${dashboardColor}\n[::colortype]-> Primary: ${primaryColorType} | Secondary: ${secondaryColorType}\n `
+        );
+        mp.console.logWarning(``);
 
         if (typeof frozen !== "undefined") vehicle.freezePosition(frozen);
 
@@ -96,30 +109,26 @@ class _Vehicle {
         }
 
         if (!this.isPlaneOrHeli(vehicle.getClass()) && vehicle.getClass() !== 14 && vehicle.model !== mp.game.joaat("rhino")) {
-            const smokeColor = vehicle.getVariable("smokecolor");
             if (smokeColor) {
                 vehicle.toggleMod(20, smokeColor.r !== 255 || smokeColor.g !== 255 || smokeColor.b !== 255);
                 vehicle.setTyreSmokeColor(smokeColor.r, smokeColor.g, smokeColor.b);
             }
-            const interiorColor = vehicle.getVariable("interiorcolor");
             if (interiorColor) mp.game.vehicle.setInteriorColor(vehicle.handle, interiorColor);
 
-            const dashboardColor = vehicle.getVariable("dashboardcolor");
             if (dashboardColor) mp.game.vehicle.setDashboardColor(vehicle.handle, dashboardColor);
 
-            vehicle.getVariable("trunkState") ? vehicle.setDoorOpen(5, false, false) : vehicle.setDoorShut(5, false);
-            vehicle.getVariable("hoodState") ? vehicle.setDoorOpen(4, false, false) : vehicle.setDoorShut(4, false);
+            trunkState ? vehicle.setDoorOpen(5, false, false) : vehicle.setDoorShut(5, false);
+            hoodState ? vehicle.setDoorOpen(4, false, false) : vehicle.setDoorShut(4, false);
         }
 
-        if (vehicle.getVariable("primaryColorType")) {
-            vehicle.setModColor1(vehicle.getVariable("primaryColorType"), 0, 0);
+        if (primaryColorType) {
+            vehicle.setModColor1(primaryColorType, 0, 0);
         }
-        if (vehicle.getVariable("secondaryColorType")) {
-            vehicle.setModColor2(vehicle.getVariable("secondaryColorType"), 0);
+        if (secondaryColorType) {
+            vehicle.setModColor2(secondaryColorType, 0);
         }
 
-        if (typeof vehicle.getVariable("engine") === "boolean") {
-            const engineState = vehicle.getVariable("engine");
+        if (typeof engineState === "boolean") {
             vehicle.setEngineOn(engineState, engineState, engineState);
         }
 

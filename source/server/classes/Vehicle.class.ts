@@ -80,22 +80,16 @@ export class Vehicle {
         data: RageShared.Vehicles.Interfaces.IVehicleData = defaultVehicleData,
         mods: RageShared.Vehicles.Interfaces.IVehicleMods | null = null
     ) {
-        this.type = type;
-        if (this._vehicle && mp.vehicles.exists(this._vehicle)) this._vehicle.destroy();
         this._vehicle = mp.vehicles.new(typeof model === "string" ? mp.joaat(model) : model, position, {
             dimension,
-            numberPlate: data.numberplate ?? "Babylon",
+            numberPlate: data.numberplate ?? "",
             locked: data.locked,
             engine: data.engine,
             heading: heading,
             color: [data.primaryColor, data.secondaryColor]
         });
 
-        // this._vehicle.spawnPosition = position;
-        // this._vehicle.spawnHeading = heading;
-        this._vehicle.setVariable("unlockable", false);
-        this._vehicle.setVariable("rentedby", null);
-
+        this.type = type;
         this._data = data;
         this._mods = mods ? mods : defaultVehicleMods;
 
@@ -164,6 +158,8 @@ export class Vehicle {
      */
     public setData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(key: K, value: RageShared.Vehicles.Interfaces.IVehicleData[K]): void {
         if (!this._vehicle || !mp.vehicles.exists(this._vehicle)) return;
+
+        console.log(`[VEHICLEDATA]:: ${this._vehicle.id} setting ${key} to ${value}`);
 
         this._data[key] = value;
         this._vehicle.setVariable(key, value);
