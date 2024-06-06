@@ -5,19 +5,19 @@ import { InteractionMenu } from "@classes/Interaction.class";
  * This events are triggered from client-side
  */
 mp.events.add("server::vehicle:setTrunkState", (player: PlayerMp, vehicleid: number, state: boolean) => {
-    const vehicle = RAGERP.entities.vehicle.at(vehicleid);
+    const vehicle = RAGERP.entities.vehicles.at(vehicleid);
     if (!vehicle || !mp.vehicles.exists(vehicle._vehicle)) return;
     vehicle.setData("trunkState", state);
 });
 
 mp.events.add("server::vehicle:setHoodState", (player: PlayerMp, vehicleid: number, state: boolean) => {
-    const vehicle = RAGERP.entities.vehicle.at(vehicleid);
+    const vehicle = RAGERP.entities.vehicles.at(vehicleid);
     if (!vehicle || mp.vehicles.exists(vehicle._vehicle)) return;
     vehicle.setData("hoodState", state);
 });
 
 mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId: number) => {
-    const vehicle = RAGERP.entities.vehicle.at(vehicleId);
+    const vehicle = RAGERP.entities.vehicles.at(vehicleId);
     if (!vehicle || !vehicle._vehicle) return;
 
     player.interactionMenu = new InteractionMenu();
