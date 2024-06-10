@@ -10,7 +10,7 @@ export namespace CefData {
                 show: { type: RageShared.Enums.NotifyType; message: string; skin: "light" | "dark" | "colored" };
             };
             player: {
-                setCharacters: any[];
+                setCharacters: RageShared.Players.Interfaces.ICharacters[];
                 setKeybindData: { [key: string]: string };
             };
             hud: {
@@ -46,6 +46,11 @@ export namespace CefData {
             auth: {
                 register: (player: PlayerMp, data: StringifiedObject<{ username: string; email: string; password: string; confirmPassword: string }>) => void;
                 loginPlayer: (player: PlayerMp, data: StringifiedObject<{ username: string; password: string }>) => void;
+            };
+
+            creator: {
+                naviation: (player: PlayerMp, data: string) => void;
+                create: (player: PlayerMp, data: StringifiedObject<RageShared.Players.Interfaces.CreatorData>) => void;
             };
         }
     }

@@ -222,6 +222,15 @@ export namespace RageShared {
 
     export namespace Players {
         export namespace Interfaces {
+            export interface ICharacters {
+                id: number;
+                name: string;
+                level: number;
+                type: 0 | 1 | 2;
+                money: number;
+                bank: number;
+                lastlogin: string;
+            }
             export interface IPlayerData {
                 id: number;
                 ping: number;

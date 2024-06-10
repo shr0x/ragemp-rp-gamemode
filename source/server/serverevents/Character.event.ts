@@ -49,10 +49,10 @@ RAGERP.cef.register("character", "create", async (player: PlayerMp) => {
 /**
  * Executes when a player finishes creating a character.
  */
-RAGERP.cef.register("creator", "create", async (player: PlayerMp, data: string) => {
+RAGERP.cef.register("creator", "create", async (player, data) => {
     if (!player.account) return player.kick("An error has occurred!");
 
-    const parseData = JSON.parse(data);
+    const parseData = RAGERP.utils.parseObject(data);
     const fullname = `${parseData.name.firstname} ${parseData.name.lastname}`;
 
     const nameisTaken = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { name: fullname } });

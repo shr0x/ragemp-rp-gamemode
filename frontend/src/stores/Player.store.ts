@@ -1,15 +1,6 @@
 import { makeAutoObservable, observable } from "mobx";
 import EventManager from "utils/EventManager.util";
 import { RageShared } from "../../../source/shared";
-export interface ICharacters {
-    id: number;
-    name: string;
-    level: number;
-    type: 0 | 1 | 2;
-    money: number;
-    bank: number;
-    lastlogin: string;
-}
 
 class _PlayerStore {
     nowPlaying: number = 0;
@@ -33,7 +24,7 @@ class _PlayerStore {
         D: "Interaction"
     };
 
-    characters: ICharacters[] = observable.array([
+    characters: RageShared.Players.Interfaces.ICharacters[] = observable.array([
         // { type: 1, bank: 2322, id: 0, lastlogin: "12/12/2024", level: 233, money: 232, name: "Daddyss dev" },
         // { type: 1, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
         // { type: 0, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" }
