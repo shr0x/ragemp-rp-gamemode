@@ -56,6 +56,10 @@ export namespace CefData {
             chat: {
                 sendMessage: (player: PlayerMp, message: string) => void;
             };
+
+            hud: {
+                interactResult: (player: PlayerMp, type: string) => void;
+            };
         }
     }
     export namespace Enums {}
