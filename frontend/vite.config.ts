@@ -1,16 +1,22 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
-import { resolve } from "path";
 
 export default defineConfig({
-    // depending on your application, base can also be "/"
     base: "",
+    build: {
+        reportCompressedSize: false,
+        outDir: "../client_packages/package2/dist",
+        emptyOutDir: true,
+        minify: "esbuild",
+        chunkSizeWarningLimit: 5000
+    },
     plugins: [react(), viteTsconfigPaths()],
     server: {
-        // this ensures that the browser opens upon server start
         open: true,
-        // this sets a default port to 3000
         port: 3000
+    },
+    resolve: {
+        alias: {}
     }
 });

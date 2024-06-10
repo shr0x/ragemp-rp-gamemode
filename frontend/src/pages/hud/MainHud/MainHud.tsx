@@ -1,19 +1,21 @@
 import { observer } from "mobx-react-lite";
 import { FC, useMemo } from "react";
+import { entries } from "mobx";
 
-import HudStore from "store/Hud.store";
-import PlayerStore from "store/Player.store";
+import { hudStore } from "store/Hud.store";
+import { playerStore } from "store/Player.store";
+
 import Speedometer from "./components/Speedometer";
-import style from "./mainhud.module.scss";
 
 import star from "assets/images/hud/icons/star.svg";
 import ping from "assets/images/hud/icons/ping.svg";
 import users from "assets/images/hud/icons/user.svg";
 import ammoicon from "assets/images/hud/icons/ammo.svg";
 import areaicon from "assets/images/hud/icons/areaname.svg";
-import { entries } from "mobx";
 
-const MainHUD: FC<{ store: HudStore; playerStore: PlayerStore }> = ({ store, playerStore }) => {
+import style from "./mainhud.module.scss";
+
+const MainHUD: FC<{ store: typeof hudStore; playerStore: typeof playerStore }> = ({ store, playerStore }) => {
     const getWeaponImage = useMemo(() => {
         return new URL(`../../../assets/images/hud/weapons/${playerStore.data.weapondata?.weapon}.svg`, import.meta.url).href;
     }, [playerStore.data.weapondata]);

@@ -3,12 +3,13 @@ import { observer } from "mobx-react-lite";
 import { entries } from "mobx";
 import cn from "classnames";
 
-import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "../../Interfaces";
+import { inventoryStore } from "store/Inventory.store";
+
 import style from "./sideinventory.module.scss";
 interface ISideInventoryProps {
     title: string;
-    store: InventoryStore;
+    store: typeof inventoryStore;
     setItem: (item: ICurrentItem) => void;
     currentItem: ICurrentItem;
     isCellDragged: boolean;

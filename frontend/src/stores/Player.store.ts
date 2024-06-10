@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import EventManager from "utils/EventManager.util";
 import { RageShared } from "../../../source/shared";
 export interface ICharacters {
@@ -11,11 +11,9 @@ export interface ICharacters {
     lastlogin: string;
 }
 
-export default class PlayerStore {
-    @observable
+class _PlayerStore {
     nowPlaying: number = 0;
 
-    @observable
     data: RageShared.Players.Interfaces.IPlayerData = observable.object({
         id: 3000,
         gender: 0,
@@ -28,8 +26,6 @@ export default class PlayerStore {
         },
         wantedLevel: 5
     });
-
-    @observable
     keybindGuide: { [key: string]: string } = {
         E: "Inventory",
         B: "Main Menu",
@@ -37,7 +33,6 @@ export default class PlayerStore {
         D: "Interaction"
     };
 
-    @observable
     characters: ICharacters[] = observable.array([
         // { type: 1, bank: 2322, id: 0, lastlogin: "12/12/2024", level: 233, money: 232, name: "Daddyss dev" },
         // { type: 1, bank: 2322, id: 1, lastlogin: "12/12/2024", level: 2, money: 232, name: "Daddyss dev" },
@@ -45,25 +40,22 @@ export default class PlayerStore {
     ]);
 
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
+        this.createEvents();
     }
 
-    @action.bound
     setCharacters(characters: any) {
         this.characters = characters;
     }
 
-    @action.bound
     setData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(data: K, value: any) {
         this.data[data] = value;
     }
 
-    @action.bound
     setKeybindData(data: { [key: string]: string }) {
         this.keybindGuide = data;
     }
 
-    @action.bound
     setNowPlaying(data: number) {
         this.nowPlaying = data;
     }
@@ -77,3 +69,5 @@ export default class PlayerStore {
         EventManager.stopAddingHandler("player");
     }
 }
+
+export const playerStore = new _PlayerStore();

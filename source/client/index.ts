@@ -25,15 +25,15 @@ async function initClientSide() {
 
     mp.nametags.enabled = false;
 
-    InteractablePed.init();
-
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
+
+    InteractablePed.init();
 }
 
 (async () => {
-    mp.console.logInfo("[SHR0X FRAMEWORK]: Initializing client-side.");
+    mp.console.logInfo("[RAGEMP GAMEMODE]: Initializing client-side.");
     await initClientSide()
-        .then(() => mp.console.logInfo("[SHR0X FRAMEWORK]: Initialized client-side."))
+        .then(() => mp.console.logInfo("[RAGEMP GAMEMODE]: Initialized client-side."))
         .catch((err) => mp.console.logError(`${err.message}`));
 })();

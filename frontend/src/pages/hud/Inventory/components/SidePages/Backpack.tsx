@@ -2,12 +2,12 @@ import { FC, useCallback, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { entries, values } from "mobx";
 import cn from "classnames";
+import { inventoryStore } from "store/Inventory.store";
 
-import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "../../Interfaces";
 import style from "./sideinventory.module.scss";
 interface IBackpackProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     viewingBackpack: string | null;
     setItem: (item: ICurrentItem) => void;
     currentItem: ICurrentItem;

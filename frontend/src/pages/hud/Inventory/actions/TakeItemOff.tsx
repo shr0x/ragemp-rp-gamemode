@@ -1,11 +1,11 @@
 import { useCallback } from "react";
+import { values } from "mobx";
 import { ICurrentItem } from "../Interfaces";
-import InventoryStore from "store/Inventory.store";
+import { inventoryStore } from "store/Inventory.store";
 import EventManager from "utils/EventManager.util";
 import Notification from "utils/NotifyManager.util";
-import { values } from "mobx";
 
-export const OnPlayerTakeItemOff = (setItem: (item: ICurrentItem) => void, currentItem: ICurrentItem, store: InventoryStore) => {
+export const OnPlayerTakeItemOff = (setItem: (item: ICurrentItem) => void, currentItem: ICurrentItem, store: typeof inventoryStore) => {
     return useCallback(() => {
         if (currentItem.id === null) return;
 

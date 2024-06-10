@@ -1,7 +1,9 @@
-import { makeObservable, observable, action } from "mobx";
+import { makeObservable, observable, action, makeAutoObservable } from "mobx";
 
-export default class TattooShopStore {
+class _TattooShopStore {
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
     }
 }
+
+export const tattooShopStore = new _TattooShopStore();

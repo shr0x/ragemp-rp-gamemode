@@ -4,6 +4,13 @@ import { Utils } from "../../shared/Utils.module";
 import { Camera } from "./Camera.class";
 import { RageShared } from "../../shared";
 
+declare global {
+    interface PlayerMp {
+        applyHairOverlay(): void;
+        addDecorationFromHashes(collection: number, overlay: number): void;
+    }
+}
+
 let taskInterval: NodeJS.Timeout | null = null;
 
 type TCreatorCamera = Record<string, { coords: Vector3; fov: number; zpos: number }>;

@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import style from "./deathscreen.module.scss";
-import PlayerStore from "store/Player.store";
+import { playerStore } from "store/Player.store";
 import EventManager from "utils/EventManager.util";
-const DeathScreen: FC<{ store: PlayerStore }> = observer(({ store }) => {
+
+import style from "./deathscreen.module.scss";
+
+const DeathScreen: FC<{ store: typeof playerStore }> = observer(({ store }) => {
     const [timeLeft, setTimeLeft] = useState(30);
     const [isActive, setActive] = useState(false);
 

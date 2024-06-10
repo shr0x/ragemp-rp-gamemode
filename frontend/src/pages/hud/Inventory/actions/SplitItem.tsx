@@ -1,13 +1,13 @@
 import { useCallback } from "react";
-import InventoryStore from "store/Inventory.store";
 import { CenterComponent, ICurrentItem } from "../Interfaces";
 import Notification from "utils/NotifyManager.util";
 import EventManager from "utils/EventManager.util";
 import { values } from "mobx";
 import { RageShared } from "../../../../../../source/shared";
+import { inventoryStore } from "store/Inventory.store";
 export const OnPlayerSplitItem = (
     currentItem: ICurrentItem,
-    store: InventoryStore,
+    store: typeof inventoryStore,
     viewingBackpack: string | null,
     setItem: (item: ICurrentItem) => void,
     setMiddleComponent: (comp: CenterComponent) => void

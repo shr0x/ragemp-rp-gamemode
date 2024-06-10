@@ -1,14 +1,14 @@
 import { FC, useCallback, useEffect, useRef } from "react";
-import InventoryStore from "store/Inventory.store";
 import EventManager from "utils/EventManager.util";
 import { CenterComponent, ICurrentItem } from "../../Interfaces";
 import style from "./modal.module.scss";
 import Notification from "utils/NotifyManager.util";
 
 import { RageShared } from "../../../../../../../source/shared";
+import { inventoryStore } from "store/Inventory.store";
 
 interface IModalProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     currentItem: ICurrentItem;
     viewingBackpack: string | null;
     setViewingBackpack: (key: string | null) => void;

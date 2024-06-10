@@ -2,16 +2,16 @@ import { useCallback } from "react";
 import { values } from "mobx";
 
 import { ICurrentItem, IDropCell, ITargetCell } from "../Interfaces";
-import InventoryStore from "store/Inventory.store";
 import Notification from "utils/NotifyManager.util";
 import EventManager from "utils/EventManager.util";
 import { RageShared } from "../../../../../../source/shared";
+import { inventoryStore } from "store/Inventory.store";
 
 export const OnPlayerDragItem = (
     gender: number,
     isCellDragged: boolean,
     targetCell: ITargetCell,
-    store: InventoryStore,
+    store: typeof inventoryStore,
     dropCell: IDropCell,
     viewingBackpack: string | null,
     setItem: (item: ICurrentItem) => void,

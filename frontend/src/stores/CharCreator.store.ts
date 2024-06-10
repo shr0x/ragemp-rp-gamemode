@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from "mobx";
+import { observable, makeAutoObservable } from "mobx";
 import EventManager from "utils/EventManager.util";
 
 const defaultData = {
@@ -31,26 +31,19 @@ const defaultData = {
     color: { head: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0 }
 };
 
-export default class CreatorStore {
-    @observable
+class _CreatorStore {
     data = observable.object(defaultData);
-
-    @observable
     lastFather = 0;
-
-    @observable
     lastMother = 0;
-
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
+        this.createEvents();
     }
 
-    @action.bound
     fetchData(data: any) {
         return (this.data = data);
     }
 
-    @action.bound
     resetData() {
         this.data = defaultData;
         this.lastFather = 0;
@@ -63,3 +56,4 @@ export default class CreatorStore {
         EventManager.stopAddingHandler("creator");
     }
 }
+export const creatorStore = new _CreatorStore();

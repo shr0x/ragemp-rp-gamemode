@@ -1,8 +1,8 @@
-import { observer } from "mobx-react-lite";
 import React from "react";
-import HudStore from "store/Hud.store";
+import { observer } from "mobx-react-lite";
+import { hudStore } from "store/Hud.store";
 
-const Speedometer: React.FC<{ store: HudStore }> = ({ store }) => {
+const Speedometer: React.FC<{ store: typeof hudStore }> = ({ store }) => {
     const radius = 100;
 
     const ticks = Array.from({ length: 11 }, (_, i) => i * (store.vehicleData.maxSpeed / 10)); // 11 ticks from 0 to maxSpeed

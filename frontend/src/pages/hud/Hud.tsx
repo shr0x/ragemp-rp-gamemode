@@ -2,18 +2,25 @@ import { observer } from "mobx-react-lite";
 import { FC } from "react";
 
 import style from "./hud.module.scss";
-import PlayerStore from "store/Player.store";
 import InteractionMenu from "./InteractionMenu/InteractionMenu";
-import HudStore from "store/Hud.store";
 import MainHud from "./MainHud/MainHud";
 
-import InventoryStore from "store/Inventory.store";
 import Inventory from "./Inventory/Inventory";
 import DeathScreen from "./DeathScreen/DeathScreen";
 import InteractButton from "./InteractButton/InteractButton";
-import EventManager from "utils/EventManager.util";
 
-const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: HudStore }> = observer(({ inventoryStore, store, hudStore }) => {
+import { inventoryStore } from "store/Inventory.store";
+import { playerStore } from "store/Player.store";
+import { hudStore } from "store/Hud.store";
+import { createComponent } from "src/hoc/registerComponent";
+
+interface HUDProps {
+    inventoryStore: typeof inventoryStore;
+    store: typeof playerStore;
+    hudStore: typeof hudStore;
+}
+
+const HUD: FC<HUDProps> = observer(({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
             <DeathScreen store={store} />
@@ -26,4 +33,8 @@ const HUD: FC<{ inventoryStore: InventoryStore; store: PlayerStore; hudStore: Hu
     );
 });
 
-export default HUD;
+export default createComponent({
+    props: { inventoryStore, store: playerStore, hudStore },
+    component: HUD,
+    pageName: "hud"
+});

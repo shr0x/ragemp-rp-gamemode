@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, set, values } from "mobx";
+import { makeObservable, observable, action, set, values, makeAutoObservable } from "mobx";
 import EventManager from "utils/EventManager.util";
 import { RageShared } from "../../../source/shared";
 
@@ -8,21 +8,17 @@ interface ICategory {
 /**
  * Represents an inventory store.
  */
-export default class InventoryStore {
+class _InventoryStore {
     /** Indicates if the inventory is visible. */
-    @observable
     isVisible: boolean = false;
 
     /** The current weight of the inventory. */
-    @observable
     currentWeight = 0;
 
     /** The maximum allowed weight of the inventory. */
-    @observable
     maxInventoryWeight = 40;
 
     /** The clothes items in the inventory. */
-    @observable
     clothes: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null } = observable.object({
         0: null,
         1: null,
@@ -41,7 +37,6 @@ export default class InventoryStore {
     });
 
     /** The quick use items in the inventory. */
-    @observable
     quickUse: { [key: number]: { component: string; id: number } | null } = observable.object({
         0: null,
         1: null,
@@ -52,7 +47,6 @@ export default class InventoryStore {
     });
 
     /** The main inventory categorized by type. */
-    @observable
     inventory: ICategory = observable.object({
         pockets: {
             "0": null,
@@ -140,7 +134,6 @@ export default class InventoryStore {
     });
 
     /** The side inventory items. */
-    @observable
     sideInventory: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null } = observable.object({
         0: null,
         1: null,
@@ -169,11 +162,11 @@ export default class InventoryStore {
     });
 
     /** The list of players around the current player. */
-    @observable
     playersAround: any[] = [];
 
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
+        this.createEvents();
         this.calcInventoryWeight();
     }
 
@@ -181,7 +174,6 @@ export default class InventoryStore {
      * Sets the maximum weight of the inventory.
      * @param {number} number - The new maximum weight.
      */
-    @action.bound
     setInventoryMaxWeight(number: number) {
         this.maxInventoryWeight = number;
     }
@@ -190,7 +182,6 @@ export default class InventoryStore {
      * Sets the visibility of the inventory.
      * @param {boolean} bool - The new visibility state.
      */
-    @action.bound
     setVisible(bool: boolean) {
         this.isVisible = bool;
     }
@@ -200,7 +191,6 @@ export default class InventoryStore {
      * @param {number} id - The ID of the item.
      * @returns {boolean} True if the item is in quick use, otherwise false.
      */
-    @action.bound
     public isItemInQuickUse(component: string, id: number): boolean {
         return values(this.quickUse).find((x) => x && x.id === id && x.component === component) ? true : false;
     }
@@ -209,7 +199,6 @@ export default class InventoryStore {
      * Calculates the total weight of the items in the backpack.
      * @returns {number} The total backpack weight.
      */
-    @action.bound
     public calculateBackpackWeight(): number {
         const backpackData = this.clothes[7];
         if (!backpackData || !backpackData.items) return 0;
@@ -219,7 +208,6 @@ export default class InventoryStore {
     /**
      * Calculates the total weight of the inventory.
      */
-    @action.bound
     calcInventoryWeight() {
         const calculateWeight = (items: any[]) => items.reduce((acc, item) => acc + (item ? item.weight * item.count : 0), 0);
         const pocketsWeight = calculateWeight(Object.values(this.inventory.pockets).filter((el) => el && el.weight));
@@ -243,14 +231,12 @@ export default class InventoryStore {
         return itemData ? qualityColors[itemData.quality] || "#FFFFFF00" : "#FFFFFF00";
     }
 
-    @action.bound
     public findItemByUUID(uuid: string) {
         let data = values(this.inventory.pockets).find((x) => x && x.hash === uuid);
         if (!data) data = values(this.clothes).find((x) => x && x.hash === uuid);
         return data ?? null;
     }
 
-    @action.bound
     public getBackpackItemData(hash: string | null, slot: number) {
         if (!hash) return null;
 
@@ -266,7 +252,6 @@ export default class InventoryStore {
      * @param {boolean} recalculateWeight - Whether to recalculate the weight.
      * @param {string | null} [linkedBackpack=null] - The linked backpack ID if applicable.
      */
-    @action.bound
     changeInventoryData(data: { component: string | null; id: number | null }, obj: any, recalculateWeight: boolean, linkedBackpack: string | null = null) {
         if (data.component === null || data.id === null) return;
         if (data.component === "clothes") {
@@ -287,7 +272,6 @@ export default class InventoryStore {
      * Fetches quick use items.
      * @param {{ [key: number]: { component: string; id: number } | null }} items - The quick use items.
      */
-    @action.bound
     fetchQuickUseItems(items: { [key: number]: { component: string; id: number } | null }) {
         this.quickUse = items;
     }
@@ -296,7 +280,6 @@ export default class InventoryStore {
      * Fetches clothes data and recalculates inventory weight.
      * @param {{ [key: number]: RageShared.Inventory.IBaseItem }} obj - The clothes data.
      */
-    @action.bound
     fetchClothesData(obj: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem }) {
         this.clothes = obj;
         this.calcInventoryWeight();
@@ -307,7 +290,6 @@ export default class InventoryStore {
      * @param {number} id - The slot ID.
      * @param {RageShared.Inventory.IBaseItem} data - The item data.
      */
-    @action.bound
     setClothesData(id: number, data: RageShared.Inventory.Interfaces.IBaseItem) {
         if (!(id in this.clothes)) return;
         this.clothes[id] = data;
@@ -318,7 +300,6 @@ export default class InventoryStore {
      * Fetches the inventory data and recalculates inventory weight.
      * @param {ICategory} obj - The inventory data.
      */
-    @action.bound
     fetchInventoryData(obj: ICategory) {
         this.inventory = obj;
         this.calcInventoryWeight();
@@ -330,7 +311,6 @@ export default class InventoryStore {
      * @param {number} slot - The slot number.
      * @param {RageShared.Inventory.IBaseItem | null} obj - The item data.
      */
-    @action.bound
     fetchInventoryItem(component: string, slot: number, obj: RageShared.Inventory.Interfaces.IBaseItem | null) {
         this.inventory[component][slot] = obj;
         this.calcInventoryWeight();
@@ -340,7 +320,6 @@ export default class InventoryStore {
      * Fetches the players around the current player.
      * @param {any[]} array - The array of players.
      */
-    @action.bound
     fetchPlayersAround(array: any[]) {
         this.playersAround = array;
     }
@@ -349,7 +328,6 @@ export default class InventoryStore {
      * Fetches the ground items.
      * @param {typeof this.sideInventory} items - The ground items data.
      */
-    @action.bound
     fetchGroundItems(items: typeof this.sideInventory) {
         this.sideInventory = items;
     }
@@ -371,3 +349,5 @@ export default class InventoryStore {
         EventManager.addHandler("inventory", "setMaxWeight", (weight: number) => this.setInventoryMaxWeight(weight));
     }
 }
+
+export const inventoryStore = new _InventoryStore();

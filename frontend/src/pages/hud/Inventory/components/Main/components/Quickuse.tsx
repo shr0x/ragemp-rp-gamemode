@@ -3,12 +3,12 @@ import { observer } from "mobx-react-lite";
 import { entries } from "mobx";
 import cn from "classnames";
 
-import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "pages/hud/Inventory/Interfaces";
+import { inventoryStore } from "store/Inventory.store";
 
 import style from "./quickuse.module.scss";
 interface IFastSlotProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     setItem: (item: ICurrentItem) => void;
     currentItem: ICurrentItem;
     isCellDragged: boolean;

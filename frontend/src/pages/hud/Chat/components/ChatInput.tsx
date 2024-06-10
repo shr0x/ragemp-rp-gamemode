@@ -2,11 +2,11 @@ import { FC, useRef, useEffect, useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
 import cn from "classnames";
 import EventManager from "utils/EventManager.util";
-import ChatStore from "store/Chat.store";
 import enterIcon from "assets/images/hud/icons/enter.svg";
 import style from "./input.module.scss";
+import { chatStore } from "store/Chat.store";
 
-const ChatInput: FC<{ store: ChatStore; chatFocusFunc: () => void; chatBlur: () => void }> = ({ store, chatFocusFunc, chatBlur }) => {
+const ChatInput: FC<{ store: typeof chatStore; chatFocusFunc: () => void; chatBlur: () => void }> = ({ store, chatFocusFunc, chatBlur }) => {
     const [isFocused, setFocused] = useState(false);
 
     const [selection, setSelection] = useState<{ start: number; end: number }>({ start: 0, end: 0 });

@@ -5,13 +5,13 @@ import cn from "classnames";
 
 import error from "assets/images/error.svg";
 
-import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "../../Interfaces";
 
 import style from "./clothes.module.scss";
+import { inventoryStore } from "store/Inventory.store";
 
 interface IClothesProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     currentItem: ICurrentItem;
     setItem: (item: ICurrentItem) => void;
     setTargetCell: (target: ITargetCell) => void;

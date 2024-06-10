@@ -2,7 +2,6 @@
   "name": "ragemp-rp-frontend",
   "version": "0.0.4",
   "description": "Frontend part of RAGEMP RP Gamemode",
-  "main": "index.js",
   "homepage": ".",
   "scripts": {
     "start": "vite",

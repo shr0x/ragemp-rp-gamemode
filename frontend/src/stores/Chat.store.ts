@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from "mobx";
+import { observable, makeAutoObservable } from "mobx";
 import EventManager from "utils/EventManager.util";
 
 interface IChatSettings {
@@ -7,14 +7,11 @@ interface IChatSettings {
     background: boolean;
 }
 
-export default class ChatStore {
-    @observable
+class _ChatStore {
     isActive: boolean = false;
 
-    @observable
     commandList: string[] = observable.array(["/goto", "/help", "/ban", "/kick", "/mute", "/unmute"]);
 
-    @observable
     messages: string[] = observable.array([
         // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123',
         // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123',
@@ -42,13 +39,10 @@ export default class ChatStore {
         // 'this is a long <span style="color:red">test text hello 123</span>, this is a long test text hello 123, this is a long test text hello 123'
     ]);
 
-    @observable
     lastMessages: string[] = observable.array([]);
 
-    @observable
     historyCounter: number = -1;
 
-    @observable
     settings: IChatSettings = observable.object({
         background: false,
         fontsize: 1.48888889,
@@ -56,15 +50,14 @@ export default class ChatStore {
     });
 
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
+        this.createEvents();
     }
 
-    @action.bound
     setActive(data: boolean) {
         this.isActive = data;
     }
 
-    @action.bound
     updateLastMessages(text: string) {
         if (text.length > 0) {
             let message = text.trim();
@@ -78,13 +71,11 @@ export default class ChatStore {
         }
     }
 
-    @action.bound
     fetchNewMessage(obj: string) {
         this.messages.push(obj);
         if (this.messages.length > 150) this.messages.shift();
     }
 
-    @action.bound
     fetchCommandList(commands: string[]) {
         this.commandList = commands;
     }
@@ -95,3 +86,5 @@ export default class ChatStore {
         EventManager.stopAddingHandler("chat");
     }
 }
+
+export const chatStore = new _ChatStore();
