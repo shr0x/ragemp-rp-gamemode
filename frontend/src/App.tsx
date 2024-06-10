@@ -8,15 +8,7 @@ import EventManager from "utils/EventManager.util";
 import { chatStore } from "store/Chat.store";
 import { getRegisteredComponent } from "./hoc/registerComponent";
 
-// import "./stores";
-
 import "./pages";
-
-// import "pages/hud/Hud";
-// import "pages/auth/Authentication";
-// import "pages/creator/Creator";
-// import "pages/selectcharacter/SelectCharacter";
-// import "pages/tattooshop/TattooShop";
 
 const Chat = lazy(() => import("pages/hud/Chat/Chat"));
 

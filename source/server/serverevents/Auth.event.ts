@@ -48,7 +48,7 @@ RAGERP.cef.register("auth", "loginPlayer", async (player, data) => {
     player.name = player.account.username;
 
     const characters = await RAGERP.database.getRepository(CharacterEntity).find({ where: { account: { id: accountData.id } }, take: 3 });
-    const characterData = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
+    const characterData: RageShared.Players.Interfaces.ICharacters[] = Array.from({ length: 3 }, () => ({ id: -1, name: "", level: 0, money: 0, bank: 0, lastlogin: "", type: 0 }));
 
     characters.forEach((x, idx) => {
         const character = { id: x.id, type: 1, name: x.name, bank: 0, money: 0, level: x.level, lastlogin: ".." };
