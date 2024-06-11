@@ -13,7 +13,7 @@ const componentRegistry: Record<string, RegisteredComponent<any>> = {};
 
 export const createComponent = <T extends ComponentProps>(data: { pageName: string; component: FC<T>; props: T }) => {
     if (componentRegistry[data.pageName]) {
-        throw new Error(`Page '${data.pageName}' is already registered`);
+        return console.log(`Page '${data.pageName}' is already registered`);
     }
     componentRegistry[data.pageName] = { component: data.component, props: data.props };
     return data.component;
