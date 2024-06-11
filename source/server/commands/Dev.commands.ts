@@ -4,7 +4,19 @@ import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { RageShared } from "@shared/index";
 
 RAGERP.commands.add({
+    name: "gotopos",
+    description: "Teleport to a x y z",
+    adminlevel: 6,
+    run: (player: PlayerMp, fulltext: string, x: string, y: string, z: string) => {
+        if (!fulltext.length || !x.length || !y.length || !z.length) return player.outputChatBox("Usage: /gotopos [x] [y] [z]");
+
+        player.position = new mp.Vector3(parseFloat(x), parseFloat(y), parseFloat(z));
+    }
+});
+
+RAGERP.commands.add({
     name: "ped",
+    adminlevel: 6,
     run: (player: PlayerMp) => {
         const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
         player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
@@ -17,6 +29,7 @@ RAGERP.commands.add({
 RAGERP.commands.add({
     name: "savepos",
     aliases: ["getpos", "mypos"],
+    adminlevel: 6,
     run: (player: PlayerMp) => {
         const [{ x, y, z }, heading] = [player.position, player.heading];
         console.log(`Position: new mp.Vector3(${x}, ${y}, ${z})`);
@@ -26,6 +39,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "interact",
+    adminlevel: 6,
     run: async (player: PlayerMp, fulltext) => {
         const data = {
             isActive: true,
@@ -45,6 +59,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "settime",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext: string, time: string) => {
         mp.world.time.set(parseInt(time), 0, 0);
     }
@@ -52,28 +67,15 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "sethealth",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext, health) => {
         player.health = parseInt(health);
     }
 });
 
 RAGERP.commands.add({
-    name: "setdata",
-    run: (player: PlayerMp) => {
-        if (!player.character) return;
-        player.character.setStoreData(player, "isDead", true);
-    }
-});
-
-RAGERP.commands.add({
-    name: "testinv",
-    run: (player: PlayerMp) => {
-        player.call("client::inventory:setVisible", [true]);
-    }
-});
-
-RAGERP.commands.add({
     name: "clearinventory",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext: string, targetid: string) => {
         let target = mp.players.at(parseInt(targetid));
         if (!target || !mp.players.exists(target) || !target.character || !target.character.inventory) return;
@@ -125,6 +127,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "giveweapon",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext, weapon: RageShared.Inventory.Enums.ITEM_TYPES) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addItem(weapon);
@@ -137,14 +140,8 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "playerweapons",
-    run: (player: PlayerMp) => {
-        console.log(player.weapons);
-    }
-});
-
-RAGERP.commands.add({
     name: "giveitem",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext, item: RageShared.Inventory.Enums.ITEM_TYPES, count: string) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addItem(item);
@@ -162,6 +159,7 @@ RAGERP.commands.add({
 
 RAGERP.commands.add({
     name: "giveclothes",
+    adminlevel: 6,
     run: (player: PlayerMp, fulltext: string, item: RageShared.Inventory.Enums.ITEM_TYPES, comp: string, drawable: string, texture: string) => {
         if (!player.character || !player.character.inventory) return;
         const itemData = player.character.inventory.addClothingItem(item, { component: parseInt(comp), drawable: parseInt(drawable), texture: parseInt(texture) });

@@ -70,7 +70,6 @@ export class InteractablePed {
             this.ped.setRandomComponentVariation(true);
             this.ped.setRandomProps();
             this.ped.setCanBeTargetted(false);
-
             InteractablePed.pool.push(this);
         });
     }
@@ -84,11 +83,11 @@ export class InteractablePed {
     }
 
     static init() {
-        mp.events.add("client::ped:interact", this.createForwardCamera.bind(this));
-        mp.events.add("client::ped:destroyCamera", this.destroyForwardCamera.bind(this));
+        mp.events.add("client::ped:interact", InteractablePed.createForwardCamera);
+        mp.events.add("client::ped:destroyCamera", InteractablePed.destroyForwardCamera);
 
-        mp.keys.bind(69, false, this.interact.bind(this));
-        mp.keys.bind(69, false, this.destroyForwardCamera.bind(this));
+        // mp.keys.bind(69, false, InteractablePed.interact);
+        // mp.keys.bind(69, false, InteractablePed.destroyForwardCamera);
 
         interactInterval = setInterval(() => {
             InteractablePed.showInteraction();
@@ -157,7 +156,7 @@ export class InteractablePed {
         for (const ped of peds) {
             if (!ped.ped) continue;
             if (Utils.distanceToPos(mp.players.local.position, ped.ped.position) < 3) {
-                this.createForwardCamera(ped.ped.id);
+                InteractablePed.createForwardCamera(ped.ped.id);
             }
         }
     }

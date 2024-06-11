@@ -12,7 +12,7 @@ class _EntityRaycast {
     }
 
     private render() {
-        if (!mp.players.local.getVariable("loggedin") || this.entity == null) return;
+        if (!mp.players.local.getVariable("loggedin") || this.entity == null || this.entity.type === "ped") return;
         if (Utils.distanceToPos(this.entity.position, mp.players.local.position) > 3 || !mp.game.controls.isControlPressed(0, 19)) return;
 
         const foundEntity = this.entity.type === "vehicle" ? mp.vehicles : mp.players;
