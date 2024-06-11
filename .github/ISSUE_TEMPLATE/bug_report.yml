@@ -1,0 +1,79 @@
+name: Bug Report
+description: Help us squash bugs in our gamemode by reporting them!
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # BUG REPORT 🐞✨
+        Please fill out this bug report with as much detail as possible.
+        *Note that only bug-related issues will be addressed here. For other requests, including support, please use the appropriate channels.*
+
+        ⚠️ **Incomplete reports may be closed without response.** ⚠️
+
+        ♥ **Thank you for contributing to RAGEMP RP GAMEMODE's improvement!** ♥
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What Happened?
+      description: |
+        Describe the issue clearly and concisely.
+      placeholder: E.g., "The  UI crashes when i try top open x page"
+    validations:
+      required: true
+
+  - type: input
+    id: expectation
+    attributes:
+      label: Expected Result
+      description: |
+        What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Please list the steps to reproduce the issue. Be thorough and remove any irrelevant steps.
+      placeholder: |
+        1. Open the inventory.
+        2. Move an item from pockets to backpack.
+        3. Close the inventory.
+        4. Open the inventory again.
+        5. UI crashes.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: importance
+    attributes:
+      label: Bug Severity
+      description: |
+        How severe is this bug in your opinion?
+      options:
+        - Unknown
+        - Minor inconvenience
+        - Workaround available
+        - Critical (Game/UI crash)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Affected Version
+      description: |
+        Please provide the version number where you encountered this issue.
+      placeholder: E.g., 1.2.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: misc
+    attributes:
+      label: Additional Information
+      description: |
+        Any other details you think are important? Let us know!
