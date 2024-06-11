@@ -83,7 +83,7 @@ const Chat: React.FC<{ store: typeof chatStore; isVisible: boolean }> = ({ store
                     </div>
                 ))}
             </div>
-            <ChatInput store={store} chatFocusFunc={chatFocusFunc} chatBlur={chatBlur} />
+            <ChatInput store={store} chatFocusFunc={chatFocusFunc} chatBlur={chatBlur} chatRef={chat} setChatOpacity={setChatOpacity} />
         </div>
     );
 };
