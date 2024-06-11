@@ -1,0 +1,69 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for our RAGEMP Gamemode
+labels: ["enhancement", "feature request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **We love new ideas to enhance our gamemode experience!** 🚗💨✨
+        Suggest a new feature or improvement for our server by providing the details below.
+
+  - type: input
+    id: feature-title
+    attributes:
+      label: Feature Title
+      description: |
+        Give your feature request a clear and descriptive title.
+      placeholder: E.g., "Add a new heist mission"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: |
+        Describe the feature or enhancement in detail.
+      placeholder: |
+        Explain what the feature does, why it's useful, and how it would work in the roleplay context.
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: |
+        Provide one or more scenarios for this feature.
+      placeholder: E.g., "As a player, I want to participate in a complex heist mission to earn in-game rewards."
+    validations:
+      required: true
+
+  - type: textarea
+    id: roleplay-impact
+    attributes:
+      label: Roleplay Impact
+      description: |
+        How will this feature enhance the roleplaying experience?
+      placeholder: E.g., "This heist mission will allow players to collaborate, plan, and execute a high-stakes robbery, adding depth to the roleplaying experience."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: |
+        Describe any alternative solutions or features you've considered.
+      placeholder: E.g., "Instead of a heist mission, we could add a series of smaller, interconnected missions."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: |
+        Any other details you'd like to include?
