@@ -44,7 +44,7 @@ const AppContent: FC = () => {
                     pauseOnHover
                     theme="dark"
                 />
-                {pageComponent && <pageComponent.component {...pageComponent.props} />};
+                {pageComponent && <pageComponent.component {...pageComponent.props} />}
             </Suspense>
         </div>
     );

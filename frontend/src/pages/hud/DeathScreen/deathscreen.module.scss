@@ -5,8 +5,8 @@
     bottom: 10vh;
     filter: drop-shadow(0 0 5vh black);
 
-    width: 600px;
-    height: 200px;
+    width: 55.55555555555556vh;
+    height: 13.88888888888889vh;
 
 
     display: flex;
@@ -16,9 +16,36 @@
 
     transition: all .2s;
 
+
+    .heartrate {
+        position: fixed;
+        width: 80%;
+        height: 100%;
+        bottom: 15vh;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+
+        path {
+            stroke: red;
+            stroke-width: 0.18518518518518517vh;
+            fill: none;
+            stroke-dasharray: 150, 100;
+            stroke-dashoffset: 0;
+            animation: pulse 7s infinite linear;
+
+        }
+
+    }
+
+
+
     .header {
+
         font-family: 'Beast Duh';
-        font-size: 5vh;
+        font-size: 4vh;
 
         color: red;
         text-shadow: 0 0 10px black;
@@ -26,7 +53,16 @@
 
     }
 
+    .desc {
+        filter: drop-shadow(0 0 5vh black);
+        font-family: 'Beast Duh';
+        font-size: 1.5vh;
+        color: white;
+        text-shadow: 0 0 0.9259259259259259vh black;
+    }
+
     .bottomdata {
+        filter: drop-shadow(0 0 5vh black);
         width: 400px;
         height: 100px;
         font-family: 'Beast Duh';
@@ -38,14 +74,41 @@
         flex-direction: column;
 
         color: white;
-        text-shadow: 0 0 10px black;
+        text-shadow: 0 0 0.9259259259259259vh black;
         text-transform: uppercase;
 
         background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgb(105, 44, 44) 50%, rgba(0, 0, 0, 0) 100%);
 
         .timer {
-            font-size: 3vh;
-            color: red;
+
+            display: flex;
+            align-items: center;
+            gap: .5vh;
+            justify-content: center;
+
+
+
+            .text {
+                background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+
+                padding: .5vh;
+                height: 5vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3vh;
+                color: red;
+            }
         }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: 1050;
     }
 }

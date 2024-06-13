@@ -45,6 +45,7 @@ function playerAcceptedDeath(player: PlayerMp) {
     player.setVariable("isDead", false);
     player.spawn(hospitalData.position);
     player.heading = hospitalData.heading;
+    player.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
     player.stopScreenEffect("DeathFailMPIn");
 }
 async function playerDeath(player: PlayerMp, reason: number, killer: PlayerMp | undefined) {
