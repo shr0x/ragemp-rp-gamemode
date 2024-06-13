@@ -50,6 +50,11 @@ class _Client {
     public canAcceptDeath: boolean = false;
 
     /**
+     * An interval to re-apply death animation in case its canceled
+     */
+    public deathAnimInterval: NodeJS.Timeout | null = null;
+
+    /**
      * Constructs a new Client instance.
      */
     constructor() {
@@ -163,6 +168,29 @@ class _Client {
             }
         }
         mp.players.local.setComponentVariation(component, drawable, texture, 2);
+    }
+
+    public deathAnimChecker(enable: boolean) {
+        if (enable) {
+            if (this.deathAnimInterval) {
+                clearInterval(this.deathAnimInterval);
+            }
+
+            this.deathAnimInterval = setInterval(() => {
+                if (mp.players.local.isFalling() || !mp.players.local.getVariable("deathAnim") || mp.players.local.isRagdoll()) return;
+
+                const { dict, anim } = mp.players.local.getVariable("deathAnim");
+                if (!mp.players.local.isPlayingAnim(dict, anim, 1)) {
+                    mp.players.local.taskPlayAnim(dict, anim, 2.0, 0, -1, 9, 0, false, false, false);
+                }
+            }, 300);
+            return;
+        }
+        if (this.deathAnimInterval) {
+            clearInterval(this.deathAnimInterval);
+            this.deathAnimInterval = null;
+        }
+        mp.players.local.clearTasks();
     }
 
     /**

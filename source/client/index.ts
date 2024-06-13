@@ -8,6 +8,7 @@ import "./clientevents/Auth.event";
 import "./clientevents/Render.event";
 import "./clientevents/Player.event";
 //-----------------------------------------//
+import "./handlers/Player.handler";
 import "./handlers/Object.handler";
 //-----------------------------------------//
 import "./clientprocs/Player.proc";

@@ -15,7 +15,7 @@ export function setPlayerToInjuredState(player: PlayerMp) {
     player.setVariable("isDead", true);
     const randomDeath = randomDeathAnimations[Math.floor(Math.random() * randomDeathAnimations.length)];
     player.playAnimation(randomDeath.dict, randomDeath.anim, 2, 9);
-
+    player.setOwnVariable("deathAnim", { anim: randomDeath.anim, dict: randomDeath.dict });
     player.startScreenEffect("DeathFailMPIn", 0, true);
 }
 
@@ -43,6 +43,8 @@ function playerAcceptedDeath(player: PlayerMp) {
     }
     player.character.setStoreData(player, "isDead", false);
     player.setVariable("isDead", false);
+    player.setOwnVariable("deathAnim", null);
+
     player.spawn(hospitalData.position);
     player.heading = hospitalData.heading;
     player.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
