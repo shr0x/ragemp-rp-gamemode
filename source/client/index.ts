@@ -1,25 +1,25 @@
 //-----------------------------------------//
-import "./classes/Browser.class";
-import "./classes/Chat.class";
-import "./classes/Creator.class";
-import "./classes/Vehicle.class";
+import "@classes/Browser.class";
+import "@classes/Chat.class";
+import "@classes/Creator.class";
+import "@classes/Vehicle.class";
+import "@classes/Spectate.class";
 //-----------------------------------------//
-import "./clientevents/Auth.event";
-import "./clientevents/Render.event";
-import "./clientevents/Player.event";
+import "@events/Auth.event";
+import "@events/Render.event";
+import "@events/Player.event";
 //-----------------------------------------//
-import "./handlers/Player.handler";
-import "./handlers/Object.handler";
+import "@handlers/Player.handler";
+import "@handlers/Object.handler";
 //-----------------------------------------//
-import "./clientprocs/Player.proc";
+import "@proc/Player.proc";
 //-----------------------------------------//
-import "./modules/GameData.module";
-import "./modules/Keybinding.module";
+import "@modules/GameData.module";
+import "@modules/Keybinding.module";
 //-----------------------------------------//
-import "./prototype/Player.prototype";
+import "@prototype/Player.prototype";
 //-----------------------------------------//
-import "./classes/Spectate.class";
-import { InteractablePed } from "./classes/InteractablePed.class";
+import { InteractablePed } from "@classes/InteractablePed.class";
 //-----------------------------------------//
 async function initClientSide() {
     mp.console.clear();

@@ -1,10 +1,10 @@
 import { InteractablePed } from "@classes/InteractablePed.class";
-import { Browser } from "../classes/Browser.class";
-import { ChatAPI } from "../classes/Chat.class";
-import { Client } from "../classes/Client.class";
-import { Inventory } from "../classes/Inventory.class";
-import { PlayerKeybind } from "../classes/Keybind.class";
-import { EntityRaycast } from "../classes/Raycast.class";
+import { Browser } from "@classes/Browser.class";
+import { ChatAPI } from "@classes/Chat.class";
+import { Client } from "@classes/Client.class";
+import { Inventory } from "@classes/Inventory.class";
+import { PlayerKeybind } from "@classes/Keybind.class";
+import { EntityRaycast } from "@classes/Raycast.class";
 
 /**
  * Adds a keybind for toggling inventory fast slots.

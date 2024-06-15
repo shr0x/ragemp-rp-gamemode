@@ -1,7 +1,7 @@
-import { Utils } from "../../shared/Utils.module";
-import { Client } from "../classes/Client.class";
-import { InteractablePed } from "../classes/InteractablePed.class";
-import { Inventory } from "../classes/Inventory.class";
+import { Utils } from "@shared/Utils.module";
+import { Client } from "@classes/Client.class";
+import { InteractablePed } from "@classes/InteractablePed.class";
+import { Inventory } from "@classes/Inventory.class";
 
 mp.events.add("playerReady", () => {
     mp.players.local.setCanRagdoll(true);

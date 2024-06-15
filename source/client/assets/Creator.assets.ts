@@ -7,7 +7,7 @@ type TGenderPreset = Record<
 >;
 type TOverlay = Record<number, { collection: string; overlay: string }>;
 
-export const maleHairOverlays: TOverlay = {
+const maleHairOverlays: TOverlay = {
     0: { collection: "mpbeach_overlays", overlay: "FM_Hair_Fuzz" },
     1: { collection: "multiplayer_overlays", overlay: "NG_M_Hair_001" },
     2: { collection: "multiplayer_overlays", overlay: "NG_M_Hair_002" },
@@ -88,7 +88,7 @@ export const maleHairOverlays: TOverlay = {
         overlay: "MP_Gunrunning_Hair_M_001_M"
     }
 };
-export const femaleHairOverlays: TOverlay = {
+const femaleHairOverlays: TOverlay = {
     0: { collection: "mpbeach_overlays", overlay: "FM_Hair_Fuzz" },
     1: { collection: "multiplayer_overlays", overlay: "NG_F_Hair_001" },
     2: { collection: "multiplayer_overlays", overlay: "NG_F_Hair_002" },
@@ -174,7 +174,9 @@ export const femaleHairOverlays: TOverlay = {
     }
 };
 
-export const genderPreset: TGenderPreset = {
+const genderPreset: TGenderPreset = {
     1: { hair: { 1: 0 }, parents: { 0: 1, 1: 1, 2: 21, 3: 23 } },
     0: { hair: { 1: 0 }, parents: { 0: 1, 1: 1, 2: 1, 3: 2 } }
 };
+
+export { maleHairOverlays, genderPreset, femaleHairOverlays };

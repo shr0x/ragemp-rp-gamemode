@@ -8,7 +8,7 @@ interface ICefPages {
         freezeCamera?: boolean;
     };
 }
-export const CEFPages: ICefPages = {
+const CEFPages: ICefPages = {
     chat: { blur: false, radar: true, pause: true, controls: true, close: false },
     auth: { blur: true, radar: false, pause: false, controls: true, close: false },
     creator: { blur: false, radar: false, pause: false, controls: true, close: true },
@@ -17,3 +17,4 @@ export const CEFPages: ICefPages = {
     interactionMenu: { blur: false, radar: true, pause: false, controls: false, close: true },
     inventory: { blur: true, radar: false, pause: true, controls: true, close: true }
 };
+export { CEFPages };

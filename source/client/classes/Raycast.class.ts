@@ -1,4 +1,4 @@
-import { Utils } from "../../shared/Utils.module";
+import { Utils } from "@shared/Utils.module";
 
 class _EntityRaycast {
     entity: EntityMp | null = null;

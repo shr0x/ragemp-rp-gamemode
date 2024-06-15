@@ -1,6 +1,6 @@
-import { Utils } from "../../shared/Utils.module";
-import { Camera } from "../classes/Camera.class";
-import { Browser } from "../classes/Browser.class";
+import { Utils } from "@shared/Utils.module";
+import { Camera } from "@classes/Camera.class";
+import { Browser } from "@classes/Browser.class";
 
 const loginCameras = [
     { from: new mp.Vector3(-392.0152587890625, -2195.9765625, 204.3353729248047), to: new mp.Vector3(-126.2790298461914, -1274.2332763671875, 173.96531677246094), rot: 132.75473022460938 },

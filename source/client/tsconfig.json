@@ -31,6 +31,9 @@
 			"@prototype/*": [
 				"./prototype/*"
 			],
+			"@shared": [
+				"../shared/index.ts"
+			],
 			"@shared/*": [
 				"../shared/*"
 			]

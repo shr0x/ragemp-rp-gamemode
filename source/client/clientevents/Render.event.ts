@@ -1,4 +1,4 @@
-import { Client } from "../classes/Client.class";
+import { Client } from "@classes/Client.class";
 
 mp.events.add("render", () => {
     if (!mp.players.local.getVariable("loggedin")) return;

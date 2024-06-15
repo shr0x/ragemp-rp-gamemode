@@ -1,5 +1,5 @@
-import { Utils } from "../../shared/Utils.module";
-import { Browser } from "../classes/Browser.class";
+import { Utils } from "@shared/Utils.module";
+import { Browser } from "./Browser.class";
 import { ChatAPI } from "./Chat.class";
 
 /**

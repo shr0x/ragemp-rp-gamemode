@@ -1,4 +1,4 @@
-import { Utils } from "../../shared/Utils.module";
+import { Utils } from "@shared/Utils.module";
 import { Browser } from "./Browser.class";
 import { Camera } from "./Camera.class";
 import { Client } from "./Client.class";
