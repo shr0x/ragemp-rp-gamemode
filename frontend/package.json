@@ -33,12 +33,6 @@
     "mobx-react-lite": "^3.4.0",
     "typescript-eslint": "^7.10.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
