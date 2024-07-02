@@ -114,11 +114,13 @@ export class CharacterEntity {
             setPlayerToInjuredState(player);
         }
         player.outputChatBox(`Welcome to !{red}RAGEMP ROLEPLAY!{white} ${player.name}!`);
+        if (player.character.adminlevel) {
+            player.outputChatBox(`>>> You are logged in as !{green}LEVEL ${player.character.adminlevel}!{white} admin!`);
+        }
 
         !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);
 
         player.character.lastlogin = new Date();
-
         CommandRegistry.reloadCommands(player);
     }
 

@@ -23,6 +23,16 @@ export namespace RageShared {
             TYPE_ERROR = "error",
             TYPE_WARNING = "warning"
         }
+
+        export const enum ADMIN_LEVELS {
+            NONE = 0,
+            LEVEL_ONE,
+            LEVEL_TWO,
+            LEVEL_THREE,
+            LEVEL_FOUR,
+            LEVEL_FIVE,
+            LEVEL_SIX
+        }
     }
 
     export namespace Vehicles {

@@ -3,6 +3,10 @@ import { AccountEntity } from "../database/entity/Account.entity";
 import { CharacterEntity } from "../database/entity/Character.entity";
 
 declare global {
+    interface PlayerMpPool {
+        getPlayerByName: (stringornumber: string) => PlayerMp | undefined;
+    }
+
     interface PlayerMp {
         this: PlayerMp;
 

@@ -2,6 +2,20 @@ import { RAGERP } from "@api";
 import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
 
+mp.players.getPlayerByName = function (stringornumber: string): PlayerMp | undefined {
+    if (isNaN(parseInt(stringornumber)) === false) {
+        return mp.players.at(parseInt(stringornumber));
+    } else {
+        if (stringornumber.length < 3) return undefined;
+        const players = mp.players.toArray();
+        for (const player of players) {
+            const [firstname] = player.name.split(" ");
+            if (!firstname.toLowerCase().includes(stringornumber.toLowerCase())) continue;
+            return player;
+        }
+    }
+};
+
 mp.Player.prototype.showNotify = function (type: RageShared.Enums.NotifyType, message: string, skin: "light" | "dark" | "colored" = "dark") {
     return RAGERP.cef.emit(this, "notify", "show", { type, message, skin });
 };
