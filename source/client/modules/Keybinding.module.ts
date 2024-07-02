@@ -6,6 +6,7 @@ import { Inventory } from "@classes/Inventory.class";
 import { PlayerKeybind } from "@classes/Keybind.class";
 import { EntityRaycast } from "@classes/Raycast.class";
 
+let lastPress: number = 0;
 /**
  * Adds a keybind for toggling inventory fast slots.
  * @param keyCode - The key code for the keybind.
@@ -47,10 +48,14 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     async () => {
-        if (ChatAPI.chatOpen || Browser.currentPage || mp.players.local.getVariable("isDead") || mp.players.local.vehicle) return;
+        if (ChatAPI.chatOpen || Browser.currentPage || mp.players.local.getVariable("isDead") || mp.players.local.vehicle || new Date().getTime() - lastPress < 500) return;
+        lastPress = new Date().getTime();
         const ped = InteractablePed.getClosest();
-        if (!ped) return;
-        ped.onKeyPress.constructor.name === "AsyncFunction" ? await ped.onKeyPress() : ped.onKeyPress();
+        if (ped) {
+            ped.onKeyPress.constructor.name === "AsyncFunction" ? await ped.onKeyPress() : ped.onKeyPress();
+        } else {
+            mp.events.callRemote("server::player:pressE");
+        }
     },
     "Interact with NPC"
 );
