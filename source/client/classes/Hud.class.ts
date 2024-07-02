@@ -1,5 +1,5 @@
-import { RageShared } from "../../shared";
-import { weaponList } from "../assets/Weapons.assets";
+import { RageShared } from "@shared";
+import { weaponList } from "@assets/Weapons.assets";
 import { Browser } from "./Browser.class";
 
 export class PlayerHud {

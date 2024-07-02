@@ -2,17 +2,17 @@ import * as React from "react";
 import cn from "classnames";
 
 import colors from "configs/colors";
-import CreatorStore from "store/CharCreator.store";
 import EventManager from "utils/EventManager.util";
 import { observer } from "mobx-react-lite";
 
 import style from "./appearance.module.scss";
+import { creatorStore } from "store/CharCreator.store";
 // const headHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
 
 const chestHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
 const beardHairList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"];
 
-const CreatorPlayerAppearance: React.FC<{ store: CreatorStore }> = ({ store }) => {
+const CreatorPlayerAppearance: React.FC<{ store: typeof creatorStore }> = ({ store }) => {
     const [hairList, setHairList] = React.useState<number>(0);
 
     React.useEffect(() => {

@@ -5,16 +5,16 @@ import cn from "classnames";
 import Pockets from "./components/Pockets";
 import FastSlots from "./components/Quickuse";
 
-import InventoryStore from "store/Inventory.store";
-
 import style from "./main.module.scss";
 
 import { IItemImage, ICurrentItem, ITargetCell, IDropCell } from "../../Interfaces";
 
 import DeleteItem from "./components/DeleteItem";
 import errorIcon from "assets/images/error.svg";
+import { inventoryStore } from "store/Inventory.store";
+
 interface IMainProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     itemInformation: IItemImage | null;
     currentItem: ICurrentItem;
     setItem: (item: ICurrentItem) => void;

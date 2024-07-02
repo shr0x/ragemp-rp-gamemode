@@ -2,15 +2,15 @@ import { FC, useCallback, useMemo, RefObject } from "react";
 import { observer } from "mobx-react-lite";
 import error from "assets/images/error.svg";
 
-import InventoryStore from "store/Inventory.store";
 import { ITargetCell } from "../../Interfaces";
 
 import style from "./dragitem.module.scss";
+import { inventoryStore } from "store/Inventory.store";
 
 interface IDragItemProps {
     viewingBackpack: string | null;
     mouseData: RefObject<HTMLDivElement>;
-    store: InventoryStore;
+    store: typeof inventoryStore;
     targetCell: ITargetCell;
 }
 const DragItem: FC<IDragItemProps> = ({ viewingBackpack, mouseData, store, targetCell }) => {

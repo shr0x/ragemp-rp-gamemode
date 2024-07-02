@@ -1,4 +1,4 @@
-export const weaponList = {
+const weaponList = {
     [mp.game.joaat("weapon_dagger")]: "weapon_dagger",
     [mp.game.joaat("weapon_bat")]: "weapon_bat",
     [mp.game.joaat("weapon_bottle")]: "weapon_bottle",
@@ -95,3 +95,5 @@ export const weaponList = {
     [mp.game.joaat("weapon_parachute")]: "weapon_parachute",
     [mp.game.joaat("weapon_hazardcan")]: "weapon_hazardcan"
 };
+
+export { weaponList };

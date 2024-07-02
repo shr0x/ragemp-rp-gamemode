@@ -10,7 +10,6 @@ import { setRandomOptions } from "./utils/Randomizer.module";
 
 import { regExp } from "utils/Helpers.util";
 
-import CreatorStore from "src/stores/CharCreator.store";
 import EventManager from "utils/EventManager.util";
 import Notification from "utils/NotifyManager.util";
 
@@ -23,8 +22,10 @@ import randomicon from "assets/images/creator/icons/random.svg";
 import createicon from "assets/images/creator/icons/create.svg";
 
 import style from "./creator.module.scss";
+import { creatorStore } from "store/CharCreator.store";
+import { createComponent } from "src/hoc/registerComponent";
 
-const Creator: React.FC<{ store: CreatorStore }> = ({ store }) => {
+const Creator: React.FC<{ store: typeof creatorStore }> = observer(({ store }) => {
     const [optionsPage, setOptionsPage] = React.useState("name"),
         [isNicknameValid, setNicknameValid] = React.useState(false);
 
@@ -106,6 +107,10 @@ const Creator: React.FC<{ store: CreatorStore }> = ({ store }) => {
             </div>
         </div>
     );
-};
+});
 
-export default observer(Creator);
+export default createComponent({
+    props: { store: creatorStore },
+    component: Creator,
+    pageName: "creator"
+});

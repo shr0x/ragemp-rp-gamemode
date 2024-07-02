@@ -1,7 +1,7 @@
-import { Utils } from "../../shared/Utils.module";
-import { Client } from "../classes/Client.class";
-import { InteractablePed } from "../classes/InteractablePed.class";
-import { Inventory } from "../classes/Inventory.class";
+import { Utils } from "@shared/Utils.module";
+import { Client } from "@classes/Client.class";
+import { InteractablePed } from "@classes/InteractablePed.class";
+import { Inventory } from "@classes/Inventory.class";
 
 mp.events.add("playerReady", () => {
     mp.players.local.setCanRagdoll(true);
@@ -30,20 +30,20 @@ mp.events.add("playerReady", () => {
 
     mp.game.weapon.unequipEmptyWeapons = false;
 
-    // new InteractablePed(
-    //     {
-    //         coords: new mp.Vector3(-1190.4173583984375, -1418.8316650390625, 4.29989767074585),
-    //         heading: 160.0332489013672,
-    //         name: "Denny Compston",
-    //         model: "ig_clay",
-    //         key: "p_blackmarket_money",
-    //         event: "p_blackmarket_money",
-    //         type: 0
-    //     },
-    //     () => {
-    //         mp.gui.chat.push("hello world");
-    //     }
-    // );
+    new InteractablePed(
+        {
+            coords: new mp.Vector3(-1190.4173583984375, -1418.8316650390625, 4.29989767074585),
+            heading: 160.0332489013672,
+            name: "Denny Compston",
+            model: "ig_clay",
+            key: "test",
+            event: "test",
+            type: 0
+        },
+        () => {
+            mp.gui.chat.push("hello world");
+        }
+    );
 });
 
 mp.events.add("client::inventory:setVisible", async (enable) => {

@@ -1,12 +1,12 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import cn from "classnames";
 
-import CreatorStore from "store/CharCreator.store";
 import EventManager from "utils/EventManager.util";
 
 import colors from "configs/colors";
 import { observer } from "mobx-react-lite";
 import style from "./facefeatures.module.scss";
+import { creatorStore } from "store/CharCreator.store";
 
 const eyebrowsList = [
     "1",
@@ -44,7 +44,7 @@ const eyebrowsList = [
     "33",
     "34"
 ];
-const CreatorPlayerFace: FC<{ store: CreatorStore }> = ({ store }) => {
+const CreatorPlayerFace: FC<{ store: typeof creatorStore }> = ({ store }) => {
     const [faceFeature, setFaceFeature] = useState("nose");
 
     const pages = useMemo(() => {

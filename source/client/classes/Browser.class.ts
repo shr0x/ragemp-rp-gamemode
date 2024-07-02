@@ -1,5 +1,5 @@
-import { Utils } from "../../shared/Utils.module";
-import { CEFPages } from "../assets/CEFPages.asset";
+import { Utils } from "@shared/Utils.module";
+import { CEFPages } from "@assets/CEFPages.asset";
 
 const disabledControls = [
     0, 30, 31, 21, 36, 22, 44, 38, 71, 72, 59, 60, 42, 43, 85, 86, 75, 15, 14, 228, 37, 229, 348, 156, 199, 204, 172, 173, 37, 199, 44, 178, 244, 220, 221, 218, 219, 16, 17, 200, 202, 322

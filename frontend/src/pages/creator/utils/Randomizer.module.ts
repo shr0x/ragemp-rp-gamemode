@@ -1,7 +1,7 @@
-import CreatorStore from "store/CharCreator.store";
+import { creatorStore } from "store/CharCreator.store";
 import EventManager from "utils/EventManager.util";
 
-export const setRandomOptions = (store: CreatorStore) => {
+export const setRandomOptions = (store: typeof creatorStore) => {
     const getRandom = (min: number, max: number) => {
         return Math.floor(Math.random() * (max - min)) + min;
     };

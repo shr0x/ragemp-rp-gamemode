@@ -3,13 +3,13 @@ import { observer } from "mobx-react-lite";
 import { entries, values } from "mobx";
 import cn from "classnames";
 
-import InventoryStore from "store/Inventory.store";
 import { ICurrentItem, IDropCell, ITargetCell } from "pages/hud/Inventory/Interfaces";
 import Notification from "utils/NotifyManager.util";
 
+import { inventoryStore } from "store/Inventory.store";
 import style from "./pockets.module.scss";
 interface IPocketsProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     setItem: (item: ICurrentItem) => void;
     currentItem: ICurrentItem;
     isCellDragged: boolean;

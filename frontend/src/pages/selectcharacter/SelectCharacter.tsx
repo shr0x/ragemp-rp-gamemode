@@ -1,13 +1,14 @@
 import { observer } from "mobx-react-lite";
 import { FC, useCallback } from "react";
-import PlayerStore from "store/Player.store";
+import { playerStore } from "store/Player.store";
 import style from "./selectcharacter.module.scss";
 import EventManager from "utils/EventManager.util";
 
 import moneyIcon from "assets/images/selector/icons/money.svg";
 import bankIcon from "assets/images/selector/icons/bank.svg";
+import { createComponent } from "src/hoc/registerComponent";
 
-const CharacterSelector: FC<{ store: PlayerStore }> = ({ store }) => {
+const CharacterSelector: FC<{ store: typeof playerStore }> = observer(({ store }) => {
     const selectCharacter = useCallback((id: number) => {
         EventManager.emitServer("character", "select", id);
     }, []);
@@ -48,6 +49,12 @@ const CharacterSelector: FC<{ store: PlayerStore }> = ({ store }) => {
             </div>
         </div>
     );
-};
+});
 
-export default observer(CharacterSelector);
+// export default observer(CharacterSelector);
+
+export default createComponent({
+    props: { store: playerStore },
+    component: CharacterSelector,
+    pageName: "selectcharacter"
+});

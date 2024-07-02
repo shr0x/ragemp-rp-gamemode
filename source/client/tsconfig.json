@@ -2,7 +2,42 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"outDir": "../../../client_packages/",
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"paths": {
+			"@api": [
+				"./api/index.ts"
+			],
+			"@assets/*": [
+				"./assets/*"
+			],
+			"@classes/*": [
+				"./classes/*"
+			],
+			"@events/*": [
+				"./clientevents/*"
+			],
+			"@proc/*": [
+				"./clientprocs/*"
+			],
+			"@modules/*": [
+				"./modules/*"
+			],
+			"@handlers/*": [
+				"./handlers/*"
+			],
+			"@json/*": [
+				"./json/*"
+			],
+			"@prototype/*": [
+				"./prototype/*"
+			],
+			"@shared": [
+				"../shared/index.ts"
+			],
+			"@shared/*": [
+				"../shared/*"
+			]
+		}
 	},
 	"files": [
 		"../../node_modules/@ragempcommunity/types-client/index.d.ts"

@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { observer } from "mobx-react-lite";
 
-import HUDStore from "store/Hud.store";
 import style from "./interactbutton.module.scss";
+import { hudStore } from "store/Hud.store";
 
-const InteractionButton: FC<{ store: HUDStore }> = ({ store }) => {
+const InteractionButton: FC<{ store: typeof hudStore }> = ({ store }) => {
     if (!store.interactButtonData) return null;
     return (
         <div className={style.interactbutton}>

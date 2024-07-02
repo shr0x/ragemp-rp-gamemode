@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { CenterComponent, ICurrentItem } from "../Interfaces";
 
-import InventoryStore from "store/Inventory.store";
 import Notification from "utils/NotifyManager.util";
 import EventManager from "utils/EventManager.util";
+import { inventoryStore } from "store/Inventory.store";
 
 export const OnPlayerDropItem = (
     currentItem: ICurrentItem,
-    store: InventoryStore,
+    store: typeof inventoryStore,
     viewingBackpack: string | null,
     setItem: (item: ICurrentItem) => void,
     setMiddleComponent: (comp: CenterComponent) => void

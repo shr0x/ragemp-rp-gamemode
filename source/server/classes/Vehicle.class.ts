@@ -38,11 +38,10 @@ const defaultVehicleMods: RageShared.Vehicles.Interfaces.IVehicleMods = {
     dirtlevel: 0,
     windows: { 0: false, 1: false, 2: false, 3: false }
 };
+/** A list of all vehicles. */
+const vehiclePool: Vehicle[] = [];
 
-export class Vehicle {
-    /** A list of all vehicles. */
-    static List: Vehicle[] = [];
-
+class Vehicle {
     /** The type of the vehicle. */
     type: RageShared.Vehicles.Enums.VEHICLETYPES;
 
@@ -110,7 +109,7 @@ export class Vehicle {
         if (this.isValid()) {
             this.createMods();
         }
-        Vehicle.List.push(this);
+        vehiclePool.push(this);
     }
 
     /**
@@ -302,9 +301,9 @@ export class Vehicle {
             this._vehicle.destroy();
         }
 
-        const findIndex = Vehicle.List.indexOf(this);
+        const findIndex = vehiclePool.indexOf(this);
         if (findIndex !== -1) {
-            Vehicle.List.splice(findIndex, 1);
+            vehiclePool.splice(findIndex, 1);
         }
     }
 
@@ -406,7 +405,7 @@ export class Vehicle {
      * @param {number} price - The price of the vehicle.
      */
     public async insertVehicle(vehicle: VehicleMp, modelName: string, price: number) {
-        const serverVehicle = Vehicle.at(vehicle.id);
+        const serverVehicle = vehicleManager.at(vehicle.id);
         if (!serverVehicle) return;
 
         let vehicleEntity = new VehicleEntity();
@@ -430,11 +429,32 @@ export class Vehicle {
     }
 
     /**
+     * Checks if a vehicle class is a windowed vehicle.
+     * @param {number} vehicleClass - The class of the vehicle.
+     * @returns {boolean} - Whether the vehicle class is windowed.
+     */
+    public isWindowedVehicle(vehicleClass: number): boolean {
+        if (
+            [
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.BOATS,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.CYCLES,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.UTILITY,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.MOTORCYCLES,
+                RageShared.Vehicles.Enums.VEHICLE_CLASS.OPEN_WHEEL
+            ].includes(vehicleClass)
+        )
+            return false;
+        return true;
+    }
+}
+
+const vehicleManager = {
+    /**
      * Saves the vehicle to the database.
      * @param {VehicleMp} vehicle - The vehicle to save.
      */
-    static async saveVehicle(vehicle: VehicleMp) {
-        const serverVehicle = Vehicle.at(vehicle.id);
+    async saveVehicle(vehicle: VehicleMp) {
+        const serverVehicle = vehicleManager.at(vehicle.id);
         if (!serverVehicle || !serverVehicle.isValid() || !serverVehicle._vehicle || !mp.vehicles.exists(serverVehicle._vehicle)) return;
 
         const vehicleSQL = serverVehicle.getData("sqlid");
@@ -470,16 +490,16 @@ export class Vehicle {
                 impoundState: serverVehicle.getData("impoundState")
             }
         );
-    }
+    },
 
     /**
      * Finds a vehicle by ragemp vehicle api ID.
      * @param {number} id - The ID of the vehicle.
      * @returns {Vehicle | null} - The found vehicle or null.
      */
-    static at(id: number): Vehicle | null {
+    at(id: number): Vehicle | null {
         let foundvehicle: Vehicle | null = null;
-        const vehicles = Vehicle.List;
+        const vehicles = vehiclePool;
         for (const vehicle of vehicles) {
             if (vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle) && vehicle._vehicle.id === id) {
                 foundvehicle = vehicle;
@@ -487,16 +507,16 @@ export class Vehicle {
             }
         }
         return foundvehicle;
-    }
+    },
 
     /**
      * Finds a vehicle by its SQL ID.
      * @param {number} id - The SQL ID of the vehicle.
      * @returns {Vehicle | null} - The found vehicle or null.
      */
-    static atSQL(id: number): Vehicle | null {
+    atSQL(id: number): Vehicle | null {
         let foundvehicle: Vehicle | null = null;
-        const vehicles = Vehicle.List;
+        const vehicles = vehiclePool;
         for (const vehicle of vehicles) {
             if (vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle) && vehicle.getData("sqlid") === id) {
                 foundvehicle = vehicle;
@@ -504,7 +524,7 @@ export class Vehicle {
             }
         }
         return foundvehicle;
-    }
+    },
 
     /**
      * Checks if a vehicle is in the world.
@@ -512,11 +532,11 @@ export class Vehicle {
      * @param {boolean} [isOwned=false] - Whether the vehicle is owned.
      * @returns {VehicleMp | null} - The found vehicle or null.
      */
-    static isInWorld(id: number, isOwned: boolean = false): VehicleMp | null {
-        const vehicle = Vehicle.atSQL(id);
+    isInWorld(id: number, isOwned: boolean = false): VehicleMp | null {
+        const vehicle = vehicleManager.atSQL(id);
         if (vehicle && vehicle._vehicle) return vehicle._vehicle;
         return null;
-    }
+    },
 
     /**
      * Gets the nearest vehicle to a player within a certain radius.
@@ -524,32 +544,15 @@ export class Vehicle {
      * @param {number} radius - The radius to search within.
      * @returns {Vehicle | null} - The nearest vehicle or null.
      */
-    static getNearest = (player: PlayerMp, radius: number): Vehicle | null => {
-        for (const vehicle of Vehicle.List) {
+    getNearest(player: PlayerMp, radius: number): Vehicle | null {
+        for (const vehicle of vehiclePool) {
             if (vehicle && vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle)) {
                 if (RAGERP.utils.distanceToPos(player.position, vehicle._vehicle.position) > radius) continue;
                 return vehicle;
             }
         }
         return null;
-    };
-
-    /**
-     * Checks if a vehicle class is a windowed vehicle.
-     * @param {number} vehicleClass - The class of the vehicle.
-     * @returns {boolean} - Whether the vehicle class is windowed.
-     */
-    public isWindowedVehicle(vehicleClass: number): boolean {
-        if (
-            [
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.BOATS,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.CYCLES,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.UTILITY,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.MOTORCYCLES,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.OPEN_WHEEL
-            ].includes(vehicleClass)
-        )
-            return false;
-        return true;
     }
-}
+};
+
+export { vehiclePool, Vehicle, vehicleManager };

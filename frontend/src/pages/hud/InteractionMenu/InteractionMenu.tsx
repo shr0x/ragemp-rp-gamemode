@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Menu, MenuItem, SubMenu } from "./components";
 import style from "./interactionmenu.module.scss";
-import HudStore from "store/Hud.store";
 import { observer } from "mobx-react-lite";
 import EventManager from "utils/EventManager.util";
+import { hudStore } from "store/Hud.store";
 
-const InteractionMenu: FC<{ store: HudStore }> = ({ store }) => {
+const InteractionMenu: FC<{ store: typeof hudStore }> = ({ store }) => {
     const handleItemClick = (event: any, _index: number, data: number) => {
         EventManager.emitClient("hud", "interactResult", data);
         EventManager.emitServer("hud", "interactResult", data);

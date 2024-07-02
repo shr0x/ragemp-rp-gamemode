@@ -1,12 +1,21 @@
-import { FC, useRef, useEffect, useCallback, useState } from "react";
+import { FC, useRef, useEffect, useCallback, useState, MutableRefObject } from "react";
 import { observer } from "mobx-react-lite";
 import cn from "classnames";
 import EventManager from "utils/EventManager.util";
-import ChatStore from "store/Chat.store";
+import { chatStore } from "store/Chat.store";
+
 import enterIcon from "assets/images/hud/icons/enter.svg";
 import style from "./input.module.scss";
 
-const ChatInput: FC<{ store: ChatStore; chatFocusFunc: () => void; chatBlur: () => void }> = ({ store, chatFocusFunc, chatBlur }) => {
+interface ChatInputProps {
+    store: typeof chatStore;
+    chatFocusFunc: () => void;
+    chatBlur: () => void;
+    readonly chatRef: MutableRefObject<HTMLDivElement | null>;
+    setChatOpacity: (opacity: number) => void;
+}
+
+const ChatInput: FC<ChatInputProps> = ({ store, chatFocusFunc, chatBlur, chatRef, setChatOpacity }) => {
     const [isFocused, setFocused] = useState(false);
 
     const [selection, setSelection] = useState<{ start: number; end: number }>({ start: 0, end: 0 });
@@ -26,6 +35,10 @@ const ChatInput: FC<{ store: ChatStore; chatFocusFunc: () => void; chatBlur: () 
 
             push: (text: string) => {
                 store.fetchNewMessage(text);
+                setChatOpacity(1.0);
+                setTimeout(() => {
+                    if (chatRef.current) chatRef.current.scrollTop = 1000000;
+                }, 50);
             },
 
             activate: (toggle: boolean) => {

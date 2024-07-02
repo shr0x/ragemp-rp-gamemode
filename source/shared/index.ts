@@ -23,6 +23,16 @@ export namespace RageShared {
             TYPE_ERROR = "error",
             TYPE_WARNING = "warning"
         }
+
+        export const enum ADMIN_LEVELS {
+            NONE = 0,
+            LEVEL_ONE,
+            LEVEL_TWO,
+            LEVEL_THREE,
+            LEVEL_FOUR,
+            LEVEL_FIVE,
+            LEVEL_SIX
+        }
     }
 
     export namespace Vehicles {
@@ -222,6 +232,15 @@ export namespace RageShared {
 
     export namespace Players {
         export namespace Interfaces {
+            export interface ICharacters {
+                id: number;
+                name: string;
+                level: number;
+                type: 0 | 1 | 2;
+                money: number;
+                bank: number;
+                lastlogin: string;
+            }
             export interface IPlayerData {
                 id: number;
                 ping: number;

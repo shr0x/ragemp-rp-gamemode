@@ -1,59 +1,49 @@
 
 #  Getting started with frontend
 >
-<br>
 
-<div>
-  <img title="a title" alt="Alt text" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" width="120px">
-  <img title="a title" alt="Alt text" src="https://mobx.js.org/assets/mobx.png" width="120px">
-</div>
-
-Introduction:
+## Introduction:
 > Our frontend is built in react typescript using mobx as a data storage if not management.
 
 [About MobX · MobX](https://mobx.js.org/README.html)<br>
 [React](https://react.dev/)
 
+
 Understanding how store works:
-
 * Each page in the frontend has its own storage class described in the src/stores page
-
-* This storage is used to hold data which is sent from the backend but also holds temporary data depending on what page the player is on and what they're doing which then this data is sent to the backend.
+* This store is used to hold data and methods which control and update page components.
+* Methods are then called by backend using EventManager and data is rendered on page right after.
 
 >
 
 Understanding bridge, events and its functions within the code.<br>
 
-Event manager, [EventManager.util.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/frontend/src/utils/EventManager.util.ts) is used on frontend to hold events that can be called from backend but also trigger backend server-client side events.
 
-  
 
 Example initializing chat events which then can be called from the backend:
 
-```ts
-//This function is initialized on App.tsx
-export const InitChatEvents  = (chatStore: ChatStore) => {
-    return  useEffect(() => {
-        EventManager.addHandler("chat", "setActive", (data: boolean) =>  chatStore.setActive(data));
-        EventManager.stopAddingHandlers("chat");
-        return () =>  EventManager.removeTargetHandlers("chat");
-    }, [chatStore]);
-};
 
-```
 
 And then using the CEFEvent.class.ts (described below) you're able to trigger this event from the server itself:
 
 * This function will trigger the event initialized above which then will trigger EventManager.callHandler and callHandler will update the chat store which is being observabled by mobx and rendered on change.
 
 ```ts
+import {Cef_Event} from '@classes/CefEvent.class';
 
-Cef_Event.emit(player, "chat", "setActive", true);// -> returns player.call('client::eventManager', ['cef::chat:setActive', true]);
+Cef_Event.emit(player, "chat", "setActive", true);// raw -> player.call('client::eventManager', ['cef::chat:setActive', true]);
 
 ```
-[Browser.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/backend/client/classes/Browser.class.ts) contains the 'bridge' code, bridge allows you to call server-events directly from frontend and frontend events directly from server.
+Or using API method
+```typescript
+import {RAGERP} from '@api';
 
-  
+RAGERP.cef.emit(player, "chat", "setActive", true);// raw -> player.call('client::eventManager', ['cef::chat:setActive', true]);
+```
+
+# Bridge
+
+[Browser.class.ts](https://github.com/shr0x/ragemp-rp-gamemode/blob/main/source/client/classes/Browser.class.ts) contains the 'bridge' code, bridge allows you to call server-events directly from frontend and frontend events directly from server.
 
 If you have a look at [CEFEvent.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/server/classes/CEFEvent.class.ts) on backend server side, you can see there's a class made to handle frontend events or to be more clear events that are triggered from frontend but also trigger frontend events directly from the server.
 

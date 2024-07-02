@@ -9,15 +9,15 @@ import wrongIcon from "assets/images/creator/icons/error.svg";
 import { badWords, badNames } from "../../utils/Textchecker";
 
 import { regExp } from "utils/Helpers.util";
-import CreatorStore from "src/stores/CharCreator.store";
 import EventManager from "utils/EventManager.util";
 
 import style from "./generaldata.module.scss";
 
 import maleicon from "assets/images/creator/icons/male.svg";
 import femaleicon from "assets/images/creator/icons/female.svg";
+import { creatorStore } from "store/CharCreator.store";
 
-const CreatorPlayerName: FC<{ store: CreatorStore; isNicknameValid: boolean; setNicknameValid: (value: boolean) => void }> = ({ store, isNicknameValid, setNicknameValid }) => {
+const CreatorPlayerName: FC<{ store: typeof creatorStore; isNicknameValid: boolean; setNicknameValid: (value: boolean) => void }> = ({ store, isNicknameValid, setNicknameValid }) => {
     const [parents, setParents] = useState({ mother: 0, father: 0 });
 
     const fathersList = useMemo(

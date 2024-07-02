@@ -5,7 +5,7 @@ class _CommandRegistry {
     _notFoundMessage: string;
 
     _commands: Map<string, { name: string; aliases?: string[]; adminlevel?: number; description?: string; run: Function }>;
-    _aliasToCommand: any;
+    _aliasToCommand: Map<string, string>;
 
     constructor() {
         this.notFoundMessageEnabled = true;
@@ -105,6 +105,7 @@ class _CommandRegistry {
 
         // Finding by name failed, try to find by alias
         const aliasCommand = this._aliasToCommand.get(commandName);
+        if (!aliasCommand) return null;
         return this._commands.get(aliasCommand);
     }
 

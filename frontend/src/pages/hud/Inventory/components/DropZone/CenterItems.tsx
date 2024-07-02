@@ -4,10 +4,11 @@ import PutOnZone from "./components/PutOnZone";
 
 import { ICurrentItem, IDropCell, ITargetCell } from "../../Interfaces";
 import Clothes from "../Clothes/Clothes";
-import InventoryStore from "store/Inventory.store";
+import { inventoryStore } from "store/Inventory.store";
+
 import style from "./centeritems.module.scss";
 interface ICenterProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     currentItem: ICurrentItem;
     setItem: (item: ICurrentItem) => void;
     setTargetCell: (target: ITargetCell) => void;

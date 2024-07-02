@@ -8,9 +8,6 @@ import ConfirmItemDrop from "./components/ConfirmDrop/ConfirmDrop";
 import Split from "./components/Split/SplitItem";
 import Modal from "./components/Modal/Modal";
 
-import InventoryStore from "store/Inventory.store";
-
-import PlayerStore from "store/Player.store";
 import EventManager from "utils/EventManager.util";
 import CenterItems from "./components/DropZone/CenterItems";
 import Notification from "utils/NotifyManager.util";
@@ -26,8 +23,10 @@ import { OnPlayerDropItem } from "./actions/DropItem";
 import { OnPlayerSplitItem } from "./actions/SplitItem";
 import { OnPlayerDragItem } from "./actions/ItemDrag";
 import { IItemImage, ICurrentItem, ITargetCell, IDropCell, CenterComponent } from "./Interfaces";
+import { inventoryStore } from "store/Inventory.store";
+import { playerStore } from "store/Player.store";
 
-const Inventory: FC<{ store: InventoryStore; playerStore: PlayerStore }> = observer(({ store, playerStore }) => {
+const Inventory: FC<{ store: typeof inventoryStore; playerStore: typeof playerStore }> = observer(({ store, playerStore }) => {
     const [itemInformation, setItemInformation] = useState<IItemImage | null>(null);
 
     const [currentItem, setItem] = useState<ICurrentItem>({ component: null, id: null, options: null });

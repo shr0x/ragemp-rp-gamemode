@@ -93,8 +93,8 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, animationTimeout, sh
                 className={clsx(props.className, cx("menu", transition, animation, theme, !data.drawBackground && "no-bg"))}
             >
                 <circle key={1} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 10} fill="none" stroke="#AAAAAA" />
-                <circle key={2} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 20} fill="none" stroke="#afafaf" />
-                <circle key={3} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 30} fill="none" stroke="#AAAAAA" />
+                {/* <circle key={2} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 20} fill="none" stroke="#afafaf" /> */}
+                {/* <circle key={3} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 30} fill="none" stroke="#AAAAAA" /> */}
 
                 {React.Children.map(props.children, (child, index) => {
                     if (React.isValidElement(child)) {

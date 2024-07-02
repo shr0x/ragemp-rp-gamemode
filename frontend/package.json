@@ -2,7 +2,6 @@
   "name": "ragemp-rp-frontend",
   "version": "0.0.4",
   "description": "Frontend part of RAGEMP RP Gamemode",
-  "main": "index.js",
   "homepage": ".",
   "scripts": {
     "start": "vite",
@@ -33,12 +32,6 @@
     "mobx": "^6.12.0",
     "mobx-react-lite": "^3.4.0",
     "typescript-eslint": "^7.10.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

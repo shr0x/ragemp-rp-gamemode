@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import EventManager from "utils/EventManager.util";
 import ChatInput from "./components/ChatInput";
-import ChatStore from "store/Chat.store";
 import style from "./chat.module.scss";
+import { chatStore } from "store/Chat.store";
 
 let chatHideTimeout: NodeJS.Timeout | null = null;
 let chatFadeInterval: NodeJS.Timeout | null = null;
 
-const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVisible }) => {
+const Chat: React.FC<{ store: typeof chatStore; isVisible: boolean }> = ({ store, isVisible }) => {
     const [chatOpacity, setChatOpacity] = useState(1.0);
     const [chatVisibility, setchatVisibility] = useState(10000);
     const chat = useRef<HTMLDivElement | null>(null);
@@ -83,7 +83,7 @@ const Chat: React.FC<{ store: ChatStore; isVisible: boolean }> = ({ store, isVis
                     </div>
                 ))}
             </div>
-            <ChatInput store={store} chatFocusFunc={chatFocusFunc} chatBlur={chatBlur} />
+            <ChatInput store={store} chatFocusFunc={chatFocusFunc} chatBlur={chatBlur} chatRef={chat} setChatOpacity={setChatOpacity} />
         </div>
     );
 };

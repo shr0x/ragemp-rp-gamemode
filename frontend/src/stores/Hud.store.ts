@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import EventManager from "utils/EventManager.util";
 import { RageShared } from "../../../source/shared";
 
@@ -13,8 +13,7 @@ interface IInteractionMenu {
     items: IMenuItems[];
 }
 
-class HudStore {
-    @observable
+class _HudStore {
     interactionMenu: IInteractionMenu = observable.object({
         isActive: false,
         items: [
@@ -44,19 +43,16 @@ class HudStore {
         ]
     });
 
-    @observable
     interactButtonData: {
         button: string;
         text: string;
     } | null = null;
 
-    @observable
     areaData: { area: string; street: string } = observable.object({
         area: "San Andreas",
         street: "Los SAntos International"
     });
 
-    @observable
     vehicleData: RageShared.Vehicles.Interfaces.SpeedometerData = observable.object({
         isActive: false,
         gear: 5,
@@ -68,28 +64,25 @@ class HudStore {
     });
 
     constructor() {
-        makeObservable(this);
+        makeAutoObservable(this);
+        this.createEvents();
     }
-    @action.bound
     setInteractionMenu(data: IInteractionMenu) {
         this.interactionMenu = data;
     }
-    @action.bound hideInteraction() {
+    hideInteraction() {
         this.setInteractionMenu({ isActive: false, items: [] });
     }
 
-    @action.bound
     setVehicleData<K extends keyof RageShared.Vehicles.Interfaces.SpeedometerData>(data: { key: K; data: RageShared.Vehicles.Interfaces.SpeedometerData[K] }) {
         if (typeof this.vehicleData[data.key] === "undefined") return console.log(data.key, "dont exist");
         this.vehicleData[data.key] = data.data;
     }
 
-    @action.bound
     setAreaData(data: { area: string; street: string }) {
         this.areaData = data;
     }
 
-    @action.bound
     setInteractionButtonData(data: typeof this.interactButtonData) {
         this.interactButtonData = data;
     }
@@ -103,4 +96,4 @@ class HudStore {
     }
 }
 
-export default HudStore;
+export const hudStore = new _HudStore();

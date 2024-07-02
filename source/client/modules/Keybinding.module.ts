@@ -1,9 +1,10 @@
-import { Browser } from "../classes/Browser.class";
-import { ChatAPI } from "../classes/Chat.class";
-import { Client } from "../classes/Client.class";
-import { Inventory } from "../classes/Inventory.class";
-import { PlayerKeybind } from "../classes/Keybind.class";
-import { EntityRaycast } from "../classes/Raycast.class";
+import { InteractablePed } from "@classes/InteractablePed.class";
+import { Browser } from "@classes/Browser.class";
+import { ChatAPI } from "@classes/Chat.class";
+import { Client } from "@classes/Client.class";
+import { Inventory } from "@classes/Inventory.class";
+import { PlayerKeybind } from "@classes/Keybind.class";
+import { EntityRaycast } from "@classes/Raycast.class";
 
 /**
  * Adds a keybind for toggling inventory fast slots.
@@ -41,6 +42,17 @@ PlayerKeybind.addKeybind(
         mp.events.callRemote(EntityRaycast.entity.type === "player" ? "server::interaction:player" : "server::interaction:vehicle", EntityRaycast.entity.remoteId);
     },
     "Interact with an entity"
+);
+
+PlayerKeybind.addKeybind(
+    { keyCode: 69, up: false },
+    async () => {
+        if (ChatAPI.chatOpen || Browser.currentPage || mp.players.local.getVariable("isDead") || mp.players.local.vehicle) return;
+        const ped = InteractablePed.getClosest();
+        if (!ped) return;
+        ped.onKeyPress.constructor.name === "AsyncFunction" ? await ped.onKeyPress() : ped.onKeyPress();
+    },
+    "Interact with NPC"
 );
 
 PlayerKeybind.addKeybind(

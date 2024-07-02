@@ -2,13 +2,13 @@ import error from "assets/images/error.svg";
 
 import EventManager from "utils/EventManager.util";
 import { FC, useCallback, useEffect, useRef } from "react";
-import InventoryStore from "store/Inventory.store";
 
 import style from "./confirmdrop.module.scss";
 import { CenterComponent } from "../../Interfaces";
+import { inventoryStore } from "store/Inventory.store";
 
 interface IConfirmItemDropProps {
-    store: InventoryStore;
+    store: typeof inventoryStore;
     setMiddleComponent: (page: CenterComponent) => void;
     handleDrop: (isAccepted?: boolean) => void;
     itemInformation: any;

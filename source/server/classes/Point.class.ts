@@ -39,9 +39,9 @@ interface ILabelData {
         los?: boolean;
     };
 }
+export const dynamicPointPool: DynamicPoint[] = [];
 
 export class DynamicPoint {
-    static List: DynamicPoint[] = [];
     id: string;
     pointShape: ColshapeMp | null = null;
     textLabel: TextLabelMp | null = null;
@@ -72,7 +72,7 @@ export class DynamicPoint {
         this.pointShape.enterHandler = handlers.enterHandler;
         this.pointShape.exitHandler = handlers.exitHandler;
         this.onKeyPress = handlers.onKeyPress;
-        DynamicPoint.List.push(this);
+        dynamicPointPool.push(this);
     }
 
     /**
@@ -132,7 +132,7 @@ export class DynamicPoint {
      * @returns {DynamicPoint | undefined} - The found dynamic point or undefined.
      */
     public exists(point: DynamicPoint) {
-        return DynamicPoint.List.find((x) => x.id === point.id);
+        return dynamicPointPool.find((x) => x.id === point.id);
     }
 
     /**
@@ -147,9 +147,9 @@ export class DynamicPoint {
             this.textLabel.destroy();
         }
 
-        let point = DynamicPoint.List.find((x) => x.id === this.id);
+        let point = dynamicPointPool.find((x) => x.id === this.id);
         if (!point) return;
-        DynamicPoint.List.splice(DynamicPoint.List.indexOf(point), 1);
+        dynamicPointPool.splice(dynamicPointPool.indexOf(point), 1);
     }
 
     /**
@@ -159,8 +159,8 @@ export class DynamicPoint {
      */
     static getNearestPoint(player: PlayerMp): DynamicPoint | null {
         let found_point: DynamicPoint | null = null;
-        for (let i = 0; i < DynamicPoint.List.length; i++) {
-            let point = DynamicPoint.List[i];
+        for (let i = 0; i < dynamicPointPool.length; i++) {
+            let point = dynamicPointPool[i];
             if (!point.pointShape || !mp.colshapes.exists(point.pointShape)) continue;
             if (player.dimension === point.dimension && point.pointShape.isPointWithin(player.position)) {
                 found_point = point;
