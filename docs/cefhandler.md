@@ -197,3 +197,37 @@ That's pretty much it, if you're still struggling feel free to open a general qu
 You can also check this video, of how the process of creating a page works, but it does not involve a page with store in it.
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/Q-RpLBSZNlQ/0.jpg)](https://www.youtube.com/watch?v=Q-RpLBSZNlQ "How to create a page")
+
+
+
+
+# Bridge
+
+[Browser.class.ts](https://github.com/shr0x/ragemp-rp-gamemode/blob/main/source/client/classes/Browser.class.ts) contains the 'bridge' code, bridge allows you to call server-events directly from frontend and frontend events directly from server.
+
+If you have a look at [CEFEvent.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/server/classes/CEFEvent.class.ts) on backend server side, you can see there's a class made to handle frontend events or to be more clear events that are triggered from frontend but also trigger frontend events directly from the server.
+
+  
+
+If you have a look at [AuthForm.tsx](https://github.com/shr0x/ragemp-rp-framework/blob/main/frontend/src/pages/auth/components/AuthForm.tsx) there we trigger a server event when the player logs in like:
+
+```ts
+EventManager.emitServer("auth", "loginPlayer", { username, password });
+```
+
+And this event can be handled on backend server side by adding it using the CEFEvent class methods:
+
+```ts
+CefEvent.register("auth", "loginPlayer", async (player:  PlayerMp, data:  string) => {
+    const { username, password } =  JSON.parse(data);
+    //do what you want
+})
+```
+
+Alternatively you could also add this event using the RAGEMP API like:
+
+```ts
+mp.events.add('server::auth:loginPlayer', async (player:  PlayerMp, data:  string) => {
+    //do what you want
+})
+```
