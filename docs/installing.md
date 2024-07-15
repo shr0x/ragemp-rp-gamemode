@@ -55,8 +55,6 @@ Server side<br>
 ![.vid](./gifs/server-watch.gif)
 
 >
-**Adding your first command:**<br>
->
 **Creating your first page:**<br>
 >
-**Using bridge to call CEF events directly from the server and vice versa:**<br>
+Check cef handler docs to find out how to create a page. [Click here](https://github.com/shr0x/ragemp-rp-gamemode/blob/main/docs/cefhandler.md)
