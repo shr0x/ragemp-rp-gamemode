@@ -34,7 +34,7 @@ interface CefEventMap {
 ```
 This pointers come from page store, if you're creating a page and has a store then inside that store you are required to create events that will receive and update data to render in that page.
 
-An example of how to create a page and a page store, let's say you're creating a vehicle list 
+An example of how to create a page and a page store, let's say you're creating a vehicle list
 
 Let's create a store named `VehicleList.store.ts` in `frontend/src/stores`
 ```typescript
@@ -181,7 +181,7 @@ RAGERP.commands.add({
     run: (player: PlayerMp) => {
         
         //let's create a list of vehicles to send to the frontend
-        const vehicleList = ["sultanrs", "bati", "blista", "club"];
+        const vehicleList = [{ model: "sultanrs" }, { model: "bati" }, { model: "blista" }, { model: "club" }];
         
         //Let's send the data to the newly created page and open it up.
         RAGERP.cef.emit(player, "vehicleList", "setData", vehicleList);
@@ -207,7 +207,7 @@ You can also check this video, of how the process of creating a page works, but 
 
 If you have a look at [CEFEvent.class.ts](https://github.com/shr0x/ragemp-rp-framework/blob/main/source/server/classes/CEFEvent.class.ts) on backend server side, you can see there's a class made to handle frontend events or to be more clear events that are triggered from frontend but also trigger frontend events directly from the server.
 
-  
+
 
 If you have a look at [AuthForm.tsx](https://github.com/shr0x/ragemp-rp-framework/blob/main/frontend/src/pages/auth/components/AuthForm.tsx) there we trigger a server event when the player logs in like:
 
