@@ -325,7 +325,7 @@ class InventoryClothes extends QuickUse {
             }
             case inventoryAssets.INVENTORY_CLOTHING.TYPE_JACKET: {
                 if (itemData.isPlaced) {
-                    const shirtData = itemData.key.replace("tShirt", "");
+                    const shirtData = itemData.key.replace(RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TOP, "");
                     const undershirtDrawable = JSON.parse(shirtData);
                     if (typeof undershirtDrawable == "undefined" || typeof undershirtDrawable.drawable == "undefined") {
                         return;
