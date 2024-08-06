@@ -252,6 +252,7 @@ export namespace RageShared {
                     ammo: number;
                     maxammo: number;
                 } | null;
+                deathTime: number;
             }
             export const enum CharacterType {
                 TYPE_CREATE = 0,

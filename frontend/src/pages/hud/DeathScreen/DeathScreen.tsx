@@ -6,21 +6,20 @@ import EventManager from "utils/EventManager.util";
 import style from "./deathscreen.module.scss";
 
 const DeathScreen: FC<{ store: typeof playerStore }> = observer(({ store }) => {
-    const [timeLeft, setTimeLeft] = useState(30);
     const [isActive, setActive] = useState(false);
 
     useEffect(() => {
         if (!isActive) return;
 
-        if (timeLeft === 0) {
+        if (store.data.deathTime === 0) {
             EventManager.emitClient("player", "canAcceptDeath", true);
             return;
         }
         const timer = setTimeout(() => {
-            setTimeLeft(timeLeft - 1);
+            store.setData("deathTime", store.data.deathTime - 1);
         }, 1000);
         return () => clearTimeout(timer);
-    }, [isActive, timeLeft]);
+    }, [isActive, store.data.deathTime]);
 
     useEffect(() => {
         setActive(store.data.isDead);
@@ -46,12 +45,12 @@ const DeathScreen: FC<{ store: typeof playerStore }> = observer(({ store }) => {
             <div className={style.header}>you are injured right now...</div>
             <div className={style.desc}>You are injured. Please wait for doctors to arrive.</div>
             <div className={style.bottomdata}>
-                {timeLeft === 0 ? (
+                {store.data.deathTime === 0 ? (
                     "PRESS E TO ACCEPT DEATH"
                 ) : (
                     <div className={style.timer}>
                         <span className={style.text}>00</span>
-                        <span className={style.text}>{timeLeft}</span>
+                        <span className={style.text}>{store.data.deathTime}</span>
                     </div>
                 )}
             </div>

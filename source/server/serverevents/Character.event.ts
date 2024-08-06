@@ -22,7 +22,7 @@ RAGERP.cef.register("creator", "navigation", async (player: PlayerMp, name: stri
 RAGERP.cef.register("character", "select", async (player: PlayerMp, data: string) => {
     const id = JSON.parse(data);
 
-    const character = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { id }, relations: ["items"] });
+    const character = await RAGERP.database.getRepository(CharacterEntity).findOne({ where: { id }, relations: ["items", "bank"] });
     if (!character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "An error occurred selecting your character.");
 
     player.character = character;

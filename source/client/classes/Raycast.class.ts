@@ -1,14 +1,30 @@
 import { Utils } from "@shared/Utils.module";
+let overlayParams = {
+    enableDepth: false,
+    deleteWhenUnused: false,
+    keepNonBlurred: true,
+    processAttachments: true,
+    fill: { enable: false, color: 0xFFFFFFFF },
+    noise: { enable: false, size: 0.0, speed: 0.0, intensity: 0.0 },
+    outline: { enable: true, color: 0x00AA00AA, width: 2.0, blurRadius: 1.0, blurIntensity: 1.0 },
+    wireframe: { enable: false }
+};
 
 class _EntityRaycast {
     entity: EntityMp | null = null;
 
     rayCastInterval: NodeJS.Timer | null = null;
     renderEvent: EventMp | null = null;
+    batch: any;
 
     constructor() {
         this.rayCastInterval = setInterval(this.process.bind(this), 100);
         this.renderEvent = new mp.Event("render", this.render.bind(this));
+        //@ts-ignore
+        mp.game.graphics.setEntityOverlayPassEnabled(true);
+        //@ts-ignore
+        this.batch = mp.game.graphics.createEntityOverlayBatch(overlayParams);
+        mp.console.logWarning(`overlayhandle: ${this.batch.handle}`)
     }
 
     private render() {
@@ -17,8 +33,8 @@ class _EntityRaycast {
 
         const foundEntity = this.entity.type === "vehicle" ? mp.vehicles : mp.players;
         if (this.entity.type === "vehicle" && mp.vehicles.atHandle(this.entity.handle).getEngineHealth() < 0) return;
-        const coords = foundEntity.atHandle(this.entity.handle).getCoords(false);
-
+        const entity = foundEntity.atHandle(this.entity.handle);
+        const coords = entity.getCoords(false);
         mp.game.graphics.setDrawOrigin(coords.x, coords.y, coords.z, 0);
 
         if (this.entity.type === "player" && mp.players.atHandle(this.entity.handle)) {
@@ -27,6 +43,8 @@ class _EntityRaycast {
         } else if (this.entity.type === "vehicle") {
             mp.game.graphics.drawMarker(0, coords.x, coords.y, coords.z + 2, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 255, 0, 0, 255, true, false, 2, false, null, null, false);
             mp.game.graphics.drawText("[G]", [0, 0], { font: 4, color: [255, 255, 255, 255], outline: true, centre: true });
+            this.batch.addThisFrame(entity);
+            this.batch.update(overlayParams);
         }
         mp.game.graphics.clearDrawOrigin();
     }

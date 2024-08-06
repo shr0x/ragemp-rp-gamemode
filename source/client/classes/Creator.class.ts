@@ -1,4 +1,4 @@
-import { femaleHairOverlays, genderPreset, maleHairOverlays } from "../assets/Creator.assets";
+import { femaleHairOverlays, genderPreset, maleHairOverlays } from "@assets/Creator.assets";
 import { Client } from "./Client.class";
 import { Utils } from "@shared/Utils.module";
 import { Camera } from "./Camera.class";
@@ -196,13 +196,6 @@ class ModelCreator {
         try {
             mp.players.local.setEyeColor(this.chosenData.color.eyes);
 
-            // mp.events.callRemote( 'server::character:setFaceFeatures', JSON.stringify( this.chosenData.face ) );
-
-            // let index = 0;
-            // for ( const [ _key, value ] of Object.entries( this.chosenData.face ) ) {
-            //     mp.players.local.setFaceFeature( index, value );
-            //     index++;
-            // }
             if (this.chosenData.sex === 0) {
                 mp.players.local.setComponentVariation(11, 15, 0, 2); // Jacket
                 mp.players.local.setComponentVariation(3, 15, 0, 2); // Torso
@@ -210,8 +203,7 @@ class ModelCreator {
                 mp.players.local.setComponentVariation(4, 21, 0, 2); // Trousers
                 mp.players.local.setComponentVariation(6, 34, 0, 2); // Boots
                 mp.players.local.clearAllProps();
-            }
-            if (this.chosenData.sex === 1) {
+            } else {
                 mp.players.local.setComponentVariation(11, 15, 0, 2);
                 mp.players.local.setComponentVariation(3, 15, 0, 2);
                 mp.players.local.setComponentVariation(8, -1, 0, 2);
@@ -248,7 +240,7 @@ class ModelCreator {
                 // mp.players.local.taskPlayAnim('mp_character_creation@lineup@female_b', 'intro_facial', 8, -8, -1, 9, 0.0, false, false, false);
                 // mp.players.local.taskPlayAnim('mp_character_creation@lineup@male_a', 'intro_facial', 8, -8, -1, 9, 0.0, false, false, false);
 
-                Client.playAnimationEx(sex === "mp_f_freemode_01" ? "mp_character_creation@lineup@female_b" : "mp_character_creation@lineup@male_a", "intro_facial", 9);
+                await Client.playAnimationEx(sex === "mp_f_freemode_01" ? "mp_character_creation@lineup@female_b" : "mp_character_creation@lineup@male_a", "intro_facial", 9);
 
                 this.chosenData.sex = firstData;
 
@@ -265,10 +257,8 @@ class ModelCreator {
             case "hair": {
                 if (typeof secondData === "undefined") return;
                 if (firstData === 0) {
-                    //hair style
                     this.chosenData.hair.head = secondData;
                 } else if (firstData === 1) {
-                    //eyebrows
                     this.chosenData.hair.eyebrows = secondData;
                 } else if (firstData === 2) {
                     this.chosenData.hair.chest = secondData;

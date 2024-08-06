@@ -1,6 +1,7 @@
 import { hospitalSpawns } from "@assets/PlayerSpawn.asset";
 import { RageShared } from "@shared/index";
 import { Utils } from "@shared/utils.module";
+import {CefEvent} from "@classes/CEFEvent.class";
 
 const randomDeathAnimations = [
     { dict: "missfinale_c1@", anim: "lying_dead_player0" },
@@ -42,6 +43,7 @@ function playerAcceptedDeath(player: PlayerMp) {
         return;
     }
     player.character.setStoreData(player, "isDead", false);
+    player.character.setStoreData(player, "deathTime", 30);
     player.setVariable("isDead", false);
     player.setOwnVariable("deathAnim", null);
 
@@ -49,6 +51,8 @@ function playerAcceptedDeath(player: PlayerMp) {
     player.heading = hospitalData.heading;
     player.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
     player.stopScreenEffect("DeathFailMPIn");
+
+
 }
 async function playerDeath(player: PlayerMp, reason: number, killer: PlayerMp | undefined) {
     if (!player || !mp.players.exists(player) || !player.character) return;

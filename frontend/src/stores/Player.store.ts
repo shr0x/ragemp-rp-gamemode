@@ -15,7 +15,9 @@ class _PlayerStore {
             maxammo: 260,
             weapon: "weapon_assaultrifle"
         },
-        wantedLevel: 5
+        wantedLevel: 5,
+
+        deathTime: 30
     });
     keybindGuide: { [key: string]: string } = {
         E: "Inventory",
