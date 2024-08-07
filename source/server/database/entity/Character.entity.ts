@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
 import { Inventory } from "@modules/inventory/Core.class";
 import { CefEvent } from "@classes/CEFEvent.class";
@@ -6,6 +6,7 @@ import { CommandRegistry } from "@classes/Command.class";
 import { AccountEntity } from "./Account.entity";
 import { setPlayerToInjuredState } from "@events/Death.event";
 import { RageShared } from "@shared/index";
+import { BankAccountEntity } from "@entities/Bank.entity";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -51,6 +52,9 @@ export class CharacterEntity {
     @Column({ type: "int", width: 11, default: 0 })
     deathState: RageShared.Players.Enums.DEATH_STATES = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
 
+    @OneToMany(() => BankAccountEntity, (bank) => bank.character)
+    bank: BankAccountEntity[];
+
     public inventory: Inventory | null = null;
 
     constructor() {}
@@ -83,9 +87,7 @@ export class CharacterEntity {
     public loadInventory = function (player: PlayerMp) {
         if (!mp.players.exists(player) || !player.character) return;
         const inventoryData = player.character.items;
-
-        const inventory = new Inventory(player, inventoryData.clothes, inventoryData.pockets, inventoryData.quickUse);
-        player.character.inventory = inventory;
+        player.character.inventory = new Inventory(player, inventoryData.clothes, inventoryData.pockets, inventoryData.quickUse);
         player.character.inventory.loadInventory(player);
     };
 
@@ -102,6 +104,8 @@ export class CharacterEntity {
 
         player.character.setStoreData(player, "ping", player.ping);
         player.character.setStoreData(player, "wantedLevel", player.character.wantedLevel);
+
+        player.setVariable("adminLevel", player.character.adminlevel);
 
         CefEvent.emit(player, "player", "setKeybindData", { I: "Open Inventory", ALT: "Interaction" });
 

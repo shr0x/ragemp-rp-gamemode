@@ -48,3 +48,10 @@ mp.events.add("server::spectate:stop", async (player: PlayerMp) => {
     player.setVariable("isSpectating", false);
     player.call("client::spectate:stop");
 });
+
+mp.events.add("server::player:noclip", (player: PlayerMp, status) => {
+    player.setVariable("noclip", status);
+    mp.players.forEachInRange(player.position, mp.config["stream-distance"], (nearbyPlayer) => {
+        nearbyPlayer.call("client::player:noclip", [player.id, status]);
+    });
+});

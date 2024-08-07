@@ -49,6 +49,21 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "a",
+    aliases: ["adminchat"],
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp, fulltext: string) => {
+        if (!fulltext.length) return player.outputChatBox("Usage: /a [text]");
+
+        const admins = mp.players.toArray().filter((x) => x.character && x.character.adminlevel > 0);
+
+        admins.forEach((admin) => {
+            admin.outputChatBox(`!{#ffff00}[A] ${player.name}: ${fulltext}`);
+        });
+    }
+});
+
+RAGERP.commands.add({
     name: "veh",
     aliases: ["vehicle", "spawnveh", "spawncar"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,

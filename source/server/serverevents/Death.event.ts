@@ -42,6 +42,7 @@ function playerAcceptedDeath(player: PlayerMp) {
         return;
     }
     player.character.setStoreData(player, "isDead", false);
+    player.character.setStoreData(player, "deathTime", 30);
     player.setVariable("isDead", false);
     player.setOwnVariable("deathAnim", null);
 
@@ -63,5 +64,4 @@ async function playerDeath(player: PlayerMp, reason: number, killer: PlayerMp | 
     return;
 }
 mp.events.add("playerDeath", playerDeath);
-
 mp.events.add("server::player:acceptDeath", playerAcceptedDeath);

@@ -2219,7 +2219,7 @@ export namespace inventoryAssets {
 
             gender: null,
             isPlaced: false,
-            modelHash: "prop_bomb_01_s"
+            modelHash: "prop_box_ammo01a"
         },
         [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO]: {
             type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SMGAMMO,
@@ -2238,7 +2238,7 @@ export namespace inventoryAssets {
 
             gender: null,
             isPlaced: false,
-            modelHash: "prop_bomb_01_s"
+            modelHash: "prop_box_ammo01a"
         },
         [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO]: {
             type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_SHOTGUNAMMO,
@@ -2257,7 +2257,7 @@ export namespace inventoryAssets {
 
             gender: null,
             isPlaced: false,
-            modelHash: "prop_bomb_01_s"
+            modelHash: "prop_box_ammo01a"
         },
         [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO]: {
             type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_MGAMMO,
@@ -2276,7 +2276,7 @@ export namespace inventoryAssets {
 
             gender: null,
             isPlaced: false,
-            modelHash: "prop_bomb_01_s"
+            modelHash: "prop_box_ammo01a"
         },
         [RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO]: {
             type: RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_RIFLEAMMO,
@@ -2294,7 +2294,7 @@ export namespace inventoryAssets {
             options: ["drop", "trade", "fast"],
             gender: null,
             isPlaced: false,
-            modelHash: "prop_bomb_01_s"
+            modelHash: "prop_box_ammo01a"
         }
     };
 }

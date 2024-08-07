@@ -252,6 +252,7 @@ export namespace RageShared {
                     ammo: number;
                     maxammo: number;
                 } | null;
+                deathTime: number;
             }
             export const enum CharacterType {
                 TYPE_CREATE = 0,
@@ -266,6 +267,7 @@ export namespace RageShared {
                 ammoType: string;
                 ammoHash: { items: string[]; count: number } | null;
                 itemAsAmmo: string | null;
+                noclip: boolean;
             }
 
             //#region CHARACTER CREATOR DATA
