@@ -267,6 +267,7 @@ export namespace RageShared {
                 ammoType: string;
                 ammoHash: { items: string[]; count: number } | null;
                 itemAsAmmo: string | null;
+                noclip: boolean;
             }
 
             //#region CHARACTER CREATOR DATA

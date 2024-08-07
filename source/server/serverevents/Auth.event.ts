@@ -3,6 +3,7 @@ import { RAGERP } from "@api";
 import { AccountEntity } from "@entities/Account.entity";
 import { CharacterEntity } from "@entities/Character.entity";
 import { RageShared } from "@shared/index";
+
 function hashPassword(text: string) {
     return crypto.createHash("sha256").update(text).digest("hex");
 }
@@ -26,6 +27,11 @@ RAGERP.cef.register("auth", "register", async (player, data) => {
     accountData.characters = [];
 
     const result = await RAGERP.database.getRepository(AccountEntity).save(accountData);
+
+    if (!result) {
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, "An error occurred creating your account, please contact an admin.");
+        return;
+    }
 
     player.account = result;
     player.name = player.account.username;

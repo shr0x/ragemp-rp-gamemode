@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { RAGERP } from "../../api";
+import { RAGERP } from "@api";
 
 import { RageShared, StringifiedObject } from "@shared/index";
 import { splitInventoryItem } from "./SplitItem.module";
@@ -9,8 +9,8 @@ import { manageInventoryFastSlot } from "./Quickuse.module";
 import { backpackWeight, defaultClothes } from "./Assets.module";
 import { inventoryAssets } from "./Items.module";
 
-import { InventoryItemsEntity } from "../../database/entity/Inventory.entity";
-import { Utils } from "../../../shared/utils.module";
+import { InventoryItemsEntity } from "@entities/Inventory.entity";
+import { Utils } from "@shared/utils.module";
 import { dropInventoryItem } from "./DropItem.module";
 import { ItemObject } from "./ItemObject.class";
 
@@ -72,7 +72,6 @@ class InventoryItem extends InventoryBase {
 
     /**
      * Resets a clothing slot back to its default state.
-     * @param type Clothing type
      * @param slot Clothing slot (0-13)
      */
     public resetClothingItemData(slot: number): void {
@@ -90,8 +89,7 @@ class InventoryItem extends InventoryBase {
     }
 
     public getTotalFreeSlots() {
-        let itemIndex = Object.values(this.items.pockets).filter((e) => !e).length;
-        return itemIndex;
+        return Object.values(this.items.pockets).filter((e) => !e).length;
     }
 
     public getClothingIndex(type: RageShared.Inventory.Enums.ITEM_TYPES) {
@@ -156,12 +154,9 @@ class InventoryItem extends InventoryBase {
 
     async addPlayerItemEx(item: RageShared.Inventory.Interfaces.IBaseItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
         try {
-            if (this.items[category][slot] === null) {
-                this.items[category][slot] = item;
-                return true;
-            } else {
-                return false;
-            }
+            if (this.items[category][slot] !== null) return false;
+            this.items[category][slot] = item;
+            return true;
         } catch (err) {
             return false;
         }
@@ -216,7 +211,7 @@ class InventoryClothes extends QuickUse {
 
     /**
      * Updates on-screen ped for a specified player.
-     * @param player player to update the ped to
+     * @param type
      * @param componentid clothing component id
      * @param drawableid clothing drawable id
      * @param texture clothing texture id

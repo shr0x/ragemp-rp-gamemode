@@ -97,7 +97,7 @@ class _Browser {
         mp.gui.cursor.show(false, false);
 
         mp.game.controls.setDisableControlActionBatch(false, []);
-        mp.players.local.freezePosition(false);
+        if (!mp.players.local.getVariable("noclip")) mp.players.local.freezePosition(false);
 
         if (this.mainUI && mp.browsers.exists(this.mainUI)) {
             this.mainUI.call("cef::eventManager", "system:setPage", "hud");

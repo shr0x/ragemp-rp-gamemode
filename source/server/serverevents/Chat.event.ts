@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { CommandRegistry } from "@classes/Command.class";
 import { RageShared } from "@shared/index";
 
@@ -29,18 +28,14 @@ const invokeCommand = async (player: PlayerMp, message: string) => {
     }
 
     try {
-        let shouldRun = true;
-
         // Handle run
-        if (shouldRun === true /* explicitly checking for true in case of beforeRun returning non-boolean */) {
-            if (command.adminlevel && command.adminlevel > player.getAdminLevel()) {
-                return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "You are not authorized to use this command.");
-            }
-            if (command.run.constructor.name === "AsyncFunction") {
-                await command.run(player, fullText, ...args);
-            } else {
-                command.run(player, fullText, ...args);
-            }
+        if (command.adminlevel && command.adminlevel > player.getAdminLevel()) {
+            return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "You are not authorized to use this command.");
+        }
+        if (command.run.constructor.name === "AsyncFunction") {
+            await command.run(player, fullText, ...args);
+        } else {
+            command.run(player, fullText, ...args);
         }
     } catch (e) {
         console.error(e);

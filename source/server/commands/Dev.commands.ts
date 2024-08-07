@@ -1,5 +1,4 @@
 import { RAGERP } from "@api";
-import { InteractionMenu } from "@classes/Interaction.class";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { RageShared } from "@shared/index";
 
@@ -15,18 +14,6 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
-    name: "ped",
-    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
-    run: (player: PlayerMp) => {
-        const ped = mp.peds.new(mp.joaat("mp_m_freemode_01"), player.position, { dynamic: true, invincible: false, lockController: true, dimension: 0 });
-        player.giveWeapon(mp.joaat("weapon_pistol"), 1000);
-        ped.controller = player;
-        ped.heading = 2;
-        console.log(ped.heading);
-    }
-});
-
-RAGERP.commands.add({
     name: "savepos",
     aliases: ["getpos", "mypos"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
@@ -34,26 +21,6 @@ RAGERP.commands.add({
         const [{ x, y, z }, heading] = [player.position, player.heading];
         console.log(`Position: new mp.Vector3(${x}, ${y}, ${z})`);
         console.log(`Heading: ${heading}`);
-    }
-});
-
-RAGERP.commands.add({
-    name: "interact",
-    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
-    run: async (player: PlayerMp, fulltext) => {
-        const data = {
-            isActive: true,
-            items: [
-                { type: 0, id: 0, text: "Whatever" },
-                { type: 0, id: 1, text: "Whatever 1" },
-                { type: 0, id: 2, text: "Whatever 2" }
-            ]
-        };
-
-        player.interactionMenu = new InteractionMenu();
-        await player.interactionMenu.new(player, data).then((res) => {
-            console.log(res);
-        });
     }
 });
 
