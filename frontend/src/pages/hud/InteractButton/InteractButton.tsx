@@ -6,6 +6,7 @@ import { hudStore } from "store/Hud.store";
 
 const InteractionButton: FC<{ store: typeof hudStore }> = ({ store }) => {
     if (!store.interactButtonData) return null;
+
     return (
         <div className={style.interactbutton}>
             <div className={style.top}>{store.interactButtonData.button}</div>

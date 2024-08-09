@@ -17,6 +17,7 @@ import "@proc/Player.proc";
 import "@modules/GameData.module";
 import "@modules/Keybinding.module";
 import "@modules/Noclip.module";
+import "@modules/Nametag.module";
 //-----------------------------------------//
 import "@prototype/Player.prototype";
 //-----------------------------------------//

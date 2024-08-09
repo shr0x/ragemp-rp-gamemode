@@ -19,6 +19,11 @@
         border-radius: 0.46296296296296297vh;
         filter: drop-shadow(0 0 1vh black);
 
+        img {
+            width: 2.5vh;
+            height: 2.5vh;
+            transition: opacity ease-in .5s;
+        }
 
         .input {
             width: 100%;
@@ -46,18 +51,18 @@
         opacity: 0;
         transition: transform .2s ease, opacity .2s ease, visibility 0s ease .2s;
     }
-
     .type {
         transform: translateY(150%);
     }
-
     .box {
-        width: 0%;
+        width: 0;
         opacity: 0;
         transition: width .4s ease .1s, opacity .2s .4s;
 
-
+        img {
+            opacity: 0;
+            width: 0;
+            transition: width .4s ease .1s, opacity .2s .4s;
+        }
     }
-
-
 }

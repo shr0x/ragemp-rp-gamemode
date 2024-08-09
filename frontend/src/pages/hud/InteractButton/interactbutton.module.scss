@@ -3,16 +3,13 @@
 .interactbutton {
     position: absolute;
     width: 100%;
-    bottom: 1vh;
+    bottom: 10vh;
     display: flex;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
 
-    filter: drop-shadow(0 0 2vh black);
     animation: fadeIn .5s;
-
-
     transition: all .3s;
 
     @keyframes fadeIn {
@@ -26,33 +23,44 @@
     }
 
     .top {
-        font-family: 'Beast Duh';
+        font-family: 'Beast Duh', serif;
         font-size: 3vh;
-
-        background: $global-color;
         width: 4vh;
-        height: 4vh;
+        height: 4.5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1vh;
 
-        border-radius: 2vh;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 4.5vh;
+            height: 4.5vh;
+            background: $global-color;
+            z-index: -1;
+            transform: rotateZ(40deg);
+            filter: drop-shadow(0 0 2vh black);
 
-        text-align: center;
-        border: .2vh solid white;
-        z-index: 1;
+            border: .2vh solid red;
+        }
     }
 
     .bottom {
-
         margin-left: 1vh;
-
-        background: radial-gradient(circle, rgba(255, 0, 0, 1) 0%, rgb(88, 18, 18) 0%, rgba(0, 0, 0, 1) 100%);
+        background: linear-gradient(to bottom, #28272a, transparent);
 
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1.5vh;
 
-        border-radius: .5vh;
         text-align: center;
         text-shadow: 0 0 1vh white;
         padding: .5vh;
-    }
 
+        .desc {
+            display: block;
+            width: 40vh;
+            text-shadow: 1px 1px 1px black;
+        }
+    }
 }

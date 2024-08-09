@@ -19,9 +19,11 @@ const onPlayerJoin = async (player: PlayerMp) => {
         player.account = null;
         player.character = null;
         player.lastPosition = null;
+        player.emoteTimeout = null;
         player.setVariable("loggedin", false);
         player.setVariable("isSpectating", false);
         player.setVariable("adminLevel", 0);
+        player.setVariable("emoteText", null);
         player.cdata = {};
     } catch (err) {
         console.error(err);

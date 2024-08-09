@@ -5,11 +5,18 @@ import { RageShared } from "../../../source/shared";
 class _PlayerStore {
     nowPlaying: number = 0;
 
+    bankData: { accountnumber: number; balance: number; pincode: number } | null = {
+        accountnumber: 0,
+        balance: 1,
+        pincode: 1234
+    };
+
     data: RageShared.Players.Interfaces.IPlayerData = observable.object({
         id: 3000,
         gender: 0,
         ping: 47,
         isDead: false,
+        cash: 34000,
         weapondata: {
             ammo: 30,
             maxammo: 260,

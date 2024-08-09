@@ -247,6 +247,7 @@ export namespace RageShared {
                 wantedLevel: number;
                 isDead: boolean;
                 gender: number;
+                cash: number;
                 weapondata: {
                     weapon: string;
                     ammo: number;

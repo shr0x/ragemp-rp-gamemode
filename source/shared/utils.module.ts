@@ -106,5 +106,23 @@ export const Utils = {
      */
     getRandomFromArray: function <T>(array: Array<T>): T {
         return array[Math.floor(Math.random() * array.length)];
+    },
+
+    /**
+     * Converts a hexadecimal string representation of a floating-point number to a JavaScript float.
+     *
+     * @param {string} str - The hexadecimal string (without the "0x" prefix) representing the floating-point number.
+     * @returns {number} - The corresponding floating-point number, or 0 if the input is invalid.
+     */
+    parseHexAsFloat: function (str: string): number {
+        let int = parseInt("0x" + str, 16);
+
+        if (isNaN(int)) {
+            return 0;
+        }
+        const sign = int >>> 31 ? -1 : 1;
+        const exp = ((int >>> 23) & 0xff) - 127;
+        const mantiss = (int & 0x7fffff) + 0x800000;
+        return sign * mantiss * Math.pow(2, exp - 23);
     }
 };

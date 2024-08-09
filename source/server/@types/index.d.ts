@@ -15,6 +15,8 @@ declare global {
         lastPosition: Vector3 | null;
         interactionMenu: InteractionMenu | null;
         fastSlotActive: number | null;
+        emoteTimeout: NodeJS.Timeout | null;
+
         cdata: any;
         giveWeaponEx: (weapon: number, totalAmmo: number, ammoInClip?: number | undefined) => void;
         showNotify(type: RageShared.Enums.NotifyType, message: string, skin?: "light" | "dark" | "colored"): void;
@@ -25,6 +27,7 @@ declare global {
         requestCollisionAt(x: number, y: number, z: number): Promise<boolean>;
         startScreenEffect(effectName: string, duration: number, looped: boolean): void;
         stopScreenEffect(effectName: string): void;
+        setEmoteText(color: Array4d, text: string, time: number): void;
     }
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;

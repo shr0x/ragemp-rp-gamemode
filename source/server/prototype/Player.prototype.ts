@@ -3,7 +3,7 @@ import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
 
 mp.players.getPlayerByName = function (stringornumber: string): PlayerMp | undefined {
-    if (isNaN(parseInt(stringornumber)) === false) {
+    if (!isNaN(parseInt(stringornumber))) {
         return mp.players.at(parseInt(stringornumber));
     } else {
         if (stringornumber.length < 3) return undefined;
@@ -40,8 +40,7 @@ mp.Player.prototype.getRoleplayName = function (checkmask: boolean = true) {
 };
 
 mp.Player.prototype.requestCollisionAt = async function (x: number, y: number, z: number) {
-    const collision = await this.callProc("client::proc:requestCollisionAt", [x, y, z]);
-    return collision;
+    return await this.callProc("client::proc:requestCollisionAt", [x, y, z]);
 };
 
 mp.Player.prototype.startScreenEffect = function (effectName: string, duration = 3000, looped: boolean = true) {
@@ -50,4 +49,20 @@ mp.Player.prototype.startScreenEffect = function (effectName: string, duration =
 
 mp.Player.prototype.stopScreenEffect = function (effectName: string) {
     this.call("client::effects:stopScreenEffect", [effectName]);
+};
+
+mp.Player.prototype.setEmoteText = function (color: Array4d, text: string, time: number = 7) {
+    this.setVariable("emoteTextData", JSON.stringify({ color, text }));
+
+    if (this.emoteTimeout) {
+        clearTimeout(this.emoteTimeout);
+        this.emoteTimeout = null;
+    }
+
+    this.emoteTimeout = setTimeout(() => {
+        this.setVariable("emoteTextData", null);
+
+        clearTimeout(this.emoteTimeout);
+        this.emoteTimeout = null;
+    }, time * 1_000);
 };

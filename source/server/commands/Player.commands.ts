@@ -4,7 +4,7 @@ RAGERP.commands.add({
     name: "me",
     run: (player: PlayerMp, fulltext) => {
         if (!fulltext.length) return player.outputChatBox("Usage: /me [action text]");
-
+        player.setEmoteText([194, 162, 218, 255], `*${fulltext}`, 7);
         mp.players.forEachInRange(player.position, 15, (target) => {
             if (target.dimension !== player.dimension) return;
             target.outputChatBox(`!{#C2A2DA}* ${player.getRoleplayName()} ${fulltext}`);
