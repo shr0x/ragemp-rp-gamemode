@@ -28,6 +28,7 @@ class _Browser {
 
         mp.events.add("client::eventManager::emitServer", this.emitServer.bind(this));
         mp.events.add("client::eventManager::emitClient", this.emitClient.bind(this));
+
         mp.events.add("client::eventManager", this.processEvent.bind(this));
 
         mp.events.add("client::cef:start", this.startPage.bind(this));

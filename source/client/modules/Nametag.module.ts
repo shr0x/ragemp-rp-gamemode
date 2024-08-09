@@ -25,7 +25,6 @@ mp.events.add("render", () => {
             const drawPosition = { x: headPosition.x + vector.x * frameTime, y: headPosition.y + vector.y * frameTime, z: headPosition.z + vector.z * frameTime };
 
             /* Player emote text */
-
             if (player.getVariable("emoteTextData")) {
                 const { color, text } = Utils.tryParse(player.getVariable("emoteTextData"));
                 Client.drawText3D(text, drawPosition.x, drawPosition.y, drawPosition.z + 0.3, 0.3, color);

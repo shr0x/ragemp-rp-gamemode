@@ -119,7 +119,8 @@ class _Client {
     public async requestAnimDict(dict: string, timeoutMs: number = 1000): Promise<boolean> {
         return new Promise((resolve, reject) => {
             if (!mp.players.exists(mp.players.local)) {
-                reject(alert("invalid player"));
+                alert("invalid player");
+                reject("invalid player");
             }
 
             if (mp.game.streaming.hasAnimDictLoaded(dict)) {
@@ -136,7 +137,8 @@ class _Client {
                 } else if (deadline < new Date().getTime()) {
                     clearInterval(inter);
                     const error = `Error: Async loading failed for anim dict: ${dict}`;
-                    reject(alert(error));
+                    alert(error);
+                    reject(error);
                 }
             }, 10);
         });
