@@ -5,7 +5,6 @@ import { DynamicPoint, dynamicPointPool } from "@classes/Point.class";
 import { Vehicle, vehicleManager, vehiclePool } from "@classes/Vehicle.class";
 import { MainDataSource } from "../database/Database.module";
 import { Chat } from "@modules/Chat.module";
-import { RageShared } from "@shared/index";
 
 /**
  * Namespace for the RAGERP system.

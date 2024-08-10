@@ -112,19 +112,19 @@ class Cef_Event {
      * await Cef_Event.emitAsync(mp.players.at(0), "hud", "setData", {level: 1});
      * ```
      * @param player The player to emit data to
-     * @param page Which page to update
+     * @param target Which page to update
      * @param pointer Which pointer to call
-     * @param data Data to send
+     * @param obj Data to send
      * @returns void
      */
     async emitAsync<T extends keyof CefData.Interfaces.CefEventMap, K extends keyof CefData.Interfaces.CefEventMap[T]>(
         player: PlayerMp,
         target: T,
-        name: K,
+        pointer: K,
         obj: CefData.Interfaces.CefEventMap[T][K]
     ): Promise<void> {
         if (!mp.players.exists(player)) return;
-        const eventName = `cef::${target}:${String(name)}`;
+        const eventName = `cef::${target}:${String(pointer)}`;
         return player.call("client::eventManager", [eventName, obj]);
     }
 }

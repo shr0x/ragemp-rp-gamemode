@@ -1,53 +1,114 @@
 import { v4 as uuidv4 } from "uuid";
 
-type onKeyPressAsync = (player: PlayerMp) => Promise<void>; //- Asynchronous key press handler.
-type onKeyPress = (player: PlayerMp) => void; //- Synchronous key press handler.
+/**
+ * Type representing a key press handler, which can be either synchronous or asynchronous.
+ * @param {PlayerMp} player - The player who pressed the key.
+ * @returns {void | Promise<void>} - Returns nothing for synchronous handlers or a promise for asynchronous handlers.
+ */
+type onKeyPressHandler = (player: PlayerMp) => void | Promise<void>;
 
 /**
  * Interface for point handlers.
  * @interface IPointHandlers
  * @property {(player: PlayerMp) => void} enterHandler - Handler for when a player enters the point.
  * @property {(player: PlayerMp) => void} exitHandler - Handler for when a player exits the point.
- * @property {onKeyPressAsync | onKeyPress} onKeyPress - Handler for key press events at the point.
+ * @property {onKeyPressHandler} onKeyPress - Handler for key press events at the point.
  */
 export interface IPointHandlers {
     enterHandler: (player: PlayerMp) => void;
     exitHandler: (player: PlayerMp) => void;
-    onKeyPress: onKeyPressAsync | onKeyPress;
+    onKeyPress: onKeyPressHandler;
 }
 
 /**
- * Interface for label data.
- * @interface ILabelData
- * @property {string} text - The text for the label.
- * @property {Vector3} [position] - The position of the label. Defaults to the point position if not provided.
- * @property {object} [options] - Additional options for the label.
- * @property {number} [options.font] - Font of the label.
- * @property {RGBA} [options.color] - Color of the label.
- * @property {number} [options.dimension] - Dimension of the label.
- * @property {number} [options.drawDistance] - Draw distance of the label.
- * @property {boolean} [options.los] - Line of sight for the label.
+ * Interface representing the data required to create a text label.
  */
 interface ILabelData {
+    /** The text content of the label. */
     text: string;
+    /** The position of the label in a 3D space (optional). */
     position?: Vector3;
+    /** Optional settings for the label. */
     options?: {
+        /** The font of the label text. */
         font?: number;
+        /** The color of the label text (RGBA). */
         color?: RGBA;
+        /** The dimension where the label is visible. */
         dimension?: number;
+        /** The draw distance of the label. */
         drawDistance?: number;
+        /** Whether the label is visible only when in line of sight (LoS). */
         los?: boolean;
     };
 }
+
+/**
+ * Interface representing the data required to create a blip.
+ */
+interface IBlipData {
+    /** The sprite ID for the blip. */
+    sprite: number;
+    /** The position of the blip in a 3D space. */
+    position: Vector3;
+    /** Optional settings for the blip. */
+    options?: {
+        /** The alpha transparency of the blip (0-255). */
+        alpha?: number;
+        /** The color of the blip. */
+        color?: number;
+        /** The dimension where the blip is visible. */
+        dimension?: number;
+        /** The draw distance of the blip. */
+        drawDistance?: number;
+        /** The name of the blip. */
+        name?: string;
+        /** The rotation of the blip. */
+        rotation?: number;
+        /** The scale of the blip. */
+        scale?: number;
+        /** Whether the blip is short-range (only visible on the minimap when nearby). */
+        shortRange?: boolean;
+    };
+}
+
+/**
+ * Interface representing the data required to create a marker.
+ */
+interface IMarkerData {
+    /** The type of marker (e.g., cylinder, arrow, etc.). */
+    type: number;
+    /** The position of the marker in a 3D space. */
+    position: Vector3;
+    /** The scale of the marker. */
+    scale: number;
+    /** Optional settings for the marker. */
+    options?: {
+        /** The color of the marker (RGBA). */
+        color?: RGBA;
+        /** The dimension where the marker is visible. */
+        dimension?: number;
+        /** The direction of the marker. */
+        direction?: Vector3;
+        /** The rotation of the marker. */
+        rotation?: Vector3;
+        /** Whether the marker is visible. */
+        visible?: boolean;
+    };
+}
+
 export const dynamicPointPool: DynamicPoint[] = [];
 
 export class DynamicPoint {
     id: string;
-    pointShape: ColshapeMp | null = null;
-    textLabel: TextLabelMp | null = null;
     position: Vector3;
     dimension: number;
-    onKeyPress: onKeyPressAsync | onKeyPress;
+    onKeyPress: onKeyPressHandler;
+
+    pointShape: ColshapeMp | null = null;
+    textLabel: TextLabelMp | null = null;
+    blip: BlipMp | null = null;
+    marker: MarkerMp | null = null;
 
     /**
      * Creates an instance of DynamicPoint.
@@ -141,10 +202,22 @@ export class DynamicPoint {
     public destroy() {
         if (this.pointShape && mp.colshapes.exists(this.pointShape)) {
             this.pointShape.destroy();
+            this.pointShape = null;
         }
 
         if (this.textLabel && mp.labels.exists(this.textLabel)) {
             this.textLabel.destroy();
+            this.textLabel = null;
+        }
+
+        if (this.marker && mp.markers.exists(this.marker)) {
+            this.marker.destroy();
+            this.marker = null;
+        }
+
+        if (this.blip && mp.blips.exists(this.blip)) {
+            this.blip.destroy();
+            this.blip = null;
         }
 
         let point = dynamicPointPool.find((x) => x.id === this.id);
@@ -152,6 +225,41 @@ export class DynamicPoint {
         dynamicPointPool.splice(dynamicPointPool.indexOf(point), 1);
     }
 
+    /**
+     * Creates a new blip based on the provided data.
+     * @param {IBlipData} data - The data used to create the blip.
+     */
+    public createBlip(data: IBlipData) {
+        this.blip = mp.blips.new(data.sprite, data.position, data.options);
+    }
+
+    /**
+     * Destroys the current blip if it exists.
+     */
+    public destroyBlip() {
+        if (this.blip && mp.blips.exists(this.blip)) {
+            this.blip.destroy();
+            this.blip = null;
+        }
+    }
+
+    /**
+     * Creates a new marker based on the provided data.
+     * @param {IMarkerData} data - The data used to create the marker.
+     */
+    public createMarker(data: IMarkerData) {
+        this.marker = mp.markers.new(data.type, data.position, data.scale, data.options);
+    }
+
+    /**
+     * Destroys the current marker if it exists.
+     */
+    public destroyMarker() {
+        if (this.marker && mp.markers.exists(this.marker)) {
+            this.marker.destroy();
+            this.marker = null;
+        }
+    }
     /**
      * Gets the nearest dynamic point to a player.
      * @param {PlayerMp} player - The player to check proximity.

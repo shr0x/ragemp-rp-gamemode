@@ -35,7 +35,7 @@ export class InteractionMenu {
                 }
             };
 
-            const onReject = (player: PlayerMp, cef: string) => {
+            const onReject = (player: PlayerMp, _cef: string) => {
                 console.log("rejected");
                 if (!this.player || this.player.id !== player.id) return;
                 this.closeMenu(player);

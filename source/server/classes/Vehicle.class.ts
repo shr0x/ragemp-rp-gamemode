@@ -137,7 +137,7 @@ class Vehicle {
     /**
      * Gets a modification from the vehicle.
      * @param {keyof RageShared.Vehicles.Interfaces.IVehicleMods} key - The key of the modification.
-     * @returns {RageShared.Vehicles.Interfaces.IVehicleMods[keyof IVehicRageShared.Vehicles.Interfaces.IVehicleModsleMods]} - The value of the modification.
+     * @returns {RageShared.Vehicles.Interfaces.IVehicleMods[keyof RageShared.Vehicles.Interfaces.IVehicleMods]} - The value of the modification.
      */
     public getMod<K extends keyof RageShared.Vehicles.Interfaces.IVehicleMods>(key: K): RageShared.Vehicles.Interfaces.IVehicleMods[K] {
         return this._mods[key];
@@ -280,17 +280,12 @@ class Vehicle {
      * @returns {boolean} - Whether the vehicle is valid.
      */
     public isValid(): boolean {
-        if (
-            [
-                RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN,
-                RageShared.Vehicles.Enums.VEHICLETYPES.RENTAL,
-                RageShared.Vehicles.Enums.VEHICLETYPES.JOB,
-                RageShared.Vehicles.Enums.VEHICLETYPES.NONE
-            ].includes(this.type)
-        ) {
-            return false;
-        }
-        return true;
+        return ![
+            RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN,
+            RageShared.Vehicles.Enums.VEHICLETYPES.RENTAL,
+            RageShared.Vehicles.Enums.VEHICLETYPES.JOB,
+            RageShared.Vehicles.Enums.VEHICLETYPES.NONE
+        ].includes(this.type);
     }
 
     /**
@@ -357,7 +352,7 @@ class Vehicle {
 
                 for (let tune in vehiclemods) {
                     const modIndex = parseInt(tune);
-                    if (typeof modIndex !== "number" || isNaN(modIndex)) continue;
+                    if (isNaN(modIndex)) continue;
 
                     if (modIndex >= 100) continue;
                     if (modIndex === 18) this._vehicle.setVariable("boost", 1.3);
@@ -419,9 +414,9 @@ class Vehicle {
         vehicleEntity.owner_name = serverVehicle.getData("ownerName");
         vehicleEntity.model = vehicle.model;
         vehicleEntity.plate = vehicle.numberPlate;
-        vehicleEntity.is_locked = vehicle.locked === true ? 1 : 0;
+        vehicleEntity.is_locked = vehicle.locked ? 1 : 0;
         vehicleEntity.dimension = vehicle.dimension;
-        vehicleEntity.isWanted = serverVehicle.isWanted === true ? 1 : 0;
+        vehicleEntity.isWanted = serverVehicle.isWanted ? 1 : 0;
         vehicleEntity.position = { x: vehicle.position.x, y: vehicle.position.y, z: vehicle.position.z, a: vehicle.heading };
         vehicleEntity.keyhole = serverVehicle.getData("keyhole");
         vehicleEntity.modifications = { 18: -1 };
@@ -434,17 +429,13 @@ class Vehicle {
      * @returns {boolean} - Whether the vehicle class is windowed.
      */
     public isWindowedVehicle(vehicleClass: number): boolean {
-        if (
-            [
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.BOATS,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.CYCLES,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.UTILITY,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.MOTORCYCLES,
-                RageShared.Vehicles.Enums.VEHICLE_CLASS.OPEN_WHEEL
-            ].includes(vehicleClass)
-        )
-            return false;
-        return true;
+        return ![
+            RageShared.Vehicles.Enums.VEHICLE_CLASS.BOATS,
+            RageShared.Vehicles.Enums.VEHICLE_CLASS.CYCLES,
+            RageShared.Vehicles.Enums.VEHICLE_CLASS.UTILITY,
+            RageShared.Vehicles.Enums.VEHICLE_CLASS.MOTORCYCLES,
+            RageShared.Vehicles.Enums.VEHICLE_CLASS.OPEN_WHEEL
+        ].includes(vehicleClass);
     }
 }
 
@@ -469,14 +460,14 @@ const vehicleManager = {
                 model: serverVehicle._vehicle.model,
                 fuel: serverVehicle.getData("fuel"),
                 plate: serverVehicle.getData("numberplate"),
-                neon: serverVehicle._mods.hasNeon === true ? 1 : 0,
+                neon: serverVehicle._mods.hasNeon ? 1 : 0,
                 neonColor: serverVehicle._mods.neonColor ? serverVehicle._mods.neonColor : [255, 255, 255],
                 primaryColor: serverVehicle.getData("primaryColor"),
                 secondaryColor: serverVehicle.getData("secondaryColor"),
                 plate_color: serverVehicle._mods.plateColor ?? 0,
-                is_locked: serverVehicle.getData("locked") === true ? 1 : 0,
+                is_locked: serverVehicle.getData("locked") ? 1 : 0,
                 dimension: vehicle.dimension,
-                isWanted: serverVehicle.isWanted === true ? 1 : 0,
+                isWanted: serverVehicle.isWanted ? 1 : 0,
                 position: { x: vehicle.position.x, y: vehicle.position.y, z: vehicle.position.z, a: vehicle.heading },
                 wheelmods: {
                     color: 0,
@@ -499,8 +490,7 @@ const vehicleManager = {
      */
     at(id: number): Vehicle | null {
         let foundvehicle: Vehicle | null = null;
-        const vehicles = vehiclePool;
-        for (const vehicle of vehicles) {
+        for (const vehicle of vehiclePool) {
             if (vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle) && vehicle._vehicle.id === id) {
                 foundvehicle = vehicle;
                 break;
@@ -516,8 +506,7 @@ const vehicleManager = {
      */
     atSQL(id: number): Vehicle | null {
         let foundvehicle: Vehicle | null = null;
-        const vehicles = vehiclePool;
-        for (const vehicle of vehicles) {
+        for (const vehicle of vehiclePool) {
             if (vehicle._vehicle && mp.vehicles.exists(vehicle._vehicle) && vehicle.getData("sqlid") === id) {
                 foundvehicle = vehicle;
                 break;

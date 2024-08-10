@@ -16,17 +16,17 @@ class _CommandRegistry {
     }
 
     // Properties
-    get notFoundMessage() {
-        return this._notFoundMessage;
-    }
-
-    set notFoundMessage(message) {
-        if (!message || typeof message !== "string" || message.length === 0) {
-            throw new Error("message must be a non-empty string");
-        }
-
-        this._notFoundMessage = message;
-    }
+    // get notFoundMessage() {
+    //     return this._notFoundMessage;
+    // }
+    //
+    // set notFoundMessage(message) {
+    //     if (!message || message.length === 0) {
+    //         throw new Error("message must be a non-empty string");
+    //     }
+    //
+    //     this._notFoundMessage = message;
+    // }
 
     // Functions
 
@@ -43,7 +43,7 @@ class _CommandRegistry {
 
         const { name, aliases = [], adminlevel = 0, description, run } = command;
 
-        if (!name || typeof name !== "string" || name.length === 0) {
+        if (!name || name.length === 0) {
             throw new Error("Cannot register commands without a name");
         } else if (!aliases || !Array.isArray(aliases)) {
             throw new Error("Cannot register commands with non-array aliases property");
@@ -82,16 +82,16 @@ class _CommandRegistry {
     getallCommands() {
         return [...this._commands.values()];
     }
-    getNames() {
-        return [...this._commands.keys()];
-    }
-
-    getNamesWithAliases() {
-        return [...this._commands.keys(), ...this._aliasToCommand.keys()];
-    }
+    // getNames() {
+    //     return [...this._commands.keys()];
+    // }
+    //
+    // getNamesWithAliases() {
+    //     return [...this._commands.keys(), ...this._aliasToCommand.keys()];
+    // }
 
     find(commandName: string) {
-        if (!commandName || typeof commandName !== "string" || commandName.length === 0) {
+        if (!commandName || commandName.length === 0) {
             throw new Error("Command name cannot be empty");
         }
 
