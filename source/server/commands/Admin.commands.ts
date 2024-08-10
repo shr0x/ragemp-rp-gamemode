@@ -216,6 +216,26 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "givemoney",
+    aliases: ["givecash"],
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp, fulltext: string, target: string, amount: string) => {
+        if (!fulltext.length || !target.length || !amount.length) return RAGERP.chat.sendSyntaxError(player, "/givemoney [player] [amount]");
+
+        const targetPlayer = mp.players.getPlayerByName(target);
+        if (!targetPlayer || !mp.players.exists(targetPlayer) || !targetPlayer.character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
+
+        const money = parseInt(amount);
+        if (isNaN(money) || money > 50000000) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid amount of money specified.");
+
+        targetPlayer.giveMoney(money);
+
+        targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You received ${money} cash from admin ${player.name}`);
+        RAGERP.chat.sendAdminWarning(0xff6347ff, `AdmWarn: ${player.name} (${player.id}) has given ${targetPlayer.name} (${targetPlayer.id}) $${money}.`);
+    }
+});
+
+RAGERP.commands.add({
     name: "giveclothes",
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     run: (player: PlayerMp, fulltext: string, target: string, item: RageShared.Inventory.Enums.ITEM_TYPES, comp: string, drawable: string, texture: string) => {

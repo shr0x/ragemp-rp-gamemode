@@ -125,6 +125,8 @@ export class CharacterEntity {
             player.outputChatBox(`>>> You are logged in as !{green}LEVEL ${player.character.adminlevel}!{white} admin!`);
         }
 
+        player.character.setStoreData(player, "cash", player.character.cash);
+
         !player.character.lastlogin ? (player.character.lastlogin = new Date()) : player.outputChatBox(`Your last login was on ${player.character.lastlogin}`);
 
         player.character.lastlogin = new Date();
