@@ -6,6 +6,9 @@ export class BankAccountEntity {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
+    @Column({ type: "boolean", default: false })
+    isPrimary: boolean;
+
     @Column({ type: "int", width: 11, default: 0 })
     accountnumber: number;
 

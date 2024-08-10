@@ -52,6 +52,9 @@ export class CharacterEntity {
     @Column({ type: "int", width: 11, default: 0 })
     deathState: RageShared.Players.Enums.DEATH_STATES = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
 
+    @Column({ type: "int", width: 11, default: 1500 })
+    cash: number = 1500;
+
     @OneToMany(() => BankAccountEntity, (bank) => bank.character)
     bank: BankAccountEntity[];
 

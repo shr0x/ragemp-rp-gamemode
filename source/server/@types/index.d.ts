@@ -28,6 +28,7 @@ declare global {
         startScreenEffect(effectName: string, duration: number, looped: boolean): void;
         stopScreenEffect(effectName: string): void;
         setEmoteText(color: Array4d, text: string, time: number): void;
+        giveMoney(amount: number, logMessage?: string): void;
     }
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;
