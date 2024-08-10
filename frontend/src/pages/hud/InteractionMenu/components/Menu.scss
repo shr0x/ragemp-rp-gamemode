@@ -154,3 +154,10 @@
 .__rrm-no-bg .__rrm-arrow.__rrm-active {
 	stroke: var(--__reactRadialMenu__arrow-color);
 }
+
+.__rrm-exit {
+	fill: grey;
+}
+.__rrm-exitactive {
+	fill: red;
+}
