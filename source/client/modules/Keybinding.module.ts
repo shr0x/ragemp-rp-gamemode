@@ -15,7 +15,7 @@ function addQuickUseSlotKeybind(keyCode: number, slot: number) {
     PlayerKeybind.addKeybind(
         { keyCode, up: false },
         () => {
-            if (!mp.players.local.getVariable("loggedin")) return;
+            if (!mp.players.local.getVariable("loggedin") || Client.isDead) return;
             Inventory.toggleFastSlot(slot);
         },
         "Toggle Inventory FastSlot"
@@ -29,7 +29,7 @@ for (let i = 1; i <= 6; i++) {
 PlayerKeybind.addKeybind(
     { keyCode: 73, up: false },
     async () => {
-        if (!mp.players.local.getVariable("loggedin")) return;
+        if (!mp.players.local.getVariable("loggedin") || Client.isDead) return;
         await Inventory.open();
     },
     "Open or close Inventory"

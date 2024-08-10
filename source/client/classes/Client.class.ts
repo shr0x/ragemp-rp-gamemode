@@ -62,6 +62,14 @@ class _Client {
         this.onTickEvent = new mp.Event("render", this.onTick.bind(this));
         this.hud = new PlayerHud();
     }
+
+    /**
+     * Returns whether a player is death state or not.
+     */
+    public get isDead(): boolean {
+        return mp.players.local.getVariable("isDead");
+    }
+
     /**
      * Disables a key for a specific player action.
      * @param {boolean} isMoveOrLookUp - Indicates if the key is related to movement or looking up.

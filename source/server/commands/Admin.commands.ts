@@ -100,6 +100,7 @@ RAGERP.commands.add({
 });
 RAGERP.commands.add({
     name: "makeadmin",
+    aliases: ["setadmin"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     description: "Make a player admin",
     run: async (player: PlayerMp, fullText: string, target: string, level: string) => {
@@ -117,6 +118,14 @@ RAGERP.commands.add({
         await RAGERP.database.getRepository(CharacterEntity).update(targetPlayer.character.id, { adminlevel: adminLevel });
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully made ${targetPlayer.name} an admin level ${adminLevel}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `${player.name} has made you an admin level ${adminLevel}`);
+
+        RAGERP.chat.sendAdminWarning(
+            0xff6347ff,
+            adminLevel > 0
+                ? `AdmWarn: ${player.name} (${player.id}) has made ${targetPlayer.name} (${targetPlayer.id}) a level ${adminLevel} admin.`
+                : `AdmWarn: ${player.name} (${player.id}) has removed ${targetPlayer.name} admin level.`
+        );
+
         RAGERP.commands.reloadCommands(targetPlayer);
     }
 });
@@ -202,6 +211,7 @@ RAGERP.commands.add({
         await targetPlayer.character.save(targetPlayer);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You successfully revived ${targetPlayer.name}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You were revived by admin ${player.name}`);
+        RAGERP.chat.sendAdminWarning(0xff6347ff, `AdmWarn: ${player.name} (${player.id}) has revived player ${targetPlayer.name} (${targetPlayer.id}).`);
     }
 });
 
