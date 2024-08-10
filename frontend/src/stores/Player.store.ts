@@ -16,7 +16,7 @@ class _PlayerStore {
         gender: 0,
         ping: 47,
         isDead: false,
-        cash: 34000,
+        cash: 0,
         weapondata: {
             ammo: 30,
             maxammo: 260,

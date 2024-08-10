@@ -24,7 +24,6 @@ const HUD: FC<HUDProps> = observer(({ inventoryStore, store, hudStore }) => {
     return (
         <div className={style.main}>
             <DeathScreen store={store} />
-
             <InteractButton store={hudStore} />
             <MainHud store={hudStore} playerStore={store} />
             <InteractionMenu store={hudStore} />
