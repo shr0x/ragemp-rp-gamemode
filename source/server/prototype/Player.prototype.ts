@@ -70,4 +70,5 @@ mp.Player.prototype.setEmoteText = function (color: Array4d, text: string, time:
 mp.Player.prototype.giveMoney = function (amount: number, logMessage?: string) {
     if (!mp.players.exists(this) || !this.getVariable("loggedin") || !this.character) return;
     this.character.cash = this.character.cash + amount;
+    this.character.setStoreData(this, "cash", this.character.cash);
 };
