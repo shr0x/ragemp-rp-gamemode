@@ -2,6 +2,7 @@ import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
 import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
+import { HEXCOLORS, STRINGCOLORS } from "@shared/enums";
 
 RAGERP.commands.add({
     name: "ah",
@@ -64,6 +65,19 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "admins",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp) => {
+        player.outputChatBox(`${STRINGCOLORS.GREEN}____________[ONLINE ADMINS]____________`);
+        mp.players.forEach((target) => {
+            if (target && target.character && target.character.adminlevel) {
+                player.outputChatBox(`${target.name} as level ${target.character.adminlevel} admin.`);
+            }
+        });
+    }
+});
+
+RAGERP.commands.add({
     name: "veh",
     aliases: ["vehicle", "spawnveh", "spawncar"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
@@ -72,7 +86,7 @@ RAGERP.commands.add({
 
         const vehicle = new RAGERP.entities.vehicles.new(RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
-        RAGERP.chat.sendAdminWarning(0xff6347ff, `AdmWarn: ${player.name} (${player.id}) has spawned a vehicle (Model: ${vehicleModel} | ID: ${vehicle.getId()}).`);
+        RAGERP.chat.sendAdminWarning(HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has spawned a vehicle (Model: ${vehicleModel} | ID: ${vehicle.getId()}).`);
     }
 });
 
@@ -120,7 +134,7 @@ RAGERP.commands.add({
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `${player.name} has made you an admin level ${adminLevel}`);
 
         RAGERP.chat.sendAdminWarning(
-            0xff6347ff,
+            HEXCOLORS.LIGHTRED,
             adminLevel > 0
                 ? `AdmWarn: ${player.name} (${player.id}) has made ${targetPlayer.name} (${targetPlayer.id}) a level ${adminLevel} admin.`
                 : `AdmWarn: ${player.name} (${player.id}) has removed ${targetPlayer.name} admin level.`
@@ -182,6 +196,7 @@ RAGERP.commands.add({
         const adminVehicles = RAGERP.entities.vehicles.pool.filter((x) => x.type === RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN);
         adminVehicles.forEach((vehicle) => vehicle.destroy());
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
+        RAGERP.chat.sendAdminWarning(HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has destroyed all admin spawned vehicles.`);
     }
 });
 
@@ -211,7 +226,7 @@ RAGERP.commands.add({
         await targetPlayer.character.save(targetPlayer);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You successfully revived ${targetPlayer.name}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You were revived by admin ${player.name}`);
-        RAGERP.chat.sendAdminWarning(0xff6347ff, `AdmWarn: ${player.name} (${player.id}) has revived player ${targetPlayer.name} (${targetPlayer.id}).`);
+        RAGERP.chat.sendAdminWarning(HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has revived player ${targetPlayer.name} (${targetPlayer.id}).`);
     }
 });
 
@@ -231,7 +246,7 @@ RAGERP.commands.add({
         targetPlayer.giveMoney(money);
 
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You received ${money} cash from admin ${player.name}`);
-        RAGERP.chat.sendAdminWarning(0xff6347ff, `AdmWarn: ${player.name} (${player.id}) has given ${targetPlayer.name} (${targetPlayer.id}) $${money}.`);
+        RAGERP.chat.sendAdminWarning(HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has given ${targetPlayer.name} (${targetPlayer.id}) $${money}.`);
     }
 });
 
