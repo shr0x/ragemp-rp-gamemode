@@ -126,6 +126,10 @@ mp.events.add("playerReady", () => {
 });
 
 mp.events.add("entityStreamIn", (entity) => {
+    if (entity.type === "object") {
+        mp.console.logWarning(`Object streamed successfully! IsItem: ${entity.getVariable("is_item")}`);
+    }
+
     if (entity.type === "player") {
         //@ts-ignore
         applyHairOverlayToEntity(entity, entity.getDrawableVariation(hairComponentIndex));

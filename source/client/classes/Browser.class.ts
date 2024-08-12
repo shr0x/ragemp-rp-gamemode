@@ -35,6 +35,8 @@ class _Browser {
         mp.events.add("client::cef:close", this.closePage.bind(this));
 
         mp.events.add("render", this.onTick.bind(this));
+
+        mp.events.add("playerQuit", this.playerQuit.bind(this));
     }
 
     /**
@@ -159,6 +161,14 @@ class _Browser {
      * @param {boolean} block - Whether to block or unblock the page.
      */
     blockPage(pagename: string, block: boolean) {}
+
+    playerQuit(player: PlayerMp) {
+        if (player.remoteId === mp.players.local.remoteId) {
+            if (this.mainUI && mp.browsers.exists(this.mainUI)) {
+                this.mainUI.destroy();
+            }
+        }
+    }
 }
 
 export const Browser = new _Browser();

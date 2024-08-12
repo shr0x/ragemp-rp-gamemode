@@ -1,0 +1,106 @@
+.displaysettings {
+    display: flex;
+    gap: 10vh;
+    height: 71.1111111111111vh;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+
+        .right {
+            margin-left: 9.166666666666666vh;
+        }
+
+        .title {
+            font-family: 'Beast Duh', sans-serif;
+            font-size: 2.1296296296296293vh;
+            color: #EAEAEA;
+        }
+
+        .container {
+            margin-top: 3.148148148148148vh;
+
+            display: flex;
+            flex-direction: column;
+
+            .option {
+                margin-bottom: 1.8518518518518516vh;
+                width: 35.925925925925924vh;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .title {
+                    width: 27.59259259259259vh;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.3888888888888888vh;
+                    color: #EAEAEA;
+                    text-transform: uppercase;
+                }
+
+                .buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    gap: 1vh;
+
+                    .button {
+                        width: 7vh;
+                        height: 4vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: .2vh solid rgba(255, 255, 255, 0.1);
+                        background: rgba(255, 255, 255, 0.05);
+                        font-family: Arial, Helvetica, sans-serif;
+
+
+                        .box {
+                            margin-right: 3.7037037037037033vh;
+
+                            width: 3.7037037037037033vh;
+                            height: 100%;
+
+                            background: #AEAEAE;
+                            text-shadow: 0 0 0.09259259259259259vh rgba(0, 0, 0, 0.16);
+
+                            transition: all 0.3s;
+
+
+                            &:hover {
+                                background: #EAEAEA;
+                            }
+                        }
+                    }
+
+                }
+
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+
+            // height: 65.74074074074073vh;
+
+        }
+    }
+
+}
+
+.active_green {
+    background: #B6D300 !important;
+
+    transition: background ease-in .2s;
+}
+
+.active_white {
+    background: red !important;
+    color: black;
+    transition: background ease-in .2s;
+}

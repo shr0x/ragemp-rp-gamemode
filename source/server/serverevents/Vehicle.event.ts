@@ -22,11 +22,20 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
 
     player.interactionMenu = new InteractionMenu();
 
-    const interactionData = [
-        { id: 0, text: "Toggle Hood", type: 0 },
-        { id: 1, text: "Toggle Trunk", type: 1 },
-        { id: 2, text: "Lock Vehicle", type: 2 }
-    ];
+    let interactionData: { id: number; text: string; type: number }[];
+
+    player.vehicle && player.vehicle.id === vehicleId
+        ? (interactionData = [
+              { id: 0, text: "Toggle Hood", type: 0 },
+              { id: 1, text: "Toggle Trunk", type: 1 },
+              { id: 2, text: "Lock Vehicle", type: 2 },
+              { id: 3, text: `${player.vehicle.engine ? "Turn off Engine" : "Turn on Engine"}`, type: 3 }
+          ])
+        : (interactionData = [
+              { id: 0, text: "Toggle Hood", type: 0 },
+              { id: 1, text: "Toggle Trunk", type: 1 },
+              { id: 2, text: "Lock Vehicle", type: 2 }
+          ]);
 
     const result = await player.interactionMenu.new(player, { isActive: true, items: interactionData });
 
@@ -42,6 +51,10 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
         }
         case 2: {
             vehicle.setData("locked", !vehicle.getData("locked"));
+            break;
+        }
+        case 3: {
+            vehicle.setData("engine", !vehicle.getData("engine"));
             break;
         }
         default:

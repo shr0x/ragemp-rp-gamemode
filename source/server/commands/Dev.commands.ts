@@ -107,6 +107,14 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "setpage",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp, fulltext, pagename) => {
+        RAGERP.cef.emit(player, "system", "setPage", pagename);
+    }
+});
+
+RAGERP.commands.add({
     name: "reloadclientside",
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     run: (player: PlayerMp) => {

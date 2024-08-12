@@ -1,0 +1,118 @@
+@import "../../../../styles/vars";
+
+.keybindmanager {
+    height: 71.1111111111111vh;
+    display: flex;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        width: 36vh;
+
+        .center {
+            margin-left: 5.166666666666666vh;
+        }
+
+        .right {
+            margin-left: 9.166666666666666vh;
+        }
+
+        .title {
+            font-family: 'Beast Duh', sans-serif;
+            font-size: 2.1296296296296293vh;
+            color: #EAEAEA;
+            text-transform: lowercase;
+        }
+
+        .container {
+            margin-top: 3.148148148148148vh;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.4629629629629629vh;
+            column-gap: 9.166666666666666vh;
+            height: 66vh;
+            overflow-y: auto;
+
+
+            .block {
+                display: flex;
+                align-items: center;
+
+                .button {
+                    outline: none;
+
+                    width: 4.63962962962963vh;
+                    height: 4.62962962962963vh;
+
+                    border: 0.09259259259259259vh solid #EAEAEA;
+
+                    border-radius: .5vh;
+
+                    background: $global-color;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.6666666666666665vh;
+                    color: #EAEAEA;
+                    text-transform: uppercase;
+
+                }
+
+                & input {
+                    outline: none;
+                    background: none;
+
+                    width: 4.62962962962963vh;
+                    height: 4.62962962962963vh;
+                    border: 0.09259259259259259vh solid #EAEAEA;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.6666666666666665vh;
+                    color: #EAEAEA;
+                    text-transform: uppercase;
+
+
+                }
+                .text {
+                    margin-left: 4.62962962962963vh;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.3888888888888888vh;
+                    color: #EAEAEA;
+                    text-transform: uppercase;
+                }
+            }
+            &::-webkit-scrollbar {
+                width: 0.46296296296296297vh;
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.4);
+            }
+        }
+    }
+}
+
+
+
+.blue {
+    border: 0.09259259259259259vh solid #AAB6EF !important;
+    color: #AAB6EF !important;
+}
+
+.error {
+    border: 0.09259259259259259vh solid #FF4E4E !important;
+    color: rgba(255, 78, 78, 0.9) !important;
+}
+
+.active {
+    border: 0.09259259259259259vh solid rgb(196, 21, 108) !important;
+    color: rgb(207, 20, 135) !important;
+}

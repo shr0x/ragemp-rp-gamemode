@@ -38,8 +38,13 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 71, up: false },
     async () => {
-        if ((Browser.currentPage && Browser.currentPage !== "interactionMenu") || !EntityRaycast.entity) return;
-        mp.events.callRemote(EntityRaycast.entity.type === "player" ? "server::interaction:player" : "server::interaction:vehicle", EntityRaycast.entity.remoteId);
+        if (Browser.currentPage && Browser.currentPage !== "interactionMenu") return;
+        if (mp.players.local.vehicle && mp.players.local.vehicle.getPedInSeat(-1) === mp.players.local.handle) {
+            mp.events.callRemote("server::interaction:vehicle", mp.players.local.vehicle.remoteId);
+        } else {
+            if (!EntityRaycast.entity) return;
+            mp.events.callRemote(EntityRaycast.entity.type === "player" ? "server::interaction:player" : "server::interaction:vehicle", EntityRaycast.entity.remoteId);
+        }
     },
     "Interact with an entity"
 );
