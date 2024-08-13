@@ -53,7 +53,7 @@ RAGERP.commands.add({
     aliases: ["adminchat"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fulltext: string) => {
-        if (!fulltext.length) return player.outputChatBox("Usage: /a [text]");
+        if (!fulltext.length) return RAGERP.chat.sendSyntaxError(player, "/a [text]");
 
         const admins = mp.players.toArray().filter((x) => x.character && x.character.adminlevel > 0);
 
@@ -81,7 +81,7 @@ RAGERP.commands.add({
     aliases: ["vehicle", "spawnveh", "spawncar"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
-        if (!fullText.length || !vehicleModel.length) return player.outputChatBox("Usage: /veh [vehiclemodel]");
+        if (!fullText.length || !vehicleModel.length) return RAGERP.chat.sendSyntaxError(player, "/veh [vehiclemodel]");
 
         const vehicle = new RAGERP.entities.vehicles.new(RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
@@ -94,16 +94,16 @@ RAGERP.commands.add({
     aliases: ["setdimension", "setdim"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fullText: string, target: string, dimension: string) => {
-        if (!fullText.length || !target.length || !dimension.length) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (!fullText.length || !target.length || !dimension.length) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const parseTarget = parseInt(target);
-        if (isNaN(parseTarget)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (isNaN(parseTarget)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const parseDimension = parseInt(dimension);
-        if (isNaN(parseDimension)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (isNaN(parseDimension)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const targetPlayer = mp.players.at(parseTarget);
-        if (!targetPlayer || !mp.players.exists(targetPlayer)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (!targetPlayer || !mp.players.exists(targetPlayer)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         targetPlayer.dimension = parseDimension;
 
@@ -117,7 +117,7 @@ RAGERP.commands.add({
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     description: "Make a player admin",
     run: async (player: PlayerMp, fullText: string, target: string, level: string) => {
-        if (!fullText.length || !target.length || !level.length) return player.outputChatBox("Usage: /makeadmin [target] [level]");
+        if (!fullText.length || !target.length || !level.length) return RAGERP.chat.sendSyntaxError(player, "/makeadmin [target] [level]");
         const targetId = parseInt(target);
         const adminLevel = parseInt(level);
 

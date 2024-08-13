@@ -28,7 +28,8 @@ class _Vehicle {
     public setWindowState(vehicle_id: number, windowIndex: number, state: boolean) {
         const vehicle = mp.vehicles.atRemoteId(vehicle_id);
         if (this.doesExist(vehicle)) {
-            state === true ? vehicle.rollDownWindow(windowIndex) : vehicle.rollUpWindow(windowIndex), vehicle.fixWindow(windowIndex);
+            state ? vehicle.rollDownWindow(windowIndex) : vehicle.rollUpWindow(windowIndex);
+            vehicle.fixWindow(windowIndex);
         }
     }
     /**
@@ -42,13 +43,13 @@ class _Vehicle {
         if (this.doesExist(vehicle)) {
             switch (wheelIndex) {
                 case 9:
-                    state === true ? vehicle.setTyreBurst(45, false, 1000) : vehicle.setTyreFixed(45);
+                    state ? vehicle.setTyreBurst(45, false, 1000) : vehicle.setTyreFixed(45);
                     break;
                 case 10:
-                    state === true ? vehicle.setTyreBurst(47, false, 1000) : vehicle.setTyreFixed(47);
+                    state ? vehicle.setTyreBurst(47, false, 1000) : vehicle.setTyreFixed(47);
                     break;
                 default:
-                    state === true ? vehicle.setTyreBurst(wheelIndex, false, 1000) : vehicle.setTyreFixed(wheelIndex);
+                    state ? vehicle.setTyreBurst(wheelIndex, false, 1000) : vehicle.setTyreFixed(wheelIndex);
                     break;
             }
         }
@@ -72,8 +73,7 @@ class _Vehicle {
      * @returns {boolean} - True if the entity is a plane or helicopter, false otherwise.
      */
     public isPlaneOrHeli(entityClass: number): boolean {
-        if (entityClass === 15 || entityClass === 16) return true;
-        return false;
+        return entityClass === 15 || entityClass === 16;
     }
 
     /**

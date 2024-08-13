@@ -157,7 +157,6 @@ class Vehicle {
      */
     public setData<K extends keyof RageShared.Vehicles.Interfaces.IVehicleData>(key: K, value: RageShared.Vehicles.Interfaces.IVehicleData[K]): void {
         if (!this._vehicle || !mp.vehicles.exists(this._vehicle)) return;
-
         console.log(`[VEHICLEDATA]:: ${this._vehicle.id} setting ${key} to ${value}`);
 
         this._data[key] = value;
