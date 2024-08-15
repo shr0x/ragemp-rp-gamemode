@@ -1,0 +1,82 @@
+@import "../../../styles/vars";
+
+.main {
+    position: absolute;
+    right: 5vh;
+    top: 10vh;
+    transform: translate(-50%, 0%);
+    padding-bottom: 1.8518518518518516vh;
+
+    width: 34vh;
+    background: linear-gradient(to bottom, #28272b, transparent);
+    border-radius: .5vh;
+
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        width: 100%;
+        height: 13.518519vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex-shrink: 0;
+
+        filter: drop-shadow(0 0 1vh black);
+        border-top-left-radius: .5vh;
+        border-top-right-radius: .5vh;
+        text-shadow: 0 0 1vh black;
+
+        .title {
+            font-family: 'Beast Duh', sans-serif;
+            font-size: 3.1296296296296293vh;
+            color: #fff;
+        }
+
+        .text {
+            margin-top: 0.4629629629629629vh;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.2962962962962963vh;
+            color: #fff;
+            opacity: 1;
+        }
+    }
+
+    .container {
+        position: relative;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+
+        animation: slideDown 0.5s ease-in-out forwards;
+
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &::before {
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0.18518518518518517vh;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.8) 48.1%, rgba(0, 0, 0, 0) 100%);
+        }
+    }
+
+    @keyframes slideDown {
+        from {
+            max-height: 0;
+        }
+        to {
+            max-height: 50vh;
+        }
+    }
+
+}

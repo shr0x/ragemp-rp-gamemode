@@ -1,6 +1,7 @@
 import { RAGERP } from "@api";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { RageShared } from "@shared/index";
+import { NativeMenu } from "@classes/NativeMenu.class";
 
 RAGERP.commands.add({
     name: "gotopos",
@@ -120,5 +121,22 @@ RAGERP.commands.add({
     run: (player: PlayerMp) => {
         //@ts-ignore
         mp.players.reloadResources();
+    }
+});
+
+RAGERP.commands.add({
+    name: "testnativemenu",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: async (player: PlayerMp) => {
+        player.nativemenu = new NativeMenu(player, 0, "Hello", "world", [
+            { name: "test", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 123 },
+            { name: "test 2", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 1232 },
+            { name: "test 3", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 1232 }
+        ]);
+
+        await player.nativemenu.onItemSelected(player).then((res) => {
+            console.log("onItemSelected called, with result: ", res);
+            player.nativemenu?.destroy(player);
+        });
     }
 });

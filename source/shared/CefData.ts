@@ -18,6 +18,9 @@ export namespace CefData {
                 setVehicleData: { key: keyof RageShared.Vehicles.Interfaces.SpeedometerData; data: any };
                 showInteractionButton: { button: string; title: string; text: string } | null;
             };
+            nativemenu: {
+                setData: RageShared.Interfaces.INativeMenu;
+            };
             chat: {
                 setCommands: string[];
             };

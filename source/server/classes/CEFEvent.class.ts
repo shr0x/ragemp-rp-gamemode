@@ -39,16 +39,17 @@ class Cef_Event {
         page: P,
         pointer: K,
         handler: (player: PlayerMp, data: EventData<P, K>) => void | EventHandler | EventHandlerAsync
-    ): void;
-    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void;
+    ): EventMp;
+    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): EventMp;
     register(
         page: keyof CefData.Interfaces.IncomingCEFEvents | string,
         pointer: keyof CefData.Interfaces.IncomingCEFEvents[keyof CefData.Interfaces.IncomingCEFEvents] | string,
         handler: any // Allow any type for handler when page and pointer are provided as strings
-    ): void {
+    ): EventMp {
         if (!this.eventsInMemory.some((event) => event.target === page && event.name === pointer)) {
             const _event = new mp.Event(`server::${page}:${pointer}`, handler);
             this.eventsInMemory.push({ target: page, name: pointer, handler, _event });
+            return _event;
         } else {
             console.log("------------------------------------------------------------");
             throw new Error(`Event: "${page}", "${pointer}" was found duplicated`);

@@ -12,9 +12,30 @@ export namespace RageShared {
             isActive: boolean;
             items: RageShared.Interfaces.IMenuItems[];
         }
+
+        export interface INativeMenuItem {
+            uid: number;
+            type: RageShared.Enums.NATIVEMENU_TYPES;
+            name: string;
+            data?: string[];
+            value?: boolean | string | number;
+        }
+
+        export interface INativeMenu {
+            id: number;
+            isActive: boolean;
+            header: { [key: string]: string };
+            items: RageShared.Interfaces.INativeMenuItem[];
+        }
     }
 
     export namespace Enums {
+        export const enum NATIVEMENU_TYPES {
+            TYPE_DEFAULT = 0,
+            TYPE_CHECKBOX,
+            TYPE_TABS
+        }
+
         export const enum NotifyType {
             TYPE_LOADING = "loading",
             TYPE_PROMISE = "promise",

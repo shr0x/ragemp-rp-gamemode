@@ -1,6 +1,7 @@
-import { InteractionMenu } from "../classes/Interaction.class";
-import { AccountEntity } from "../database/entity/Account.entity";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { InteractionMenu } from "@classes/Interaction.class";
+import { AccountEntity } from "@entities/Account.entity";
+import { CharacterEntity } from "@entities/Character.entity";
+import { NativeMenu } from "@classes/NativeMenu.class";
 
 declare global {
     interface PlayerMpPool {
@@ -16,6 +17,8 @@ declare global {
         interactionMenu: InteractionMenu | null;
         fastSlotActive: number | null;
         emoteTimeout: NodeJS.Timeout | null;
+
+        nativemenu: NativeMenu | null;
 
         cdata: any;
         giveWeaponEx: (weapon: number, totalAmmo: number, ammoInClip?: number | undefined) => void;
