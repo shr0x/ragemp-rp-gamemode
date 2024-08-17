@@ -2,6 +2,41 @@ import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
 import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
+import { adminTeleports } from "@assets/Admin.asset";
+
+RAGERP.commands.add({
+    name: "goto",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp, fulltext: string, targetorpos: string) => {
+        const showAvailableLocations = () => {
+            RAGERP.chat.sendSyntaxError(player, "/goto [player/location]");
+            const keys = Object.keys(adminTeleports);
+            for (let i = 0; i < keys.length; i += 8) {
+                const chunk = keys.slice(i, i + 8);
+                player.outputChatBox(`${RageShared.Enums.STRINGCOLORS.YELLOW}Available locations: ${RageShared.Enums.STRINGCOLORS.GREY} ${chunk.join(", ")}`);
+            }
+        };
+
+        if (!fulltext.length || !targetorpos.length) {
+            showAvailableLocations();
+            return;
+        }
+
+        const targetplayer = mp.players.getPlayerByName(targetorpos);
+
+        if (targetplayer && mp.players.exists(targetplayer)) {
+            player.position = targetplayer.position;
+            player.dimension = targetplayer.dimension;
+        } else {
+            const targetpos = adminTeleports[targetorpos];
+            if (targetpos) {
+                player.position = targetpos;
+            } else {
+                showAvailableLocations();
+            }
+        }
+    }
+});
 
 RAGERP.commands.add({
     name: "ah",
