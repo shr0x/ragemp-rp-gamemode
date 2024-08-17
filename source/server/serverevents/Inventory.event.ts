@@ -45,7 +45,10 @@ mp.events.add("server::inventory:quickUse", async (player: PlayerMp, event: any)
     await player.character.inventory.manageFastSlots(player, event);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "cancelAction", (_player: PlayerMp) => {});
+RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory || !player.character.inventory.progressBar) return;
+    player.character.inventory.progressBar.onCancel(player);
+});
 
 //-------------------------------------------------------//
 mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {

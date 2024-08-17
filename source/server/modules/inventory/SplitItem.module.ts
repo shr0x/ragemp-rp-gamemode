@@ -1,10 +1,10 @@
-import { RageShared } from "@shared/index";
-import { inventoryAssets } from "./Items.module";
 import { v4 as uuidv4 } from "uuid";
+import { RageShared } from "@shared/index";
+
 interface ISplitData {
     item: RageShared.Inventory.Interfaces.IBaseItem;
-    source: { component: inventoryAssets.INVENTORY_CATEGORIES; slot: number };
-    target: { component: inventoryAssets.INVENTORY_CATEGORIES; slot: number; count: number };
+    source: { component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES; slot: number };
+    target: { component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES; slot: number; count: number };
 }
 export const splitInventoryItem = (player: PlayerMp, data: string) => {
     try {

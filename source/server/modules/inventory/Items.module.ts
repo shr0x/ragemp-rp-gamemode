@@ -1,44 +1,6 @@
 import { RageShared } from "@shared/index";
 
 export namespace inventoryAssets {
-    export const enum INVENTORY_CLOTHING {
-        TYPE_HAT = 0,
-        TYPE_MASK = 1,
-        TYPE_GLASSES = 2,
-        TYPE_EARRINGS = 3,
-        TYPE_CHAIN = 4,
-        TYPE_TSHIRT = 5,
-        TYPE_JACKET = 6,
-        TYPE_BACKPACK = 7,
-        TYPE_WALLET = 8,
-        TYPE_ARMOUR = 9,
-        TYPE_WATCH = 10,
-        TYPE_GLOVES = 11,
-        TYPE_PANTS = 12,
-        TYPE_SHOES = 13
-    }
-    export const INVENTORY_EQUIPMENTS: Record<string, string> = {
-        hat: "0",
-        mask: "1",
-        glasses: "2",
-        earRings: "3",
-        chain: "4",
-        tShirt: "5",
-        top: "6",
-        backpack: "7",
-        wallet: "8",
-        armour: "9",
-        watch: "10",
-        gloves: "11",
-        pants: "12",
-        shoes: "13"
-    };
-
-    export enum INVENTORY_CATEGORIES {
-        CLOTHES = "clothes",
-        POCKETS = "pockets"
-    }
-
     export type Item = Record<string, RageShared.Inventory.Interfaces.IBaseItem>;
 
     export const items: Item = {

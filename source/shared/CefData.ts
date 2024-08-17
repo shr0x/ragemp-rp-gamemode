@@ -16,7 +16,7 @@ export namespace CefData {
             hud: {
                 setInteraction: RageShared.Interfaces.InteractionData;
                 setVehicleData: { key: keyof RageShared.Vehicles.Interfaces.SpeedometerData; data: any };
-                showInteractionButton: { button: string; title: string; text: string } | null;
+                showInteractionButton: RageShared.Interfaces.IInteractButton | null;
             };
             nativemenu: {
                 setData: RageShared.Interfaces.INativeMenu;

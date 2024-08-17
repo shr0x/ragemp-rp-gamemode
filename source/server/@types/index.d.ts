@@ -32,7 +32,19 @@ declare global {
         stopScreenEffect(effectName: string): void;
         setEmoteText(color: Array4d, text: string, time: number): void;
         giveMoney(amount: number, logMessage?: string): void;
+        attachObject(name: string, attached: boolean): void;
+
+        _attachments: any;
+        addAttachment: any;
+        hasAttachment: any;
     }
+
+    interface VehicleMp {
+        _attachments: any;
+        addAttachment: any;
+        hasAttachment: any;
+    }
+
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;
         exitHandler: (player: PlayerMp) => void;

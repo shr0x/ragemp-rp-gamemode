@@ -5,6 +5,41 @@ import { Client } from "@classes/Client.class";
 import { Inventory } from "@classes/Inventory.class";
 import { PlayerKeybind } from "@classes/Keybind.class";
 import { EntityRaycast } from "@classes/Raycast.class";
+import { CEFPages } from "@assets/CEFPages.asset";
+
+function playerPressEscape() {
+    if (mp.game.ui.isPauseMenuActive() && Browser.currentPage !== "inventory") return;
+
+    if (mp.players.local.getVariable("usingItem")) {
+        return mp.events.callRemote("server::inventory:cancelAction");
+    }
+
+    mp.console.logInfo(`Player's browser page is: ${Browser.currentPage}`);
+    if (!Browser.currentPage) return;
+
+    switch (Browser.currentPage) {
+        case "interactionMenu": {
+            Browser.processEvent("cef::hud:setInteraction", { isActive: false, items: [] });
+            Browser.closePage();
+            break;
+        }
+        case "inventory": {
+            Inventory.close();
+            return;
+        }
+        case "chat": {
+            if (ChatAPI.chatOpen) ChatAPI.close();
+            return;
+        }
+        default: {
+            if (CEFPages[Browser.currentPage].close) {
+                Browser.closePage();
+            }
+        }
+    }
+}
+
+PlayerKeybind.addKeybind({ keyCode: 27, up: false }, playerPressEscape, "Close Pages");
 
 /**
  * Adds a keybind for toggling inventory fast slots.

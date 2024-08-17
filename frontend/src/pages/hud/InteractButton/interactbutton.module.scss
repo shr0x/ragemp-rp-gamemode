@@ -1,66 +1,355 @@
 @import "../../../styles/vars.scss";
 
 .interactbutton {
-    position: absolute;
-    width: 100%;
-    bottom: 10vh;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translate(-50%, 0%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  filter: drop-shadow(0 0 1vh black);
+
+
+  .input {
+    width: 18.51851851851852vh;
+    height: 4.259259259259259vh;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    background: $global-bg-transparent-reverted;
+    opacity: 0;
+    transition: all 0.35s ease-in-out;
+
+    .box {
+      margin-left: 0.37037037037037035vh;
+      padding-left: 1.111111111111111vh;
+      width: 14.444444444444443vh;
+      height: 3.333333333333333vh;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+
+      input {
+        outline: none;
+        border: none;
+        background: none;
+        width: 10.648148148148147vh;
+        height: 3.333333333333333vh;
+        display: flex;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.2037037037037037vh;
+        color: #fff;
+        text-shadow: 0 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+
+        &::placeholder {
+          color: #fff;
+          opacity: 0.5;
+        }
+      }
+
+      .inputbutton {
+        margin-left: 0.4629629629629629vh;
+        width: 1.6666666666666665vh;
+        height: 1.759259259259259vh;
+        background: url(../../../assets/images/hud/inventory/icons/entericon.svg) no-repeat;
+        background-size: cover;
+      }
+    }
+
+    .button {
+      margin-left: 0.9259259259259258vh;
+
+      width: 3.333333333333333vh;
+      height: 3.333333333333333vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: $global-bg;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.111111111111111vh;
+      color: #fff;
+      text-shadow: 0 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+
+      transition: all 0.35s;
+
+      &:hover {
+        color: #AAB6EF;
+        background: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  .left {
+    position: relative;
+    width: 7.037037037037036vh;
+    height: 7.037037037037036vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 
-    animation: fadeIn .5s;
-    transition: all .3s;
+    background: $global-bg;
 
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
+    flex-shrink: 0;
 
-        100% {
-            opacity: 1;
-        }
+    opacity: 0;
+    transition: all 0.35s ease-in-out;
+
+
+
+    .timer {
+      position: absolute;
+
+      width: 100%;
+      height: 100%;
+
+      z-index: 2;
+
+      opacity: 0;
+      transition: all 0.6s;
+
+      --time: var(--seconds);
+
+
+      &.active {
+        opacity: 1;
+      }
+
+      & span {
+        position: absolute;
+        display: block;
+        background: #fff;
+      }
+
+      &.active span {
+        transition: all calc(var(--time) /4) linear;
+      }
+
+      .timertop,
+      .timerbottom {
+        width: 100%;
+        height: 0.2777777777777778vh;
+        transform: scaleX(0);
+      }
+
+      .timerleft,
+      .timerright {
+        width: 0.2777777777777778vh;
+        height: 100%;
+        transform: scaleY(0);
+      }
+
+      .timertop {
+        top: 0;
+        left: 0;
+        margin: var(--time);
+        transition-delay: 0s;
+        transform-origin: top left;
+      }
+
+      .timerright {
+        top: 0;
+        right: 0;
+        transition-delay: 0s;
+        transform-origin: top left;
+      }
+
+      .timerbottom {
+        bottom: 0;
+        right: 0;
+        transition-delay: 0s;
+        transform-origin: top right;
+      }
+
+      .timerleft {
+        top: 0;
+        left: 0;
+        transform-origin: bottom left;
+      }
+
+      &.active .timertop {
+        transition-delay: 0s;
+      }
+
+      &.active .timerright {
+        transition-delay: calc(var(--time)/4);
+      }
+
+      &.active .timerbottom {
+        transition-delay: calc(var(--time)/2);
+      }
+
+      &.active .timerleft {
+        transition-delay: calc(var(--time)*3/4);
+      }
+
+      &.active .timertop,
+      &.active .timerbottom {
+        transform: scaleX(1);
+      }
+
+      &.active .timerleft,
+      &.active .timerright {
+        transform: scaleY(1);
+      }
+    }
+    .img {
+      width: 4.037037vh;
+
+      background-position: center;
+      background-size: inherit;
+      background-repeat: no-repeat;
+
+      filter: drop-shadow(0vh 0.09259259259259259vh 0.27777777777777773vh var(--filter));
     }
 
-    .top {
-        font-family: 'Beast Duh', serif;
-        font-size: 3vh;
-        width: 4vh;
-        height: 4.5vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1vh;
+    .count {
+      position: absolute;
+      bottom: -0.6481481481481481vh;
+      left: 50%;
+      transform: translate(-50%, 0%);
 
-        &::before {
-            content: "";
-            position: absolute;
-            width: 4.5vh;
-            height: 4.5vh;
-            background: $global-color;
-            z-index: -1;
-            transform: rotateZ(40deg);
-            filter: drop-shadow(0 0 2vh black);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.2037037037037037vh;
+      color: #fff;
 
-            border: .2vh solid red;
-        }
+      text-shadow: 0 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  .right {
+    position: relative;
+
+    height: 5.37037037037037vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    overflow: hidden;
+    z-index: -1;
+
+    width: 80%;
+    opacity: 0;
+    transition: all 0.35s ease-in-out;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 10.74074074074074vh;
+      height: 0.09259259259259259vh;
+
+      background: linear-gradient(90deg, #ff0000 0%, rgba(255, 255, 255, 0) 100%);
     }
 
-    .bottom {
-        margin-left: 1vh;
-        background: linear-gradient(to bottom, #28272a, transparent);
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 10.74074074074074vh;
+      height: 0.09259259259259259vh;
+
+      background: linear-gradient(90deg, #ff0000 0%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    .background {
+      position: absolute;
+      top: 0.09259259259259259vh;
+      left: 0%;
+
+      width: 2.7777777777777777vh;
+      height: 5.37037037037037vh;
+
+      background: $global-bg-transparent;
+
+      opacity: 0;
+      transition: all 0.35s ease-out;
+      z-index: -1;
+    }
+
+    .button {
+      margin-left: 4.166666666666666vh;
+
+      width: 3.222222222222222vh;
+      height: 3.222222222222222vh;
+
+      border: 0.09259259259259259vh solid #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      font-family: 'Beast Duh', sans-serif;
+      font-size: 1.7037037037037vh;
+      color: #fff;
+      text-shadow: 0 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+
+      transition: all 0.35s ease-out;
+    }
+
+    .container {
+      margin-left: 2.962962962962963vh;
+
+      display: flex;
+      flex-direction: column;
+
+      text-shadow: 0 0.09259259259259259vh 0.27777777777777773vh rgba(0, 0, 0, 0.75);
+      color: #fff;
+
+      transition: all 0.35s ease-out;
+
+      .title {
+        font-family: 'Beast Duh', sans-serif;
+        font-size: 1.2037037037037037vh;
+        text-transform: uppercase;
+      }
+
+      .desc {
+        margin-top: 0.27777777777777773vh;
 
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 1.5vh;
+        font-size: 1.2037037037037037vh;
+      }
+    }
+  }
+}
 
-        text-align: center;
-        text-shadow: 0 0 1vh white;
-        padding: .5vh;
+.interaction_active {
+    .left {
+      opacity: 1 !important;
+    }
 
-        .desc {
-            display: block;
-            width: 40vh;
-            text-shadow: 1px 1px 1px black;
-        }
+    .input {
+      opacity: 1 !important;
+      width: 20vh !important;
+    }
+
+    .right {
+      width: 100% !important;
+      opacity: 1 !important;
+
+      .background {
+        width: 100% !important;
+        opacity: 1 !important;
+      }
+
+      .button {
+        margin-left: 2.3148vh !important;
+      }
+
+      .container {
+        margin-left: 2.037vh !important;
+      }
     }
 }

@@ -13,11 +13,6 @@ class _PlayerInventory {
 
     constructor() {
         this.screenPedHandle = 0;
-
-        // temporary keybinds (subject to change)
-        // Bind keys for inventory actions
-        mp.keys.bind(27, false, this.close.bind(this)); // ESC to close inventory
-
         // Event bindings
         mp.events.add("client::mainMenu:openInventory", this.open.bind(this));
         mp.events.add("server::mainMenu:closeInventory", this.close.bind(this));

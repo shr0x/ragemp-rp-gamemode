@@ -43,10 +43,17 @@ class _HudStore {
         ]
     });
 
-    interactButtonData: {
-        button: string;
-        text: string;
-    } | null = null;
+    interactionVisible: boolean = false;
+    interactButton: RageShared.Interfaces.IInteractButton = observable.object({
+        button: "E",
+        time: 10,
+        image: "pistol",
+        count: 100,
+        rarity: -1,
+        header: "Pistol MK2",
+        description: "To pickup this item, press E",
+        autoStart: false
+    });
 
     areaData: { area: string; street: string } = observable.object({
         area: "San Andreas",
@@ -83,15 +90,23 @@ class _HudStore {
         this.areaData = data;
     }
 
-    setInteractionButtonData(data: typeof this.interactButtonData) {
-        this.interactButtonData = data;
+    setInteractButtonData(data: RageShared.Interfaces.IInteractButton | null) {
+        if (!data) {
+            this.interactionVisible = false;
+        } else {
+            this.interactButton = data;
+            this.interactionVisible = true;
+        }
     }
 
+    setIsInteractionVisible(enable: boolean) {
+        this.interactionVisible = enable;
+    }
     public createEvents() {
         EventManager.addHandler("hud", "setInteraction", (data: any) => this.setInteractionMenu(data));
         EventManager.addHandler("hud", "setVehicleData", (data: any) => this.setVehicleData(data));
         EventManager.addHandler("hud", "setAreaData", (data: { area: string; street: string }) => this.setAreaData(data));
-        EventManager.addHandler("hud", "showInteractionButton", (data: { button: string; text: string }) => this.setInteractionButtonData(data));
+        EventManager.addHandler("hud", "showInteractionButton", (data: RageShared.Interfaces.IInteractButton | null) => this.setInteractButtonData(data));
         EventManager.stopAddingHandler("hud");
     }
 }

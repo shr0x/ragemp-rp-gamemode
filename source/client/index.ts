@@ -4,10 +4,12 @@ import "@classes/Chat.class";
 import "@classes/Creator.class";
 import "@classes/Vehicle.class";
 import "@classes/Spectate.class";
+import "@classes/Attachments.class";
 //-----------------------------------------//
 import "@events/Auth.event";
 import "@events/Render.event";
 import "@events/Player.event";
+import "@events/Attachment.events";
 //-----------------------------------------//
 import "@handlers/Player.handler";
 import "@handlers/Object.handler";

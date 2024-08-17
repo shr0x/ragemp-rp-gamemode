@@ -1,6 +1,7 @@
 import { RAGERP } from "@api";
 import { BanEntity } from "@entities/Ban.entity";
 import { CharacterEntity } from "@entities/Character.entity";
+import { entityAttachments } from "@modules/Attachments.module";
 
 const onPlayerJoin = async (player: PlayerMp) => {
     try {
@@ -45,7 +46,6 @@ const onPlayerQuit = async (player: PlayerMp) => {
 
 mp.events.add("playerJoin", onPlayerJoin);
 mp.events.add("playerQuit", onPlayerQuit);
-
 mp.events.add("server::spectate:stop", async (player: PlayerMp) => {
     if (!player || !mp.players.exists(player)) return;
     player.setVariable("isSpectating", false);
@@ -57,4 +57,10 @@ mp.events.add("server::player:noclip", (player: PlayerMp, status) => {
     mp.players.forEachInRange(player.position, mp.config["stream-distance"], (nearbyPlayer) => {
         nearbyPlayer.call("client::player:noclip", [player.id, status]);
     });
+});
+
+mp.events.add("entityCreated", (entity) => {
+    if (["vehicle", "player"].includes(entity.type)) {
+        entityAttachments.initFunctions(entity as VehicleMp | PlayerMp);
+    }
 });
