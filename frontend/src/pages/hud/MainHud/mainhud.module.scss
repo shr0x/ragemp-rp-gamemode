@@ -15,6 +15,7 @@
         width: 59.25925925925926vh;
         height: 100%;
 
+
         .areainfo {
             position: absolute;
             left: 28vh;
@@ -59,6 +60,33 @@
     .right {
         width: 59.25925925925926vh;
         height: 100%;
+
+
+        .cashinfo {
+            position: absolute;
+            right: 1vh;
+            top: 25vh;
+            font-size:2.5vh;
+            font-family: 'Beast Duh', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 1vh;
+            justify-content: center;
+            border-radius: .5vh;
+            text-shadow: .1vh .1vh 2vh black;
+            background: $global-bg-transparent;
+
+            .cash {
+                font-family: 'Beast Duh', sans-serif;
+                padding: .2vh;
+            }
+
+            img {
+                width: 2.314814814814815vh;
+                height: 2.314814814814815vh;
+                margin-left: 1vh;
+            }
+        }
 
         .servername {
             position: absolute;

@@ -39,16 +39,17 @@ class Cef_Event {
         page: P,
         pointer: K,
         handler: (player: PlayerMp, data: EventData<P, K>) => void | EventHandler | EventHandlerAsync
-    ): void;
-    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): void;
+    ): EventMp;
+    register(page: string, pointer: string, handler: EventHandler | EventHandlerAsync): EventMp;
     register(
         page: keyof CefData.Interfaces.IncomingCEFEvents | string,
         pointer: keyof CefData.Interfaces.IncomingCEFEvents[keyof CefData.Interfaces.IncomingCEFEvents] | string,
         handler: any // Allow any type for handler when page and pointer are provided as strings
-    ): void {
+    ): EventMp {
         if (!this.eventsInMemory.some((event) => event.target === page && event.name === pointer)) {
             const _event = new mp.Event(`server::${page}:${pointer}`, handler);
             this.eventsInMemory.push({ target: page, name: pointer, handler, _event });
+            return _event;
         } else {
             console.log("------------------------------------------------------------");
             throw new Error(`Event: "${page}", "${pointer}" was found duplicated`);
@@ -112,19 +113,19 @@ class Cef_Event {
      * await Cef_Event.emitAsync(mp.players.at(0), "hud", "setData", {level: 1});
      * ```
      * @param player The player to emit data to
-     * @param page Which page to update
+     * @param target Which page to update
      * @param pointer Which pointer to call
-     * @param data Data to send
+     * @param obj Data to send
      * @returns void
      */
     async emitAsync<T extends keyof CefData.Interfaces.CefEventMap, K extends keyof CefData.Interfaces.CefEventMap[T]>(
         player: PlayerMp,
         target: T,
-        name: K,
+        pointer: K,
         obj: CefData.Interfaces.CefEventMap[T][K]
     ): Promise<void> {
         if (!mp.players.exists(player)) return;
-        const eventName = `cef::${target}:${String(name)}`;
+        const eventName = `cef::${target}:${String(pointer)}`;
         return player.call("client::eventManager", [eventName, obj]);
     }
 }

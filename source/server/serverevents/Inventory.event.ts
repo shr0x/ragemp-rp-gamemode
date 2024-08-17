@@ -7,28 +7,28 @@ RAGERP.cef.register("inventory", "onMoveItem", async (player, data) => {
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onUseItem", (player, data) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.useItem(player, data);
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    player.character.inventory.useItem(player, data);
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onSplitItem", (player: PlayerMp, data) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.splitStack(player, data);
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    player.character.inventory.splitStack(player, data);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "onDropItem", (player: PlayerMp, itemData) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.dropItem(player, itemData);
+RAGERP.cef.register("inventory", "onDropItem", async (player: PlayerMp, itemData) => {
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    await player.character.inventory.dropItem(player, itemData);
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "deleteItem", (player: PlayerMp, itemData) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.deleteItem(player, itemData);
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    player.character.inventory.deleteItem(player, itemData);
 });
 //-------------------------------------------------------//
 mp.events.add("server::player:loadInventory", (player: PlayerMp) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.setInventory(player);
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    player.character.inventory.setInventory(player);
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onGiveItemAway", (player) => player.call("client::inventory:deletePedScreen"));
@@ -36,16 +36,19 @@ RAGERP.cef.register("inventory", "onGiveItemAway", (player) => player.call("clie
 RAGERP.cef.register("inventory", "confirmItemDrop", (player) => player.call("client::inventory:deletePedScreen"));
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "openItem", (player: PlayerMp, data) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.openItem(player, data);
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    player.character.inventory.openItem(player, data);
 });
 //-------------------------------------------------------//
-mp.events.add("server::inventory:quickUse", (player: PlayerMp, event: any) => {
-    if (!mp.players.exists(player) || !player.character) return;
-    if (player.character.inventory) player.character.inventory.manageFastSlots(player, event);
+mp.events.add("server::inventory:quickUse", async (player: PlayerMp, event: any) => {
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
+    await player.character.inventory.manageFastSlots(player, event);
 });
 //-------------------------------------------------------//
-RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {});
+RAGERP.cef.register("inventory", "cancelAction", (player: PlayerMp) => {
+    if (!mp.players.exists(player) || !player.character || !player.character.inventory || !player.character.inventory.progressBar) return;
+    player.character.inventory.progressBar.onCancel(player);
+});
 
 //-------------------------------------------------------//
 mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {

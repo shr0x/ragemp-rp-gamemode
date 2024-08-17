@@ -51,7 +51,7 @@ function playerAcceptedDeath(player: PlayerMp) {
     player.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_NONE;
     player.stopScreenEffect("DeathFailMPIn");
 }
-async function playerDeath(player: PlayerMp, reason: number, killer: PlayerMp | undefined) {
+async function playerDeath(player: PlayerMp, _reason: number, _killer: PlayerMp | undefined) {
     if (!player || !mp.players.exists(player) || !player.character) return;
 
     if (player.character.deathState === RageShared.Players.Enums.DEATH_STATES.STATE_NONE) {

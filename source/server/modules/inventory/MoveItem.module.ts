@@ -1,7 +1,6 @@
 import { v4 } from "uuid";
 import { ItemObject } from "./ItemObject.class";
-import { inventoryAssets } from "./Items.module";
-import { Utils } from "../../../shared/utils.module";
+import { Utils } from "@shared/utils.module";
 import { RageShared, StringifiedObject } from "@shared/index";
 
 async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) {
@@ -19,7 +18,9 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
 
     if (droppedTo.component === "backpack") {
         const draggedFromItemData =
-            draggedFrom.component === "backpack" ? backpackData.items[fromIndex] : player.character.inventory.items[draggedFrom.component as inventoryAssets.INVENTORY_CATEGORIES][fromIndex];
+            draggedFrom.component === "backpack"
+                ? backpackData.items[fromIndex]
+                : player.character.inventory.items[draggedFrom.component as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][fromIndex];
 
         if (!draggedFromItemData) {
             player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "You're trying to move an invalid item.");
@@ -33,7 +34,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
             backpackData.items[fromIndex] = droptoItemData || null;
         } else {
             backpackData.items[toIndex] = { ...draggedFromItemData, isPlaced: false };
-            player.character.inventory.items[draggedFrom.component as inventoryAssets.INVENTORY_CATEGORIES][fromIndex] = droptoItemData || null;
+            player.character.inventory.items[draggedFrom.component as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][fromIndex] = droptoItemData || null;
             if (draggedFrom.component === "clothes") {
                 player.character.inventory.reloadClothes(player);
             }
@@ -43,10 +44,10 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
         return;
     }
 
-    const droptoItemData = player.character.inventory.items[droppedTo.component as inventoryAssets.INVENTORY_CATEGORIES][toIndex];
+    const droptoItemData = player.character.inventory.items[droppedTo.component as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][toIndex];
     const dragFromItemData = backpackData.items[fromIndex];
 
-    player.character.inventory.items[droppedTo.component as inventoryAssets.INVENTORY_CATEGORIES][toIndex] = dragFromItemData
+    player.character.inventory.items[droppedTo.component as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][toIndex] = dragFromItemData
         ? { ...dragFromItemData, isPlaced: droppedTo.component === "clothes" ? true : false }
         : null;
     backpackData.items[fromIndex] = droptoItemData || null;
@@ -127,8 +128,8 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
 
         const { item, source, target } = JSON.parse(data) as {
             item: RageShared.Inventory.Interfaces.IBaseItem;
-            source: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES | "groundItems" };
-            target: { slot: number; component: inventoryAssets.INVENTORY_CATEGORIES; item: RageShared.Inventory.Interfaces.IBaseItem };
+            source: { slot: number; component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES | "groundItems" };
+            target: { slot: number; component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES; item: RageShared.Inventory.Interfaces.IBaseItem };
         };
 
         const draggedFrom = source;

@@ -64,16 +64,20 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 4rem;
-			height: 4rem;
+			width: 6rem;
+			height: 6rem;
 			padding: 1.5vh;
-			background: black;
+			background: url("../../assets/images/creator/icons/hexagon.svg") no-repeat;
+			background-size: cover;
 
 			opacity: 0.5;
 			font-size: 1.4444444444444444vh;
 			transition: opacity 0.2s linear;
 
-
+			img {
+				width: 2.5vh;
+				height: 2vh;
+			}
 			&.active,
 			&:hover {
 				opacity: 0.9;

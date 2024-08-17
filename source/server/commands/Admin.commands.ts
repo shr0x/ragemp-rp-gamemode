@@ -2,6 +2,69 @@ import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
 import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
+import { adminTeleports } from "@assets/Admin.asset";
+
+RAGERP.commands.add({
+    name: "goto",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp, fulltext: string, targetorpos: string) => {
+        const showAvailableLocations = () => {
+            RAGERP.chat.sendSyntaxError(player, "/goto [player/location]");
+            const keys = Object.keys(adminTeleports);
+            for (let i = 0; i < keys.length; i += 8) {
+                const chunk = keys.slice(i, i + 8);
+                player.outputChatBox(`${RageShared.Enums.STRINGCOLORS.YELLOW}Available locations: ${RageShared.Enums.STRINGCOLORS.GREY} ${chunk.join(", ")}`);
+            }
+        };
+
+        if (!fulltext.length || !targetorpos.length) {
+            showAvailableLocations();
+            return;
+        }
+
+        const targetplayer = mp.players.getPlayerByName(targetorpos);
+
+        if (targetplayer && mp.players.exists(targetplayer)) {
+            player.position = targetplayer.position;
+            player.dimension = targetplayer.dimension;
+            player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported to ${targetplayer.name}`);
+        } else {
+            const targetpos = adminTeleports[targetorpos];
+            if (targetpos) {
+                player.position = targetpos;
+                player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported to ${targetorpos}`);
+            } else {
+                showAvailableLocations();
+            }
+        }
+    }
+});
+
+RAGERP.commands.add({
+    name: "gethere",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp, fulltext: string, target: string) => {
+        if (!fulltext.length || !target.length) {
+            return RAGERP.chat.sendSyntaxError(player, "/gethere [player]");
+        }
+
+        const targetplayer = mp.players.getPlayerByName(target);
+        if (!targetplayer || !mp.players.exists(targetplayer) || !targetplayer.character) {
+            return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
+        }
+
+        if (targetplayer.vehicle) {
+            targetplayer.vehicle.position = player.position;
+            targetplayer.vehicle.dimension = player.dimension;
+        }
+
+        targetplayer.position = player.position;
+        targetplayer.dimension = player.dimension;
+
+        targetplayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Admin ${player.name} has teleported you to their position.`);
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported ${targetplayer.name} to your position.`);
+    }
+});
 
 RAGERP.commands.add({
     name: "ah",
@@ -53,7 +116,7 @@ RAGERP.commands.add({
     aliases: ["adminchat"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fulltext: string) => {
-        if (!fulltext.length) return player.outputChatBox("Usage: /a [text]");
+        if (!fulltext.length) return RAGERP.chat.sendSyntaxError(player, "/a [text]");
 
         const admins = mp.players.toArray().filter((x) => x.character && x.character.adminlevel > 0);
 
@@ -64,14 +127,28 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "admins",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp) => {
+        player.outputChatBox(`${RageShared.Enums.STRINGCOLORS.GREEN}____________[ONLINE ADMINS]____________`);
+        mp.players.forEach((target) => {
+            if (target && target.character && target.character.adminlevel) {
+                player.outputChatBox(`${target.name} as level ${target.character.adminlevel} admin.`);
+            }
+        });
+    }
+});
+
+RAGERP.commands.add({
     name: "veh",
     aliases: ["vehicle", "spawnveh", "spawncar"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fullText: string, vehicleModel: string) => {
-        if (!fullText.length || !vehicleModel.length) return player.outputChatBox("Usage: /veh [vehiclemodel]");
+        if (!fullText.length || !vehicleModel.length) return RAGERP.chat.sendSyntaxError(player, "/veh [vehiclemodel]");
 
         const vehicle = new RAGERP.entities.vehicles.new(RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN, vehicleModel, player.position, player.heading, player.dimension);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Successfully spawned ${vehicleModel} (${vehicle.getId()})`);
+        RAGERP.chat.sendAdminWarning(RageShared.Enums.HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has spawned a vehicle (Model: ${vehicleModel} | ID: ${vehicle.getId()}).`);
     }
 });
 
@@ -80,16 +157,16 @@ RAGERP.commands.add({
     aliases: ["setdimension", "setdim"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
     run: (player: PlayerMp, fullText: string, target: string, dimension: string) => {
-        if (!fullText.length || !target.length || !dimension.length) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (!fullText.length || !target.length || !dimension.length) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const parseTarget = parseInt(target);
-        if (isNaN(parseTarget)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (isNaN(parseTarget)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const parseDimension = parseInt(dimension);
-        if (isNaN(parseDimension)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (isNaN(parseDimension)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         const targetPlayer = mp.players.at(parseTarget);
-        if (!targetPlayer || !mp.players.exists(targetPlayer)) return player.outputChatBox("Usage: /setdimension [target] [dimension]");
+        if (!targetPlayer || !mp.players.exists(targetPlayer)) return RAGERP.chat.sendSyntaxError(player, "/setdimension [target] [dimension]");
 
         targetPlayer.dimension = parseDimension;
 
@@ -99,10 +176,11 @@ RAGERP.commands.add({
 });
 RAGERP.commands.add({
     name: "makeadmin",
+    aliases: ["setadmin"],
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     description: "Make a player admin",
     run: async (player: PlayerMp, fullText: string, target: string, level: string) => {
-        if (!fullText.length || !target.length || !level.length) return player.outputChatBox("Usage: /makeadmin [target] [level]");
+        if (!fullText.length || !target.length || !level.length) return RAGERP.chat.sendSyntaxError(player, "/makeadmin [target] [level]");
         const targetId = parseInt(target);
         const adminLevel = parseInt(level);
 
@@ -116,6 +194,14 @@ RAGERP.commands.add({
         await RAGERP.database.getRepository(CharacterEntity).update(targetPlayer.character.id, { adminlevel: adminLevel });
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully made ${targetPlayer.name} an admin level ${adminLevel}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `${player.name} has made you an admin level ${adminLevel}`);
+
+        RAGERP.chat.sendAdminWarning(
+            RageShared.Enums.HEXCOLORS.LIGHTRED,
+            adminLevel > 0
+                ? `AdmWarn: ${player.name} (${player.id}) has made ${targetPlayer.name} (${targetPlayer.id}) a level ${adminLevel} admin.`
+                : `AdmWarn: ${player.name} (${player.id}) has removed ${targetPlayer.name} admin level.`
+        );
+
         RAGERP.commands.reloadCommands(targetPlayer);
     }
 });
@@ -172,6 +258,7 @@ RAGERP.commands.add({
         const adminVehicles = RAGERP.entities.vehicles.pool.filter((x) => x.type === RageShared.Vehicles.Enums.VEHICLETYPES.ADMIN);
         adminVehicles.forEach((vehicle) => vehicle.destroy());
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You've successfully deleted all admin spawned vehicles.`);
+        RAGERP.chat.sendAdminWarning(RageShared.Enums.HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has destroyed all admin spawned vehicles.`);
     }
 });
 
@@ -201,6 +288,27 @@ RAGERP.commands.add({
         await targetPlayer.character.save(targetPlayer);
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You successfully revived ${targetPlayer.name}`);
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You were revived by admin ${player.name}`);
+        RAGERP.chat.sendAdminWarning(RageShared.Enums.HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has revived player ${targetPlayer.name} (${targetPlayer.id}).`);
+    }
+});
+
+RAGERP.commands.add({
+    name: "givemoney",
+    aliases: ["givecash"],
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp, fulltext: string, target: string, amount: string) => {
+        if (!fulltext.length || !target.length || !amount.length) return RAGERP.chat.sendSyntaxError(player, "/givemoney [player] [amount]");
+
+        const targetPlayer = mp.players.getPlayerByName(target);
+        if (!targetPlayer || !mp.players.exists(targetPlayer) || !targetPlayer.character) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
+
+        const money = parseInt(amount);
+        if (isNaN(money) || money > 50000000) return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid amount of money specified.");
+
+        targetPlayer.giveMoney(money);
+
+        targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You received ${money} cash from admin ${player.name}`);
+        RAGERP.chat.sendAdminWarning(RageShared.Enums.HEXCOLORS.LIGHTRED, `AdmWarn: ${player.name} (${player.id}) has given ${targetPlayer.name} (${targetPlayer.id}) $${money}.`);
     }
 });
 

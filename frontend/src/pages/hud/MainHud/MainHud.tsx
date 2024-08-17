@@ -12,8 +12,10 @@ import ping from "assets/images/hud/icons/ping.svg";
 import users from "assets/images/hud/icons/user.svg";
 import ammoicon from "assets/images/hud/icons/ammo.svg";
 import areaicon from "assets/images/hud/icons/areaname.svg";
+import cashicon from "assets/images/hud/icons/cash.svg";
 
 import style from "./mainhud.module.scss";
+import { regExp } from "utils/Helpers.util";
 
 const MainHUD: FC<{ store: typeof hudStore; playerStore: typeof playerStore }> = ({ store, playerStore }) => {
     const getWeaponImage = useMemo(() => {
@@ -68,6 +70,11 @@ const MainHUD: FC<{ store: typeof hudStore; playerStore: typeof playerStore }> =
                         </span>
                     </div>
                 )}
+
+                <div className={style.cashinfo}>
+                    <img src={cashicon} alt="" />
+                    <div className={style.cash}>${("" + playerStore.data.cash).replace(regExp.money, "$1,")}</div>
+                </div>
 
                 <div className={style.keybindGuide}>
                     {entries(playerStore.keybindGuide).map(([x, val], e) => {

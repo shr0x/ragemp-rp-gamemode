@@ -5,6 +5,8 @@ import { MenuContextData, MenuProps } from "./types";
 import { cx } from "./util";
 
 import "./Menu.scss";
+import EventManager from "utils/EventManager.util";
+import { hudStore } from "store/Hud.store";
 
 export const MAIN_MENU_ID = "0";
 
@@ -21,7 +23,7 @@ const initialData: MenuContextData = {
 
 const Menu = ({ centerX, centerY, innerRadius, outerRadius, animationTimeout, show, animateSubMenuChange, animation, theme, drawBackground, ...props }: MenuProps) => {
     const [data, setData] = React.useState<MenuContextData>(initialData);
-
+    const [active, setActive] = React.useState(false);
     if (innerRadius >= outerRadius) {
         throw new Error("RadialMenu's innerRadius must be less than outerRadius");
     }
@@ -86,15 +88,44 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, animationTimeout, sh
             <svg
                 {...props}
                 width={"50vh"}
-                height={"35vh"}
+                height={"50vh"}
                 stroke="#28272b"
                 strokeWidth={"2"}
                 viewBox={`${-35} ${-35} ${menuWidth + 35 * 2} ${menuHeight + 35 * 2}`}
                 className={clsx(props.className, cx("menu", transition, animation, theme, !data.drawBackground && "no-bg"))}
             >
-                <circle key={1} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 10} fill="none" stroke="#AAAAAA" />
-                {/* <circle key={2} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 20} fill="none" stroke="#afafaf" /> */}
-                {/* <circle key={3} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 30} fill="none" stroke="#AAAAAA" /> */}
+                <circle key={1} cx={centerX - 50} cy={centerY - 50} r={menuWidth / 2 + 10} fill="none" stroke="red" />
+
+                {data.activeMenuId == "0" && (
+                    <g
+                        onMouseEnter={(e) => {
+                            setActive(true);
+                        }}
+                        onMouseLeave={(e) => {
+                            setActive(false);
+                        }}
+                        onClick={() => {
+                            EventManager.emitClient("cef", "close");
+                            hudStore.hideInteraction();
+                        }}
+                    >
+                        <circle key={2} cx="150" cy="150" r="50" className="__rrm-base"></circle>
+
+                        <foreignObject x="120" y="120" width="60" height="60">
+                            <div className="__rrm-content">
+                                <svg width="30" height="30" viewBox="0 0 60 60" fill="none">
+                                    <g clipPath="url(#clip0_104_36)">
+                                        <path
+                                            className={cx("exit", active && "exitactive")}
+                                            d="M58.8437 9.90253C60.6093 8.30878 60.3281 5.9416 58.2031 4.61738C56.0781 3.29316 52.9218 3.5041 51.1562 5.09785L29.9999 24.1408L8.84368 5.09785C7.07805 3.5041 3.9218 3.29316 1.7968 4.61738C-0.328196 5.9416 -0.609446 8.30878 1.15618 9.90253L23.4843 30.0002L1.15618 50.0978C-0.609446 51.6916 -0.328196 54.0588 1.7968 55.383C3.9218 56.7072 7.07805 56.4963 8.84368 54.9025L29.9999 35.8596L51.1562 54.9025C52.9218 56.4963 56.0781 56.7072 58.2031 55.383C60.3281 54.0588 60.6093 51.6916 58.8437 50.0978L36.5156 30.0002L58.8437 9.90253Z"
+                                            fill="red"
+                                        />
+                                    </g>
+                                </svg>
+                            </div>
+                        </foreignObject>
+                    </g>
+                )}
 
                 {React.Children.map(props.children, (child, index) => {
                     if (React.isValidElement(child)) {

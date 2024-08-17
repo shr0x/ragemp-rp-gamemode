@@ -2,6 +2,16 @@ export type StringifiedObject<T> = string & { __stringifiedObjectTag: T };
 
 export namespace RageShared {
     export namespace Interfaces {
+        export interface IInteractButton {
+            button: string;
+            time: number;
+            image: string;
+            count: number;
+            rarity: number;
+            header: string;
+            description: string;
+            autoStart: boolean;
+        }
         export interface IMenuItems {
             id: number;
             text: string;
@@ -12,9 +22,30 @@ export namespace RageShared {
             isActive: boolean;
             items: RageShared.Interfaces.IMenuItems[];
         }
+
+        export interface INativeMenuItem {
+            uid: number;
+            type: RageShared.Enums.NATIVEMENU_TYPES;
+            name: string;
+            data?: string[];
+            value?: boolean | string | number;
+        }
+
+        export interface INativeMenu {
+            id: number;
+            isActive: boolean;
+            header: { [key: string]: string };
+            items: RageShared.Interfaces.INativeMenuItem[];
+        }
     }
 
     export namespace Enums {
+        export const enum NATIVEMENU_TYPES {
+            TYPE_DEFAULT = 0,
+            TYPE_CHECKBOX,
+            TYPE_TABS
+        }
+
         export const enum NotifyType {
             TYPE_LOADING = "loading",
             TYPE_PROMISE = "promise",
@@ -32,6 +63,95 @@ export namespace RageShared {
             LEVEL_FOUR,
             LEVEL_FIVE,
             LEVEL_SIX
+        }
+        export const enum HEXCOLORS {
+            WALKIETALKIE = 0xb2ebe0aa,
+            FACTIONCHAT = 0x01fcffaa,
+            LIGHTGREEN = 0x9acd32aa,
+            DARKGREEN = 0x00aa00aa,
+            RUBY = 0xe91e63aa,
+            LIGHTORANGE = 0xf7a763aa,
+            PURPLE1 = 0x7514f6aa,
+            WHITE = 0xffffffff,
+            YELLOW = 0xffd200ff,
+            YELLOW2 = 0xf5deb3ff,
+            YELLOW3 = 0xffff90ff,
+            LORANGE = 0xf7a763ff,
+            AQUA = 0x33ccffff,
+            GREEN = 0x32cd32ff,
+            LIMEGREEN = 0x06ff00ff,
+            GREY = 0xafafafff,
+            GREY1 = 0xe6e6e6ff,
+            GREY2 = 0xc8c8c8ff,
+            GREY3 = 0xaaaaaaff,
+            GREY4 = 0x8c8c8cff,
+            GREY5 = 0x6e6e6eff,
+            LIGHTRED = 0xff6347ff,
+            ORANGE = 0xff9900ff,
+            RED = 0xaa3333ff,
+            PURPLE = 0xc2a2daff,
+            NEWBIE = 0x7daeffff,
+            BLUE = 0x233efaff,
+            OLDSCHOOL = 0x9999ffff,
+            DOCTOR = 0xff8282ff,
+            DGREEN = 0x00aa00ff,
+            DONATOR = 0x8abff5ff,
+            NAVYBLUE = 0x089dceff,
+            LIGREEN = 0x9acd32ff,
+            GLOBAL = 0xffa500ff,
+            ADMINCHAT = 0x089dceff,
+            FCHAT = 0x01fcffc8,
+            SYNTAX = 0xafafafff,
+            RETIRED = 0xff69b5ff,
+            SANMARINO = 0x2e9cd1ff,
+            TEAL = 0x00aaaaaa,
+            OFFWHITE = 0xf5deb3aa,
+            DARKAQUA = 0x83bfbfaa
+        }
+
+        export const enum STRINGCOLORS {
+            WALKIETALKIE = "!{#b2ebe0}",
+            FACTIONCHAT = "!{#01fcff}",
+            LIGHTGREEN = "!{#9acd32}",
+            DARKGREEN = "!{#00aa00}",
+            RUBY = "!{#e91e63}",
+            LIGHTORANGE = "!{#f7a763}",
+            PURPLE1 = "!{#7514f6}",
+            WHITE = "!{#ffffff}",
+            YELLOW = "!{#ffd200}",
+            YELLOW2 = "!{#f5deb3}",
+            YELLOW3 = "!{#ffff90}",
+            LORANGE = "!{#f7a763}",
+            AQUA = "!{#33ccff}",
+            GREEN = "!{#32cd32}",
+            LIMEGREEN = "!{#06ff00}",
+            GREY = "!{#afafaf}",
+            GREY1 = "!{#e6e6e6}",
+            GREY2 = "!{#c8c8c8}",
+            GREY3 = "!{#aaaaaa}",
+            GREY4 = "!{#8c8c8c}",
+            GREY5 = "!{#6e6e6e}",
+            LIGHTRED = "!{#ff6347}",
+            ORANGE = "!{#ff9900}",
+            RED = "!{#aa3333}",
+            PURPLE = "!{#c2a2da}",
+            NEWBIE = "!{#7daeff}",
+            BLUE = "!{#233efa}",
+            OLDSCHOOL = "!{#9999ff}",
+            DOCTOR = "!{#ff8282}",
+            DGREEN = "!{#00aa00}",
+            DONATOR = "!{#8abff5}",
+            NAVYBLUE = "!{#089dce}",
+            LIGREEN = "!{#9acd32}",
+            GLOBAL = "!{#ffa500}",
+            ADMINCHAT = "!{#089dce}",
+            FCHAT = "!{#01fcff}",
+            SYNTAX = "!{#afafaf}",
+            RETIRED = "!{#ff69b5}",
+            SANMARINO = "!{#2e9cd1}",
+            TEAL = "!{#00aaaa}",
+            OFFWHITE = "!{#f5deb3}",
+            DARKAQUA = "!{#83bfbf}"
         }
     }
 
@@ -247,6 +367,7 @@ export namespace RageShared {
                 wantedLevel: number;
                 isDead: boolean;
                 gender: number;
+                cash: number;
                 weapondata: {
                     weapon: string;
                     ammo: number;
@@ -352,6 +473,44 @@ export namespace RageShared {
 
     export namespace Inventory {
         export namespace Enums {
+            export const enum INVENTORY_CLOTHING {
+                TYPE_HAT = 0,
+                TYPE_MASK = 1,
+                TYPE_GLASSES = 2,
+                TYPE_EARRINGS = 3,
+                TYPE_CHAIN = 4,
+                TYPE_TSHIRT = 5,
+                TYPE_JACKET = 6,
+                TYPE_BACKPACK = 7,
+                TYPE_WALLET = 8,
+                TYPE_ARMOUR = 9,
+                TYPE_WATCH = 10,
+                TYPE_GLOVES = 11,
+                TYPE_PANTS = 12,
+                TYPE_SHOES = 13
+            }
+            export const INVENTORY_EQUIPMENTS: Record<string, string> = {
+                hat: "0",
+                mask: "1",
+                glasses: "2",
+                earRings: "3",
+                chain: "4",
+                tShirt: "5",
+                top: "6",
+                backpack: "7",
+                wallet: "8",
+                armour: "9",
+                watch: "10",
+                gloves: "11",
+                pants: "12",
+                shoes: "13"
+            };
+
+            export enum INVENTORY_CATEGORIES {
+                CLOTHES = "clothes",
+                POCKETS = "pockets"
+            }
+
             export const enum ITEM_TYPE_CATEGORY {
                 TYPE_CLOTHING = 0, //clothing item
                 TYPE_PROP, //prop item

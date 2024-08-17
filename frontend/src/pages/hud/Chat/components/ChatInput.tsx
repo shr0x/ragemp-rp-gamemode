@@ -72,7 +72,7 @@ const ChatInput: FC<ChatInputProps> = ({ store, chatFocusFunc, chatBlur, chatRef
 
     useEffect(() => {
         //@ts-ignore
-        mp.trigger("setTypingInChatState", isFocused);
+        mp.invoke("setTypingInChatState", isFocused);
     }, [isFocused]);
 
     useEffect(() => {

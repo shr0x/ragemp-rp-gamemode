@@ -16,6 +16,7 @@ import { ItemObject } from "./ItemObject.class";
 
 import * as maleClothes from "../../json/maleTorso.json";
 import * as femaleClothes from "../../json/femaleTorso.json";
+import { InteractProgressBar } from "@classes/InteractionProgress.class";
 
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 const torsoDataMale: IClothesData = maleClothes;
@@ -41,6 +42,8 @@ class InventoryBase {
     public weight: number = 40.0;
 
     public equippedWeapons: { [key: number]: { weaponhash: number; isActive: boolean } } = {};
+
+    public progressBar: InteractProgressBar | null = null;
 
     constructor(
         p: PlayerMp,
@@ -82,8 +85,8 @@ class InventoryItem extends InventoryBase {
      * Get a free available inventory item slot
      * @returns itemIndex (slot index) && type: category type
      */
-    public getFreeSlot(): { itemIndex: number; type: inventoryAssets.INVENTORY_CATEGORIES.POCKETS } {
-        let type: inventoryAssets.INVENTORY_CATEGORIES = inventoryAssets.INVENTORY_CATEGORIES.POCKETS;
+    public getFreeSlot(): { itemIndex: number; type: RageShared.Inventory.Enums.INVENTORY_CATEGORIES.POCKETS } {
+        let type: RageShared.Inventory.Enums.INVENTORY_CATEGORIES = RageShared.Inventory.Enums.INVENTORY_CATEGORIES.POCKETS;
         let itemIndex = Object.values(this.items.pockets).findIndex((e) => !e);
         return { itemIndex, type };
     }
@@ -152,7 +155,7 @@ class InventoryItem extends InventoryBase {
         }
     }
 
-    async addPlayerItemEx(item: RageShared.Inventory.Interfaces.IBaseItem, category: inventoryAssets.INVENTORY_CATEGORIES, slot: number) {
+    async addPlayerItemEx(item: RageShared.Inventory.Interfaces.IBaseItem, category: RageShared.Inventory.Enums.INVENTORY_CATEGORIES, slot: number) {
         try {
             if (this.items[category][slot] !== null) return false;
             this.items[category][slot] = item;
@@ -205,7 +208,7 @@ class InventoryClothes extends QuickUse {
      * @param type Clothing Index
      * @returns {boolean}
      */
-    public isWearingClothingType(type: inventoryAssets.INVENTORY_CLOTHING): boolean {
+    public isWearingClothingType(type: RageShared.Inventory.Enums.INVENTORY_CLOTHING): boolean {
         return this.items.clothes[type]?.isPlaced ?? false;
     }
 
@@ -255,7 +258,7 @@ class InventoryClothes extends QuickUse {
      * @returns void
      */
     public removeClothes(player: PlayerMp, slotnumber: number): void {
-        if (!player || !mp.players.exists(player) || !player.character || slotnumber === inventoryAssets.INVENTORY_CLOTHING.TYPE_WALLET) return;
+        if (!player || !mp.players.exists(player) || !player.character || slotnumber === RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_WALLET) return;
         const sex = player.character.gender;
         const default_clothes = defaultClothes[slotnumber][sex];
         const { type, component, drawable, texture } = default_clothes;
@@ -305,8 +308,8 @@ class InventoryClothes extends QuickUse {
         }
 
         switch (slotnumber) {
-            case inventoryAssets.INVENTORY_CLOTHING.TYPE_TSHIRT: {
-                if (this.items.clothes[inventoryAssets.INVENTORY_CLOTHING.TYPE_JACKET]?.isPlaced) {
+            case RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_TSHIRT: {
+                if (this.items.clothes[RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_JACKET]?.isPlaced) {
                     data = { ...data, drawable: data.drawable, texture: data.texture };
                     player.setClothes(8, data.drawable, data.texture, 2);
                     return;
@@ -318,7 +321,7 @@ class InventoryClothes extends QuickUse {
                 this.updateOnScreenPed("clothes", data.component, data.drawable, data.texture, 0);
                 return;
             }
-            case inventoryAssets.INVENTORY_CLOTHING.TYPE_JACKET: {
+            case RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_JACKET: {
                 if (itemData.isPlaced) {
                     const shirtData = itemData.key.replace(RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_TOP, "");
                     const undershirtDrawable = JSON.parse(shirtData);
@@ -342,14 +345,14 @@ class InventoryClothes extends QuickUse {
                 this.updateOnScreenPed("clothes", data.component, data.drawable, data.texture, 0);
                 return;
             }
-            case inventoryAssets.INVENTORY_CLOTHING.TYPE_BACKPACK: {
+            case RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_BACKPACK: {
                 player.setClothes(data.component, data.drawable, data.texture, 2);
                 this.updateOnScreenPed("clothes", data.component, data.drawable, data.texture, 0);
                 return;
             }
-            case inventoryAssets.INVENTORY_CLOTHING.TYPE_ARMOUR: {
-                if (this.items.clothes[inventoryAssets.INVENTORY_CLOTHING.TYPE_ARMOUR]?.isPlaced) {
-                    let item = this.items.clothes[inventoryAssets.INVENTORY_CLOTHING.TYPE_ARMOUR];
+            case RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_ARMOUR: {
+                if (this.items.clothes[RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_ARMOUR]?.isPlaced) {
+                    let item = this.items.clothes[RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_ARMOUR];
                     player.armour = item.amount ?? 0;
                 }
                 player.setClothes(data.component, data.drawable, data.texture, 2);
@@ -423,7 +426,7 @@ class InventoryAction extends InventoryClothes {
             const { item }: { item: RageShared.Inventory.Interfaces.IBaseItem } = JSON.parse(data);
 
             const source = player.character.inventory.getItemSlotComponentByHash(item.hash) as {
-                component: inventoryAssets.INVENTORY_CATEGORIES | null;
+                component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES | null;
                 slot: number | null;
             } | null;
 
@@ -462,7 +465,7 @@ class InventoryAction extends InventoryClothes {
 
             for (const category in items) {
                 if (Object.prototype.hasOwnProperty.call(items, category)) {
-                    const categoryItems = items[category as inventoryAssets.INVENTORY_CATEGORIES];
+                    const categoryItems = items[category as RageShared.Inventory.Enums.INVENTORY_CATEGORIES];
 
                     for (const [slot, item] of Object.entries(categoryItems)) {
                         if (!item) continue;
@@ -474,7 +477,7 @@ class InventoryAction extends InventoryClothes {
                             if (fastSlotIndex !== -1) {
                                 quickUse[fastSlotIndex] = null;
                             }
-                            items[category as inventoryAssets.INVENTORY_CATEGORIES][parsedSlot] = null;
+                            items[category as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][parsedSlot] = null;
                             player.character.inventory.setInventory(player);
 
                             if (category === "clothes") {
@@ -499,7 +502,7 @@ export class Inventory extends InventoryAction {
     }
 
     getItemAndStack(itemType: RageShared.Inventory.Enums.ITEM_TYPES) {
-        return this.getItemsInCategoryByType([inventoryAssets.INVENTORY_CATEGORIES.POCKETS], itemType);
+        return this.getItemsInCategoryByType([RageShared.Inventory.Enums.INVENTORY_CATEGORIES.POCKETS], itemType);
     }
 
     /**
@@ -512,7 +515,7 @@ export class Inventory extends InventoryAction {
         let foundItems: RageShared.Inventory.Interfaces.IBaseItem[] = [];
 
         for (const getcategory in this.items) {
-            let category = getcategory as inventoryAssets.INVENTORY_CATEGORIES;
+            let category = getcategory as RageShared.Inventory.Enums.INVENTORY_CATEGORIES;
             for (const item of Object.values(this.items[category])) {
                 if (!item) continue;
                 if (item.type !== null && item.count !== item.maxStack && item.type === itemHash) {
@@ -530,11 +533,11 @@ export class Inventory extends InventoryAction {
      * @param {RageShared.Inventory.Enums.ITEM_TYPES} type - The item type to search for.
      * @returns {RageShared.Inventory.Interfaces.IBaseItem[]} An array of found items.
      */
-    public getItemsInCategoryByType(category: inventoryAssets.INVENTORY_CATEGORIES[], type: RageShared.Inventory.Enums.ITEM_TYPES): RageShared.Inventory.Interfaces.IBaseItem[] {
+    public getItemsInCategoryByType(category: RageShared.Inventory.Enums.INVENTORY_CATEGORIES[], type: RageShared.Inventory.Enums.ITEM_TYPES): RageShared.Inventory.Interfaces.IBaseItem[] {
         const foundItems: RageShared.Inventory.Interfaces.IBaseItem[] = [];
 
         for (const [categoryName, items] of Object.entries(this.items)) {
-            if (!category.includes(categoryName as inventoryAssets.INVENTORY_CATEGORIES)) {
+            if (!category.includes(categoryName as RageShared.Inventory.Enums.INVENTORY_CATEGORIES)) {
                 continue;
             }
             for (const item of Object.values(items)) {
@@ -861,8 +864,8 @@ export class Inventory extends InventoryAction {
 
     getWeight(): number {
         let weight = this.weight;
-        if (this.items.clothes[inventoryAssets.INVENTORY_CLOTHING.TYPE_BACKPACK]?.isPlaced) {
-            weight += backpackWeight[this.items.clothes[inventoryAssets.INVENTORY_CLOTHING.TYPE_BACKPACK].quality];
+        if (this.items.clothes[RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_BACKPACK]?.isPlaced) {
+            weight += backpackWeight[this.items.clothes[RageShared.Inventory.Enums.INVENTORY_CLOTHING.TYPE_BACKPACK].quality];
         }
         return weight;
     }
@@ -945,5 +948,7 @@ export class Inventory extends InventoryAction {
         return fastSlot;
     }
 
-    async startUsingItem(player: PlayerMp, description: string = "Using a big dildo", time: number, data: IUsingItemData, handler: () => void) {}
+    startUsingItem(player: PlayerMp, description: string, time: number, data: IUsingItemData, handler: () => void) {
+        this.progressBar = new InteractProgressBar(player, description, time, data, handler);
+    }
 }

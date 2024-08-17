@@ -1,6 +1,7 @@
 import * as maleClothes from "@json/maleTorso.json";
 import * as femaleClothes from "@json/femaleTorso.json";
 import { PlayerHud } from "./Hud.class";
+import { Utils } from "@shared/Utils.module";
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 
 const torsoDataMale: IClothesData = maleClothes;
@@ -61,6 +62,14 @@ class _Client {
         this.onTickEvent = new mp.Event("render", this.onTick.bind(this));
         this.hud = new PlayerHud();
     }
+
+    /**
+     * Returns whether a player is death state or not.
+     */
+    public get isDead(): boolean {
+        return mp.players.local.getVariable("isDead");
+    }
+
     /**
      * Disables a key for a specific player action.
      * @param {boolean} isMoveOrLookUp - Indicates if the key is related to movement or looking up.
@@ -118,7 +127,8 @@ class _Client {
     public async requestAnimDict(dict: string, timeoutMs: number = 1000): Promise<boolean> {
         return new Promise((resolve, reject) => {
             if (!mp.players.exists(mp.players.local)) {
-                reject(alert("invalid player"));
+                alert("invalid player");
+                reject("invalid player");
             }
 
             if (mp.game.streaming.hasAnimDictLoaded(dict)) {
@@ -135,7 +145,8 @@ class _Client {
                 } else if (deadline < new Date().getTime()) {
                     clearInterval(inter);
                     const error = `Error: Async loading failed for anim dict: ${dict}`;
-                    reject(alert(error));
+                    alert(error);
+                    reject(error);
                 }
             }, 10);
         });
@@ -243,10 +254,13 @@ class _Client {
             mp.game.streaming.requestAnimDict(dict);
             mp.players.local.taskPlayAnim(dict, anim, 8.0, 1000, -1, 2, 0, false, false, false);
 
-            this.crawlingTimeout = setTimeout(() => {
-                this.crawlingAnimation = null;
-                this.crawlingTimeout = null;
-            }, (timer - 0.1) * 1000);
+            this.crawlingTimeout = setTimeout(
+                () => {
+                    this.crawlingAnimation = null;
+                    this.crawlingTimeout = null;
+                },
+                (timer - 0.1) * 1000
+            );
         };
 
         if (controls.isDisabledControlPressed(0, 32)) {
@@ -256,6 +270,41 @@ class _Client {
         if (controls.isDisabledControlPressed(0, 33)) {
             processcrawlingAnimationation("onfront_bwd");
         }
+    }
+
+    /**
+     * Gets frametime (FPS) from a player.
+     */
+    public getFrameTime() {
+        const frame = mp.game.misc.getFrameTime().toString(16);
+        return Utils.parseHexAsFloat(frame);
+    }
+
+    /**
+     * Draws 3D text at a specified position in the game world.
+     *
+     * @param {string} caption - The text to display.
+     * @param {number} x - The X coordinate in the game world.
+     * @param {number} y - The Y coordinate in the game world.
+     * @param {number} z - The Z coordinate in the game world.
+     * @param {number} [scale=0.3] - The scale of the text. Default is 0.3.
+     * @param {Array4d} [color=[255, 255, 255, 255]] - An optional array representing the RGBA color of the text. Default is white with full opacity.
+     */
+    public drawText3D(caption: string, x: number, y: number, z: number, scale = 0.3, color?: Array4d) {
+        let getcolor = color || [255, 255, 255, 255];
+        mp.game.graphics.setDrawOrigin(x, y, z + 0.5, 0);
+        mp.game.ui.setTextFont(0);
+        mp.game.ui.setTextScale(scale, scale);
+        mp.game.ui.setTextColour(getcolor[0], getcolor[1], getcolor[2], getcolor[3]);
+        mp.game.ui.setTextProportional(true);
+        mp.game.ui.setTextDropshadow(0, 0, 0, 0, 255);
+        mp.game.ui.setTextEdge(2, 0, 0, 0, 150);
+        mp.game.invoke("0x2513DFB0FB8400FE");
+        mp.game.ui.setTextEntry("STRING");
+        mp.game.ui.setTextCentre(true);
+        mp.game.ui.addTextComponentSubstringPlayerName(caption);
+        mp.game.ui.drawText(0, 0, 0);
+        mp.game.invoke("0xFF0B610F6BE0D7AF");
     }
 }
 

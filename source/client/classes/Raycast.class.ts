@@ -55,13 +55,13 @@ class _EntityRaycast {
                 this.batch.update(overlayParams);
                 break;
             }
-            // case "object" :{
-            //     if (!mp.objects.atHandle(this.entity.handle)) return;
-            //     mp.game.graphics.drawText("[G]", [0, 0], { font: 4, color: [255, 255, 255, 255], outline: true, centre: true });
-            //     this.batch.addThisFrame(entity);
-            //     this.batch.update(overlayParams);
-            //     break;
-            // }
+            case "object": {
+                if (!mp.objects.atHandle(this.entity.handle)) return;
+                mp.game.graphics.drawText("[G]", [0, 0], { font: 4, color: [255, 255, 255, 255], outline: true, centre: true });
+                this.batch.addThisFrame(entity);
+                this.batch.update(overlayParams);
+                break;
+            }
             default: {
                 break;
             }

@@ -111,9 +111,6 @@ class _EventManager {
      * @throws Will throw an error if the target or name is not a string.
      */
     public emitServer(target: string, name: string, ...args: any[]): void {
-        if (typeof target !== "string" || typeof name !== "string") {
-            throw new Error("Event address must be a string");
-        }
         const event = `server::${target}:${name}`;
         const sendData = { event, args };
         //@ts-ignore
@@ -130,9 +127,6 @@ class _EventManager {
      * @throws Will throw an error if the target or name is not a string.
      */
     public emitClient(target: string, name: string, ...args: any[]): void {
-        if (typeof target !== "string" || typeof name !== "string") {
-            throw new Error("Event address must be a string");
-        }
         const event = `client::${target}:${name}`;
         const sendData = { event, args };
         //@ts-ignore

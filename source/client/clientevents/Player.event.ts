@@ -11,6 +11,9 @@ mp.events.add("playerReady", () => {
     mp.players.local.setConfigFlag(241, false);
     mp.players.local.setConfigFlag(429, false);
 
+    mp.players.local.setConfigFlag(35, false); // Disable Auto Helmet on a motorcycle
+    mp.players.local.setConfigFlag(184, true); // Disable Seat Shuffling
+
     mp.game.stats.statSetInt(mp.game.joaat("MP0_SHOOTING_ABILITY"), 100, true);
 
     mp.game.gameplay.disableAutomaticRespawn(true);

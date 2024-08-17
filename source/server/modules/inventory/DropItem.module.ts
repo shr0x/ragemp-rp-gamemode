@@ -1,6 +1,5 @@
 import { RageShared } from "@shared/index";
 import { ItemObject } from "./ItemObject.class";
-import { inventoryAssets } from "./Items.module";
 /**
  * Drops an inventory item from the player's inventory.
  *
@@ -14,7 +13,7 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
         const {
             item,
             source
-        }: { item: RageShared.Inventory.Interfaces.IBaseItem; source: { component: inventoryAssets.INVENTORY_CATEGORIES | "backpack"; slot: string; viewingBackpack: string | null } } =
+        }: { item: RageShared.Inventory.Interfaces.IBaseItem; source: { component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES | "backpack"; slot: string; viewingBackpack: string | null } } =
             JSON.parse(itemData);
 
         if (!item) return;

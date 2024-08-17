@@ -1,9 +1,10 @@
-import { Utils } from "../../shared/utils.module";
-import { CefEvent } from "../classes/CEFEvent.class";
-import { CommandRegistry } from "../classes/Command.class";
-import { DynamicPoint, dynamicPointPool } from "../classes/Point.class";
-import { Vehicle, vehicleManager, vehiclePool } from "../classes/Vehicle.class";
+import { Utils } from "@shared/utils.module";
+import { CefEvent } from "@classes/CEFEvent.class";
+import { CommandRegistry } from "@classes/Command.class";
+import { DynamicPoint, dynamicPointPool } from "@classes/Point.class";
+import { Vehicle, vehicleManager, vehiclePool } from "@classes/Vehicle.class";
 import { MainDataSource } from "../database/Database.module";
+import { Chat } from "@modules/Chat.module";
 
 /**
  * Namespace for the RAGERP system.
@@ -129,4 +130,10 @@ export namespace RAGERP {
      * @type {object}
      */
     export const commands = CommandRegistry;
+
+    /**
+     * Chat methods
+     * @type {object}
+     */
+    export const chat = Chat;
 }

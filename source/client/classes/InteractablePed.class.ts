@@ -60,7 +60,7 @@ export class InteractablePed {
 
             const position = new mp.Vector3(this.coords.x, this.coords.y, this.coords.z + 1);
 
-            this.textLabel = mp.labels.new(`~y~NPC~n~~w~~c~${this.name}`, position, { dimension: 0, font: 4, los: true });
+            this.textLabel = mp.labels.new(`~y~NPC~n~~w~~c~${this.name}`, position, { dimension: 0, font: 4, los: true, drawDistance: 10 });
 
             this.ped.setBlockingOfNonTemporaryEvents(true);
             this.ped.taskSetBlockingOfNonTemporaryEvents(true);

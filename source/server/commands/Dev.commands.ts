@@ -1,6 +1,7 @@
 import { RAGERP } from "@api";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { RageShared } from "@shared/index";
+import { NativeMenu } from "@classes/NativeMenu.class";
 
 RAGERP.commands.add({
     name: "gotopos",
@@ -103,5 +104,84 @@ RAGERP.commands.add({
             itemData ? RageShared.Enums.NotifyType.TYPE_SUCCESS : RageShared.Enums.NotifyType.TYPE_ERROR,
             itemData ? `You received a ${itemData.name}` : `An error occurred giving u the item.`
         );
+    }
+});
+
+RAGERP.commands.add({
+    name: "setpage",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp, fulltext, pagename) => {
+        RAGERP.cef.emit(player, "system", "setPage", pagename);
+    }
+});
+
+RAGERP.commands.add({
+    name: "reloadclientside",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp) => {
+        //@ts-ignore
+        mp.players.reloadResources();
+    }
+});
+
+RAGERP.commands.add({
+    name: "testnativemenu",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: async (player: PlayerMp) => {
+        player.nativemenu = new NativeMenu(player, 0, "Hello World", "This is a description", [
+            { name: "test", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 123 },
+            { name: "test 2", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 1232 },
+            { name: "test 3", type: RageShared.Enums.NATIVEMENU_TYPES.TYPE_DEFAULT, uid: 1232 }
+        ]);
+
+        player.nativemenu.onItemSelected(player).then((res) => {
+            if (!res) return player.nativemenu?.destroy(player);
+            const data = RAGERP.utils.parseObject(res);
+            console.log("onItemSelected called, with result: ", data);
+
+            switch (data.listitem) {
+                case 0: {
+                    console.log("player selected the first item in native menu");
+                    return;
+                }
+                default: {
+                    return console.log(`player selected index ${data.listitem} | name: ${data.name} | uid: ${data.uid}`);
+                }
+            }
+        });
+    }
+});
+
+RAGERP.commands.add({
+    name: "testitem",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: async (player: PlayerMp) => {
+        if (!player.character || !player.character.inventory) return;
+
+        const items = player.character.inventory.getItemsInCategoryByType([RageShared.Inventory.Enums.INVENTORY_CATEGORIES.POCKETS], RageShared.Inventory.Enums.ITEM_TYPES.ITEM_TYPE_PISTOL);
+        if (!items.length) return;
+        player.character.inventory.startUsingItem(
+            player,
+            "Press ESC to cancel this action",
+            5,
+            {
+                item: items[0],
+                animDict: "mini@repair",
+                animName: "fixing_a_player",
+                flag: 16,
+                attachObject: "item_toolbox"
+            },
+            async () => {
+                console.log("Hello world!");
+            }
+        );
+    }
+});
+
+RAGERP.commands.add({
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    name: "testattach",
+    run: (player: PlayerMp, fullText: string, item: string, isAttach: string) => {
+        player.attachObject(item, parseInt(isAttach) !== 0);
     }
 });

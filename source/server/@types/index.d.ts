@@ -1,6 +1,7 @@
-import { InteractionMenu } from "../classes/Interaction.class";
-import { AccountEntity } from "../database/entity/Account.entity";
-import { CharacterEntity } from "../database/entity/Character.entity";
+import { InteractionMenu } from "@classes/Interaction.class";
+import { AccountEntity } from "@entities/Account.entity";
+import { CharacterEntity } from "@entities/Character.entity";
+import { NativeMenu } from "@classes/NativeMenu.class";
 
 declare global {
     interface PlayerMpPool {
@@ -15,6 +16,10 @@ declare global {
         lastPosition: Vector3 | null;
         interactionMenu: InteractionMenu | null;
         fastSlotActive: number | null;
+        emoteTimeout: NodeJS.Timeout | null;
+
+        nativemenu: NativeMenu | null;
+
         cdata: any;
         giveWeaponEx: (weapon: number, totalAmmo: number, ammoInClip?: number | undefined) => void;
         showNotify(type: RageShared.Enums.NotifyType, message: string, skin?: "light" | "dark" | "colored"): void;
@@ -25,7 +30,21 @@ declare global {
         requestCollisionAt(x: number, y: number, z: number): Promise<boolean>;
         startScreenEffect(effectName: string, duration: number, looped: boolean): void;
         stopScreenEffect(effectName: string): void;
+        setEmoteText(color: Array4d, text: string, time: number): void;
+        giveMoney(amount: number, logMessage?: string): void;
+        attachObject(name: string, attached: boolean): void;
+
+        _attachments: any;
+        addAttachment: any;
+        hasAttachment: any;
     }
+
+    interface VehicleMp {
+        _attachments: any;
+        addAttachment: any;
+        hasAttachment: any;
+    }
+
     interface ColshapeMp {
         enterHandler: (player: PlayerMp) => void;
         exitHandler: (player: PlayerMp) => void;
