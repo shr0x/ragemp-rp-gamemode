@@ -56,6 +56,10 @@ export namespace CefData {
                 create: (player: PlayerMp, data: StringifiedObject<RageShared.Players.Interfaces.CreatorData>) => void;
             };
 
+            settings: {
+                changePassword: (player: PlayerMp, data: StringifiedObject<{ old: string; new: string }>) => void;
+            };
+
             chat: {
                 sendMessage: (player: PlayerMp, message: string) => void;
             };

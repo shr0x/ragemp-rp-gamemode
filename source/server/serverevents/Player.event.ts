@@ -3,7 +3,7 @@ import { BanEntity } from "@entities/Ban.entity";
 import { CharacterEntity } from "@entities/Character.entity";
 import { entityAttachments } from "@modules/Attachments.module";
 
-const onPlayerJoin = async (player: PlayerMp) => {
+async function onPlayerJoin(player: PlayerMp) {
     try {
         const banData = await RAGERP.database.getRepository(BanEntity).findOne({
             where: [{ serial: player.serial }, { ip: player.ip }, { username: player.name }, { rsgId: player.rgscId }]
@@ -29,9 +29,8 @@ const onPlayerJoin = async (player: PlayerMp) => {
     } catch (err) {
         console.error(err);
     }
-};
-
-const onPlayerQuit = async (player: PlayerMp) => {
+}
+async function onPlayerQuit(player: PlayerMp) {
     const character = player.character;
     if (!character) return;
     const lastPosition = { ...player.position };
@@ -42,7 +41,7 @@ const onPlayerQuit = async (player: PlayerMp) => {
         deathState: character.deathState,
         cash: character.cash
     });
-};
+}
 
 mp.events.add("playerJoin", onPlayerJoin);
 mp.events.add("playerQuit", onPlayerQuit);
@@ -64,3 +63,5 @@ mp.events.add("entityCreated", (entity) => {
         entityAttachments.initFunctions(entity as VehicleMp | PlayerMp);
     }
 });
+
+RAGERP.cef.register("settings", "changePassword", (player: PlayerMp) => {});
