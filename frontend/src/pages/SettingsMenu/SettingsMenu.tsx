@@ -22,21 +22,9 @@ const SettingsMenu: FC<{ store: typeof playerStore }> = observer(({ store }) => 
 
     const categoryNav = useMemo(
         () => [
-            {
-                link: "main",
-                text: "Security",
-                icon: security
-            },
-            {
-                link: "display",
-                text: "Display",
-                icon: toggle
-            },
-            {
-                link: "keys",
-                text: "Keybinding",
-                icon: keyboard
-            }
+            { link: "main", text: "Security", icon: security },
+            { link: "display", text: "Display", icon: toggle },
+            { link: "keys", text: "Keybinding", icon: keyboard }
         ],
         []
     );

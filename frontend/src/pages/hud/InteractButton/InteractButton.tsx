@@ -78,15 +78,16 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
         }
     }, [input, store.interactButton?.image]);
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.code === "Enter") sendCount();
-        if (e.code === "KeyE") handleTimerControl("start");
-    };
-
-    const handleKeyUp = (e: KeyboardEvent) => {
-        if (e.code === "KeyE") handleTimerControl("stop");
-    };
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.code === "Enter") sendCount();
+            if (e.code === "KeyE") handleTimerControl("start");
+        };
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.code === "KeyE") handleTimerControl("stop");
+        };
+
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
 
@@ -96,7 +97,7 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
         };
     }, [sendCount, handleTimerControl]);
 
-    if (!store.interactButton) return;
+    if (!store.interactButton) return null;
 
     return (
         <div ref={animationRef} className={style.interactbutton} style={{ "--bg": rarityColors[store.interactButton.rarity] } as CSSProperties}>
