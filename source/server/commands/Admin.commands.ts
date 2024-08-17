@@ -27,14 +27,42 @@ RAGERP.commands.add({
         if (targetplayer && mp.players.exists(targetplayer)) {
             player.position = targetplayer.position;
             player.dimension = targetplayer.dimension;
+            player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported to ${targetplayer.name}`);
         } else {
             const targetpos = adminTeleports[targetorpos];
             if (targetpos) {
                 player.position = targetpos;
+                player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported to ${targetorpos}`);
             } else {
                 showAvailableLocations();
             }
         }
+    }
+});
+
+RAGERP.commands.add({
+    name: "gethere",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp, fulltext: string, target: string) => {
+        if (!fulltext.length || !target.length) {
+            return RAGERP.chat.sendSyntaxError(player, "/gethere [player]");
+        }
+
+        const targetplayer = mp.players.getPlayerByName(target);
+        if (!targetplayer || !mp.players.exists(targetplayer) || !targetplayer.character) {
+            return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "Invalid player specified.");
+        }
+
+        if (targetplayer.vehicle) {
+            targetplayer.vehicle.position = player.position;
+            targetplayer.vehicle.dimension = player.dimension;
+        }
+
+        targetplayer.position = player.position;
+        targetplayer.dimension = player.dimension;
+
+        targetplayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Admin ${player.name} has teleported you to their position.`);
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `You teleported ${targetplayer.name} to your position.`);
     }
 });
 

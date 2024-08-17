@@ -89,10 +89,10 @@
     width: 7.037037037037036vh;
     height: 7.037037037037036vh;
 
+    filter: drop-shadow(0 0 1.5vh black);
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: $global-bg;
 
     flex-shrink: 0;
@@ -283,7 +283,7 @@
       width: 3.222222222222222vh;
       height: 3.222222222222222vh;
 
-      border: 0.09259259259259259vh solid #fff;
+      border: 0.09259259259259259vh solid #f00;
 
       display: flex;
       align-items: center;

@@ -23,21 +23,22 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
         animationRef = useRef<HTMLDivElement>(null);
 
     const buttonImage = useMemo(() => {
-        const image = new URL(`../../../assets/images/hud/inventory/items/${store.interactButton.image}.svg`, import.meta.url).href;
+        const image = new URL(`../../../assets/images/hud/inventory/items/${store.interactButton?.image}.svg`, import.meta.url).href;
         return image.includes("undefined") ? new URL("../../../assets/images/hud/icons/interact.svg", import.meta.url).href : image;
-    }, [store.interactButton.image]);
+    }, [store.interactButton?.image]);
 
     useEffect(() => {
+        if (!store.interactButton) return;
         const animationElement = animationRef.current;
         if (animationElement) {
-            animationElement.classList.toggle(style.interaction_active, store.interactionVisible);
+            animationElement.classList.toggle(style.interaction_active, !!store.interactButton);
         }
-        setTimer(store.interactionVisible && store.interactButton.autoStart);
-    }, [store.interactionVisible, store.interactButton.autoStart]);
+        setTimer(store.interactButton.autoStart);
+    }, [store.interactButton, store.interactButton?.autoStart]);
 
     const handleTimerControl = useCallback(
         (action: "start" | "stop") => {
-            if (store.interactButton.autoStart || !store.interactionVisible) return;
+            if (!store.interactButton || store.interactButton.autoStart) return;
 
             const startAction = action === "start";
             if (timer !== startAction) {
@@ -45,46 +46,47 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
                 EventManager.emitServer("interactionButton", startAction ? "holdDownE" : "stopHoldingE");
             }
         },
-        [store.interactButton.autoStart, store.interactionVisible, timer]
+        [store.interactButton, store.interactButton?.autoStart, timer]
     );
 
     useEffect(() => {
+        if (!store.interactButton) return;
         if (timer) {
             timeout.current = setTimeout(() => {
-                if (!store.interactButton.autoStart) {
+                if (!store.interactButton?.autoStart) {
                     EventManager.emitServer("interactionButton", "progressCompleted");
                 }
-                store.setIsInteractionVisible(false);
+                store.setInteractButtonData(null);
                 setTimer(false);
             }, store.interactButton.time * 1000);
         } else if (timeout.current) {
             clearTimeout(timeout.current);
         }
-    }, [timer, store.interactButton.time, store]);
+    }, [timer, store.interactButton?.time, store]);
 
     useEffect(() => {
+        if (!store.interactButton) return;
         if (parseInt(input) > store.interactButton.count) {
             setInput(String(store.interactButton.count));
         }
-    }, [input, store.interactButton.count]);
+    }, [input, store.interactButton?.count]);
 
     const sendCount = useCallback(() => {
         if (input) {
-            EventManager.emitServer("interactionButton", "interact", { type: store.interactButton.image, count: input });
+            EventManager.emitServer("interactionButton", "interact", { type: store.interactButton?.image, count: input });
             setInput("");
         }
-    }, [input, store.interactButton.image]);
+    }, [input, store.interactButton?.image]);
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.code === "Enter") sendCount();
+        if (e.code === "KeyE") handleTimerControl("start");
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.code === "KeyE") handleTimerControl("stop");
+    };
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.code === "Enter") sendCount();
-            if (e.code === "KeyE") handleTimerControl("start");
-        };
-
-        const handleKeyUp = (e: KeyboardEvent) => {
-            if (e.code === "KeyE") handleTimerControl("stop");
-        };
-
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
 
@@ -94,29 +96,23 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
         };
     }, [sendCount, handleTimerControl]);
 
+    if (!store.interactButton) return;
+
     return (
-        <div
-            ref={animationRef}
-            className={style.interactbutton}
-            style={
-                {
-                    "--bg": rarityColors[store.interactButton.rarity]
-                } as CSSProperties
-            }
-        >
+        <div ref={animationRef} className={style.interactbutton} style={{ "--bg": rarityColors[store.interactButton.rarity] } as CSSProperties}>
             {store.interactButton.count > 0 && (
                 <div className={style.input}>
                     <label htmlFor="interactive" className={style.box}>
-                        <input type="text" placeholder="Insert the amount" id="interactive" value={input} onChange={(e) => setInput(e.target.value.replace(regExp.number, ""))} />
+                        <input type="text" placeholder="Amount" id="interactive" value={input} onChange={(e) => setInput(e.target.value.replace(regExp.number, ""))} />
                         <div className={style.inputbutton} onClick={sendCount}></div>
                     </label>
                     <div
                         className={style.button}
                         onClick={() => {
-                            setInput(String(store.interactButton.count));
+                            setInput(String(store.interactButton?.count));
                             EventManager.emitServer("interactionButton", "interact", {
-                                type: store.interactButton.image,
-                                count: store.interactButton.count
+                                type: store.interactButton?.image,
+                                count: store.interactButton?.count
                             });
                         }}
                     >
@@ -124,14 +120,7 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
                     </div>
                 </div>
             )}
-            <div
-                className={style.left}
-                style={
-                    {
-                        transform: timer && store.interactButton.count <= 0 && !store.interactButton.autoStart && `translate(7.314814814814815vh, 0vh)`
-                    } as CSSProperties
-                }
-            >
+            <div className={style.left} style={{ transform: timer && store.interactButton.count <= 0 && !store.interactButton.autoStart && `translate(7.314814814814815vh, 0vh)` } as CSSProperties}>
                 {!store.interactButton.autoStart && store.interactButton.count ? <div className={style.count}>x{store.interactButton.count}</div> : undefined}
                 <div className={cn(style.timer, { [style.active]: timer })} style={{ "--seconds": `${store.interactButton.time}s` } as CSSProperties}>
                     <span className={style.timertop}></span>
@@ -143,11 +132,7 @@ const InteractButton: FC<{ store: typeof hudStore }> = observer(({ store }) => {
                     src={buttonImage}
                     alt="#"
                     className={style.img}
-                    style={
-                        {
-                            "--filter": rarityColors[store.interactButton.rarity] ? rarityColors[store.interactButton.rarity] : "#000"
-                        } as CSSProperties
-                    }
+                    style={{ "--filter": rarityColors[store.interactButton.rarity] ? rarityColors[store.interactButton.rarity] : "#000" } as CSSProperties}
                 />
             </div>
             <div className={style.right} style={{ transform: timer && store.interactButton.count <= 0 && !store.interactButton.autoStart ? `translate(7.5vh, 0vh)` : undefined }}>
