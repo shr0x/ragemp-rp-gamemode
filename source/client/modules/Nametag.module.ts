@@ -7,7 +7,7 @@ mp.events.add("render", () => {
     if (!mp.players.local.getVariable("loggedin")) return;
 
     mp.players.toArray().forEach((player: PlayerMp, i: number) => {
-        if (player.getVariable("isSpectating") || !mp.players.exists(player) || i > 50) return;
+        if (player.remoteId === mp.players.local.remoteId || player.getVariable("isSpectating") || !mp.players.exists(player) || i > 50) return;
 
         let loadDistTemp = i > 25 ? 5 : maxDistance;
 
