@@ -282,6 +282,10 @@ RAGERP.commands.add({
 
         targetPlayer.character.setStoreData(player, "isDead", false);
         targetPlayer.setVariable("isDead", false);
+        
+        targetPlayer.setVariable("deathTime", 30);
+        targetPlayer.character.setStoreData(player, "deathTime", 30);
+        
         targetPlayer.stopScreenEffect("DeathFailMPIn");
         targetPlayer.stopAnimation();
 
