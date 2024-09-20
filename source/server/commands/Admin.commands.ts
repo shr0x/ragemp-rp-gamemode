@@ -371,3 +371,17 @@ RAGERP.commands.add({
         );
     }
 });
+
+RAGERP.commands.add({
+    name: "fixcar",
+    aliases: ["fixvehicle"],
+    description: "Repair vehicle",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
+    run: (player: PlayerMp) => {
+        if (!player.vehicle) return;
+
+        player.vehicle.repair();
+        player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, `Has repaired the vehicle`);
+    }
+});
+
