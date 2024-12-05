@@ -44,7 +44,7 @@ RAGERP.cef.register("character", "create", async (player: PlayerMp) => {
     player.call("client::auth:destroyCamera");
 
     player.call("client::creator:start");
-    player.call("client::eventManager", ["cef::system:setPage", "creator"]);
+    RAGERP.cef.emit(player, "system", "setPage", "creator")
 });
 /**
  * Executes when a player finishes creating a character.

@@ -1,5 +1,6 @@
 import { RageShared } from "@shared/index";
 import { ItemObject } from "./ItemObject.class";
+
 /**
  * Drops an inventory item from the player's inventory.
  *

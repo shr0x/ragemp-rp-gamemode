@@ -67,7 +67,7 @@ class _Client {
      * Returns whether a player is death state or not.
      */
     public get isDead(): boolean {
-        return mp.players.local.getVariable("isDead");
+        return mp.players.local.getVariable("isDead") ?? false
     }
 
     /**
