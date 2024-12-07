@@ -82,7 +82,7 @@ class CameraManager {
         const camera = this.list.find((element) => element.name === name);
         if (camera && mp.cameras.exists(camera.cam)) {
             camera.cam.attachTo(entity.handle, 0, 0, 2.0, false);
-            mp.game.cam.renderScriptCams(true, false, 0, true, false);
+            mp.game.cam.renderScriptCams(true, false, 0, true, false, 0);
         }
     }
 

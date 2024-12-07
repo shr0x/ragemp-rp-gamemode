@@ -1,6 +1,5 @@
 mp.events.addProc("client::proc:getWeaponTypeGroup", (weaponhash: Hash) => {
-    let weapongroup = mp.game.weapon.getWeapontypeGroup(weaponhash);
-    return weapongroup;
+    return mp.game.weapon.getWeapontypeGroup(weaponhash);
 });
 
 mp.events.addProc("client::proc:getAmmoInClip", (weaponhash: Hash) => {
