@@ -1,5 +1,5 @@
-import * as maleClothes from "@json/maleTorso.json";
-import * as femaleClothes from "@json/femaleTorso.json";
+import * as maleClothes from "@shared/json/maleTorso.json";
+import * as femaleClothes from "@shared/json/femaleTorso.json";
 import { PlayerHud } from "./Hud.class";
 import { Utils } from "@shared/Utils.module";
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;

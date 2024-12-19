@@ -14,8 +14,8 @@ import { Utils } from "@shared/utils.module";
 import { dropInventoryItem } from "./DropItem.module";
 import { ItemObject } from "./ItemObject.class";
 
-import * as maleClothes from "../../json/maleTorso.json";
-import * as femaleClothes from "../../json/femaleTorso.json";
+import * as maleClothes from "@shared/json/maleTorso.json";
+import * as femaleClothes from "@shared/json/femaleTorso.json";
 import { InteractProgressBar } from "@classes/InteractionProgress.class";
 
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;

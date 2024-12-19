@@ -6,7 +6,7 @@ const PageContext = createContext({
 });
 
 export const PageProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [page, setPage] = useState<string | null>(null);
+    const [page, setPage] = useState<string | null>("hud");
 
     const handleSetPage = useCallback((newPage: string | null) => setPage(newPage), []);
 

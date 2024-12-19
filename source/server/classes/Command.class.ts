@@ -36,7 +36,13 @@ class _CommandRegistry {
         }
     }
 
-    add(command: { name: string; aliases?: string[]; adminlevel?: number; description?: string; run: (...args: any) => void }) {
+    add(command: {
+        name: string;
+        aliases?: string[];
+        adminlevel?: number;
+        description?: string;
+        run: (...args: any) => void;
+    }) {
         if (!command) {
             throw new Error("No command information was passed");
         }

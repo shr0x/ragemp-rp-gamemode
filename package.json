@@ -1,6 +1,6 @@
 {
 	"name": "ragemp-rp-gamemode",
-	"version": "0.0.4",
+	"version": "0.0.8",
 	"description": "A RAGEMP roleplay gamemode",
 	"main": "index.js",
 	"homepage": ".",
