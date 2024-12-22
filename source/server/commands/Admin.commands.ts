@@ -4,7 +4,6 @@ import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
 import { adminTeleports } from "@assets/Admin.asset";
 import { NativeMenu } from "@classes/NativeMenu.class";
-import { v4 as uuidv4 } from "uuid";
 RAGERP.commands.add({
     name: "goto",
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,

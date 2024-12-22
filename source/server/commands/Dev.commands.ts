@@ -123,6 +123,14 @@ RAGERP.commands.add({
         mp.players.reloadResources();
     }
 });
+RAGERP.commands.add({
+    name: "testbbb",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp) => {
+        //@ts-ignore
+        player.call("testcambro")
+    }
+});
 
 RAGERP.commands.add({
     name: "testnativemenu",

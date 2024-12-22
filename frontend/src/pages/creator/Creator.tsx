@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import CreatorPlayerName from "./components/GeneralData/GeneralData";
 import CreatorPlayerAppearance from "./components/Appearance/Appearance";
 import CreatorPlayerFace from "./components/FaceFeatures/FaceFeatures";
+import CreatorPlayerClothes from "./components/Clothing/Clothing";
 
 import { setRandomOptions } from "./utils/Randomizer.module";
 
@@ -16,6 +17,7 @@ import Notification from "utils/NotifyManager.util";
 import infoicon from "assets/images/creator/icons/info.svg";
 import hairstyleicon from "assets/images/creator/icons/hairstyle.svg";
 import faceicon from "assets/images/creator/icons/face.svg";
+import clothesicon from "assets/images/creator/icons/clothes.svg";
 import mouseicon from "assets/images/creator/icons/rmb.svg";
 
 import randomicon from "assets/images/creator/icons/random.svg";
@@ -78,6 +80,9 @@ const Creator: React.FC<{ store: typeof creatorStore }> = observer(({ store }) =
                 </div>
                 <div className={cn(style.element, optionsPage === "face" ? style.active : undefined)} ref={navFace} onClick={() => handleSwitch("face")}>
                     <img src={faceicon} alt="" />
+                </div>{" "}
+                <div className={cn(style.element, optionsPage === "clothes" ? style.active : undefined)} ref={navFace} onClick={() => handleSwitch("clothes")}>
+                    <img src={clothesicon} alt="" />
                 </div>
             </div>
             <div className={style.content}>
@@ -90,6 +95,7 @@ const Creator: React.FC<{ store: typeof creatorStore }> = observer(({ store }) =
                     {optionsPage === "name" && <CreatorPlayerName store={store} {...{ isNicknameValid, setNicknameValid }} />}
                     {optionsPage === "appearance" && <CreatorPlayerAppearance store={store} />}
                     {optionsPage === "face" && <CreatorPlayerFace store={store} />}
+                    {optionsPage === "clothes" && <CreatorPlayerClothes store={store} />}
                 </div>
                 <div className={style.player_name}>
                     <div className={style.create} onClick={handleCreate}>
