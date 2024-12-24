@@ -76,7 +76,7 @@ export class PlayerHud {
      * @returns void
      */
     public showVehicleSpeedometer(enable: boolean) {
-        return Browser.processEvent("cef::hud:setVehicleData", { key: "isActive", data: enable });
+        return this.setSpeedometerData("isActive", enable);
     }
 
     /**

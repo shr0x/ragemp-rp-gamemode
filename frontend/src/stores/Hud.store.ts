@@ -65,7 +65,7 @@ class _HudStore {
         gear: 5,
         engine: true,
         lights: true,
-        locked: false,
+        locked: true,
         speed: 0,
         maxSpeed: 400
     });

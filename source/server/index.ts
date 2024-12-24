@@ -10,8 +10,6 @@
                                                                       ~How beasts do it~
 
 */
-import crypto from "crypto";
-//---------------------------------------//
 import { RAGERP } from "@api";
 //---------------------------------------//
 import "@commands/index";

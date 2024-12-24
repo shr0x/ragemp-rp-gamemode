@@ -473,6 +473,15 @@ export namespace RageShared {
 
     export namespace Inventory {
         export namespace Enums {
+            export const enum ACTIONS {
+                USE_ITEM = "use",
+                OPEN_ITEM = "open",
+                WEAR_ITEM = "putOn",
+                DROP_ITEM = "drop",
+                TRADE_ITEM = "trade",
+                SPLIT_ITEM = "split",
+            }
+
             export const enum INVENTORY_CLOTHING {
                 TYPE_HAT = 0,
                 TYPE_MASK = 1,
