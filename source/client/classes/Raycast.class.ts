@@ -34,6 +34,7 @@ class _EntityRaycast {
         const foundEntity = this.entity.type === "vehicle" ? mp.vehicles : this.entity.type === "object" ? mp.objects : mp.players;
         if (this.entity.type === "vehicle" && mp.vehicles.atHandle(this.entity.handle).getEngineHealth() < 0) return;
 
+
         const entity = foundEntity.atHandle(this.entity.handle);
 
         const coords = entity.getCoords(false);
