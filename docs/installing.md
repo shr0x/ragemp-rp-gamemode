@@ -58,7 +58,7 @@ Server side<br>
 
 # Getting Started with the Frontend
 
-The `frontend` directory in the `ragemp-rp-gamemode` repository contains the client-side code responsible for the user interface and interactions within the game. This frontend is built using modern web technologies, including React with TypeScript, and is bundled using Webpack.
+The `frontend` directory in the `ragemp-rp-gamemode` repository contains the client-side code responsible for the user interface and interactions within the game. This frontend is built using modern web technologies, including React with TypeScript, and is bundled using vite.
 
 ## Prerequisites
 
@@ -102,7 +102,7 @@ npm -v
    npm run build
    ```
 
-   This command compiles the TypeScript and React code into JavaScript and bundles it using Webpack.
+   This command compiles the TypeScript and React code into JavaScript and bundles it using Vite.
 
 4. **Deploy the Built Assets**:
 
