@@ -1,6 +1,6 @@
 {
   "name": "ragemp-rp-frontend",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "Frontend part of RAGEMP RP Gamemode",
   "homepage": ".",
   "scripts": {

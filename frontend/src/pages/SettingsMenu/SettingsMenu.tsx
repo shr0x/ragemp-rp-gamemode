@@ -3,8 +3,8 @@ import cn from "classnames";
 
 import { observer } from "mobx-react-lite";
 
-import Main from "pages/SettingsMenu/components/Security/Security";
-import Keys from "pages/SettingsMenu/components/Keybinds/Keybinds";
+import Main from "pages/settingsmenu/components/Security/Security";
+import Keys from "pages/settingsmenu/components/Keybinds/Keybinds";
 import Display from "./components/Display/Display";
 
 import style from "./settings.module.scss";

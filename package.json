@@ -1,6 +1,6 @@
 {
 	"name": "ragemp-rp-gamemode",
-	"version": "0.0.4",
+	"version": "0.0.8",
 	"description": "A RAGEMP roleplay gamemode",
 	"main": "index.js",
 	"homepage": ".",
@@ -9,6 +9,7 @@
 		"build:server": "npx webpack --profile --config ./config/webpack.server.js",
 		"watch:client": "npx webpack --watch --profile --config ./config/webpack.client.js",
 		"build:client": "npx webpack --profile --config ./config/webpack.client.js",
+		"watch:both": "concurrently \"npm run watch:client\" \"npm run watch:server\"",
 		"watch:cef": "cd ./frontend && npm install && npm run start",
 		"build:cef": "cd ./frontend && npm install && npm run build",
 		"format-client": "prettier --config .prettierrc \"./source/client/**/*.ts\" --write",
@@ -50,6 +51,7 @@
 		"@types/lodash.clonedeep": "^4.5.7",
 		"@types/node": "^20.12.11",
 		"@types/uuid": "^9.0.1",
+		"concurrently": "^9.1.0",
 		"fork-ts-checker-webpack-plugin": "^9.0.2",
 		"tsconfig-paths-webpack-plugin": "^4.1.0",
 		"typescript": "^5.0.4",

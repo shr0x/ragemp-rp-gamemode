@@ -126,7 +126,7 @@ const Modal: FC<IModalProps> = ({
         EventManager.emitServer("inventory", "onOpenItem", itemData);
     }, [currentItem.id, currentItem.component, getItem, setViewingBackpack]);
 
-    const renderOption = (option: string, handler: any, label: string) =>
+    const renderOption = (option: string, handler: () => void, label: string) =>
         ensureOptionsIsArray().includes(option) && (
             <div className={style.box} onClick={handler}>
                 {label}
@@ -137,12 +137,12 @@ const Modal: FC<IModalProps> = ({
 
     return (
         <div className={style.itemoptions} ref={modalRef} style={{ top: `${modalCoords.y}px`, left: `${modalCoords.x}px` }}>
-            {renderOption("use", useItem, "Use Item")}
-            {renderOption("open", openItem, "Open")}
-            {renderOption("putOn", () => (currentItem.component === "clothes" ? takeItemOff() : putItemOn()), currentItem.component === "clothes" ? "Take off" : "Put on")}
-            {renderOption("drop", handleDrop, "Drop Item")}
-            {renderOption("trade", giveItemAway, "Trade Item")}
-            {renderOption("split", () => splitItem(currentItem), "Split Item")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.USE_ITEM, useItem, "Use Item")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.OPEN_ITEM, openItem, "Open")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.WEAR_ITEM, () => (currentItem.component === "clothes" ? takeItemOff() : putItemOn()), currentItem.component === "clothes" ? "Take off" : "Put on")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.DROP_ITEM, handleDrop, "Drop Item")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.TRADE_ITEM, giveItemAway, "Trade Item")}
+            {renderOption(RageShared.Inventory.Enums.ACTIONS.SPLIT_ITEM, () => splitItem(currentItem), "Split Item")}
         </div>
     );
 };

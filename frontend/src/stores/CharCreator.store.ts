@@ -28,6 +28,24 @@ const defaultData = {
         18: 0, // 18 > ChimpHole
         19: 0 // 19 > neckWidth
     },
+    clothes: {
+        hats: {
+            drawable: 0 as number,
+            texture: 0 as number,
+        },
+        tops: {
+            drawable: 0 as number,
+            texture: 0 as number,
+        },
+        pants: {
+            drawable: 0 as number,
+            texture: 0 as number,
+        },
+        shoes: {
+            drawable: 0 as number,
+            texture: 0 as number,
+        } as any,
+    },
     color: { head: 0, eyebrows: 0, eyes: 0, chest: 0, beard: 0 }
 };
 

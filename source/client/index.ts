@@ -20,6 +20,7 @@ import "@modules/GameData.module";
 import "@modules/Keybinding.module";
 import "@modules/Noclip.module";
 import "@modules/Nametag.module";
+import "@modules/IdleCamera.module";
 //-----------------------------------------//
 import "@prototype/Player.prototype";
 //-----------------------------------------//

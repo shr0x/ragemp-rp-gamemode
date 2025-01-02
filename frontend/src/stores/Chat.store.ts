@@ -9,7 +9,6 @@ interface IChatSettings {
 
 class _ChatStore {
     isActive: boolean = false;
-
     commandList: string[] = observable.array(["/goto", "/help", "/ban", "/kick", "/mute", "/unmute"]);
 
     messages: string[] = observable.array([

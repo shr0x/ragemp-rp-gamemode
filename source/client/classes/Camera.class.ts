@@ -82,7 +82,7 @@ class CameraManager {
         const camera = this.list.find((element) => element.name === name);
         if (camera && mp.cameras.exists(camera.cam)) {
             camera.cam.attachTo(entity.handle, 0, 0, 2.0, false);
-            mp.game.cam.renderScriptCams(true, false, 0, true, false);
+            mp.game.cam.renderScriptCams(true, false, 0, true, false, 0);
         }
     }
 
@@ -91,7 +91,7 @@ class CameraManager {
      * @param {string} name - The name of the camera.
      * @param {PlayerMp | VehicleMp} entity - The entity to point at.
      */
-    setCameraEntity(name: string, entity: PlayerMp | VehicleMp) {
+    setCameraLookAtEntity(name: string, entity: PlayerMp | VehicleMp) {
         const camera = this.list.find((element) => element.name === name);
         if (camera && entity && mp.cameras.exists(camera.cam)) {
             camera.cam.pointAt(entity.handle, 0.0, 0.0, 0.0, true);

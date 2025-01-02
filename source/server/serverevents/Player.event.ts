@@ -43,8 +43,13 @@ async function onPlayerQuit(player: PlayerMp) {
     });
 }
 
-mp.events.add("playerJoin", onPlayerJoin);
-mp.events.add("playerQuit", onPlayerQuit);
+
+mp.events.add({
+    "playerQuit": onPlayerQuit,
+    "playerJoin": onPlayerJoin
+})
+
+
 mp.events.add("server::spectate:stop", async (player: PlayerMp) => {
     if (!player || !mp.players.exists(player)) return;
     player.setVariable("isSpectating", false);
@@ -64,4 +69,4 @@ mp.events.add("entityCreated", (entity) => {
     }
 });
 
-RAGERP.cef.register("settings", "changePassword", (player: PlayerMp) => {});
+RAGERP.cef.register("settings", "changePassword", (player: PlayerMp) => { });
