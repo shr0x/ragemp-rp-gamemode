@@ -134,6 +134,14 @@ RAGERP.commands.add({
 });
 
 RAGERP.commands.add({
+    name: "reloadcef",
+    adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
+    run: (player: PlayerMp) => {
+        player.call("client::cef::reload");
+    }
+});
+
+RAGERP.commands.add({
     name: "testnativemenu",
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_SIX,
     run: async (player: PlayerMp) => {

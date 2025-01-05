@@ -67,3 +67,10 @@ mp.events.add("client::effects:startScreenEffect", (effectName, duration = 3000,
 mp.events.add("client::effects:stopScreenEffect", (effectName) => {
     mp.game.graphics.stopScreenEffect(effectName);
 });
+
+mp.events.add("client::cef::reload", () => {
+    let browser = mp.browsers.at(0);
+
+    if(!browser) return;
+    browser.reload(false);
+});
