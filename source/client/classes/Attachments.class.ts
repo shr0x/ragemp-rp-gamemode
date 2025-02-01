@@ -157,7 +157,7 @@ class _AttachmentManager {
             const entity = mp.players.local;
 
             if (!entity.__attachments || entity.__attachments.indexOf(attachmentName) === -1) {
-                mp.events.callRemote("staticAttachments.Add", attachmentName.toString(36));
+                mp.events.callRemote("server::player:addAttachment", attachmentName.toString(36));
             }
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(e.message);
@@ -177,7 +177,7 @@ class _AttachmentManager {
             const entity = mp.players.local;
 
             if (entity.__attachments && entity.__attachments.indexOf(attachmentName) !== -1) {
-                mp.events.callRemote("staticAttachments.Remove", attachmentName.toString(36));
+                mp.events.callRemote("server::player:removeAttachment", attachmentName.toString(36));
             }
         } catch (e: unknown) {
             if (e instanceof TypeError) mp.console.logWarning(e.message);
@@ -192,7 +192,7 @@ class _AttachmentManager {
         if (!entity.__attachmentObjects) entity.__attachmentObjects = {};
         if (entity.__attachments) {
             entity.__attachments.map((id: any) => {
-                mp.events.callRemote("staticAttachments.Remove", id.toString(36));
+                mp.events.callRemote("server::player:removeAttachment", id.toString(36));
             });
         }
     }

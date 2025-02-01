@@ -124,5 +124,14 @@ export const Utils = {
         const exp = ((int >>> 23) & 0xff) - 127;
         const mantiss = (int & 0x7fffff) + 0x800000;
         return sign * mantiss * Math.pow(2, exp - 23);
+    },
+
+    /**
+     * Converts a floating-point number to a hexadecimal string representation.
+     * @param {number} attachments - The floating-point number to convert.
+     * @returns {string} - The hexadecimal string representation of the floating-point number.
+     */
+    serializeAttachments(attachments: number[]): string {
+        return attachments.map((hash) => hash.toString(36)).join("|");
     }
 };

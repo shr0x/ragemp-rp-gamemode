@@ -80,6 +80,7 @@
 
 
                 }
+
                 .text {
                     margin-left: 4.62962962962963vh;
                     font-family: Arial, Helvetica, sans-serif;
@@ -88,6 +89,7 @@
                     text-transform: uppercase;
                 }
             }
+
             &::-webkit-scrollbar {
                 width: 0.46296296296296297vh;
                 background: rgba(0, 0, 0, 0.1);
@@ -98,21 +100,4 @@
             }
         }
     }
-}
-
-
-
-.blue {
-    border: 0.09259259259259259vh solid #AAB6EF !important;
-    color: #AAB6EF !important;
-}
-
-.error {
-    border: 0.09259259259259259vh solid #FF4E4E !important;
-    color: rgba(255, 78, 78, 0.9) !important;
-}
-
-.active {
-    border: 0.09259259259259259vh solid rgb(196, 21, 108) !important;
-    color: rgb(207, 20, 135) !important;
 }

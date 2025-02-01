@@ -26,16 +26,16 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
 
     player.vehicle && player.vehicle.id === vehicleId
         ? (interactionData = [
-              { id: 0, text: "Toggle Hood", type: 0 },
-              { id: 1, text: "Toggle Trunk", type: 1 },
-              { id: 2, text: "Lock Vehicle", type: 2 },
-              { id: 3, text: `${player.vehicle.engine ? "Turn off Engine" : "Turn on Engine"}`, type: 3 }
-          ])
+            { id: 0, text: "Toggle Hood", type: 0 },
+            { id: 1, text: "Toggle Trunk", type: 1 },
+            { id: 2, text: "Lock Vehicle", type: 2 },
+            { id: 3, text: `${player.vehicle.engine ? "Turn off Engine" : "Turn on Engine"}`, type: 3 }
+        ])
         : (interactionData = [
-              { id: 0, text: "Toggle Hood", type: 0 },
-              { id: 1, text: "Toggle Trunk", type: 1 },
-              { id: 2, text: "Lock Vehicle", type: 2 }
-          ]);
+            { id: 0, text: "Toggle Hood", type: 0 },
+            { id: 1, text: "Toggle Trunk", type: 1 },
+            { id: 2, text: "Lock Vehicle", type: 2 }
+        ]);
 
     const result = await player.interactionMenu.new(player, { isActive: true, items: interactionData });
 
@@ -61,4 +61,18 @@ mp.events.add("server::interaction:vehicle", async (player: PlayerMp, vehicleId:
             return player.interactionMenu?.closeMenu(player);
     }
     player.interactionMenu?.closeMenu(player);
+});
+
+
+mp.events.add("server::vehicle:addAttachment", (player: PlayerMp, remoteVehicle: number, hash) => {
+    let vehicle = mp.vehicles.at(remoteVehicle);
+    if (vehicle && mp.vehicles.exists(vehicle)) {
+        vehicle.addAttachment(parseInt(hash, 36), false);
+    }
+});
+mp.events.add("server::vehicle:removeAttachment", (player, remoteVehicle, hash) => {
+    let vehicle = mp.vehicles.at(remoteVehicle);
+    if (vehicle && mp.vehicles.exists(vehicle)) {
+        vehicle.addAttachment(parseInt(hash, 36), true);
+    }
 });

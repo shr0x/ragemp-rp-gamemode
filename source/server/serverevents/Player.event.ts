@@ -1,7 +1,6 @@
 import { RAGERP } from "@api";
 import { BanEntity } from "@entities/Ban.entity";
 import { CharacterEntity } from "@entities/Character.entity";
-import { entityAttachments } from "@modules/Attachments.module";
 
 async function onPlayerJoin(player: PlayerMp) {
     try {
@@ -63,10 +62,12 @@ mp.events.add("server::player:noclip", (player: PlayerMp, status) => {
     });
 });
 
-mp.events.add("entityCreated", (entity) => {
-    if (["vehicle", "player"].includes(entity.type)) {
-        entityAttachments.initFunctions(entity as VehicleMp | PlayerMp);
-    }
+mp.events.add("server::player:addAttachment", (player: PlayerMp, hash) => {
+    player.addAttachment(parseInt(hash, 36), false);
 });
+mp.events.add("server::player:removeAttachment", (player, hash) => {
+    player.addAttachment(parseInt(hash, 36), true);
+});
+
 
 RAGERP.cef.register("settings", "changePassword", (player: PlayerMp) => { });

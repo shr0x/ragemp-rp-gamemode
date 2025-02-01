@@ -32,7 +32,7 @@ mp.events.add("render", () => {
 
             /* Player name stuff */
             let playerName = `~n~${player.name}`;
-            if (mp.players.local.isTypingInTextChat) {
+            if (player.isTypingInTextChat) {
                 playerName = `~c~(( ~o~Typing...~c~ ))~n~~w~${player.name}`;
             }
             const fullName = `~w~${playerName} (${player.remoteId})`;

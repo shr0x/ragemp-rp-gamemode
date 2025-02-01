@@ -34,15 +34,18 @@ declare global {
         giveMoney(amount: number, logMessage?: string): void;
         attachObject(name: string, attached: boolean): void;
 
-        _attachments: any;
-        addAttachment: any;
-        hasAttachment: any;
+        _attachments: number[];
+        addAttachment: (model: number | string, remove: boolean) => void;
+        hasAttachment: (model: number | string) => boolean;
+
+        showInteractionButton: (button: string, header: string, description: string) => void;
+        hideInteractionButton: () => void;
     }
 
     interface VehicleMp {
-        _attachments: any;
-        addAttachment: any;
-        hasAttachment: any;
+        _attachments: number[];
+        addAttachment: (model: number | string, remove: boolean) => void;
+        hasAttachment: (model: number | string) => boolean;
     }
 
     interface ColshapeMp {
@@ -50,4 +53,4 @@ declare global {
         exitHandler: (player: PlayerMp) => void;
     }
 }
-export {};
+export { };

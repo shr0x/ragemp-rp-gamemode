@@ -1,6 +1,6 @@
-import { hospitalSpawns } from "@assets/PlayerSpawn.asset";
 import { RageShared } from "@shared/index";
 import { Utils } from "@shared/utils.module";
+import { hospitalSpawns } from "@assets/PlayerSpawn.asset";
 
 const randomDeathAnimations = [
     { dict: "missfinale_c1@", anim: "lying_dead_player0" },
@@ -10,10 +10,11 @@ const randomDeathAnimations = [
 
 export function setPlayerToInjuredState(player: PlayerMp) {
     if (!player || !mp.players.exists(player) || !player.character) return;
+    const randomDeath = randomDeathAnimations[Math.floor(Math.random() * randomDeathAnimations.length)];
+
     player.character.deathState = RageShared.Players.Enums.DEATH_STATES.STATE_INJURED;
     player.character.setStoreData(player, "isDead", true);
     player.setVariable("isDead", true);
-    const randomDeath = randomDeathAnimations[Math.floor(Math.random() * randomDeathAnimations.length)];
     player.playAnimation(randomDeath.dict, randomDeath.anim, 2, 9);
     player.setOwnVariable("deathAnim", { anim: randomDeath.anim, dict: randomDeath.dict });
     player.startScreenEffect("DeathFailMPIn", 0, true);

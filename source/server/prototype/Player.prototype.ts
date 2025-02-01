@@ -130,3 +130,51 @@ mp.Player.prototype.giveMoney = function (amount: number, logMessage?: string): 
 mp.Player.prototype.attachObject = function (name: string, attached: boolean) {
     this.call("client::attachments:attach", [name, attached]);
 };
+
+
+/**
+ * Adds an attachment to the player.
+ * @param {string | number} model - The model of the attachment.
+ * @param {boolean} remove - Whether to remove the attachment.
+ * @returns {void}
+ */
+mp.Player.prototype.addAttachment = function (model: string | number, remove: boolean): void {
+    const attachmentModel = typeof model === "string" ? mp.joaat(model) : model;
+    let idx = (this as PlayerMp)._attachments.indexOf(attachmentModel);
+    if (idx === -1) {
+        if (!remove) {
+            (this as PlayerMp)._attachments.push(attachmentModel);
+        }
+    } else if (remove) {
+        (this as PlayerMp)._attachments.splice(idx, 1);
+    }
+    (this as PlayerMp).setVariable("attachmentsData", RAGERP.utils.serializeAttachments((this as PlayerMp)._attachments));
+};
+
+/**
+ * Checks if the player has an attachment.
+ * @param {string | number} model - The model of the attachment.
+ * @returns {boolean} Whether the player has the attachment.
+ */
+mp.Player.prototype.hasAttachment = function (model: string | number): boolean {
+    return (this as PlayerMp)._attachments.indexOf(typeof model === "string" ? mp.joaat(model) : model) !== -1;
+}
+
+mp.Player.prototype.showInteractionButton = function (button: string, header: string, description: string) {
+    const buttonData: RageShared.Interfaces.IInteractButton = {
+        button: button,
+        autoStart: false,
+        time: 0,
+        count: 0,
+        image: "null",
+        rarity: 1,
+        header,
+        description
+    };
+
+    RAGERP.cef.emit(this, "hud", "showInteractionButton", buttonData);
+};
+
+mp.Player.prototype.hideInteractionButton = function () {
+    RAGERP.cef.emit(this, "hud", "showInteractionButton", null);
+};

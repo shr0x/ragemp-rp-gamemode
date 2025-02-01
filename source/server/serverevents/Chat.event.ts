@@ -13,17 +13,11 @@ const invokeCommand = async (player: PlayerMp, message: string) => {
     // Check if command exists
     const command = CommandRegistry.find(name);
     if (!command) {
-        if (CommandRegistry.notFoundMessageEnabled) {
-            CommandRegistry.commandNotFound(player, name);
-        }
-        return;
-    }
-
-    const cancel = { cancel: false };
-    // CommandEvents.emit('receive', player, command, fullText, args, cancel);
-
-    // Handle cancellation
-    if (cancel && cancel.cancel) {
+        if (name.length > 28)
+            player.outputChatBox("!{#ff0000}[ERROR] !{#FFFFFF}Sorry, that command doesn't exist. Use /help if you need assistance.");
+        else
+            /* although theres no help command, there may be in the future */
+            player.outputChatBox(`!{#ff0000}[ERROR] !{#ffffff}Command !{#afafaf}'/${name}'{ffffff} does not appear to be working. Use !{#afafaf}/help!{#ffffff} for a list of valid commands.`);
         return;
     }
 
