@@ -52,13 +52,6 @@ Then configure your `.env` and database.
 
 ---
 
-## 🧩 How to Build Features
-
-👉 Read: `/docs/creating-features.md`
-
-This is the most important part of the framework.
-
----
 
 ## 📚 Documentation
 
