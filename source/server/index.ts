@@ -15,6 +15,8 @@ import { RAGERP } from "@api";
 import "@commands/index";
 //---------------------------------------//
 import "@prototype/Player.prototype";
+import "@prototype/PlayerTask.prototype";
+import "@prototype/Vehicle.prototype";
 //---------------------------------------//
 import "@classes/WorldManager.class";
 //---------------------------------------//

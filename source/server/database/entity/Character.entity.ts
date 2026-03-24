@@ -7,6 +7,7 @@ import { AccountEntity } from "./Account.entity";
 import { setPlayerToInjuredState } from "@events/Death.event";
 import { RageShared } from "@shared/index";
 import { BankAccountEntity } from "@entities/Bank.entity";
+import { HouseEntity } from "./House.entity";
 
 @Entity({ name: "characters" })
 export class CharacterEntity {
@@ -58,11 +59,15 @@ export class CharacterEntity {
     @OneToMany(() => BankAccountEntity, (bank) => bank.character)
     bank: BankAccountEntity[];
 
+    @OneToOne(() => HouseEntity, (house) => house.owner)
+    @JoinColumn()
+    house: HouseEntity;
+
     public inventory: Inventory | null = null;
 
-    constructor() {}
+    constructor() { }
 
-    public async save(player: PlayerMp) {}
+    public async save(player: PlayerMp) { }
 
     public applyAppearance(player: PlayerMp) {
         if (!player || !mp.players.exists(player) || !player.character) return;

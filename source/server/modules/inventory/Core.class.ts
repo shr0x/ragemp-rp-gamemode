@@ -182,7 +182,7 @@ class InventoryItem extends InventoryBase {
 }
 
 class QuickUse extends InventoryItem {
-    public clearQuickUseSlot() {}
+    public clearQuickUseSlot() { }
 
     /**
      * Checks if an item is in quick use by component and id.
@@ -404,6 +404,7 @@ class InventoryClothes extends QuickUse {
 }
 
 class InventoryAction extends InventoryClothes {
+
     async moveItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>): Promise<void> {
         await moveInventoryItem(player, data);
     }

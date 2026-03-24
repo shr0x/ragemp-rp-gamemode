@@ -6,6 +6,7 @@ import { Inventory } from "@classes/Inventory.class";
 import { PlayerKeybind } from "@classes/Keybind.class";
 import { EntityRaycast } from "@classes/Raycast.class";
 import { CEFPages } from "@assets/CEFPages.asset";
+let lastPress: number = 0;
 
 function playerPressEscape() {
     if (mp.game.ui.isPauseMenuActive() && Browser.currentPage !== "inventory") return;
@@ -84,6 +85,7 @@ PlayerKeybind.addKeybind(
     "Interact with an entity"
 );
 
+
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     async () => {
@@ -104,3 +106,11 @@ PlayerKeybind.addKeybind(
     },
     "Accept death"
 );
+
+//* Keybinds that should not be changed
+
+mp.keys.bind(69, false, () => {
+    if (new Date().getTime() - lastPress < 500) return;
+    lastPress = new Date().getTime();
+    mp.events.callRemote("server::player:pressE");
+});

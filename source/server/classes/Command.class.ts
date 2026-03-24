@@ -1,39 +1,12 @@
 import { CefEvent } from "./CEFEvent.class";
 
 class _CommandRegistry {
-    notFoundMessageEnabled: boolean;
-    _notFoundMessage: string;
-
     _commands: Map<string, { name: string; aliases?: string[]; adminlevel?: number; description?: string; run: Function }>;
     _aliasToCommand: Map<string, string>;
 
     constructor() {
-        this.notFoundMessageEnabled = true;
-        this._notFoundMessage = "404 not found.";
-
         this._commands = new Map();
         this._aliasToCommand = new Map();
-    }
-
-    // Properties
-    // get notFoundMessage() {
-    //     return this._notFoundMessage;
-    // }
-    //
-    // set notFoundMessage(message) {
-    //     if (!message || message.length === 0) {
-    //         throw new Error("message must be a non-empty string");
-    //     }
-    //
-    //     this._notFoundMessage = message;
-    // }
-
-    // Functions
-
-    commandNotFound(_player: PlayerMp, _commandName: string) {
-        if (this.notFoundMessageEnabled) {
-            return;
-        }
     }
 
     add(command: {

@@ -1,6 +1,26 @@
 import { RageShared } from "@shared/index";
 
 export const Chat = {
+
+    /**
+     * Sends a message to a specific player with a specific color.
+     * @param hex - The color code (32bit in hexadecimal) for the message.
+     * @param player - The player to whom the message will be sent.
+     * @param message - The message that will be send
+     * @returns - void
+     */
+    sendColoredMessage(hex: RageShared.Enums.HEXCOLORS, player: PlayerMp, message: string): void {
+        player.outputChatBox(`!{#${hex}}${message}`);
+    },
+    /**
+     * Sends a message to a specific player.
+     * @param player - The player to wwhom the message will be send
+     * @param message - The message that will be send
+     * @returns - void
+     */
+    sendMessage(player: PlayerMp, message: string): void {
+        return player.outputChatBox(message)
+    },
     /**
      * Sends a syntax error message to a specific player.
      *

@@ -4,6 +4,8 @@ import { inventoryAssets } from "@modules/inventory/Items.module";
 import { RageShared } from "@shared/index";
 import { adminTeleports } from "@assets/Admin.asset";
 import { NativeMenu } from "@classes/NativeMenu.class";
+
+
 RAGERP.commands.add({
     name: "goto",
     adminlevel: RageShared.Enums.ADMIN_LEVELS.LEVEL_ONE,
@@ -22,7 +24,7 @@ RAGERP.commands.add({
             return;
         }
 
-        const targetplayer = mp.players.getPlayerByName(targetorpos);
+        const targetplayer = Object.keys(adminTeleports).includes(targetorpos) ? null : mp.players.getPlayerByName(targetorpos);
 
         if (targetplayer && mp.players.exists(targetplayer)) {
             player.position = targetplayer.position;
@@ -174,6 +176,8 @@ RAGERP.commands.add({
         targetPlayer.showNotify(RageShared.Enums.NotifyType.TYPE_INFO, `Administrator ${player.name} changed your dimension to ${parseDimension}`);
     }
 });
+
+
 RAGERP.commands.add({
     name: "makeadmin",
     aliases: ["setadmin"],

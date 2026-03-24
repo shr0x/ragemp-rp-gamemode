@@ -61,7 +61,7 @@ class _HudStore {
     });
 
     vehicleData: RageShared.Vehicles.Interfaces.SpeedometerData = observable.object({
-        isActive: false,
+        isActive: true,
         gear: 5,
         engine: true,
         lights: true,

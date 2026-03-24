@@ -9,7 +9,8 @@ import "@classes/Attachments.class";
 import "@events/Auth.event";
 import "@events/Render.event";
 import "@events/Player.event";
-import "@events/Attachment.events";
+import "@events/Attachment.event";
+import "@events/Tasks.event";
 //-----------------------------------------//
 import "@handlers/Player.handler";
 import "@handlers/Object.handler";

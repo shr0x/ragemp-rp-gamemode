@@ -1,81 +1,66 @@
-# RAGEMP RP GAMEMODE
+# RAGEMP RP Gamemode (Framework)
 
-A RAGE MULTIPLAYER Roleplay game mode.
+A modern, modular **Roleplay framework for RAGE:MP**, built with **TypeScript**, **PostgreSQL**, and a **React-based CEF UI**.
 
-# Introduction
->
-This game mode is still a work in progress, plenty features are planned to be added and a proper roadmap will be published later on.
+This project is designed to be used as a **base foundation** for building scalable RP servers — not just a gamemode.
 
+---
 
+## ✨ Features
 
-# Built in
->
+* Authentication & Character System
+* Inventory System
+* Command System
+* Chat & Notifications
+* Player HUD (CEF)
+* Interaction Menu (Radial UI)
+* Modular Client/Server Architecture
+* Shared Types & Utilities
+* Database integration (PostgreSQL + TypeORM)
 
-| Client Side| Server Side | Frontend |
-|----------|----------|----------|
-| [Webpack](https://webpack.js.org/) | [Typescript](https://www.typescriptlang.org/)     | [React](https://react.dev/)    |
-| [Typescript](https://www.typescriptlang.org/) | [PostgreSQL](https://www.postgresql.org/)    | [Vite](https://vitejs.dev/)    |
-|    | [TypeORM](https://typeorm.io/)    | [MobX](https://mobx.js.org/README.html)    |
-|    | [Webpack](https://webpack.js.org/)    | [Typescript](https://www.typescriptlang.org/)   |
+---
 
+## 🧠 Philosophy
 
->
-# Credits<br>
-Thanks to rootcause for [Command Registry](https://rage.mp/files/file/375-improved-commands/) & [v-bettertorso](https://github.com/root-cause/v-besttorso)<br>
+This framework is built around:
 
-# Current Features
- - Account system (Login/Register).
- - Character System (3 Available slots to create)
- - Inventory system.
- - HUD & Player data.
- - Notification system
- - Chat System
- - Command system
- - Radial Interactive Menu
- #
+* **Separation of concerns** (client / server / shared / frontend)
+* **Modularity** (features live in their own systems)
+* **Scalability** (easy to extend without breaking existing code)
+* **Developer experience** (typed, structured, predictable)
 
-# Getting started with server development
->
-**Introduction:**<br>
+---
 
+## 📁 Project Structure
 
->
-**Database setup:**<br>
-This code requires you to have PostgreSQL installed on your machine, [read more](https://www.postgresql.org/).<br>
-After installing posgree, connect to your database using [PGAdmin](https://www.pgadmin.org/) or [HeidiSQL](https://www.heidisql.com/) and create a new database by executing a query like:
+* `source/client` → Client-side logic (RAGE:MP)
+* `source/server` → Server-side logic
+* `source/shared` → Shared code between client/server
+* `frontend` → CEF UI (React + Vite)
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/shr0x/ragemp-rp-gamemode
+cd ragemp-rp-gamemode
+npm install
 ```
-CREATE DATABASE mydb;
-```
-After creating a database successfully, head back to the server files and edit .env by describing the database connection details there.
-Once you're setup with that, simply start the server, and the TypeORM will start creating the required database tables on its own (see Database.module.ts for deeper info)
->
-**Code structure**
 
-```sh
-ragemp-rp-framework
-├───config #contains webpack configuration files
-├───frontend
-│   └───src
-│       ├───assets #contains assets such as page images or videos
-│       ├───events #contains page events which can be called from the backend
-│       ├───pages #contains pages
-│       ├───stores #contains temporary stores
-│       ├───styles #contains global styling
-│       └───utils #contains useful code methods
-│
-├───source #contains backend code
-│   ├───client #contains client-side code
-│   ├───server #contains server-side code
-│   └───shared #contains shared data between server and client
-│
-└───.env #contains database connection details
-```
->
-**Starting the server in development mode:**<br>
-Client side:<br>
-![.vid](./docs/gifs/client-watch.gif)<br>
-Server side<br>
-![.vid](./docs/gifs/server-watch.gif)
+Then configure your `.env` and database.
+
+---
 
 
-**By downloading this gamemode you agree to the LICENSE.**
+## 📚 Documentation
+
+Full documentation available in `/docs`
+
+---
+
+## ⚠️ Status
+
+Work in progress — APIs may change.
+
+---

@@ -2,8 +2,8 @@ import { FC, useCallback, useState, useMemo } from "react";
 import cn from "classnames";
 import EventManager from "utils/EventManager.util";
 import { observer } from "mobx-react-lite";
-import style from "./clothing.module.scss";
 import { creatorStore } from "store/CharCreator.store";
+import style from "./clothing.module.scss";
 
 const CreatorPlayerClothes: FC<{ store: typeof creatorStore }> = ({ store }) => {
     const [clothingType, setClothingType] = useState("hats");
@@ -11,10 +11,30 @@ const CreatorPlayerClothes: FC<{ store: typeof creatorStore }> = ({ store }) => 
     const clothingCategories = useMemo(() => ["hats", "tops", "pants", "shoes"], []);
 
     const clothingOptions: any = {
-        hats: { drawable: store.data.clothes.hats.drawable, texture: store.data.clothes.hats.texture, maxDrawable: 20, maxTexture: 10 },
-        tops: { drawable: store.data.clothes.tops.drawable, texture: store.data.clothes.tops.texture, maxDrawable: 50, maxTexture: 15 },
-        pants: { drawable: store.data.clothes.pants.drawable, texture: store.data.clothes.pants.texture, maxDrawable: 20, maxTexture: 10 },
-        shoes: { drawable: store.data.clothes.shoes.drawable, texture: store.data.clothes.shoes.texture, maxDrawable: 15, maxTexture: 8 }
+        hats: {
+            drawable: store.data.clothes.hats.drawable,
+            texture: store.data.clothes.hats.texture,
+            maxDrawable: store.data.clothes.hats.maxDrawables,
+            maxTexture: store.data.clothes.hats.maxTextures
+        },
+        tops: {
+            drawable: store.data.clothes.tops.drawable,
+            texture: store.data.clothes.tops.texture,
+            maxDrawable: store.data.clothes.tops.maxDrawables,
+            maxTexture: store.data.clothes.tops.maxTextures
+        },
+        pants: {
+            drawable: store.data.clothes.pants.drawable,
+            texture: store.data.clothes.pants.texture,
+            maxDrawable: store.data.clothes.pants.maxDrawables,
+            maxTexture: store.data.clothes.pants.maxTextures
+        },
+        shoes: {
+            drawable: store.data.clothes.shoes.drawable,
+            texture: store.data.clothes.shoes.texture,
+            maxDrawable: store.data.clothes.shoes.maxDrawables,
+            maxTexture: store.data.clothes.shoes.maxTextures
+        }
     };
 
     const sendClothingData = useCallback((type: string, drawable: number, texture: number) => {

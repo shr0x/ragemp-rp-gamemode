@@ -2,6 +2,7 @@ import { RAGERP } from "@api";
 import { inventorydataPresset } from "@modules/inventory/Assets.module";
 import { RageShared } from "@shared/index";
 import { NativeMenu } from "@classes/NativeMenu.class";
+import { House } from "@classes/House.class";
 
 RAGERP.commands.add({
     name: "gotopos",
