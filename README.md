@@ -1,42 +1,71 @@
-# RAGEMP RP Gamemode (Framework)
+# RAGEMP RP Framework
 
-A modern, modular **Roleplay framework for RAGE:MP**, built with **TypeScript**, **PostgreSQL**, and a **React-based CEF UI**.
+A modern, structured **Roleplay framework for RAGE:MP**, built with **TypeScript**, **PostgreSQL (TypeORM)**, and a **React-based CEF UI**.
 
-This project is designed to be used as a **base foundation** for building scalable RP servers — not just a gamemode.
-
----
-
-## ✨ Features
-
-* Authentication & Character System
-* Inventory System
-* Command System
-* Chat & Notifications
-* Player HUD (CEF)
-* Interaction Menu (Radial UI)
-* Modular Client/Server Architecture
-* Shared Types & Utilities
-* Database integration (PostgreSQL + TypeORM)
+This project is designed as a **foundation for building RP servers**, not a pre-built gamemode.
 
 ---
 
-## 🧠 Philosophy
+## 🧩 What is this?
 
-This framework is built around:
+Most RAGE:MP projects become hard to maintain as they grow:
 
-* **Separation of concerns** (client / server / shared / frontend)
-* **Modularity** (features live in their own systems)
-* **Scalability** (easy to extend without breaking existing code)
-* **Developer experience** (typed, structured, predictable)
+- logic spread across client/server/frontend
+- unclear data flow
+- tightly coupled systems
+- no consistent structure
+
+This framework solves that by providing:
+
+- a clear architecture
+- structured communication between layers
+- predictable development patterns
 
 ---
 
-## 📁 Project Structure
+## ✨ What you get
 
-* `source/client` → Client-side logic (RAGE:MP)
-* `source/server` → Server-side logic
-* `source/shared` → Shared code between client/server
-* `frontend` → CEF UI (React + Vite)
+- Authentication & Character system  
+- Inventory system  
+- Command system  
+- Chat & notification system  
+- Player HUD (CEF)  
+- Interaction menu (radial UI)  
+
+All built on top of:
+
+- a modular server/client/frontend architecture  
+- shared types and utilities  
+- PostgreSQL + TypeORM integration  
+
+---
+
+## 🧠 Core Principles
+
+This framework is built around a few key ideas:
+
+- **Server is authoritative**  
+  All gameplay logic lives on the server.
+
+- **Separation of concerns**  
+  Server = logic, Client = bridge, Frontend = UI.
+
+- **Predictable structure**  
+  Systems follow consistent patterns across the project.
+
+- **UI is optional**  
+  Features can exist without CEF.
+
+---
+
+## 📁 Structure
+
+```text
+source/server   → gameplay logic, systems, database
+source/client   → RAGE:MP bridge layer
+source/shared   → shared types & utilities
+frontend        → CEF UI (React + Vite)
+```
 
 ---
 
@@ -48,19 +77,28 @@ cd ragemp-rp-gamemode
 npm install
 ```
 
-Then configure your `.env` and database.
+Then configure your environment and database.
 
 ---
 
-
 ## 📚 Documentation
 
-Full documentation available in `/docs`
+All documentation is available in the Wiki:
+
+👉 https://github.com/shr0x/ragemp-rp-gamemode/wiki
+
 
 ---
 
 ## ⚠️ Status
 
-Work in progress — APIs may change.
+This project is actively evolving.  
+Expect changes as the framework improves.
 
 ---
+
+## 📌 Final Note
+
+This is a **tool**, not a finished server.
+
+You are expected to build your own gameplay on top of it.
