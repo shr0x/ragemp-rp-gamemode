@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { adminStore } from "store/Admin.store";
+import { adminInventoryStore } from "store/AdminInventory.store";
 import style from "./adminactions.module.scss";
 
 interface IProps {
@@ -32,6 +33,7 @@ const AdminActions = observer(({ adminStore }: IProps) => {
                         <button onClick={() => adminStore.armourSelectedPlayer()}>Armour</button>
                         <button onClick={() => adminStore.freezeSelectedPlayer(true)}>Freeze</button>
                         <button onClick={() => adminStore.freezeSelectedPlayer(false)}>Unfreeze</button>
+                        <button onClick={() => adminInventoryStore.inspectPlayerInventory(player.id)}>Inspect Inventory</button>
                     </div>
 
                     <div className={style.kickSection}>

@@ -1,0 +1,215 @@
+.wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+}
+
+.image {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(1200px, 92vw);
+    height: min(760px, 88vh);
+    transform: translate(-50%, -50%);
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(19, 24, 36, 0.98), rgba(12, 15, 23, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.eyebrow {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.title {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.close {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.meta {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 1.4rem;
+    color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.content {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 1rem;
+    padding: 1rem 1.4rem 1.4rem;
+}
+
+.left,
+.right {
+    min-height: 0;
+    overflow: auto;
+}
+
+.section {
+    margin-bottom: 1rem;
+
+    h3 {
+        margin: 0 0 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+}
+
+.slot {
+    min-height: 78px;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.selected {
+    background: rgba(82, 155, 255, 0.14) !important;
+}
+
+.slotId {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.slotName {
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.slotCount {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.quickUse {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.quickSlot {
+    padding: 0.8rem 0.95rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+.empty {
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.infoRow {
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    span {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    strong {
+        text-align: right;
+    }
+}
+
+.uuid {
+    word-break: break-all;
+}
+
+.backpackHeader {
+    margin-top: 0.8rem;
+
+    h4 {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+}
+
+.actions {
+    margin-top: 0.8rem;
+}
+
+.danger {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border: 0;
+    border-radius: 12px;
+    background: rgba(220, 65, 65, 0.95);
+    color: white;
+    cursor: pointer;
+}

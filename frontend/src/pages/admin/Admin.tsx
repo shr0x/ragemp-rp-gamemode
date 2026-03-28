@@ -4,6 +4,7 @@ import { adminStore } from "store/Admin.store";
 import AdminDashboard from "./components/AdminDashboard";
 import AdminPlayers from "./components/AdminPlayers";
 import AdminActions from "./components/AdminActions";
+import AdminInventory from "./components/AdminInventory";
 import style from "./admin.module.scss";
 
 interface IAdminProps {
@@ -51,6 +52,7 @@ const Admin = observer(({ adminStore }: IAdminProps) => {
                     </div>
                 </div>
             </div>
+            <AdminInventory />
         </div>
     );
 });

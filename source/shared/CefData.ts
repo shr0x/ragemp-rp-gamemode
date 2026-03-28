@@ -53,6 +53,13 @@ export namespace CefData {
                 setStats: IAdminPanelStats;
                 setSelectedPlayer: IAdminPanelPlayer | null;
                 setLoading: boolean;
+
+                setInventoryVisible: boolean;
+                setInventoryTarget: { id: number; name: string } | null;
+                setInventoryClothes: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null };
+                setInventoryQuickUse: { [key: number]: { component: string; id: number } | null };
+                setInventoryData: { [key: string]: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null } };
+                setInventoryMaxWeight: number;
             };
             auth: {};
         }
@@ -101,6 +108,8 @@ export namespace CefData {
                 bringPlayer: (player: PlayerMp, targetId: number) => void;
                 healPlayer: (player: PlayerMp, targetId: number) => void;
                 armourPlayer: (player: PlayerMp, targetId: number) => void;
+                inspectInventory: (player: PlayerMp, data: { targetId: number }) => void;
+                removeInventoryItem: (player: PlayerMp, data: { targetId: number; itemHash: string }) => void;
             };
         }
     }
