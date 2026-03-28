@@ -2,16 +2,16 @@ import { v4 as uuidv4 } from "uuid";
 import { RAGERP } from "@api";
 
 import { RageShared, StringifiedObject } from "@shared/index";
-import { splitInventoryItem } from "./SplitItem.module";
-import { moveInventoryItem } from "./MoveItem.module";
-import { useInventoryItem } from "./UseItem.module";
-import { manageInventoryFastSlot } from "./Quickuse.module";
+import { splitInventoryItem } from "./actions/SplitItem.module";
+import { moveInventoryItem } from "./actions/MoveItem.module";
+import { useInventoryItem } from "./actions/UseItem.module";
+import { manageInventoryFastSlot } from "./actions/Quickuse.module";
 import { backpackWeight, defaultClothes } from "./Assets.module";
 import { inventoryAssets } from "./Items.module";
 
 import { InventoryItemsEntity } from "@entities/Inventory.entity";
 import { Utils } from "@shared/utils.module";
-import { dropInventoryItem } from "./DropItem.module";
+import { dropInventoryItem } from "./actions/DropItem.module";
 import { ItemObject } from "./ItemObject.class";
 
 import * as maleClothes from "@shared/json/maleTorso.json";
@@ -178,6 +178,29 @@ class InventoryItem extends InventoryBase {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    public getSlot(component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES, slot: number) {
+        return this.items[component][slot] ?? null;
+    }
+
+    public setSlot(component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES, slot: number, item: RageShared.Inventory.Interfaces.IBaseItem | null) {
+        this.items[component][slot] = item;
+    }
+
+    public clearSlot(component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES, slot: number) {
+        this.items[component][slot] = null;
+    }
+
+    public swapSlots(
+        a: { component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES; slot: number },
+        b: { component: RageShared.Inventory.Enums.INVENTORY_CATEGORIES; slot: number }
+    ) {
+        const aItem = this.getSlot(a.component, a.slot);
+        const bItem = this.getSlot(b.component, b.slot);
+
+        this.setSlot(a.component, a.slot, bItem);
+        this.setSlot(b.component, b.slot, aItem);
     }
 }
 
@@ -440,7 +463,7 @@ class InventoryAction extends InventoryClothes {
 
             if (count > 1) {
                 player.character.inventory.items[source.component][source.slot] = { ...item, count: count - 1 };
-                player.character.inventory.setInventory(player);
+                player.character.inventory.sync(player);
             } else {
                 const fastSlotIndex = Object.values(player.character.inventory.quickUse).findIndex((e) => e && e.component === source.component && Utils.tryParse(e.id) === source.slot);
                 if (fastSlotIndex !== -1) {
@@ -479,7 +502,7 @@ class InventoryAction extends InventoryClothes {
                                 quickUse[fastSlotIndex] = null;
                             }
                             items[category as RageShared.Inventory.Enums.INVENTORY_CATEGORIES][parsedSlot] = null;
-                            player.character.inventory.setInventory(player);
+                            player.character.inventory.sync(player);
 
                             if (category === "clothes") {
                                 player.character.inventory.loadInventory(player);
@@ -665,7 +688,7 @@ export class Inventory extends InventoryAction {
         }
     }
 
-    setInventory(player: PlayerMp): void {
+    sync(player: PlayerMp): void {
         try {
             let data = { pockets: this.items.pockets };
 
@@ -684,7 +707,7 @@ export class Inventory extends InventoryAction {
 
             this.save(player);
         } catch (err) {
-            console.error("error at inventory.setInventory | ", err);
+            console.error("error at inventory.sync | ", err);
         }
     }
 
@@ -850,9 +873,8 @@ export class Inventory extends InventoryAction {
     }
     hasWeaponInFastSlot(type: RageShared.Inventory.Enums.ITEM_TYPES): boolean {
         for (const itemInFastSlot of Object.values(this.quickUse)) {
-            if (!itemInFastSlot) {
-                return false;
-            }
+            if (!itemInFastSlot) continue;
+
             const item = this.items[itemInFastSlot.component][itemInFastSlot.id];
             if (item && item.type === type) {
                 return true;
@@ -925,7 +947,7 @@ export class Inventory extends InventoryAction {
                 if (!result) return false;
             }
 
-            this.setInventory(player);
+            this.sync(player);
             return true;
         } catch (err) {
             console.error("An error occurred at inventory.addPlayerItemCount: ", err);

@@ -19,7 +19,7 @@ export const splitInventoryItem = (player: PlayerMp, data: string) => {
         if (player.character.inventory.isAmmoItem(item)) {
             player.character.inventory.reloadWeaponAmmo(player, item.type);
         }
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
     } catch (err) {
         console.log("splitInventoryItem err: ", err);
     }

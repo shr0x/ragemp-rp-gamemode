@@ -2,6 +2,21 @@ import { RageShared, StringifiedObject } from "./index";
 
 export namespace CefData {
     export namespace Interfaces {
+        export interface IAdminPanelPlayer {
+            id: number;
+            name: string;
+            ping: number;
+            health: number;
+            armour: number;
+            adminLevel?: number;
+        }
+
+        export interface IAdminPanelStats {
+            onlinePlayers: number;
+            onlineAdmins: number;
+            serverUptime: string;
+        }
+
         export interface CefEventMap {
             system: {
                 setPage: string;
@@ -32,8 +47,16 @@ export namespace CefData {
                 setDroppedItems: { [key: number]: RageShared.Inventory.Interfaces.IBaseItem | null };
                 setMaxWeight: number;
             };
+            admin: {
+                setVisible: boolean;
+                setPlayers: IAdminPanelPlayer[];
+                setStats: IAdminPanelStats;
+                setSelectedPlayer: IAdminPanelPlayer | null;
+                setLoading: boolean;
+            };
             auth: {};
         }
+
         export interface IncomingCEFEvents {
             inventory: {
                 onMoveItem: (player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) => void;
@@ -67,7 +90,20 @@ export namespace CefData {
             hud: {
                 interactResult: (player: PlayerMp, type: string) => void;
             };
+
+            admin: {
+                requestOpen: (player: PlayerMp) => void;
+                requestPlayers: (player: PlayerMp) => void;
+                selectPlayer: (player: PlayerMp, targetId: number) => void;
+                kickPlayer: (player: PlayerMp, targetId: number, reason: string) => void;
+                freezePlayer: (player: PlayerMp, targetId: number, state: boolean) => void;
+                gotoPlayer: (player: PlayerMp, targetId: number) => void;
+                bringPlayer: (player: PlayerMp, targetId: number) => void;
+                healPlayer: (player: PlayerMp, targetId: number) => void;
+                armourPlayer: (player: PlayerMp, targetId: number) => void;
+            };
         }
     }
-    export namespace Enums {}
+
+    export namespace Enums { }
 }

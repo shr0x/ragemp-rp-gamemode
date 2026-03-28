@@ -1,5 +1,5 @@
 import { RageShared } from "@shared/index";
-import { ItemObject } from "./ItemObject.class";
+import { ItemObject } from "../ItemObject.class";
 
 /**
  * Drops an inventory item from the player's inventory.
@@ -30,7 +30,7 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
                 : player.character.inventory.getItemByUUID(item.hash);
 
         if (!playerItem) {
-            player.character.inventory.setInventory(player);
+            player.character.inventory.sync(player);
             return player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "The item you're trying to drop is invalid.");
         }
 
@@ -84,7 +84,7 @@ export const dropInventoryItem = async (player: PlayerMp, itemData: string) => {
             player.character.inventory.reloadClothes(player);
         }
 
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
     } catch (err) {
         console.log("dropInventoryItem error: ", err);
     }

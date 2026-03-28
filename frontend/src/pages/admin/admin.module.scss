@@ -1,0 +1,101 @@
+.adminPanel {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    font-family: Inter, sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(1280px, 92vw);
+    height: min(760px, 88vh);
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(19, 24, 36, 0.98), rgba(12, 15, 23, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 1.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.eyebrow {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.close {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.18s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+    }
+}
+
+.tabs {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem 1.6rem 0;
+
+    button {
+        border: 0;
+        border-radius: 10px 10px 0 0;
+        padding: 0.9rem 1.2rem;
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: 0.18s ease;
+    }
+}
+
+.active {
+    background: rgba(82, 155, 255, 0.18) !important;
+    color: #fff !important;
+}
+
+.body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1rem;
+    padding: 1rem 1.6rem 1.6rem;
+    min-height: 0;
+}
+
+.main,
+.side {
+    min-height: 0;
+}

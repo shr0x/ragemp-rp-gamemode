@@ -1,0 +1,82 @@
+.actions {
+    height: 100%;
+    padding: 1.2rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.empty {
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+}
+
+.playerBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+
+    strong {
+        font-size: 1rem;
+    }
+
+    span {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 0.92rem;
+    }
+}
+
+.group,
+.kickSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.group button,
+.kickSection button,
+.kickSection input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 0;
+    outline: none;
+}
+
+.kickSection input {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.group button,
+.kickSection button {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.18s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.14);
+    }
+}
+
+.danger {
+    background: rgba(220, 65, 65, 0.9) !important;
+
+    &:hover {
+        background: rgba(220, 65, 65, 1) !important;
+    }
+}

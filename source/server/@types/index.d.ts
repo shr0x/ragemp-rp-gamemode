@@ -741,6 +741,7 @@ declare global {
 
         cdata: any;
         giveWeaponEx: (weapon: number, totalAmmo: number, ammoInClip?: number | undefined) => void;
+
         showNotify(type: RageShared.Enums.NotifyType, message: string, skin?: "light" | "dark" | "colored"): void;
         setVariable<K extends keyof RageShared.Players.Interfaces.PlayerVars>(name: K, value: RageShared.Players.Interfaces.PlayerVars[K]): void;
         getVariable<K extends keyof RageShared.Players.Interfaces.PlayerVars>(key: K): RageShared.Players.Interfaces.PlayerVars[K];

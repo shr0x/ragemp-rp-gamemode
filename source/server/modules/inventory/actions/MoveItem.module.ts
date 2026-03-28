@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { ItemObject } from "./ItemObject.class";
+import { ItemObject } from "../ItemObject.class";
 import { Utils } from "@shared/utils.module";
 import { RageShared, StringifiedObject } from "@shared/index";
 
@@ -9,9 +9,9 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
     const draggedFrom = source;
     const droppedTo = target;
 
-    if (!backpackHash) return player.character.inventory.setInventory(player);
+    if (!backpackHash) return player.character.inventory.sync(player);
     const backpackData = player.character.inventory.getItemByUUID(backpackHash);
-    if (!backpackData || !backpackData.items) return player.character.inventory.setInventory(player);
+    if (!backpackData || !backpackData.items) return player.character.inventory.sync(player);
 
     const fromIndex = parseInt(draggedFrom.slot);
     const toIndex = parseInt(droppedTo.slot);
@@ -24,7 +24,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
 
         if (!draggedFromItemData) {
             player.showNotify(RageShared.Enums.NotifyType.TYPE_ERROR, "You're trying to move an invalid item.");
-            return player.character.inventory.setInventory(player);
+            return player.character.inventory.sync(player);
         }
 
         const droptoItemData = backpackData.items[toIndex];
@@ -40,7 +40,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
             }
         }
         player.showNotify(RageShared.Enums.NotifyType.TYPE_SUCCESS, droptoItemData ? "You swapped items." : "Item moved.");
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
         return;
     }
 
@@ -56,7 +56,7 @@ async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageSh
         player.character.inventory.reloadClothes(player);
     }
 
-    player.character.inventory.setInventory(player);
+    player.character.inventory.sync(player);
 }
 async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
     if (!player.character || !player.character.inventory) return;
@@ -64,7 +64,7 @@ async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
 
     const playerItem = player.character.inventory.getItemByUUID(item.hash);
     if (!playerItem) {
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
         return;
     }
 
@@ -84,12 +84,12 @@ async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
                 player.fastSlotActive = parseInt(droppedTo.slot);
             }
 
-            player.character.inventory.setInventory(player);
+            player.character.inventory.sync(player);
             return;
         }
         player.character.inventory.quickUse[parseInt(droppedTo.slot)] = { ...dragFromItemData };
         player.character.inventory.quickUse[parseInt(draggedFrom.slot)] = { ...dropToItemData };
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
         return;
     }
 
@@ -97,7 +97,7 @@ async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
         if (player.character.inventory.isWeapon(playerItem)) {
             if (player.character.inventory.hasWeaponInFastSlot(playerItem.type)) {
                 player.character.inventory.quickUse[parseInt(droppedTo.slot)] = null;
-                player.character.inventory.setInventory(player);
+                player.character.inventory.sync(player);
                 return;
             }
 
@@ -107,18 +107,18 @@ async function moveQuickuseItem(player: PlayerMp, data: string): Promise<void> {
             };
 
             player.character.inventory.quickUse[parseInt(droppedTo.slot)] = { component: draggedFrom.component as "pockets", id: parseInt(draggedFrom.slot) };
-            player.character.inventory.setInventory(player);
+            player.character.inventory.sync(player);
             return;
         }
         player.character.inventory.quickUse[parseInt(droppedTo.slot)] = { component: draggedFrom.component as "pockets", id: parseInt(draggedFrom.slot) };
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
         return;
     }
 
     if (droppedTo.component === "pockets" && player.character.inventory.isWeapon(playerItem)) {
         player.removeAllWeapons();
         player.character.inventory.quickUse[parseInt(draggedFrom.slot)] = null;
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
     }
 }
 
@@ -151,7 +151,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
                 inventory.items[droppedTo.component][droppedTo.slot] = { ...draggedFromSlotData, isPlaced: false };
                 inventory.resetClothingItemData(draggedFrom.slot);
                 inventory.loadClothes(player, draggedFrom.slot, null);
-                inventory.setInventory(player);
+                inventory.sync(player);
                 notifyPlayer(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You unequipped ${draggedFromSlotData.name}`);
                 return;
             }
@@ -161,7 +161,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
             inventory.items[droppedTo.component][droppedTo.slot] = { ...draggedFromSlotData, isPlaced: false };
             inventory.items[draggedFrom.component][draggedFrom.slot] = { ...droppedToItem, isPlaced: true };
             inventory.loadClothes(player, draggedFrom.slot, JSON.parse(droppedToItem.key.replace(droppedToItem.type, "")));
-            inventory.setInventory(player);
+            inventory.sync(player);
             return;
         }
 
@@ -179,7 +179,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
                 inventory.loadClothes(player, droppedTo.slot, JSON.parse(draggedFromData.key.replace(draggedFromData.type, "")));
                 notifyPlayer(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You equipped ${draggedFromData.name}`);
 
-                inventory.setInventory(player);
+                inventory.sync(player);
                 return;
             }
 
@@ -196,7 +196,7 @@ async function moveClothingItem(player: PlayerMp, data: string): Promise<void> {
                 notifyPlayer(RageShared.Enums.NotifyType.TYPE_SUCCESS, `You equipped ${draggedFromData.name}`);
             }
 
-            inventory.setInventory(player);
+            inventory.sync(player);
         }
     } catch (err) {
         console.error("moveClothingItem error: ", err);
@@ -231,7 +231,7 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 };
 
                 if (droppedTo.component === "clothes") player.character.inventory.reloadClothes(player);
-                player.character.inventory.setInventory(player);
+                player.character.inventory.sync(player);
                 return;
             }
 
@@ -299,7 +299,7 @@ export const moveInventoryItem = async (player: PlayerMp, data: StringifiedObjec
                 break;
             }
         }
-        player.character.inventory.setInventory(player);
+        player.character.inventory.sync(player);
     } catch (err) {
         console.log("moveItemToTrunk err: ", err);
     }

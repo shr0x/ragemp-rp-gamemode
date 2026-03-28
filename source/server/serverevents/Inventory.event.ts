@@ -28,7 +28,7 @@ RAGERP.cef.register("inventory", "deleteItem", (player: PlayerMp, itemData) => {
 //-------------------------------------------------------//
 mp.events.add("server::player:loadInventory", (player: PlayerMp) => {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
-    player.character.inventory.setInventory(player);
+    player.character.inventory.sync(player);
 });
 //-------------------------------------------------------//
 RAGERP.cef.register("inventory", "onGiveItemAway", (player) => player.call("client::inventory:deletePedScreen"));
@@ -69,7 +69,7 @@ mp.events.add("server::player:weaponShot", async (player: PlayerMp) => {
             let finditem = await player.character.inventory.getItemSlotComponentByHashKey(loadedin);
             if (finditem) {
                 player.character.inventory.items[finditem.component as "pockets"][finditem.slot] = null;
-                player.character.inventory.setInventory(player);
+                player.character.inventory.sync(player);
             }
             ammoHash.items.splice(ammoHash.items.indexOf(loadedin), 1);
 
