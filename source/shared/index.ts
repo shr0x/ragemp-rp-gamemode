@@ -687,8 +687,8 @@ export namespace RageShared {
 
             export interface ISplitItem {
                 item: RageShared.Inventory.Interfaces.IBaseItem;
-                source: { component: "pockets" | "backpack"; slot: string };
-                target: { component: "pockets" | "backpack"; count: number; slot: string };
+                source: { component: "pockets" | "backpack"; slot: string; linkedbackpack?: string | null };
+                target: { component: "pockets" | "backpack"; count: number; slot: string; linkedbackpack?: string | null };
             }
             export interface IOpenItem {
                 item: RageShared.Inventory.Interfaces.IBaseItem;

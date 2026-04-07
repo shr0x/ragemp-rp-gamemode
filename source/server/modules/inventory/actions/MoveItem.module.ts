@@ -6,8 +6,7 @@ import { RageShared, StringifiedObject } from "@shared/index";
 async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) {
     if (!mp.players.exists(player) || !player.character || !player.character.inventory) return;
     const { source, target, backpackHash } = Utils.parseObject(data);
-    const draggedFrom = source;
-    const droppedTo = target;
+    const [draggedFrom, droppedTo] = [source, target];
 
     if (!backpackHash) return player.character.inventory.sync(player);
     const backpackData = player.character.inventory.getItemByUUID(backpackHash);
