@@ -62,6 +62,15 @@ export namespace CefData {
                 setInventoryMaxWeight: number;
             };
             auth: {};
+
+            atm: {
+                setVisible: boolean;
+                setBalances: {
+                    cash: number;
+                    bank: number;
+                    accountName: string;
+                };
+            };
         }
 
         export interface IncomingCEFEvents {
@@ -110,6 +119,13 @@ export namespace CefData {
                 armourPlayer: (player: PlayerMp, targetId: number) => void;
                 inspectInventory: (player: PlayerMp, data: { targetId: number }) => void;
                 removeInventoryItem: (player: PlayerMp, data: { targetId: number; itemHash: string }) => void;
+            };
+
+            atm: {
+                open: (player: PlayerMp) => void;
+                close: (player: PlayerMp) => void;
+                deposit: (player: PlayerMp, data: { amount: number }) => void;
+                withdraw: (player: PlayerMp, data: { amount: number }) => void;
             };
         }
     }

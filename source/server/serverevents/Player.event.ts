@@ -4,9 +4,8 @@ import { CharacterEntity } from "@entities/Character.entity";
 
 async function onPlayerJoin(player: PlayerMp) {
     try {
-        const banData = await RAGERP.database.getRepository(BanEntity).findOne({
-            where: [{ serial: player.serial }, { ip: player.ip }, { username: player.name }, { rsgId: player.rgscId }]
-        });
+        const whereData = [{ serial: player.serial }, { ip: player.ip }, { username: player.name }, { rsgId: player.rgscId }];
+        const banData = await RAGERP.database.getRepository(BanEntity).findOne({ where: whereData });
 
         if (banData) {
             if (RAGERP.utils.hasDatePassedTimestamp(parseInt(banData.lifttime))) {

@@ -19,6 +19,7 @@ class _PlayerStore {
 
     data: RageShared.Players.Interfaces.IPlayerData = observable.object({
         id: 3000,
+        name: "Shrox Dev",
         gender: 0,
         ping: 47,
         isDead: false,

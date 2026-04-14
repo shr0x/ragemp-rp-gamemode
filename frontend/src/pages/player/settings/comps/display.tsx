@@ -1,10 +1,10 @@
 import { FC, useMemo, useCallback } from "react";
 import cn from "classnames";
 import { observer } from "mobx-react-lite";
-
-import style from "./display.module.scss";
 import EventManager from "utils/EventManager.util";
 import { playerStore } from "store/Player.store";
+
+import style from "../settings.module.scss";
 
 const Display: FC<{ store: typeof playerStore }> = ({ store }) => {
     const displayCategories = useMemo(

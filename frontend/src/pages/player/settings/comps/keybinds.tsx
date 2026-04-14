@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 
 import EventManager from "utils/EventManager.util";
 import { playerStore } from "store/Player.store";
-import style from "./keybind.module.scss";
+import style from "../settings.module.scss";
 
 const keyMap: Record<number, string> = {
     9: "Tab",

@@ -363,6 +363,7 @@ export namespace RageShared {
             }
             export interface IPlayerData {
                 id: number;
+                name: string;
                 ping: number;
                 wantedLevel: number;
                 isDead: boolean;

@@ -6,7 +6,7 @@ import Notification from "utils/NotifyManager.util";
 
 import { playerStore } from "store/Player.store";
 
-import style from "./security.module.scss";
+import style from "../settings.module.scss";
 const Security: FC<{ store: typeof playerStore }> = ({ store }) => {
     const [show, setShow] = useState({
         old: false,

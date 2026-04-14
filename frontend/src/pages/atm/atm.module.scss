@@ -1,0 +1,226 @@
+.atmRoot {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    font-family: Inter, sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 12, 18, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(1000px, 88vw);
+    height: min(640px, 84vh);
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(18, 24, 36, 0.98), rgba(11, 15, 24, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.eyebrow {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.title {
+    margin: 0;
+    font-size: 1.6rem;
+    color: white;
+}
+
+.close {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.body {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+}
+
+.sidebar {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+
+    button {
+        height: 48px;
+        border: 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.72);
+        cursor: pointer;
+        text-align: left;
+        padding: 0 1rem;
+        font-weight: 600;
+    }
+}
+
+.active {
+    background: rgba(82, 155, 255, 0.18) !important;
+    color: white !important;
+}
+
+.main {
+    padding: 1.2rem;
+    min-height: 0;
+    overflow: auto;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    padding: 1.2rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 0.92rem;
+    }
+
+    strong {
+        color: white;
+        font-size: 1.5rem;
+    }
+}
+
+.actionPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.balanceBar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    >div {
+        padding: 1rem;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    span {
+        color: rgba(255, 255, 255, 0.62);
+    }
+
+    strong {
+        color: white;
+        font-size: 1.25rem;
+    }
+}
+
+.inputSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    label {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.92rem;
+    }
+
+    input {
+        height: 54px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        padding: 0 1rem;
+        font-size: 1rem;
+        outline: none;
+    }
+}
+
+.quickGrid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.8rem;
+
+    button {
+        height: 48px;
+        border-radius: 12px;
+        border: 0;
+        background: rgba(255, 255, 255, 0.07);
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: flex-end;
+}
+
+.secondary,
+.primary {
+    height: 48px;
+    padding: 0 1.15rem;
+    border-radius: 12px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.secondary {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.primary {
+    background: linear-gradient(180deg, #5ea2ff, #2d7ff0);
+}

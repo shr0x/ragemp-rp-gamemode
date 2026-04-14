@@ -56,7 +56,7 @@ export class CharacterEntity {
     @Column({ type: "int", width: 11, default: 1500 })
     cash: number = 1500;
 
-    @OneToMany(() => BankAccountEntity, (bank) => bank.character)
+    @OneToMany(() => BankAccountEntity, (bank) => bank.character, { cascade: true, onDelete: "CASCADE" })
     bank: BankAccountEntity[];
 
     @OneToOne(() => HouseEntity, (house) => house.owner)

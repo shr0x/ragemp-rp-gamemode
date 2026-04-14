@@ -3,19 +3,19 @@ import cn from "classnames";
 
 import { observer } from "mobx-react-lite";
 
-import Main from "./components/Security/Security";
-import Keys from "./components/Keybinds/Keybinds";
-import Display from "./components/Display/Display";
+import EventManager from "utils/EventManager.util";
+import { playerStore } from "store/Player.store";
+import { createComponent } from "../../../hoc/registerComponent";
+
+import Main from "./comps/security";
+import Keys from "./comps/keybinds";
+import Display from "./comps/display";
 
 import style from "./settings.module.scss";
 
 import security from "assets/images/settings/security.svg";
 import toggle from "assets/images/settings/toggle.svg";
 import keyboard from "assets/images/settings/keyboard.svg";
-
-import EventManager from "utils/EventManager.util";
-import { playerStore } from "store/Player.store";
-import { createComponent } from "../../hoc/registerComponent";
 
 const SettingsMenu: FC<{ store: typeof playerStore }> = observer(({ store }) => {
     const [category, setCategorry] = useState("main");
@@ -38,7 +38,7 @@ const SettingsMenu: FC<{ store: typeof playerStore }> = observer(({ store }) => 
                 </div>
             ) : null}
             <div className={style.button}>
-                <div className={style.text}>Settings</div>
+                <div className={style.text}>{playerStore.data.name}'s Settings</div>
             </div>
             <div className={style.nav}>
                 {categoryNav.map((e, i) => {
