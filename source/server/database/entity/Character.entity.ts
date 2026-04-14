@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { InventoryItemsEntity } from "./Inventory.entity";
-import { Inventory } from "@modules/inventory/Core.class";
+import { Inventory } from "@modules/inventory/inventory.class";
 import { CefEvent } from "@classes/CEFEvent.class";
 import { CommandRegistry } from "@classes/Command.class";
 import { AccountEntity } from "./Account.entity";

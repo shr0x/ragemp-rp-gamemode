@@ -1,5 +1,5 @@
 import { RAGERP } from "@api";
-import { inventorydataPresset } from "@modules/inventory/Assets.module";
+import { inventorydataPresset } from "@modules/inventory/inventory.assets";
 import { RageShared } from "@shared/index";
 import { NativeMenu } from "@classes/NativeMenu.class";
 import { House } from "@classes/House.class";

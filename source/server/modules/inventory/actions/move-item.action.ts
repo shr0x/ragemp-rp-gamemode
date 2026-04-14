@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { ItemObject } from "../ItemObject.class";
+import { ItemObject } from "../item-object.class";
 import { Utils } from "@shared/utils.module";
 import { RageShared, StringifiedObject } from "@shared/index";
 

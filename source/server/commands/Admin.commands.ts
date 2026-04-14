@@ -1,6 +1,6 @@
 import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
-import { inventoryAssets } from "@modules/inventory/Items.module";
+import { inventoryAssets } from "@modules/inventory/item-list.namespace";
 import { RageShared } from "@shared/index";
 import { adminTeleports } from "@assets/Admin.asset";
 import { NativeMenu } from "@classes/NativeMenu.class";

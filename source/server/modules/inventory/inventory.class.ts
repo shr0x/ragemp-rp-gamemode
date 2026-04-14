@@ -2,17 +2,17 @@ import { v4 as uuidv4 } from "uuid";
 import { RAGERP } from "@api";
 
 import { RageShared, StringifiedObject } from "@shared/index";
-import { splitInventoryItem } from "./actions/SplitItem.module";
-import { moveInventoryItem } from "./actions/MoveItem.module";
-import { useInventoryItem } from "./actions/UseItem.module";
-import { manageInventoryFastSlot } from "./actions/Quickuse.module";
-import { backpackWeight, defaultClothes } from "./Assets.module";
-import { inventoryAssets } from "./Items.module";
+import { splitInventoryItem } from "./actions/split-item.action";
+import { moveInventoryItem } from "./actions/move-item.action";
+import { useInventoryItem } from "./actions/use-item.action";
+import { manageInventoryFastSlot } from "./actions/quick-use.action";
+import { backpackWeight, defaultClothes } from "./inventory.assets";
+import { inventoryAssets } from "./item-list.namespace";
 
 import { InventoryItemsEntity } from "@entities/Inventory.entity";
 import { Utils } from "@shared/utils.module";
-import { dropInventoryItem } from "./actions/DropItem.module";
-import { ItemObject } from "./ItemObject.class";
+import { dropInventoryItem } from "./actions/drop-item.action";
+import { ItemObject } from "./item-object.class";
 
 import * as maleClothes from "@shared/json/maleTorso.json";
 import * as femaleClothes from "@shared/json/femaleTorso.json";

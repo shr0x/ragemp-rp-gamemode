@@ -1,8 +1,8 @@
 import { RAGERP } from "@api";
 import { CharacterEntity } from "@entities/Character.entity";
 import { InventoryItemsEntity } from "@entities/Inventory.entity";
-import { inventorydataPresset } from "@modules/inventory/Assets.module";
-import { Inventory } from "@modules/inventory/Core.class";
+import { inventorydataPresset } from "@modules/inventory/inventory.assets";
+import { Inventory } from "@modules/inventory/inventory.class";
 import { RageShared } from "@shared/index";
 
 /**
