@@ -1,4 +1,4 @@
-import "./Admin.commands";
-import "./Dev.commands";
-import "./Player.commands";
-import "./House.commands";
+import "./admin.cmds";
+import "./dev.cmds";
+import "./player.cmds";
+import "./house.cmds";

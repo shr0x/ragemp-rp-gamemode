@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { ItemObject } from "../item-object.class";
-import { Utils } from "@shared/utils.module";
+import { Utils } from "@shared/utils";
 import { RageShared, StringifiedObject } from "@shared/index";
 
 async function moveBackpackItem(player: PlayerMp, data: StringifiedObject<RageShared.Inventory.Interfaces.IMoveItem>) {

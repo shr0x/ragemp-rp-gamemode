@@ -10,30 +10,13 @@
                                                                       ~How beasts do it~
 
 */
-import { RAGERP } from "@api";
-//---------------------------------------//
-import "@commands/index";
-//---------------------------------------//
-import "@prototype/Player.prototype";
-import "@prototype/PlayerTask.prototype";
-import "@prototype/Vehicle.prototype";
-//---------------------------------------//
-import "@classes/WorldManager.class";
-//---------------------------------------//
-import "@events/Auth.event";
-import "@events/Chat.event";
-import "@events/Server.event";
-import "@events/Character.event";
-import "@events/Player.event";
-import "@events/Inventory.event";
-import "@events/Death.event";
-import "@events/Vehicle.event";
-import "@events/Point.event";
-import "@events/Admin.event";
-//---------------------------------------//
+import { RAGERP } from "@core/ragerp";
+import "./bootstrap/register-commands";
+import "./bootstrap/register-events";
+import "./bootstrap/register-extensions";
+import "./bootstrap/register-services";
 import { blue, green, yellow } from "colorette";
-import { v4 } from "uuid";
-//---------------------------------------//
+
 async function initGamemode() {
     mp.events.delayInitialization = true;
     await RAGERP.database
@@ -59,3 +42,4 @@ async function initGamemode() {
 (async () => {
     await initGamemode().then(() => console.log("[SHROX FRAMEWORK] Gamemode Initialized"));
 })();
+

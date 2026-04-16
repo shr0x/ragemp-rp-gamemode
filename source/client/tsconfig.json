@@ -4,23 +4,20 @@
 		"outDir": "../../../client_packages/",
 		"strictNullChecks": true,
 		"paths": {
-			"@api": [
-				"./api/index.ts"
+			"@core/*": [
+				"./core/*"
 			],
 			"@assets/*": [
 				"./assets/*"
 			],
-			"@classes/*": [
-				"./classes/*"
+			"@services/*": [
+				"./services/*"
 			],
 			"@events/*": [
-				"./clientevents/*"
+				"./events/*"
 			],
-			"@proc/*": [
-				"./clientprocs/*"
-			],
-			"@modules/*": [
-				"./modules/*"
+			"@procedures/*": [
+				"./procedures/*"
 			],
 			"@handlers/*": [
 				"./handlers/*"
@@ -28,8 +25,20 @@
 			"@json/*": [
 				"./json/*"
 			],
-			"@prototype/*": [
-				"./prototype/*"
+			"@systems/*": [
+				"./systems/*"
+			],
+			"@extensions/*": [
+				"./extensions/*"
+			],
+			"@classes/*": [
+				"./services/*"
+			],
+			"@modules/*": [
+				"./systems/*"
+			],
+			"@prototypes/*": [
+				"./extensions/*"
 			],
 			"@shared": [
 				"../shared/index.ts"

@@ -1,4 +1,4 @@
-import { Client } from "@classes/Client.class";
+import { Client } from "@services/client.service";
 
 mp.events.addDataHandler("isDead", (entity, value, oldvalue) => {
     if (entity !== mp.players.local) return;

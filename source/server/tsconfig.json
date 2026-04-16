@@ -10,29 +10,38 @@
         "allowJs": true,
         "esModuleInterop": true,
         "paths": {
-            "@api": [
-                "./api/index.ts"
+            "@core/*": [
+                "./core/*"
             ],
             "@assets/*": [
                 "./assets/*"
             ],
-            "@classes/*": [
-                "./classes/*"
+            "@services/*": [
+                "./services/*"
             ],
             "@events/*": [
-                "./serverevents/*"
-            ],
-            "@modules/*": [
-                "./modules/*"
+                "./events/*"
             ],
             "@entities/*": [
-                "./database/entity/*"
+                "./database/entities/*"
             ],
             "@commands/*": [
                 "./commands/*"
             ],
-            "@prototype/*": [
-                "./prototype/*"
+            "@modules/*": [
+                "./modules/*"
+            ],
+            "@extensions/*": [
+                "./extensions/*"
+            ],
+            "@data/*": [
+                "./data/*"
+            ],
+            "@classes/*": [
+                "./services/*"
+            ],
+            "@prototypes/*": [
+                "./extensions/*"
             ],
             "@shared/*": [
                 "../shared/*"
@@ -41,7 +50,7 @@
     },
     "files": [
         "../../node_modules/@ragempcommunity/types-server/index.d.ts",
-        "./@types/index.d.ts"
+        "./types/index.d.ts"
     ],
     "include": [
         "./**/*"

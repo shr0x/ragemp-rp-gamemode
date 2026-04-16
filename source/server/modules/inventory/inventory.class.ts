@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { RAGERP } from "@api";
+import { RAGERP } from "@core/ragerp";
 
 import { RageShared, StringifiedObject } from "@shared/index";
 import { splitInventoryItem } from "./actions/split-item.action";
@@ -10,13 +10,13 @@ import { backpackWeight, defaultClothes } from "./inventory.assets";
 import { inventoryAssets } from "./item-list.namespace";
 
 import { InventoryItemsEntity } from "@entities/Inventory.entity";
-import { Utils } from "@shared/utils.module";
+import { Utils } from "@shared/utils";
 import { dropInventoryItem } from "./actions/drop-item.action";
 import { ItemObject } from "./item-object.class";
 
 import * as maleClothes from "@shared/json/maleTorso.json";
 import * as femaleClothes from "@shared/json/femaleTorso.json";
-import { InteractProgressBar } from "@classes/InteractionProgress.class";
+import { InteractProgressBar } from "@services/interaction-progress.service";
 
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 const torsoDataMale: IClothesData = maleClothes;

@@ -1,0 +1,10 @@
+import "@events/admin.events";
+import "@events/auth.events";
+import "@events/character.events";
+import "@events/chat.events";
+import "@events/death.events";
+import "@events/inventory.events";
+import "@events/player.events";
+import "@events/point.events";
+import "@events/server.events";
+import "@events/vehicle.events";

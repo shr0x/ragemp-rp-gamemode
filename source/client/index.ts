@@ -1,32 +1,11 @@
-//-----------------------------------------//
-import "@classes/Browser.class";
-import "@classes/Chat.class";
-import "@classes/Creator.class";
-import "@classes/Vehicle.class";
-import "@classes/Spectate.class";
-import "@classes/Attachments.class";
-//-----------------------------------------//
-import "@events/Auth.event";
-import "@events/Render.event";
-import "@events/Player.event";
-import "@events/Attachment.event";
-import "@events/Tasks.event";
-//-----------------------------------------//
-import "@handlers/Player.handler";
-import "@handlers/Object.handler";
-//-----------------------------------------//
-import "@proc/Player.proc";
-//-----------------------------------------//
-import "@modules/GameData.module";
-import "@modules/Keybinding.module";
-import "@modules/Noclip.module";
-import "@modules/Nametag.module";
-import "@modules/IdleCamera.module";
-//-----------------------------------------//
-import "@prototype/Player.prototype";
-//-----------------------------------------//
-import { InteractablePed } from "@classes/InteractablePed.class";
-//-----------------------------------------//
+import "./bootstrap/register-services";
+import "./bootstrap/register-events";
+import "./bootstrap/register-handlers";
+import "./bootstrap/register-systems";
+import "./bootstrap/register-procedures";
+import "./bootstrap/register-extensions";
+import { InteractablePed } from "@services/interactable-ped.service";
+
 async function initClientSide() {
     mp.console.clear();
 
@@ -44,3 +23,4 @@ async function initClientSide() {
         .then(() => mp.console.logInfo("[RAGEMP GAMEMODE]: Initialized client-side."))
         .catch((err) => mp.console.logError(`${err.message}`));
 })();
+
