@@ -1,7 +1,9 @@
 import { RageShared } from "@shared";
-import { femaleHairOverlays, genderPreset, maleHairOverlays } from "@assets/char-creator.assets";
-import { Client } from "./client.service";
 import { Utils } from "@shared/utils";
+
+import { RAGERP } from "@core/client-api";
+
+import { femaleHairOverlays, genderPreset, maleHairOverlays } from "@assets/char-creator.assets";
 import { Camera } from "./camera.service";
 
 let taskInterval: NodeJS.Timeout | null = null;
@@ -62,7 +64,7 @@ class ModelCreator {
         Camera.setCameraFov("character_creator", 36);
         Camera.setCameraLookAt("character_creator", new mp.Vector3(this.player_position.x, this.player_position.y, this.player_position.z + 1));
 
-        await Client.playAnimationEx("mp_character_creation@lineup@male_a", "intro_facial", 9);
+        await RAGERP.Client.local.playAnimationEx("mp_character_creation@lineup@male_a", "intro_facial", 9);
 
         let playerdata = ["player", -1];
         mp.events.call("client::camera:setEntity", [JSON.stringify(playerdata)]);
@@ -231,7 +233,7 @@ class ModelCreator {
                 if (mp.players.local.model === mp.game.joaat(sex)) return;
 
                 let data = genderPreset[firstData];
-                await Client.requestModel(mp.game.joaat(sex));
+                await RAGERP.Client.local.requestModel(mp.game.joaat(sex));
 
                 let randomMother = mp.game.misc.getRandomIntInRange(0, faceList[firstData].length - 1);
                 let randomFather = mp.game.misc.getRandomIntInRange(0, faceList[firstData].length - 1);
@@ -240,7 +242,7 @@ class ModelCreator {
                 // mp.players.local.taskPlayAnim('mp_character_creation@lineup@female_b', 'intro_facial', 8, -8, -1, 9, 0.0, false, false, false);
                 // mp.players.local.taskPlayAnim('mp_character_creation@lineup@male_a', 'intro_facial', 8, -8, -1, 9, 0.0, false, false, false);
 
-                await Client.playAnimationEx(sex === "mp_f_freemode_01" ? "mp_character_creation@lineup@female_b" : "mp_character_creation@lineup@male_a", "intro_facial", 9);
+                await RAGERP.Client.local.playAnimationEx(sex === "mp_f_freemode_01" ? "mp_character_creation@lineup@female_b" : "mp_character_creation@lineup@male_a", "intro_facial", 9);
 
                 this.chosenData.sex = firstData;
 

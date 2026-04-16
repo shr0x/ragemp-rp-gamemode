@@ -1,4 +1,5 @@
-import { Client } from "@services/client.service";
+import { RAGERP } from "@core/client-api";
+
 
 mp.events.add("render", () => {
     if (!mp.players.local.getVariable("loggedin")) return;
@@ -7,12 +8,12 @@ mp.events.add("render", () => {
 
     if (mp.players.local.vehicle && mp.players.local.vehicle.getPedInSeat(-1) === mp.players.local.handle) {
         const vehicleSpeed = mp.players.local.vehicle.getSpeed() * 3.6;
-        Client.hud.setSpeedometerData("speed", vehicleSpeed);
-        Client.hud.setSpeedometerData("gear", mp.players.local.vehicle.gear);
+        RAGERP.Client.local.hud.setSpeedometerData("speed", vehicleSpeed);
+        RAGERP.Client.local.hud.setSpeedometerData("gear", mp.players.local.vehicle.gear);
 
-        Client.hud.setSpeedometerData("engine", mp.players.local.vehicle.getIsEngineRunning());
-        Client.hud.setSpeedometerData("lights", mp.players.local.vehicle.getLightsState(0, 1).lightsOn);
-        Client.hud.setSpeedometerData("locked", mp.players.local.vehicle.getDoorLockStatus() === 2);
+        RAGERP.Client.local.hud.setSpeedometerData("engine", mp.players.local.vehicle.getIsEngineRunning());
+        RAGERP.Client.local.hud.setSpeedometerData("lights", mp.players.local.vehicle.getLightsState(0, 1).lightsOn);
+        RAGERP.Client.local.hud.setSpeedometerData("locked", mp.players.local.vehicle.getDoorLockStatus() === 2);
     }
     /**
      * Weapon related actions
@@ -38,10 +39,10 @@ mp.events.add("render", () => {
 
 mp.events.add("playerEnterVehicle", (vehicle, seat) => {
     if (seat === -1) {
-        Client.hud.showVehicleSpeedometer(true);
+        RAGERP.Client.local.hud.showVehicleSpeedometer(true);
     }
 });
 
 mp.events.add("playerLeaveVehicle", (vehicle, seat) => {
-    Client.hud.showVehicleSpeedometer(false);
+    RAGERP.Client.local.hud.showVehicleSpeedometer(false);
 });

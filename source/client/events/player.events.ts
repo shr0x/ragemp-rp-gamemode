@@ -1,6 +1,6 @@
 import { Utils } from "@shared/utils";
-import { Client } from "@services/client.service";
-import { InteractablePed } from "@services/interactable-ped.service";
+
+import { RAGERP } from "@core/client-api";
 import { Inventory } from "@services/inventory.service";
 
 mp.events.add("playerReady", () => {
@@ -44,7 +44,7 @@ mp.events.add("client::weapon:giveWeapon", async (weapon: number, totalAmmo: num
 });
 
 mp.events.add("client::player:canAcceptDeath", (enable) => {
-    Client.canAcceptDeath = enable;
+    RAGERP.Client.local.canAcceptDeath = enable;
 });
 mp.events.add("client::effects:startScreenEffect", (effectName, duration = 3000, looped = true) => {
     mp.game.graphics.startScreenEffect(effectName, duration, looped);

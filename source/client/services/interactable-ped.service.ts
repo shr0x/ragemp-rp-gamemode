@@ -1,7 +1,6 @@
 import { Utils } from "@shared/utils";
 import { RAGERP } from "@core/client-api";
 import { Camera } from "./camera.service";
-import { Client } from "./client.service";
 
 
 type onKeyPress = () => void | Promise<void>;
@@ -56,7 +55,7 @@ export class InteractablePed {
     async create() {
         let modelHash = mp.game.joaat(this.model);
 
-        await Client.requestModel(modelHash).then(() => {
+        await RAGERP.Client.local.requestModel(modelHash).then(() => {
             this.ped = mp.peds.new(modelHash, new mp.Vector3(this.coords.x, this.coords.y, this.coords.z), this.heading, 0);
 
             const position = new mp.Vector3(this.coords.x, this.coords.y, this.coords.z + 1);

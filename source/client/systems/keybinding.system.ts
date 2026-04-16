@@ -1,7 +1,6 @@
 import { RAGERP } from "@core/client-api";
 import { InteractablePed } from "@services/interactable-ped.service";
 import { ChatAPI } from "@services/chat.service";
-import { Client } from "@services/client.service";
 import { Inventory } from "@services/inventory.service";
 import { PlayerKeybind } from "@services/keybind.service";
 import { EntityRaycast } from "@services/raycast.service";
@@ -53,7 +52,7 @@ function addQuickUseSlotKeybind(keyCode: number, slot: number) {
     PlayerKeybind.addKeybind(
         { keyCode, up: false },
         () => {
-            if (!mp.players.local.getVariable("loggedin") || Client.isDead) return;
+            if (!mp.players.local.getVariable("loggedin") || RAGERP.Client.local.isDead) return;
             Inventory.toggleFastSlot(slot);
         },
         "Toggle Inventory FastSlot"
@@ -67,7 +66,7 @@ for (let i = 1; i <= 6; i++) {
 PlayerKeybind.addKeybind(
     { keyCode: 73, up: false },
     async () => {
-        if (!mp.players.local.getVariable("loggedin") || Client.isDead) return;
+        if (!mp.players.local.getVariable("loggedin") || RAGERP.Client.local.isDead) return;
         await Inventory.open();
     },
     "Open or close Inventory"
@@ -102,9 +101,9 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     () => {
-        if (ChatAPI.chatOpen || RAGERP.Client.browser.currentPage || !Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
+        if (ChatAPI.chatOpen || RAGERP.Client.browser.currentPage || !RAGERP.Client.local.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
         mp.events.callRemote("server::player:acceptDeath");
-        Client.canAcceptDeath = false;
+        RAGERP.Client.local.canAcceptDeath = false;
     },
     "Accept death"
 );

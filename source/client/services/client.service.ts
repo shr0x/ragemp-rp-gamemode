@@ -1,7 +1,7 @@
+import { Utils } from "@shared/utils";
 import * as maleClothes from "@shared/json/maleTorso.json";
 import * as femaleClothes from "@shared/json/femaleTorso.json";
 import { PlayerHud } from "./hud.service";
-import { Utils } from "@shared/utils";
 type IClothesData = Record<number, Record<number, { BestTorsoDrawable: number; BestTorsoTexture: number }>>;
 
 const torsoDataMale: IClothesData = maleClothes;
@@ -220,4 +220,4 @@ class _Client {
     }
 }
 
-export const Client = new _Client();
+export const PlayerClient = new _Client();

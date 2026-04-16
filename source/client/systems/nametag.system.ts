@@ -1,4 +1,4 @@
-import { Client } from "@services/client.service";
+import { RAGERP } from "@core/client-api";
 import { Utils } from "@shared/utils";
 
 let maxDistance = 15;
@@ -21,13 +21,13 @@ mp.events.add("render", () => {
             const headPosition = player.getBoneCoords(12844, 0, 0, 0);
             const entity = player.vehicle ? player.vehicle : player;
             const vector = entity.getVelocity();
-            const frameTime = Client.getFrameTime();
+            const frameTime = RAGERP.Client.local.getFrameTime();
             const drawPosition = { x: headPosition.x + vector.x * frameTime, y: headPosition.y + vector.y * frameTime, z: headPosition.z + vector.z * frameTime };
 
             /* Player emote text */
             if (player.getVariable("emoteTextData")) {
                 const { color, text } = Utils.tryParse(player.getVariable("emoteTextData"));
-                Client.drawText3D(text, drawPosition.x, drawPosition.y, drawPosition.z + 0.3, 0.3, color);
+                RAGERP.Client.local.drawText3D(text, drawPosition.x, drawPosition.y, drawPosition.z + 0.3, 0.3, color);
             }
 
             /* Player name stuff */
@@ -36,7 +36,7 @@ mp.events.add("render", () => {
                 playerName = `~c~(( ~o~Typing...~c~ ))~n~~w~${player.name}`;
             }
             const fullName = `~w~${playerName} (${player.remoteId})`;
-            Client.drawText3D(fullName, drawPosition.x, drawPosition.y, drawPosition.z + 0.2);
+            RAGERP.Client.local.drawText3D(fullName, drawPosition.x, drawPosition.y, drawPosition.z + 0.2);
         }
     });
 });
