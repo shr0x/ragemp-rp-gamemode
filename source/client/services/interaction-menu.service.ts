@@ -1,11 +1,11 @@
 import { RageShared } from "@shared";
-import { Browser } from "./browser.service";
+import { RAGERP } from "@core/client-api";
 
 class _Interaction {
     acceptEvent: EventMp | null = null;
     refuseEvent: EventMp | null = null;
 
-    constructor() {}
+    constructor() { }
 
     /**
      * Display interaction menu to local player.
@@ -15,8 +15,8 @@ class _Interaction {
     new(data: RageShared.Interfaces.InteractionData) {
         return new Promise<number | undefined>((resolve, reject) => {
             if (!mp.players.exists(mp.players.local)) return;
-            Browser.startPage("interactionMenu");
-            Browser.processEvent("cef::hud:setInteraction", JSON.stringify(data));
+            RAGERP.Client.browser.startPage("interactionMenu");
+            RAGERP.Client.browser.processEvent("cef::hud:setInteraction", JSON.stringify(data));
 
             const onAccept = (answer: number) => {
                 this.clearPromiseEvents();

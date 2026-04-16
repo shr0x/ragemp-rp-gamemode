@@ -1,8 +1,8 @@
-import { femaleHairOverlays, genderPreset, maleHairOverlays } from "@assets/Creator.assets";
+import { RageShared } from "@shared";
+import { femaleHairOverlays, genderPreset, maleHairOverlays } from "@assets/char-creator.assets";
 import { Client } from "./client.service";
 import { Utils } from "@shared/utils";
 import { Camera } from "./camera.service";
-import { RageShared } from "@shared";
 
 let taskInterval: NodeJS.Timeout | null = null;
 

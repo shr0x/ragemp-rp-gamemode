@@ -1,27 +1,29 @@
+import { RAGERP } from "@core/client-api";
 import { InteractablePed } from "@services/interactable-ped.service";
-import { Browser } from "@services/browser.service";
 import { ChatAPI } from "@services/chat.service";
 import { Client } from "@services/client.service";
 import { Inventory } from "@services/inventory.service";
 import { PlayerKeybind } from "@services/keybind.service";
 import { EntityRaycast } from "@services/raycast.service";
-import { CEFPages } from "@assets/CEFPages.asset";
+import { CEFPages } from "@assets/cef-pages.assets";
+
+
 let lastPress: number = 0;
 
 function playerPressEscape() {
-    if (mp.game.ui.isPauseMenuActive() && Browser.currentPage !== "inventory") return;
+    if (mp.game.ui.isPauseMenuActive() && RAGERP.Client.browser.currentPage !== "inventory") return;
 
     if (mp.players.local.getVariable("usingItem")) {
         return mp.events.callRemote("server::inventory:cancelAction");
     }
 
-    mp.console.logInfo(`Player's browser page is: ${Browser.currentPage}`);
-    if (!Browser.currentPage) return;
+    mp.console.logInfo(`Player's browser page is: ${RAGERP.Client.browser.currentPage}`);
+    if (!RAGERP.Client.browser.currentPage) return;
 
-    switch (Browser.currentPage) {
+    switch (RAGERP.Client.browser.currentPage) {
         case "interactionMenu": {
-            Browser.processEvent("cef::hud:setInteraction", { isActive: false, items: [] });
-            Browser.closePage();
+            RAGERP.Client.browser.processEvent("cef::hud:setInteraction", { isActive: false, items: [] });
+            RAGERP.Client.browser.closePage();
             break;
         }
         case "inventory": {
@@ -33,8 +35,8 @@ function playerPressEscape() {
             return;
         }
         default: {
-            if (CEFPages[Browser.currentPage].close) {
-                Browser.closePage();
+            if (CEFPages[RAGERP.Client.browser.currentPage].close) {
+                RAGERP.Client.browser.closePage();
             }
         }
     }
@@ -74,7 +76,7 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 71, up: false },
     async () => {
-        if (Browser.currentPage && Browser.currentPage !== "interactionMenu") return;
+        if (RAGERP.Client.browser.currentPage && RAGERP.Client.browser.currentPage !== "interactionMenu") return;
         if (mp.players.local.vehicle && mp.players.local.vehicle.getPedInSeat(-1) === mp.players.local.handle) {
             mp.events.callRemote("server::interaction:vehicle", mp.players.local.vehicle.remoteId);
         } else {
@@ -89,7 +91,7 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     async () => {
-        if (ChatAPI.chatOpen || Browser.currentPage || mp.players.local.getVariable("isDead") || mp.players.local.vehicle) return;
+        if (ChatAPI.chatOpen || RAGERP.Client.browser.currentPage || mp.players.local.getVariable("isDead") || mp.players.local.vehicle) return;
         const ped = InteractablePed.getClosest();
         if (!ped) return;
         ped.onKeyPress.constructor.name === "AsyncFunction" ? await ped.onKeyPress() : ped.onKeyPress();
@@ -100,7 +102,7 @@ PlayerKeybind.addKeybind(
 PlayerKeybind.addKeybind(
     { keyCode: 69, up: false },
     () => {
-        if (ChatAPI.chatOpen || Browser.currentPage || !Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
+        if (ChatAPI.chatOpen || RAGERP.Client.browser.currentPage || !Client.canAcceptDeath || !mp.players.local.getVariable("isDead")) return;
         mp.events.callRemote("server::player:acceptDeath");
         Client.canAcceptDeath = false;
     },

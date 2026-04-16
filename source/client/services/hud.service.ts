@@ -1,6 +1,6 @@
 import { RageShared } from "@shared";
-import { weaponList } from "@assets/Weapons.assets";
-import { Browser } from "./browser.service";
+import { RAGERP } from "@core/client-api";
+import { weaponList } from "@assets/weaps.assets";
 
 export class PlayerHud {
     onlinePlayersCounter: NodeJS.Timeout | null = null;
@@ -21,7 +21,7 @@ export class PlayerHud {
     public trackPlayerZone() {
         const arename = mp.game.hud.getCurrentAreaNameString();
         const streetName = mp.game.hud.getCurrentStreetNameString();
-        Browser.processEvent("cef::hud:setAreaData", { area: arename, street: streetName });
+        RAGERP.Client.browser.processEvent("cef::hud:setAreaData", { area: arename, street: streetName });
     }
 
     public trackPlayerWeapon() {
@@ -43,7 +43,7 @@ export class PlayerHud {
      */
     public setOnlinePlayers() {
         if (!mp.players.local.getVariable("loggedin")) return;
-        return Browser.processEvent("cef::player:setNowPlaying", mp.players.length);
+        return RAGERP.Client.browser.processEvent("cef::player:setNowPlaying", mp.players.length);
     }
     /**
      * Changes a player-related HUD parameter (see IPlayerData)
@@ -52,7 +52,7 @@ export class PlayerHud {
      * @returns void
      */
     public setPlayerData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(key: K, value: RageShared.Players.Interfaces.IPlayerData[K]) {
-        return Browser.processEvent("cef::player:setPlayerData", key, value);
+        return RAGERP.Client.browser.processEvent("cef::player:setPlayerData", key, value);
     }
     //#endregion
 
@@ -86,7 +86,7 @@ export class PlayerHud {
      * @returns void;
      */
     public setSpeedometerData<K extends keyof RageShared.Vehicles.Interfaces.SpeedometerData>(data: K, value: RageShared.Vehicles.Interfaces.SpeedometerData[K]) {
-        return Browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
+        return RAGERP.Client.browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
     }
     //#endregion
 }

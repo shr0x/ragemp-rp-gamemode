@@ -1,6 +1,7 @@
 import { Utils } from "@shared/utils";
+import { RAGERP } from "@core/client-api";
 import { Camera } from "@services/camera.service";
-import { Browser } from "@services/browser.service";
+
 
 const loginCameras = [
     { from: new mp.Vector3(-392.0152587890625, -2195.9765625, 204.3353729248047), to: new mp.Vector3(-126.2790298461914, -1274.2332763671875, 173.96531677246094), rot: 132.75473022460938 },
@@ -12,7 +13,7 @@ function showLoginScreen() {
     const camera = Utils.getRandomFromArray(loginCameras);
 
     Camera.createLoginCamera(camera.from, camera.to, camera.rot);
-    Browser.processEvent("cef::system:setPage", "auth");
+    RAGERP.Client.browser.processEvent("cef::system:setPage", "auth");
     mp.gui.cursor.show(true, true);
 }
 
@@ -21,8 +22,8 @@ function destroyLoginCamera() {
 }
 
 mp.events.add("browserDomReady", (browser) => {
-    if (browser === Browser.mainUI) {
-        mp.console.logWarning("Browser dom ready!");
+    if (browser === RAGERP.Client.browser.mainUI) {
+        mp.console.logWarning("RAGERP.Client.browser dom ready!");
         showLoginScreen();
     }
 });

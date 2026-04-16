@@ -1,4 +1,4 @@
-import { Browser } from "./browser.service";
+import { RAGERP } from "@core/client-api";
 
 /**
  * Manages the chat functionality, including opening, closing, and sending messages.
@@ -27,9 +27,9 @@ class _ChatAPI {
      */
     public open() {
         try {
-            if (Browser.currentPage && Browser.currentPage !== "death") return;
-            Browser.processEvent("cef::chat:toggle", true);
-            Browser.startPage("chat");
+            if (RAGERP.Client.browser.currentPage && RAGERP.Client.browser.currentPage !== "death") return;
+            RAGERP.Client.browser.processEvent("cef::chat:toggle", true);
+            RAGERP.Client.browser.startPage("chat");
             this.chatOpen = true;
         } catch (err: unknown) {
             if (err instanceof TypeError) {
@@ -43,10 +43,10 @@ class _ChatAPI {
      * Binds the function to the "Enter" key.
      */
     public close() {
-        if (!this.chatOpen || Browser.currentPage !== "chat") return;
+        if (!this.chatOpen || RAGERP.Client.browser.currentPage !== "chat") return;
         this.chatOpen = false;
-        Browser.processEvent("cef::chat:toggle", false);
-        Browser.closePage();
+        RAGERP.Client.browser.processEvent("cef::chat:toggle", false);
+        RAGERP.Client.browser.closePage();
     }
 
     /**
@@ -55,7 +55,7 @@ class _ChatAPI {
      */
     public sendMessage(data: string) {
         this.arrayMessage++;
-        Browser.processEvent("cef::chat:newMessage", data);
+        RAGERP.Client.browser.processEvent("cef::chat:newMessage", data);
     }
 }
 

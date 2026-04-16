@@ -1,7 +1,8 @@
 import { Utils } from "@shared/utils";
-import { Browser } from "./browser.service";
+import { RAGERP } from "@core/client-api";
 import { Camera } from "./camera.service";
 import { Client } from "./client.service";
+
 
 type onKeyPress = () => void | Promise<void>;
 
@@ -95,18 +96,18 @@ export class InteractablePed {
     }
 
     static showInteraction() {
-        if (Browser.currentPage) return;
+        if (RAGERP.Client.browser.currentPage) return;
 
         const ped = InteractablePed.getClosest();
         if (!ped) {
             if (showInteractionButton) {
-                Browser.processEvent("cef::hud:showInteractionButton", null);
+                RAGERP.Client.browser.processEvent("cef::hud:showInteractionButton", null);
                 showInteractionButton = false;
             }
             return;
         }
         showInteractionButton = true;
-        Browser.processEvent("cef::hud:showInteractionButton", { button: "E", text: "Press E to interact with NPC" });
+        RAGERP.Client.browser.processEvent("cef::hud:showInteractionButton", { button: "E", text: "Press E to interact with NPC" });
     }
 
     static getClosest(range: number = 3): InteractablePed | null {

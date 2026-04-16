@@ -1,5 +1,5 @@
 import { Utils } from "@shared/utils";
-import { Browser } from "./browser.service";
+import { RAGERP } from "@core/client-api";
 import { ChatAPI } from "./chat.service";
 
 /**
@@ -34,14 +34,14 @@ class _PlayerInventory {
     /**
      * Updates nearby players.
      */
-    public updateNearbyPlayers() {}
+    public updateNearbyPlayers() { }
 
     /**
      * Checks players around the player.
      *
      * @param bool - Whether to check players around or not.
      */
-    public checkPlayersAround(bool: boolean) {}
+    public checkPlayersAround(bool: boolean) { }
 
     /**
      * Creates a ped screen.
@@ -143,7 +143,7 @@ class _PlayerInventory {
      * @param slotNumber - The slot number to toggle.
      */
     toggleFastSlot(slotNumber: number): void {
-        if (mp.game.ui.isPauseMenuActive() || Browser.currentPage) return;
+        if (mp.game.ui.isPauseMenuActive() || RAGERP.Client.browser.currentPage) return;
         if (mp.game.ped.getVehicleIsEntering(mp.players.local.handle)) return;
         mp.events.callRemote("server::inventory:quickUse", `k_fastslot${slotNumber}`);
     }
@@ -160,9 +160,9 @@ class _PlayerInventory {
             this.isOpen = !this.isOpen;
             await this.createPedScreen();
 
-            Browser.mainUI.active = true;
-            Browser.processEvent("cef::inventory:setVisible", true);
-            Browser.startPage("inventory");
+            RAGERP.Client.browser.mainUI.active = true;
+            RAGERP.Client.browser.processEvent("cef::inventory:setVisible", true);
+            RAGERP.Client.browser.startPage("inventory");
             mp.events.callRemote("server::player:loadInventory");
             this.checkPlayersAround(true);
         } catch (e: unknown) {
@@ -177,8 +177,8 @@ class _PlayerInventory {
         if (!this.isOpen) return;
         this.isOpen = !this.isOpen;
 
-        Browser.processEvent("cef::inventory:setVisible", false);
-        Browser.closePage();
+        RAGERP.Client.browser.processEvent("cef::inventory:setVisible", false);
+        RAGERP.Client.browser.closePage();
         this.deletePedScreen();
         mp.game.graphics.transitionFromBlurred(1);
         mp.events.callRemote("server:inventory:close");
@@ -210,7 +210,7 @@ class _PlayerInventory {
     /**
      * Reloads the player's weapons.
      */
-    public reloadWeapons() {}
+    public reloadWeapons() { }
 
     /**
      * Handles player quit event.
