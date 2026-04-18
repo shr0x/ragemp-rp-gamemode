@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { RAGERP } from "@core/ragerp";
-import { vehicleClasses, vehicleModelSeats } from "@assets/vehicle.assets";
+import { vehicleClasses, vehicleModelSeats } from "@assets/Vehicle.assets";
 import { VehicleEntity } from "@entities/Vehicle.entity";
 import { RageShared } from "@shared/index";
 
