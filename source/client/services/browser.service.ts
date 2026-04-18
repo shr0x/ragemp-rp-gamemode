@@ -126,6 +126,9 @@ class _Browser {
         }, 100);
 
         this.currentPage = pageName;
+        if (this.mainUI && mp.browsers.exists(this.mainUI)) {
+            this.mainUI.call("cef::eventManager", "system:setPage", pageName);
+        }
         mp.events.callRemote("server::player:setCefPage", pageName);
     }
 
