@@ -74,6 +74,29 @@
                 color: white;
             }
 
+            .rememberMe {
+                display: flex;
+                align-items: center;
+                gap: 1vh;
+                color: white;
+                font-size: 17px;
+                width: 30vh;
+                justify-content: center;
+
+                input[type="checkbox"] {
+                    width: 1.8vh;
+                    height: 1.8vh;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+                
+                label {
+                    cursor: pointer;
+                    user-select: none;
+                }
+            }
+
 
 
             .submit {
