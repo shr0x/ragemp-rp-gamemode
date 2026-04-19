@@ -81,8 +81,7 @@ const MainHUD: FC<{ store: typeof hudStore; playerStore: typeof playerStore }> =
                         return (
                             <div key={e} className={style.keybind}>
                                 <span 
-                                    className={style.key}
-                                    style={x === 'ALT' ? { borderColor: playerStore.isInteractionActive ? 'rgba(0, 255, 0, 0.534)' : 'rgba(255, 0, 0, 0.534)' } : {}}
+                                    className={`${style.key} ${x === 'ALT' && playerStore.isInteractionActive ? style.activeKey : ''}`}
                                 >
                                     {x}
                                 </span>
