@@ -1,4 +1,6 @@
 import { Utils } from "@shared/utils";
+import { ChatAPI } from "@services/chat.service";
+
 let overlayParams = {
     enableDepth: false,
     deleteWhenUnused: false,
@@ -12,6 +14,7 @@ let overlayParams = {
 
 class _EntityRaycast {
     entity: EntityMp | null = null;
+    isInteractionActive: boolean = false;
 
     rayCastInterval: NodeJS.Timer | null = null;
     renderEvent: EventMp | null = null;
@@ -25,11 +28,17 @@ class _EntityRaycast {
         //@ts-ignore
         this.batch = mp.game.graphics.createEntityOverlayBatch(overlayParams);
         mp.console.logWarning(`overlayhandle: ${this.batch.handle}`);
+
+        mp.keys.bind(18, false, () => {
+            if (ChatAPI.chatOpen) return;
+            this.isInteractionActive = !this.isInteractionActive;
+            mp.events.call("client::eventManager", "cef::player:setInteractionActive", this.isInteractionActive);
+        });
     }
 
     private render() {
         if (!mp.players.local.getVariable("loggedin") || this.entity == null || this.entity.type === "ped") return;
-        if (Utils.distanceToPos(this.entity.position, mp.players.local.position) > 3 || !mp.game.controls.isControlPressed(0, 19)) return;
+        if (Utils.distanceToPos(this.entity.position, mp.players.local.position) > 3 || !this.isInteractionActive) return;
 
         const foundEntity = this.entity.type === "vehicle" ? mp.vehicles : this.entity.type === "object" ? mp.objects : mp.players;
         if (this.entity.type === "vehicle" && mp.vehicles.atHandle(this.entity.handle).getEngineHealth() < 0) return;

@@ -61,6 +61,7 @@ class _PlayerStore {
     };
 
     isQueuePaused = false;
+    isInteractionActive = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -93,6 +94,10 @@ class _PlayerStore {
         this.settings = obj;
     }
 
+    setInteractionActive(state: boolean) {
+        this.isInteractionActive = state;
+    }
+
     public createEvents() {
         EventManager.addHandler("player", "setCharacters", (data: any[]) => this.setCharacters(data));
         EventManager.addHandler("player", "setNowPlaying", (amount: number) => this.setNowPlaying(amount));
@@ -102,6 +107,7 @@ class _PlayerStore {
         EventManager.addHandler("player", "setSettings", (obj: typeof this.settings) => this.setSettingsData(obj));
         EventManager.addHandler("player", "setKeybindings", (arr: typeof this.settings.buttons) => this.setKeybindings(arr));
         EventManager.addHandler("player", "setDisplaySettings", (arr: typeof this.settings.display) => this.setDisplaySettings(arr));
+        EventManager.addHandler("player", "setInteractionActive", (state: boolean) => this.setInteractionActive(state));
 
         EventManager.stopAddingHandler("player");
     }
