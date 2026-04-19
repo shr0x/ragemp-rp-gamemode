@@ -242,6 +242,10 @@
                     border: .3vh solid rgba(255, 0, 0, 0.534);
                     border-radius: .5vh;
                     padding: .5vh;
+
+                    &.activeKey {
+                        border-color: rgba(0, 255, 0, 0.534);
+                    }
                 }
             }
 

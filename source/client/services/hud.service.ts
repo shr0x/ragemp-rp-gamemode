@@ -1,11 +1,11 @@
 import { RageShared } from "@shared";
-import { RAGERP } from "@core/client-api";
+import { Browser } from "@services/browser.service";
 import { weaponList } from "@assets/weaps.assets";
 
 export class PlayerHud {
-    onlinePlayersCounter: NodeJS.Timeout | null = null;
-    weaponInterval: NodeJS.Timeout | null = null;
-    zoneInterval: NodeJS.Timeout | null = null;
+    onlinePlayersCounter: ReturnType<typeof setInterval> | null = null;
+    weaponInterval: ReturnType<typeof setInterval> | null = null;
+    zoneInterval: ReturnType<typeof setInterval> | null = null;
 
     constructor() {
         this.onlinePlayersCounter = setInterval(this.setOnlinePlayers.bind(this), 5_000);
@@ -21,7 +21,7 @@ export class PlayerHud {
     public trackPlayerZone() {
         const arename = mp.game.hud.getCurrentAreaNameString();
         const streetName = mp.game.hud.getCurrentStreetNameString();
-        RAGERP.Client.browser.processEvent("cef::hud:setAreaData", { area: arename, street: streetName });
+        Browser.processEvent("cef::hud:setAreaData", { area: arename, street: streetName });
     }
 
     public trackPlayerWeapon() {
@@ -43,7 +43,7 @@ export class PlayerHud {
      */
     public setOnlinePlayers() {
         if (!mp.players.local.getVariable("loggedin")) return;
-        return RAGERP.Client.browser.processEvent("cef::player:setNowPlaying", mp.players.length);
+        return Browser.processEvent("cef::player:setNowPlaying", mp.players.length);
     }
     /**
      * Changes a player-related HUD parameter (see IPlayerData)
@@ -52,7 +52,7 @@ export class PlayerHud {
      * @returns void
      */
     public setPlayerData<K extends keyof RageShared.Players.Interfaces.IPlayerData>(key: K, value: RageShared.Players.Interfaces.IPlayerData[K]) {
-        return RAGERP.Client.browser.processEvent("cef::player:setPlayerData", key, value);
+        return Browser.processEvent("cef::player:setPlayerData", key, value);
     }
     //#endregion
 
@@ -86,7 +86,7 @@ export class PlayerHud {
      * @returns void;
      */
     public setSpeedometerData<K extends keyof RageShared.Vehicles.Interfaces.SpeedometerData>(data: K, value: RageShared.Vehicles.Interfaces.SpeedometerData[K]) {
-        return RAGERP.Client.browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
+        return Browser.processEvent("cef::hud:setVehicleData", { key: data, data: value });
     }
     //#endregion
 }

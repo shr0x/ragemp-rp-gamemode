@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef } from "react";
+import { FC, useCallback, useRef, useState, useEffect } from "react";
 import style from "../auth.module.scss";
 import EventManager from "utils/EventManager.util";
 import Notification from "utils/NotifyManager.util";
@@ -11,6 +11,27 @@ export const AuthForm: FC<{ setForm: (page: string) => void }> = ({ setForm }) =
     const authUsername = useRef<HTMLInputElement>(null),
         authPassword = useRef<HTMLInputElement>(null);
 
+    const [remember, setRemember] = useState(false);
+
+    useEffect(() => {
+        const handler = (username: string, password?: string) => {
+            if (username && authUsername.current) {
+                authUsername.current.value = username;
+                setRemember(true);
+            }
+            if (password && authPassword.current) {
+                authPassword.current.value = password;
+            }
+        };
+
+        EventManager.addHandler("auth", "setCredentials", handler);
+
+        return () => {
+            // We shouldn't remove all handlers if others exist, but here it's fine for our specific event.
+            // A safer approach is to not do anything, or just let EventManager update if remounted.
+        };
+    }, []);
+
     const onSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault();
 
@@ -21,12 +42,17 @@ export const AuthForm: FC<{ setForm: (page: string) => void }> = ({ setForm }) =
             return Notification.error("Fill out the forms!");
         }
 
+        if (remember) {
+            EventManager.emitClient("auth", "saveCredentials", username, password);
+        } else {
+            EventManager.emitClient("auth", "removeCredentials");
+        }
+
         EventManager.emitServer("auth", "loginPlayer", { username, password });
 
         authUsername.current.value = "";
         authPassword.current.value = "";
-        console.log("test");
-    }, []);
+    }, [remember]);
 
     return (
         <div className={style.authform} ref={authForm} onSubmit={(e) => onSubmit(e)}>
@@ -34,6 +60,16 @@ export const AuthForm: FC<{ setForm: (page: string) => void }> = ({ setForm }) =
                 <div className={style.content}>
                     <input className={style.usernameInput} ref={authUsername} type="text" name="auth_username" maxLength={32} placeholder="Username" autoComplete="off" />
                     <input ref={authPassword} type="password" name="auth_password" maxLength={74} placeholder="Password" />
+
+                    <div className={style.rememberMe}>
+                        <input 
+                            type="checkbox" 
+                            id="rememberCredentials" 
+                            checked={remember} 
+                            onChange={(e) => setRemember(e.target.checked)} 
+                        />
+                        <label htmlFor="rememberCredentials">Remember credentials</label>
+                    </div>
 
                     <button className={style.submit} type="submit" name="auth_submit">
                         Login <img src={loginIcon} alt="login" />

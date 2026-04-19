@@ -85,7 +85,7 @@ class _AdminStore {
     closePanel() {
         this.setVisible(false);
         this.setSelectedPlayer(null);
-        EventManager.emitServer("cef", "close")
+        EventManager.emitClient("cef", "close");
     }
 
     refreshPlayers() {

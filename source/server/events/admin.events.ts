@@ -66,3 +66,7 @@ RAGERP.cef.register("admin", "bringPlayer", (player: PlayerMp, targetId: number)
 RAGERP.cef.register("admin", "healPlayer", (player: PlayerMp, targetId: number) => {
     adminManager.healPlayer(player, targetId);
 });
+
+RAGERP.cef.register("admin", "armourPlayer", (player: PlayerMp, targetId: number) => {
+    adminManager.armourPlayer(player, targetId);
+});

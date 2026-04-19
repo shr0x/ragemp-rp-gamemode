@@ -15,6 +15,12 @@ function showLoginScreen() {
     Camera.createLoginCamera(camera.from, camera.to, camera.rot);
     RAGERP.Client.browser.processEvent("cef::system:setPage", "auth");
     mp.gui.cursor.show(true, true);
+
+    if (mp.storage.data.savedUsername) {
+        setTimeout(() => {
+            RAGERP.Client.browser.processEvent("cef::auth:setCredentials", mp.storage.data.savedUsername, mp.storage.data.savedPassword || "");
+        }, 500);
+    }
 }
 
 function destroyLoginCamera() {
@@ -29,3 +35,15 @@ mp.events.add("browserDomReady", (browser) => {
 });
 
 mp.events.add("client::auth:destroyCamera", destroyLoginCamera);
+
+mp.events.add("client::auth:saveCredentials", (username: string, password: string) => {
+    mp.storage.data.savedUsername = username;
+    mp.storage.data.savedPassword = password;
+    mp.storage.flush();
+});
+
+mp.events.add("client::auth:removeCredentials", () => {
+    delete mp.storage.data.savedUsername;
+    delete mp.storage.data.savedPassword;
+    mp.storage.flush();
+});

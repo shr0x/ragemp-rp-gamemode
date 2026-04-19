@@ -19,7 +19,7 @@ const AdminInventory = observer(() => {
                 return errorIcon;
             }
         },
-        [name]
+        []
     );
 
     return (

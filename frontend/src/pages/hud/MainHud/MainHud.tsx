@@ -80,7 +80,11 @@ const MainHUD: FC<{ store: typeof hudStore; playerStore: typeof playerStore }> =
                     {entries(playerStore.keybindGuide).map(([x, val], e) => {
                         return (
                             <div key={e} className={style.keybind}>
-                                <span className={style.key}>{x}</span>
+                                <span 
+                                    className={`${style.key} ${x === 'ALT' && playerStore.isInteractionActive ? style.activeKey : ''}`}
+                                >
+                                    {x}
+                                </span>
                                 {val}
                             </div>
                         );
